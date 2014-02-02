@@ -23,7 +23,7 @@ import tw.oresplus.worldgen.WorldGenOre;
 public class OresPlus {
     public static final String MOD_ID = "OresPlus";
     public static final String MOD_NAME = "OresPlus";
-    public static final String MOD_VERSION = "0.1.1";
+    public static final String MOD_VERSION = "0.1.2";
     
 	@Instance(OresPlus.MOD_ID)
 	public static OresPlus instance;

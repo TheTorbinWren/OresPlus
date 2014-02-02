@@ -1,0 +1,6 @@
+v0.2.2 Alpha
+-added version history file
+-added missing Nikolite generator
+
+v0.1.1 Alpha
+-initial public release
