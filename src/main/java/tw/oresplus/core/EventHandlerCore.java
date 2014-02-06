@@ -16,7 +16,7 @@ public class EventHandlerCore {
 			ArrayList chunks = TickHandler.regenList.get(Integer.valueOf(dim));
 			if (chunks == null)
 				chunks = new ArrayList();
-			chunks.add(event.getChunk());
+			chunks.add(event.getChunk().getChunkCoordIntPair());
 			TickHandler.regenList.put(Integer.valueOf(dim), chunks);
 		}				
 	}

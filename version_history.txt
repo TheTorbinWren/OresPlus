@@ -1,4 +1,7 @@
-v0.2.2 Alpha
+v0.1.3 Alpha
+-hopefully reduced memory consumption when regenerating ores
+
+v0.1.2 Alpha
 -added version history file
 -added missing Nikolite generator
 
