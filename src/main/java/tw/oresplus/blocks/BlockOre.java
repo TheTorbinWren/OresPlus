@@ -21,11 +21,11 @@ public class BlockOre extends BlockCore {
 	private OreDrops drops;
 	
 	public BlockOre(OreConfig ore) {
-		super (Material.field_151576_e, ore.name);
+		super (Material.rock, ore.name);
 		this.drops = ore.drops;
-		this.func_149647_a(CreativeTabs.tabBlock);
+		this.setCreativeTab(CreativeTabs.tabBlock);
 		OreDictionary.registerOre(ore.name, this);
-		this.func_149711_c(3.0F);
+		this.setHardness(3.0F);
 		this.setHarvestLevel("pickaxe", ore.harvestLevel);
 	}
 
@@ -117,7 +117,7 @@ public class BlockOre extends BlockCore {
 			}
 			break;
 		default:
-			rList.add(new ItemStack(func_149650_a(metadata, world.rand, fortune), 1));
+			rList.add(new ItemStack(this.getItemDropped(metadata, world.rand, fortune), 1));
 		}
 		return rList;
     }

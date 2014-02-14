@@ -41,7 +41,7 @@ public class WorldGenOre {
 			WorldGenCore.oreGenOverworld.add(this);
 		}
 		
-		if (ore.name.equals("oreBauxite"))
+		if (ore.oreName.equals("oreBauxite"))
 			this.biomeList = WorldGenCore.biomeListBauxite;
 		else if (ore.oreName.equals("oreCassiterite"))
 			this.biomeList = WorldGenCore.biomeListCassiterite;
@@ -67,26 +67,32 @@ public class WorldGenOre {
 		int biomeX = chunkX * 16 + 8;
 		int biomeZ = chunkZ * 16 + 8;
 		String biomeName = world.getBiomeGenForCoords(biomeX, biomeZ).biomeName;
-		if (ore.enabled && this.biomeList.isEmpty() || this.biomeList.contains(biomeName)) {
-			for (int a=0; a<this.ore.numVeins; a++){
+		if (!ore.enabled)
+			return false;
+		if (this.biomeList.isEmpty() || this.biomeList.contains(biomeName)) {
+			OresPlus.log.info("Generating " + ore.oreName + " in biome " + biomeName + " @" + chunkX + "," + chunkZ);
+			if (this.biomeList.isEmpty())
+				OresPlus.log.info("Biome List is empty");
+			int actualVeins = this.ore.numVeins * this.ore.density / 100;
+			for (int a=0; a<actualVeins; a++){
 				int x = chunkX + random.nextInt(16);
 				int y = random.nextInt(this.ore.maxY - this.ore.minY) + this.ore.minY;
 				int z = chunkZ + random.nextInt(16);
 				
 				switch (ore.veinSize) {
 				case 1:
-					if (world.func_147439_a(x, y, z).isReplaceableOreGen(world, x, y, z, this.target)) {
+					if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, this.target)) {
 						switch (ore.genType) {
 						case NEAR_LAVA:
 							if (isNearLava(world, x, y, z))
-								world.func_147465_d(x, y, z, this.block, 0, 2);
+								world.setBlock(x, y, z, this.block, 0, 2);
 							break;
 						case UNDER_LAVA:
-							if (world.func_147439_a(x, y + 1, z).equals(net.minecraft.init.Blocks.lava))
-								world.func_147465_d(x, y, z, this.block, 0, 2);
+							if (world.getBlock(x, y + 1, z).equals(net.minecraft.init.Blocks.lava))
+								world.setBlock(x, y, z, this.block, 0, 2);
 							break;
 						default:
-							world.func_147465_d(x, y, z, this.block, 0, 2);
+							world.setBlock(x, y, z, this.block, 0, 2);
 						}
 					}
 					break;
@@ -121,18 +127,18 @@ public class WorldGenOre {
 									if (d12 * d12 + d13 * d13 < 1.0D) {
 										for (int i3 = k1; i3 <= j2; ++i3) {
 											double d14 = ((double)i3 + 0.5D - d8) / (d10 / 2.0D);
-											if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0F && world.func_147439_a(k2,  l2,  i3).isReplaceableOreGen(world, k2,  l2,  i3, this.target)) {
+											if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0F && world.getBlock(k2,  l2,  i3).isReplaceableOreGen(world, k2,  l2,  i3, this.target)) {
 												switch(this.ore.genType) {
 												case NEAR_LAVA:
 													if (isNearLava(world, k2, l2, i3))
-														world.func_147465_d(k2, l2, i3, this.block, 0, 2);
+														world.setBlock(k2, l2, i3, this.block, 0, 2);
 													break;
 												case UNDER_LAVA:
-													if (world.func_147439_a(k2, l2 + 1, i3).equals(net.minecraft.init.Blocks.lava))
-														world.func_147465_d(k2, l2, i3, this.block, 0, 2);
+													if (world.getBlock(k2, l2 + 1, i3).equals(net.minecraft.init.Blocks.lava))
+														world.setBlock(k2, l2, i3, this.block, 0, 2);
 													break;
 												default:
-													world.func_147465_d(k2, l2, i3, this.block, 0, 2);
+													world.setBlock(k2, l2, i3, this.block, 0, 2);
 												}
 											}
 										}
@@ -156,9 +162,9 @@ public class WorldGenOre {
 		
 	private boolean isNearLava(World world, int nearX, int nearY, int nearZ) {
 		for (int k = 1; k <= 4; k++) {
-			if (world.func_147439_a(nearX, nearY - k, nearZ).equals(net.minecraft.init.Blocks.lava))
+			if (world.getBlock(nearX, nearY - k, nearZ).equals(net.minecraft.init.Blocks.lava))
 				return true;
-			if (!world.func_147439_a(nearX, nearY - k, nearZ).isAir(world, nearX, nearY - k, nearZ))
+			if (!world.getBlock(nearX, nearY - k, nearZ).isAir(world, nearX, nearY - k, nearZ))
 				return false;
 		}
 		return false;

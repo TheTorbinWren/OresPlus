@@ -81,6 +81,7 @@ public enum OreGenerators {
 	private int _maxY;
 	private boolean _enableRegen;
 	private OreGenType _genType;
+	private int _density;
 	
 	private OreGenerators(String oreName, int dimension, int numVeins, 
 			int veinSize, int minY, int maxY) {
@@ -98,12 +99,13 @@ public enum OreGenerators {
 		this._maxY = maxY;
 		this._enableRegen = false;
 		this._genType = genType;
+		this._density = 100;
 	}
 	
 	
 	public OreGenConfig getDefaultConfig() {
 		return new OreGenConfig(this.name(), this._oreName, this._enabled, 
 				this._dimension, this._numVeins, this._veinSize, this._minY, 
-				this._maxY, this._enableRegen, this._genType);
+				this._maxY, this._enableRegen, this._genType, this._density);
 	}
 }

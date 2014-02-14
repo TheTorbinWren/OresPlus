@@ -13,8 +13,8 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 public class BlockCore extends net.minecraft.block.Block {
 	public BlockCore(Material material, String blockName) {
 		super(material);
-		this.func_149663_c(blockName); // name
-		this.func_149658_d(OresPlus.MOD_ID +":" + blockName); // texture
+		this.setBlockName(blockName); // name
+		this.setBlockTextureName(OresPlus.MOD_ID +":" + blockName); // texture
 		Blocks.blockList.put(blockName, this);
 		GameRegistry.registerBlock(this, blockName);
 	}

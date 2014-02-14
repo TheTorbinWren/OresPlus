@@ -13,9 +13,10 @@ public class OreGenConfig {
 	public int maxY;
 	public boolean doRegen;
 	public OreGenType genType;
+	public int density;
 	
 	public OreGenConfig(String name, String oreName, boolean en, int dim, int num, int size, 
-			int min, int max, boolean regen, OreGenType oreGenType) {
+			int min, int max, boolean regen, OreGenType oreGenType, int oreDensity) {
 		this.name = name;
 		this.oreName = oreName;
 		this.enabled = en;
@@ -26,6 +27,7 @@ public class OreGenConfig {
 		this.maxY = max;
 		this.doRegen = regen;
 		this.genType = oreGenType;
+		this.density = oreDensity;
 	}
 
 }

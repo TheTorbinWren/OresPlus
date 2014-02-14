@@ -98,8 +98,8 @@ implements IWorldGenerator {
 		//biomeListColdiron.add(BiomeGenBase.icePlainsSpikes.biomeName);
 		biomeListColdiron.add(BiomeGenBase.iceMountains.biomeName);
 		//biomeListColdiron.add(BiomeGenBase.coldBeach.biomeName);
-		biomeListColdiron.add(BiomeGenBase.field_150584_S.biomeName); // Cold Taiga
-		biomeListColdiron.add(BiomeGenBase.field_150579_T.biomeName); // Cold Taiga Hills
+		biomeListColdiron.add(BiomeGenBase.coldTaiga.biomeName); // Cold Taiga
+		biomeListColdiron.add(BiomeGenBase.coldTaigaHills.biomeName); // Cold Taiga Hills
 		//biomeListColdiron.add(BiomeGenBase.coldTaigaM.biomeName);
 		biomeListColdiron.add(BiomeGenBase.extremeHills.biomeName);
 		biomeListColdiron.add(BiomeGenBase.extremeHillsEdge.biomeName);
@@ -107,10 +107,10 @@ implements IWorldGenerator {
 		biomeListColdiron.add(BiomeGenBase.taiga.biomeName);
 		biomeListColdiron.add(BiomeGenBase.taigaHills.biomeName);
 		//biomeListColdiron.add(BiomeGenBase.taigM.biomeName);
-		biomeListColdiron.add(BiomeGenBase.field_150578_U.biomeName); // Mega Taiga
-		biomeListColdiron.add(BiomeGenBase.field_150581_V.biomeName); // Mega Taiga Hills
+		biomeListColdiron.add(BiomeGenBase.megaTaiga.biomeName); // Mega Taiga
+		biomeListColdiron.add(BiomeGenBase.megaTaigaHills.biomeName); // Mega Taiga Hills
 		//biomeListColdiron.add(BiomeGenBase.megaSpruceTaiga.biomeName);
-		biomeListColdiron.add(BiomeGenBase.field_150580_W.biomeName); // Extreme Hills +
+		biomeListColdiron.add(BiomeGenBase.extremeHillsPlus.biomeName); // Extreme Hills +
 		//biomeListColdiron.add(BiomeGenBase.extremeHillsPlusM.biomeName);
 		//biomeListColdiron.add(BiomeGenBase.stoneBeach.biomeName);
 		biomeListMithral.add(BiomeGenBase.extremeHills.biomeName);

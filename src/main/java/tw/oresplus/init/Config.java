@@ -6,6 +6,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import tw.oresplus.OresPlus;
 import tw.oresplus.core.OreLog;
 import tw.oresplus.enums.OreDrops;
+import tw.oresplus.enums.OreSources;
 
 public class Config {
 	private static final String CAT_ORES = "ores";
@@ -14,45 +15,6 @@ public class Config {
 	private static OreLog log = OresPlus.log;
 	private static boolean configured;
 	private static Configuration configFile;
-	
-	/*
-	
-	// Nether Ore Generation
-	public static OreGenConfig genCinnabar = new OreGenConfig("oreCinnabar", true, -1, 4, 12, 64, 128, false);
-	public static OreGenConfig genCinnabarSmall = new OreGenConfig("oreCinnabar", true, -1, 8, 8, 64, 128, false);
-	public static OreGenConfig genCinnabarSmallest = new OreGenConfig("oreCinnabar", true, -1, 16, 4, 64, 128, false);
-	public static OreGenConfig genCinnabarBig = new OreGenConfig("oreCinnabar", true, -1, 2, 24, 64, 128, false);
-	public static OreGenConfig genCinnabarBiggest = new OreGenConfig("oreCinnabar", true, -1, 1, 32, 64, 128, false);
-	public static OreGenConfig genNetherCoal = new OreGenConfig("oreNetherCoal", true, -1, 8, 16, 1, 126, false);
-	public static OreGenConfig genNetherCopper = new OreGenConfig("oreNetherCopper", true, -1, 8, 8, 1, 126, false);
-	public static OreGenConfig genNetherDiamond = new OreGenConfig("oreNetherDiamond", true, -1, 4, 3, 1, 126, false);
-	public static boolean genNetherEmerald = true;
-	public static boolean genNetherGold = true;
-	public static boolean genNetherIron = true;
-	public static boolean genNetherLapis = true;
-	public static boolean genNetherLead = true;
-	public static boolean genNetherNikolite = true;
-	public static boolean genNetherRedstone = true;
-	public static boolean genNetherSilver = true;
-	public static boolean genNetherTin = true;
-	public static boolean genNetherUranium = true;
-	public static OreGenConfig genPyrite = new OreGenConfig("orePyrite", true, -1, 4, 12, 0, 64, false);
-	public static OreGenConfig genPyriteSmall = new OreGenConfig("orePyrite", true, -1, 8, 8, 0, 64, false);
-	public static OreGenConfig genPyriteSmallest = new OreGenConfig("orePyrite", true, -1, 16, 4, 0, 64, false);
-	public static OreGenConfig genPyriteBig = new OreGenConfig("orePyrite", true, -1, 2, 24, 0, 64, false);
-	public static OreGenConfig genPyriteBiggest = new OreGenConfig("orePyrite", true, -1, 1, 32, 0, 64, false);
-	public static OreGenConfig genSphalerite = new OreGenConfig("oreSphalerite", true, -1, 4, 12, 32, 96, false);
-	public static OreGenConfig genSphaleriteSmall = new OreGenConfig("oreSphalerite", true, -1, 8, 8, 32, 96, false);
-	public static OreGenConfig genSphaleriteSmallest = new OreGenConfig("oreSphalerite", true, -1, 16, 4, 32, 96, false);
-	public static OreGenConfig genSphaleriteBig = new OreGenConfig("oreSphalerite", true, -1, 2, 24, 32, 96, false);
-	public static OreGenConfig genSphaleriteBiggest = new OreGenConfig("oreSphalerite", true, -1, 1, 32, 32, 96, false);
-	
-	// End Ore Generation
-	public static boolean genOlivine = true;
-	public static boolean genSheldonite = true;
-	public static boolean genSodalite = true;
-	public static boolean genTungstate = true;
-	*/
 	
 	public static void init(FMLPreInitializationEvent event) {
 		log.info("Initializing Configuration");
@@ -68,42 +30,9 @@ public class Config {
 		log.info("Loading Configuration");
 		configFile.load();
 		
-		/*
-		
-		genCinnabar = getOreGen(genCinnabar);
-		genCinnabarSmall = getOreGen(genCinnabarSmall);
-		genCinnabarSmallest = getOreGen(genCinnabarSmallest);
-		genCinnabarBig = getOreGen(genCinnabarBig);
-		genCinnabarBiggest = getOreGen(genCinnabarBiggest);
-		genNetherCoal = getOreGen(genNetherCoal);
-		genNetherCopper = getOreGen(genNetherCopper);
-		genNetherDiamond = getOreGen(genNetherDiamond);
-		genNetherEmerald = getProp("genNetherEmerald", genNetherEmerald, "set to false to disable netheremerald generation");
-		genNetherGold = getProp("genNetherGold", genNetherGold, "set to false to disable nethergold generation");
-		genNetherIron = getProp("genNetherIron", genNetherIron, "set to false to disable netheriron generation");
-		genNetherLapis = getProp("genNetherLapis", genNetherLapis, "det to false to disable netherlapis generation");
-		genNetherLead = getProp("genNetherLead", genNetherLead, "set to false to disable netherlead generation");
-		genNetherNikolite = getProp("genNetherNikolite", genNetherNikolite, "set to false to disable nethernikolite generation");
-		genNetherRedstone = getProp("genNetherRedstone", genNetherRedstone, "set to false to disable netherredstone generation");
-		genNetherSilver = getProp("genNetherSilver", genNetherSilver, "set to false to disable nethersilver generation");
-		genNetherTin = getProp("genNetherTin", genNetherTin, "set to false to disable nethertin generation");
-		genNetherUranium = getProp("genNetherUranium", genNetherUranium, "set to false to disable netheruranium generation");
-		genPyrite = getOreGen(genPyrite);
-		genPyriteSmall = getOreGen(genPyriteSmall);
-		genPyriteSmallest = getOreGen(genPyriteSmallest);
-		genPyriteBig = getOreGen(genPyriteBig);
-		genPyriteBiggest = getOreGen(genPyriteBiggest);
-		genSphalerite = getOreGen(genSphalerite);
-		genSphaleriteSmall = getOreGen(genSphaleriteSmall);
-		genSphaleriteSmallest = getOreGen(genSphaleriteSmallest);
-		genSphaleriteBig = getOreGen(genSphaleriteBig);
-		genSphaleriteBiggest = getOreGen(genSphaleriteBiggest);
-		
-		genOlivine = getProp("genOlivine", genOlivine, "set to false to disable olivine generation");
-		genSheldonite = getProp("genSheldonite", genSheldonite, "set to false to disable sheldonite generation");
-		genSodalite = getProp("genSodalite", genSodalite, "set to false to disable sodalite generation");
-		genTungstate = getProp("genTungstate", genTungstate, "set to false to disable tungstate generation");
-		*/
+		configFile.addCustomCategoryComment(CAT_ORES, "Ore configuration = oreEnabled,oreSource");
+		//configFile.addCustomCategoryComment(CAT_ORES, "oreEnabled = true or false   // enables or disables the ore");
+		//configFile.addCustomCategoryComment(CAT_ORES, "oreSource = DEFAULT          // sets the ore source, DEFAULT is mod gen, used to generate ores from other mods");
 		
 		OresPlus.regenKey = getProp("regenKey", OresPlus.regenKey, "change this to regenerate ores");
 	}
@@ -140,53 +69,77 @@ public class Config {
 		return getProp(key, defaultValue, "");
 	}
 	
-	public static OreGenConfig getOreGen(OreGenConfig oreConfig) {
-		if (!oreConfig.equals(null)) {
-			OresPlus.log.info("Reading ore gen info for " + oreConfig.name);
-			String cfgLine = oreConfig.oreName + ","
-				+ Boolean.toString(oreConfig.enabled) + ","
-				+ oreConfig.dimension + ","
-				+ oreConfig.numVeins + ","
-				+ oreConfig.veinSize + ","
-				+ oreConfig.minY + ","
-				+ oreConfig.maxY + ","
+	public static String getOreGenCfgLine(OreGenConfig oreConfig) {
+		if (oreConfig == null)
+			return null;
+		return Boolean.toString(oreConfig.enabled) + ","
+				+ oreConfig.density + ","
 				+ Boolean.toString(oreConfig.doRegen);
-			Property prop = configFile.get(CAT_ORE_GEN, oreConfig.name, cfgLine);
+	}
+	
+	public static OreGenConfig getOreGen(OreGenConfig oreConfig) {
+		if (oreConfig != null) {
+			OresPlus.log.info("Reading ore gen info for " + oreConfig.name);
+			Property prop = configFile.get(CAT_ORE_GEN, oreConfig.name, getOreGenCfgLine(oreConfig));
 			String cfg[] = prop.getString().split(",");
-			if (cfg.length == 8) {
-				oreConfig.oreName = cfg[0];
+			boolean configChanged = false;
+			switch (cfg.length) {
+			case 3:
+				oreConfig.enabled = Boolean.parseBoolean(cfg[0]);
+				oreConfig.density = Integer.parseInt(cfg[1]);
+				oreConfig.doRegen = Boolean.parseBoolean(cfg[2]);
+				break;
+			case 8: // v0.1.1 - v0.1.3
+				///oreConfig.oreName = cfg[0];
 				oreConfig.enabled = Boolean.parseBoolean(cfg[1]);
-				oreConfig.dimension = Integer.parseInt(cfg[2]);
-				oreConfig.numVeins = Integer.parseInt(cfg[3]);
-				oreConfig.veinSize = Integer.parseInt(cfg[4]);
-				oreConfig.minY = Integer.parseInt(cfg[5]);
-				oreConfig.maxY = Integer.parseInt(cfg[6]);
+				//oreConfig.dimension = Integer.parseInt(cfg[2]);
+				//oreConfig.numVeins = Integer.parseInt(cfg[3]);
+				//oreConfig.veinSize = Integer.parseInt(cfg[4]);
+				//oreConfig.minY = Integer.parseInt(cfg[5]);
+				//oreConfig.maxY = Integer.parseInt(cfg[6]);
 				oreConfig.doRegen = Boolean.parseBoolean(cfg[7]);
-			}
-			else {
+				configChanged = true;
+				break;
+			default:
 				OresPlus.log.info("Could not read config for ore " + oreConfig.name + ". Resetting to default");
-				prop.set(cfgLine);
+				configChanged = true;
 			}
+			if (configChanged)
+				prop.set(getOreGenCfgLine(oreConfig));
 		}
 		return oreConfig;
 	}
 	
+	private static String getOreCfgLine(OreConfig ore) {
+		if (ore == null)
+			return null;
+		return Boolean.toString(ore.enabled) + ","
+				+ ore.source.name();
+	}
+	
 	public static OreConfig getOre(OreConfig ore) {
-		if (!ore.equals(null)) {
-			String cfgLine = Boolean.toString(ore.enabled) + ","
-				+ ore.harvestLevel + ","
-				+ ore.drops.name();
-			Property prop = configFile.get(CAT_ORES, ore.name, cfgLine);
+		if (ore != null) {
+			Property prop = configFile.get(CAT_ORES, ore.name, getOreCfgLine(ore));
 			String cfg[] = prop.getString().split(",");
-			if (cfg.length == 3) {
+			
+			boolean configChanged = false;
+			switch (cfg.length) {
+			case 2:
 				ore.enabled = Boolean.parseBoolean(cfg[0]);
-				ore.harvestLevel = Integer.parseInt(cfg[1]);
-				ore.drops = OreDrops.valueOf(cfg[2]);
-			}
-			else {
+				ore.source = OreSources.valueOf(cfg[1]);
+				break;
+			case 3: // v0.1.1 - v0.1.3
+				ore.enabled = Boolean.parseBoolean(cfg[0]);
+				// ore.harvestLevel = Integer.parseInt(cfg[1]);
+				// ore.drops = OreDrops.valueOf(cfg[2]);
+				configChanged = true;
+				break;
+			default:
 				OresPlus.log.info("Could not read config for ore " + ore.name + ". Resetting to default");
-				prop.set(cfgLine);
+				configChanged = true;
 			}
+			if (configChanged)
+				prop.set(getOreCfgLine(ore));
 		}
 		return ore;
 	}

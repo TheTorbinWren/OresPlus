@@ -6,11 +6,13 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import tw.oresplus.blocks.BlockCore;
 import tw.oresplus.core.EventHandlerCore;
+import tw.oresplus.core.IProxy;
 import tw.oresplus.core.OreLog;
 import tw.oresplus.core.TickHandler;
 import tw.oresplus.enums.OreGenerators;
@@ -21,9 +23,13 @@ import tw.oresplus.worldgen.WorldGenOre;
 
 @Mod(modid = OresPlus.MOD_ID, name = OresPlus.MOD_NAME, version = OresPlus.MOD_VERSION)
 public class OresPlus {
+	
+	@SidedProxy(clientSide="tw.oresplus.client.ClientProxy", serverSide="tw.oresplus.core.ServerProxy") 
+	public static IProxy proxy;
+	
     public static final String MOD_ID = "OresPlus";
     public static final String MOD_NAME = "OresPlus";
-    public static final String MOD_VERSION = "0.1.3";
+    public static final String MOD_VERSION = "0.1.4";
     
 	@Instance(OresPlus.MOD_ID)
 	public static OresPlus instance;
@@ -61,7 +67,6 @@ public class OresPlus {
     	
     	MinecraftForge.EVENT_BUS.register(eventHandler);
     	FMLCommonHandler.instance().bus().register(tickHandler);
-    	//MinecraftForge.EVENT_BUS.register(tickHandler);
     	
     	/* OreDictionaty dump
     	for (String ore : OreDictionary.getOreNames()) {

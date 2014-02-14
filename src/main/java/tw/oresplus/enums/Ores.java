@@ -59,12 +59,14 @@ public enum Ores {
 	private boolean _enabled;
 	private int _harvestLevel;
 	private OreDrops _drops;
+	private OreSources _source;
 	
 	private Ores (int harvestLevel, OreDrops drops) {
 		this._name = "ore" + this.name();
 		this._enabled = true;
 		this._harvestLevel = harvestLevel;
 		this._drops = drops;
+		this._source = OreSources.DEFAULT;
 	}
 	
 	private Ores(int harvestLevel) {
@@ -72,7 +74,8 @@ public enum Ores {
 	}
 	
 	public OreConfig getDefaultConfig() {
-		return new OreConfig(this._name, this._enabled, this._harvestLevel, this._drops);
+		return new OreConfig(this._name, this._enabled, this._harvestLevel, 
+				this._drops, this._source);
 	}
 	
 	public boolean enabled() {

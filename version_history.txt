@@ -1,3 +1,14 @@
+v0.1.4 Alpha
+-ore generators seem to be ignoring the biome restrictions somehow, attempted to fix
+-
+-updated to forge 1024
+-corrected possible NPEs
+-added configuration for possible generation/regeneration of other mods ores.
+-removed configuration options for block hardness and ore drops from config file
+-added ore density configuration. this is a percentage setting to adjust the number of veins per chunk
+-removed other configuration options for ore generation from config file
+-switched to more robust regen management, will allow regen of other features independent of ore regen
+
 v0.1.3 Alpha
 -hopefully reduced memory consumption when regenerating ores
 
