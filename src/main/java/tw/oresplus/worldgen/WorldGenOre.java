@@ -5,9 +5,10 @@ import java.util.Collection;
 import java.util.Random;
 
 import tw.oresplus.OresPlus;
+import tw.oresplus.api.OresPlusAPI;
+import tw.oresplus.blocks.Blocks;
+import tw.oresplus.core.OreGenClass;
 import tw.oresplus.enums.OreGenType;
-import tw.oresplus.init.Blocks;
-import tw.oresplus.init.OreGenConfig;
 import net.minecraft.block.Block;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -15,16 +16,16 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenOre {
-	private OreGenConfig ore;
+	private OreGenClass ore;
 	boolean enabled = true;	// generation of ore enabled
 	Block block;		// block to generate
 	Block target;
 	public boolean doRegen;
 	public Collection<String> biomeList;
 
-	public WorldGenOre(OreGenConfig genOre) {
+	public WorldGenOre(OreGenClass genOre) {
 		this.ore = genOre;
-		this.block = (Block) Blocks.blockList.get(genOre.oreName);
+		this.block = OresPlusAPI.getBlock(genOre.oreName);
 		this.doRegen = genOre.doRegen;
 		switch(genOre.dimension)
 		{
@@ -70,13 +71,11 @@ public class WorldGenOre {
 		if (!ore.enabled)
 			return false;
 		if (this.biomeList.isEmpty() || this.biomeList.contains(biomeName)) {
-			OresPlus.log.info("Generating " + ore.oreName + " in biome " + biomeName + " @" + chunkX + "," + chunkZ);
-			if (this.biomeList.isEmpty())
-				OresPlus.log.info("Biome List is empty");
 			int actualVeins = this.ore.numVeins * this.ore.density / 100;
+			int seaLevel = world.provider.getHeight() + 1;
 			for (int a=0; a<actualVeins; a++){
 				int x = chunkX + random.nextInt(16);
-				int y = random.nextInt(this.ore.maxY - this.ore.minY) + this.ore.minY;
+				int y = random.nextInt(this.ore.maxY - this.ore.minY) + this.ore.minY * seaLevel / 64;
 				int z = chunkZ + random.nextInt(16);
 				
 				switch (ore.veinSize) {

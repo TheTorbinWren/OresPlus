@@ -1,6 +1,43 @@
+v0.2.9 Beta
+-code cleanup
+-finished cracker basics
+-added brass, bronze & electrum alloys
+
+v0.2.8 Beta
+-grinder will now work with buildcraft energy
+-started work on cracker - will break Bitumen down into oil
+-fixed grinder hardness
+-code cleanup
+-added recipes to craft gunpowder from charcoal/coal dust, sulfur, & saltpeter
+-fixed a metadata bug in grinder recipes
+
+v0.2.7 Beta
+-fixed grinder item icon, ok maybe not
+-finished grinder shift click rules
+-more API work - all blocks & items should be accessable though the api
+-ok, actually fixed the grinder item icon now
+
+v0.2.6 Beta
+-code cleanup
+-finished grinder basics
+-started API developement
+-sphalerite wasn't dropping dusts correctly
+-olivine wasn't dropping gems correctly
+-added remaining ore dusts
+
+v0.1.5 Alpha
+-moved vanilla ore gen to this mod. density for vanilla ores can now be configured
+-emerald oregen not replacable yet
+-fixed more possible NPEs
+-added IMCMessage event handler to receive oregen registrations from other mods (experimental). this is my first step to actually unifiying ore gen
+-added Certus Quartz
+-added a simple grinder - not fully implemented yet
+-implemented BuildCreaft oil regeneration
+-implemented xp drops for ores - partial
+
 v0.1.4 Alpha
 -ore generators seem to be ignoring the biome restrictions somehow, attempted to fix
--
+-bauxite was generating in all biomes, fixed
 -updated to forge 1024
 -corrected possible NPEs
 -added configuration for possible generation/regeneration of other mods ores.

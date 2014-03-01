@@ -1,6 +1,6 @@
 package tw.oresplus.enums;
 
-import tw.oresplus.init.OreGenConfig;
+import tw.oresplus.core.OreGenClass;
 
 public enum OreGenerators {
 	Adamantine("oreAdamantine", 0, 1, 4, 0, 25),
@@ -11,18 +11,24 @@ public enum OreGenerators {
 	Bitumen("oreBitumen", 0, 4, 4, 0, 60),
 	Cassiterite("oreCassiterite", 0, 1, 32, 32, 70),
 	CassiteriteHigh("oreCassiterite", 0, 1, 32, 70, 220),
+	CertusQuartz("oreCertusQuartz", 0, 8, 4, 12, 72),
 	CinnabarSmallest("oreCinnabar", -1, 16, 4, 64, 128),
 	CinnabarSmall("oreCinnabar", -1, 8, 8, 64, 128),
 	Cinnabar("oreCinnabar", -1, 4, 12, 64, 128),
 	CinnabarLarge("oreCinnabar", -1, 2, 24, 64, 128),
 	CinnabarLargest("oreCinnabar", -1, 1, 32, 64, 128),
+	Coal("oreCoal", 0, 20, 16, 0, 128),
 	Coldiron("oreColdiron", 0, 4, 6, 0, 45),
 	Cooperite("oreSheldonite", 1, 1, 4, 0, 127),
 	Copper("oreCopper", 0, 18, 8, 10, 60),
 	CopperHigh("oreCopper", 0, 12, 10, 60, 220),
+	Diamond("oreDiamond", 0, 1, 7, 0, 16),
 	Galena("oreGalena", 0, 1, 16, 0, 32),
+	Gold("oreGold", 0, 2, 8, 0, 32),
 	GreenSapphire("oreGreenSapphire", 0, 6, 2, 0, 40),
 	Iridium("oreIridium", 0, 1, 1, 0, 50),
+	Iron("oreIron", 0, 20, 8, 0, 128),
+	Lapis("oreLapis", 0, 1, 6, 16, 32),
 	Lead("oreLead", 0, 4, 8, 10, 45),
 	Magnesium("oreMagnesium", 0, 4, 4, 0, 140),
 	Manganese("oreManganese", 0, 5, 5, 0, 140),
@@ -51,6 +57,8 @@ public enum OreGenerators {
 	Pyrite("orePyrite", -1, 4, 12, 0, 64),
 	PyriteLarge("orePyrite", -1, 2, 24, 0, 64),
 	PyriteLargest("orePyrite", -1, 1, 32, 0, 64),
+	Quartz("oreQuartz", -1, 16, 13, 10, 118),
+	Redstone("oreRedstone", 0, 8, 7, 0, 16),
 	Ruby("oreRuby", 0, 6, 2, 0, 40),
 	Saltpeter("oreSaltpeter", 0, 8, 8, 50, 60),
 	Sapphire("oreSapphire", 0, 6, 2, 0, 40),
@@ -103,8 +111,8 @@ public enum OreGenerators {
 	}
 	
 	
-	public OreGenConfig getDefaultConfig() {
-		return new OreGenConfig(this.name(), this._oreName, this._enabled, 
+	public OreGenClass getDefaultConfig() {
+		return new OreGenClass(this.name(), this._oreName, this._enabled, 
 				this._dimension, this._numVeins, this._veinSize, this._minY, 
 				this._maxY, this._enableRegen, this._genType, this._density);
 	}

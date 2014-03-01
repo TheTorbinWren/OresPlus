@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import tw.oresplus.OresPlus;
-import tw.oresplus.init.Blocks;
+import tw.oresplus.blocks.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -76,7 +76,6 @@ implements IWorldGenerator {
 		for (WorldGenOre oreGen : this.oreGenOverworld)
 			if (newChunk || oreGen.doRegen) {
 				oreGen.generate(world, random, blockX, blockZ);
-				//OresPlus.log.info("Generating " + oreGen.getOreName());
 			}
 	}
 

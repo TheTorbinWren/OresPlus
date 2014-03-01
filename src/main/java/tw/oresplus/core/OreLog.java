@@ -21,7 +21,7 @@ public class OreLog {
 		if (!configured){
 			init();
 		}
-		log.log(level, "[" + OresPlus.MOD_ID + "] " + message, new Object[0]);
+		log.log(level, message, new Object[0]);
 	}
 	
 	public static void info(String message) {
