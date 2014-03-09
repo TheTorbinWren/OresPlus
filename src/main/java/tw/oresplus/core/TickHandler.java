@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import tw.oresplus.OresPlus;
+import tw.oresplus.core.helpers.BCHelper;
+import tw.oresplus.core.helpers.Helpers;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.chunk.Chunk;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -27,12 +29,12 @@ public class TickHandler {
 			oreRegenList.put(Integer.valueOf(dim), chunks);
 		}
 		
-		if (OresPlus.bcHelper.isEnergyLoaded) {
+		if (Helpers.BuildCraft.isLoaded()) {
 			chunks = oilRegenList.get(Integer.valueOf(dim));
 			if (chunks != null && !chunks.isEmpty()) {
 				ChunkCoordIntPair coords = (ChunkCoordIntPair) chunks.get(0);
 				Chunk chunk = event.world.getChunkFromChunkCoords(coords.chunkXPos, coords.chunkZPos);
-				OresPlus.bcHelper.generateOil(event.world, event.world.rand, chunk.xPosition, chunk.zPosition);
+				Helpers.BuildCraft.generate(event.world, event.world.rand, chunk.xPosition, chunk.zPosition);
 				OresPlus.log.info("Regen oil in chunk " + coords.chunkXPos + ", " + coords.chunkZPos);
 				chunks.remove(0);
 				oilRegenList.put(Integer.valueOf(dim), chunks);

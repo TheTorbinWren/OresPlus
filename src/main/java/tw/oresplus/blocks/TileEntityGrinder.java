@@ -34,9 +34,11 @@ extends TileEntityMachine {
 
 	@Override
 	public void doWork(PowerHandler workProvider) {
-		if (this.powerHandler.useEnergy(this.energyRequired, this.energyRequired, true) != this.energyRequired)
-			return;
-		doGrind((int)(this.energyRequired * 1.5));
+		if (this.hasWork()) {
+			if (this.powerHandler.useEnergy(this.energyRequired, this.energyRequired, true) != this.energyRequired)
+				return;
+			doGrind((int)(this.energyRequired * 1.5));
+		}
 	}
 
 	private void grindItem() {

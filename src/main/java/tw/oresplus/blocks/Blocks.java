@@ -53,6 +53,18 @@ public class Blocks {
 		new BlockGrinder(true);
 		new BlockCracker();
 		
+		new BlockCore(Material.iron, "oreBlockAdamantine").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
+		new BlockCore(Material.iron, "oreBlockBrass").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
+		new BlockCore(Material.iron, "oreBlockBronze").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
+		new BlockCore(Material.iron, "oreBlockColdiron").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
+		new BlockCore(Material.iron, "oreBlockCopper").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
+		new BlockCore(Material.iron, "oreBlockElectrum").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
+		new BlockCore(Material.iron, "oreBlockLead").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
+		new BlockCore(Material.iron, "oreBlockMithral").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
+		new BlockCore(Material.iron, "oreBlockSilver").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
+		new BlockCore(Material.iron, "oreBlockTin").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
+		new BlockCore(Material.iron, "oreBlockZinc").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
+		
 		isInitialized=true;
 	}
 	

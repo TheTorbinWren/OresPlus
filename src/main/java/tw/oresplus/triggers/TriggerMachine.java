@@ -6,24 +6,32 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.ForgeDirection;
+import buildcraft.api.gates.ITileTrigger;
 import buildcraft.api.gates.ITriggerParameter;
 
-public class TriggerHasWork extends Trigger {
-	private IIcon triggerIcon;
+public class TriggerMachine 
+extends Trigger 
+implements ITileTrigger {
+	private IIcon icon;
+	private boolean active;
+	
+	public TriggerMachine(boolean checkActive) {
+		this.active = checkActive;
+	}
 	
 	@Override
 	public String getUniqueTag() {
-		return OresPlus.MOD_ID + ":HasWork";
+		return OresPlus.MOD_ID + ":" + (this.active ? "HasWork" : "WorkDone");
 	}
 
 	@Override
 	public IIcon getIcon() {
-		return triggerIcon;
+		return icon;
 	}
 
 	@Override
 	public void registerIcons(IIconRegister iconRegister) {
-		this.triggerIcon = iconRegister.registerIcon(OresPlus.MOD_ID + ":triggers/hasWork.png");
+		this.icon = iconRegister.registerIcon(OresPlus.MOD_ID + ":triggers/" + (this.active ? "hasWork" : "workDone"));
 		
 	}
 
@@ -41,8 +49,7 @@ public class TriggerHasWork extends Trigger {
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.active ? "Has work" : "Work Done";
 	}
 
 	@Override
@@ -52,8 +59,11 @@ public class TriggerHasWork extends Trigger {
 	}
 
 	public boolean isTriggerActive(ForgeDirection direction, TileEntity tile, ITriggerParameter parameter) {
-		if (tile instanceof TileEntityMachine)
-			return ((TileEntityMachine) tile).hasWork();
+		if (tile instanceof TileEntityMachine) {
+			if (this.active)
+				return ((TileEntityMachine)tile).hasWork();
+			return !((TileEntityMachine)tile).hasWork();
+		}
 		return false;
 	}
 }

@@ -27,7 +27,6 @@ extends BlockCore
 implements ITileEntityProvider {
 	private final Random blockRandom = new Random();
 	protected static boolean isLocked;
-	@SideOnly(Side.CLIENT)
 	protected IIcon[] iconArray = new IIcon[3];
 	protected boolean _isWorking;
 	protected int guiID;

@@ -22,7 +22,7 @@ public enum Ores {
 	Mithral (3),
 	NetherCoal (1),
 	NetherCopper (1),
-	NetherDiamond (3),
+	NetherDiamond (2),
 	NetherEmerald (2),
 	NetherGold (2),
 	NetherIron (1),
@@ -35,7 +35,7 @@ public enum Ores {
 	NetherUranium (2),
 	Nickel (2),
 	Nikolite (2, OreDrops.NIKOLITE),
-	Olivine (2, OreDrops.OLIVINE), // wtf
+	Olivine (2, OreDrops.OLIVINE),
 	Phosphorite (1, OreDrops.PHOSPHORITE),
 	Platinum (2),
 	Potash (1, OreDrops.POTASH),
@@ -46,7 +46,7 @@ public enum Ores {
 	Sheldonite (2),
 	Silver (2),
 	Sodalite (2, OreDrops.SODALITE),
-	Sphalerite (2, OreDrops.SPHALERITE), // wtf
+	Sphalerite (2, OreDrops.SPHALERITE),
 	Sulfur (1, OreDrops.SULFUR),
 	Tetrahedrite (2),
 	Tin (1),

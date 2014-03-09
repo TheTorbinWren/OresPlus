@@ -26,7 +26,11 @@ public class OresPlusAPI {
 	private static HashMap<String, Item> itemList = new HashMap(); 
 
 	public static Block getBlock(String blockName) {
-		return blockList.get(blockName).block;
+		BlockInfo block = blockList.get(blockName);
+		if (block != null)
+			return block.block;
+		else
+			return null;
 	}
 	
 	public static boolean isBlockRegistered(String blockName) {

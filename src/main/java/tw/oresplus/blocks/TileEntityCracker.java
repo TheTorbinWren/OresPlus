@@ -24,7 +24,7 @@ import buildcraft.api.transport.IPipeTile;
 public class TileEntityCracker 
 extends TileEntityMachine 
 implements IFluidHandler {
-	public FluidTank tank = new FluidTank(1000);
+	public FluidTank tank = new FluidTank(5000);
 	
 	public TileEntityCracker() {
 		super(1200);
@@ -52,9 +52,11 @@ implements IFluidHandler {
 
 	@Override
 	public void doWork(PowerHandler workProvider) {
-		if (this.powerHandler.useEnergy(this.energyRequired, this.energyRequired, true) != this.energyRequired)
-			return;
-		doCrack((int)(this.energyRequired * 1.5));
+		if (this.hasWork()) {
+			if (this.powerHandler.useEnergy(this.energyRequired, this.energyRequired, true) != this.energyRequired)
+				return;
+			doCrack((int)(this.energyRequired * 1.5));
+		}
 	}
 
 	@Override
@@ -128,24 +130,30 @@ implements IFluidHandler {
 	}
 
 	private void crackItem() {
-		tank.fill(new FluidStack(FluidRegistry.getFluid("oil"), 10), true);
+		tank.fill(new FluidStack(FluidRegistry.getFluid("oil"), 250), true);
 		OresPlus.log.info("Tank: " + this.tank.getFluidAmount());
-		if (this.inventory[0] == null) {
+		if ((this.inventory[0] == null) || (this.inventory[0].getItem() != this.currentItem.getItem())) {
 			this.currentItem = null;
 			this.machineWorkTime = 0;
+		} 
+		else {
+			--this.inventory[0].stackSize;
+			if (this.inventory[0].stackSize <= 0)
+				this.inventory[0] = null;
 		}
 	}
 
 	private void startCrack() {
-		if (this.currentItem == null && this.inventory[0] != null) {
-			this.currentItem = this.inventory[0].copy();
-			--this.inventory[0].stackSize;
-			if (this.inventory[0].stackSize == 0)
-				this.inventory[0] = null;
+		if (this.inventory[0] == null) {
+			this.currentItem = null;
+			return;
 		}
-		else if (this.inventory[0].isItemEqual(this.currentItem)) {
+		if (this.currentItem == null) {
+			this.currentItem = this.inventory[0].copy();
+		}
+		if (this.inventory[0].isItemEqual(this.currentItem)) {
 			--this.inventory[0].stackSize;
-			if (this.inventory[0].stackSize == 0)
+			if (this.inventory[0].stackSize <= 0)
 				this.inventory[0] = null;
 		}
 	}

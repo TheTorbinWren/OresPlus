@@ -8,6 +8,8 @@ import tw.oresplus.OresPlus;
 import tw.oresplus.api.OresPlusAPI;
 import tw.oresplus.core.OreClass;
 import tw.oresplus.core.OreGenClass;
+import tw.oresplus.core.helpers.AppEngHelper;
+import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.enums.OreDrops;
 import tw.oresplus.items.Items;
 import cpw.mods.fml.relauncher.Side;
@@ -59,7 +61,7 @@ public class BlockOre extends BlockCore {
 			rList.add(new ItemStack(OresPlusAPI.getItem("itemBitumen"), this.fortuneHelper(world, 2 + world.rand.nextInt(4), fortune)));
 			break;
 		case CERTUSQUARTZ:
-			if (OresPlus.appEngHelper.isLoaded) {
+			if (Helpers.AppliedEnergistics.isLoaded()) {
 				// TODO: drop app eng drops here.
 				rList.add(new ItemStack(this.getItemDropped(metadata, world.rand, fortune), 1));
 			} 

@@ -13,16 +13,15 @@ import tw.oresplus.OresPlus;
 import tw.oresplus.api.OresPlusAPI;
 import tw.oresplus.blocks.Blocks;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BCHelper {
-	public boolean isEnergyLoaded;
-	
+public class BCHelper extends OresHelper {
 	private Class genOilClass;
 	private Object genOilClassObj;
 	private Method genOilMethod;
 	
 	public BCHelper() {
-		this.isEnergyLoaded = false;
+		super("BuildCraft|Core");
 	}
 	
 	public void init() {
@@ -30,9 +29,8 @@ public class BCHelper {
 			OresPlus.log.info("BuildCraft not found, helper disabled");
 			return;
 		}
-		this.isEnergyLoaded = Loader.isModLoaded("BuildCraft|Energy");
 		
-		if (this.isEnergyLoaded) {
+		if (this.isEnergyLoaded()) {
 			Block blockOil = this.getBlock("blockOil");
 			if (blockOil != null)
 				OresPlusAPI.registerBlock("blockOil", "BuildCraft", blockOil);
@@ -46,7 +44,7 @@ public class BCHelper {
 			
 			Constructor c = null;
 			try {
-				c = genOilClass.getDeclaredConstructor();
+				c = this.genOilClass.getDeclaredConstructor();
 			} catch (NoSuchMethodException e) {
 				OresPlus.log.info("Could not find constructor");
 				e.printStackTrace();
@@ -76,19 +74,19 @@ public class BCHelper {
 			if (this.genOilClass != null && this.genOilClassObj != null)
 				for (Method method : this.genOilClass.getMethods()) {
 					if (method.getName().equals("generateOil")) 
-						genOilMethod = method;
+						this.genOilMethod = method;
 				
 				}
 		}	
 		OresPlus.log.info("BuildCraft found, helper Initialized");
 	}
 	
-	public static boolean isLoaded() {
-		return Loader.isModLoaded("BuildCraft|Core");
+	private boolean isEnergyLoaded() {
+		return Loader.isModLoaded("BuildCraft|Energy");
 	}
 	
-	public void generateOil(World world, Random rand, int chunkX, int chunkZ) {
-		if (!this.isEnergyLoaded || this.genOilMethod == null)
+	public void generate(World world, Random rand, int chunkX, int chunkZ) {
+		if (!this.isEnergyLoaded() || this.genOilMethod == null)
 			return;
 		
 		try {
@@ -104,13 +102,5 @@ public class BCHelper {
 			e.printStackTrace();
 		}
 		
-	}
-	
-	public Block getBlock(String blockName) {
-		for (Block bcBlock : BuildCraftAPI.softBlocks) {
-			if (bcBlock.getUnlocalizedName().equals(blockName)) 
-				return bcBlock;
-		}
-		return null;
 	}
 }

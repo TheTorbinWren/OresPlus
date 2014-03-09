@@ -3,6 +3,7 @@ package tw.oresplus;
 import java.io.File;
 import java.util.Map;
 
+import buildcraft.api.gates.ActionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -34,11 +35,14 @@ import tw.oresplus.core.OreLog;
 import tw.oresplus.core.TickHandler;
 import tw.oresplus.core.helpers.AppEngHelper;
 import tw.oresplus.core.helpers.BCHelper;
+import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.enums.OreGenerators;
 import tw.oresplus.fluids.Fluids;
 import tw.oresplus.items.ItemCore;
 import tw.oresplus.items.Items;
 import tw.oresplus.recipes.RecipeManager;
+import tw.oresplus.triggers.OresTrigger;
+import tw.oresplus.triggers.TriggerProvider;
 import tw.oresplus.worldgen.WorldGenCore;
 import tw.oresplus.worldgen.WorldGenOre;
 
@@ -50,7 +54,7 @@ public class OresPlus {
 	
     public static final String MOD_ID = "OresPlus";
     public static final String MOD_NAME = "OresPlus";
-    public static final String MOD_VERSION = "0.2.10 Beta";
+    public static final String MOD_VERSION = "0.2.14 Beta";
     
 	@Instance(OresPlus.MOD_ID)
 	public static OresPlus instance;
@@ -65,10 +69,6 @@ public class OresPlus {
     public static OreEventHandler eventHandler = new OreEventHandler();
     public static TickHandler tickHandler = new TickHandler();
     public static IMCHandler imcHandler = new IMCHandler();
-    public static GuiHandler guiHandler = new GuiHandler();
-    
-    public static BCHelper bcHelper = new BCHelper();
-    public static AppEngHelper appEngHelper = new AppEngHelper();
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -103,7 +103,10 @@ public class OresPlus {
     	MinecraftForge.ORE_GEN_BUS.register(eventHandler);
     	FMLCommonHandler.instance().bus().register(tickHandler);
     	
-    	NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
+    	NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+    	
+    	OresTrigger.registerTriggers();
+    	ActionManager.registerTriggerProvider(new TriggerProvider());
     	
     	/* OreDictionaty dump
     	for (String ore : OreDictionary.getOreNames()) {
@@ -114,7 +117,9 @@ public class OresPlus {
     
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-    	bcHelper.init();
+    	for (Helpers helper : Helpers.values()) {
+    		helper.init();
+    	}
     }
     
     @EventHandler

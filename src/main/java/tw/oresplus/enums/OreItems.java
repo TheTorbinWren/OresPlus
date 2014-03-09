@@ -57,8 +57,20 @@ public enum OreItems {
 	ingotColdiron,
 	ingotCopper,
 	ingotElectrum,
+	ingotLead,
 	ingotMithral,
 	ingotSilver,
 	ingotTin,
-	ingotZinc;	 
+	ingotZinc,
+	nuggetAdamantine,
+	nuggetBrass,
+	nuggetBronze,
+	nuggetColdiron,
+	nuggetCopper,
+	nuggetElectrum,
+	nuggetLead,
+	nuggetMithral,
+	nuggetSilver,
+	nuggetTin,
+	nuggetZinc;	 
 }

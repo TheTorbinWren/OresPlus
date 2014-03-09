@@ -1,5 +1,6 @@
 package tw.oresplus.blocks;
 
+import buildcraft.api.gates.ITileTrigger;
 import buildcraft.api.gates.ITriggerProvider;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.api.power.PowerHandler;
@@ -129,8 +130,6 @@ implements ISidedInventory, IPowerReceptor, ITriggerProvider {
 	@Override
 	public void closeInventory() {}
 
-	public abstract boolean isItemValidForSlot(int slot, ItemStack item);
-	
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound){
 		super.readFromNBT(tagCompound);
@@ -218,9 +217,6 @@ implements ISidedInventory, IPowerReceptor, ITriggerProvider {
 	public PowerReceiver getPowerReceiver(ForgeDirection side) {
 		return this.powerHandler.getPowerReceiver();
 	}
-
-	@Override
-	public abstract void doWork(PowerHandler workProvider);
 
 	@Override
 	public World getWorld() {

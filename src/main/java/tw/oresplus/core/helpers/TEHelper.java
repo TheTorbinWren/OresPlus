@@ -7,16 +7,15 @@ import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.Loader;
 
-public class AppEngHelper extends OresHelper {
-	
-	public AppEngHelper() {
-		super("AppliedEnergistics");
+public class TEHelper extends OresHelper {
+	public TEHelper() {
+		super("ThermalExpansion");
 	}
-	
+
 	@Override
 	public void init() {
 		if (!this.isLoaded()) {
-			OresPlus.log.info("AppliedEnergistics not found, helper disabled");
+			OresPlus.log.info("ThermalExpansion not found, helper disabled");
 			return;
 		}
 	}
@@ -26,4 +25,5 @@ public class AppEngHelper extends OresHelper {
 		// TODO Auto-generated method stub
 		
 	}
+
 }
