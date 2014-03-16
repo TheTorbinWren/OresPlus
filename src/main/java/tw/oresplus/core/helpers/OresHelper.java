@@ -5,6 +5,7 @@ import java.util.Random;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public abstract class OresHelper {
@@ -29,4 +30,6 @@ public abstract class OresHelper {
 			return null;
 		return GameRegistry.findBlock(this._modID, blockName);
 	};
+	
+	public abstract void registerGrind(ItemStack input, ItemStack output);
 }

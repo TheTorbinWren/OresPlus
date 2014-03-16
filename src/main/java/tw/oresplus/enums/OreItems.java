@@ -3,6 +3,16 @@ package tw.oresplus.enums;
 import net.minecraft.item.Item;
 
 public enum OreItems {
+	crushedAdamantine,
+	crushedColdiron,
+	crushedCopper,
+	crushedLead,
+	crushedMithral,
+	crushedNickel,
+	crushedPlatinum,
+	crushedSilver,
+	crushedTin,
+	crushedZinc,
 	dustAdamantine, 
 	dustAluminium,
 	dustBauxite, // TODO: Update texture
@@ -18,14 +28,14 @@ public enum OreItems {
 	dustGalena, // TODO: Update texture
 	dustGold, 
 	dustIron, 
-	dustLead, // TODO: Update texture
+	dustLead, 
 	dustMagnesium,
 	dustManganese, // TODO: Update texture
 	dustMithral, 
-	dustNickel, // TODO: Update texture
+	dustNickel, 
 	dustNikolite,
 	dustPhosphorite,
-	dustPlatinum, // TODO: Update texture
+	dustPlatinum, 
 	dustPotash,
 	dustPyrite,
 	dustSaltpeter,
@@ -59,6 +69,8 @@ public enum OreItems {
 	ingotElectrum,
 	ingotLead,
 	ingotMithral,
+	ingotNickel,
+	ingotPlatinum,
 	ingotSilver,
 	ingotTin,
 	ingotZinc,
@@ -70,6 +82,8 @@ public enum OreItems {
 	nuggetElectrum,
 	nuggetLead,
 	nuggetMithral,
+	nuggetNickel,
+	nuggetPlatinum,
 	nuggetSilver,
 	nuggetTin,
 	nuggetZinc;	 

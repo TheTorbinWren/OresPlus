@@ -3,6 +3,7 @@ package tw.oresplus.core.helpers;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public enum Helpers {
@@ -36,6 +37,10 @@ public enum Helpers {
 	
 	public Block getBlock(String blockName) {
 		return this._oresHelper.getBlock(blockName);
+	}
+	
+	public void registerGrind(ItemStack input, ItemStack output) {
+		this._oresHelper.registerGrind(input, output);
 	}
 }
 

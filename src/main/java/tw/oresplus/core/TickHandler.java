@@ -15,6 +15,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 public class TickHandler {
 	public static HashMap<Integer, ArrayList<ChunkCoordIntPair>> oreRegenList = new HashMap();
 	public static HashMap<Integer, ArrayList<ChunkCoordIntPair>> oilRegenList = new HashMap();
+	public static HashMap<Integer, ArrayList<ChunkCoordIntPair>> rubberTreeRegenList = new HashMap();
 	
 	@SubscribeEvent
 	public boolean onWorldTick(TickEvent.WorldTickEvent event) {
@@ -35,9 +36,19 @@ public class TickHandler {
 				ChunkCoordIntPair coords = (ChunkCoordIntPair) chunks.get(0);
 				Chunk chunk = event.world.getChunkFromChunkCoords(coords.chunkXPos, coords.chunkZPos);
 				Helpers.BuildCraft.generate(event.world, event.world.rand, chunk.xPosition, chunk.zPosition);
-				OresPlus.log.info("Regen oil in chunk " + coords.chunkXPos + ", " + coords.chunkZPos);
 				chunks.remove(0);
 				oilRegenList.put(Integer.valueOf(dim), chunks);
+			}
+		}
+		
+		if (Helpers.IC2.isLoaded()) {
+			chunks = rubberTreeRegenList.get(Integer.valueOf(dim));
+			if (chunks != null && !chunks.isEmpty()) {
+				ChunkCoordIntPair coords = (ChunkCoordIntPair) chunks.get(0);
+				Chunk chunk = event.world.getChunkFromChunkCoords(coords.chunkXPos, coords.chunkZPos);
+				Helpers.IC2.generate(event.world, event.world.rand, chunk.xPosition, chunk.zPosition);
+				chunks.remove(0);
+				rubberTreeRegenList.put(Integer.valueOf(dim), chunks);
 			}
 		}
 		

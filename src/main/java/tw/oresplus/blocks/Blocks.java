@@ -61,6 +61,8 @@ public class Blocks {
 		new BlockCore(Material.iron, "oreBlockElectrum").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
 		new BlockCore(Material.iron, "oreBlockLead").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
 		new BlockCore(Material.iron, "oreBlockMithral").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
+		new BlockCore(Material.iron, "oreBlockNickel").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
+		new BlockCore(Material.iron, "oreBlockPlatinum").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
 		new BlockCore(Material.iron, "oreBlockSilver").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
 		new BlockCore(Material.iron, "oreBlockTin").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
 		new BlockCore(Material.iron, "oreBlockZinc").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);

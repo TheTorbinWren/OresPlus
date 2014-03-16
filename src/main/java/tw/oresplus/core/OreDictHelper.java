@@ -1,5 +1,6 @@
 package tw.oresplus.core;
 
+import tw.oresplus.OresPlus;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -13,5 +14,12 @@ public class OreDictHelper {
 			}
 		}
 		return ret;
+	}
+	
+	public static String getName(ItemStack item) {
+		int id = OreDictionary.getOreID(item);
+		String oreName = OreDictionary.getOreName(id);
+		OresPlus.log.info("Parsing " + oreName);
+		return oreName;
 	}
 }

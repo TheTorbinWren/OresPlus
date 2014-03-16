@@ -35,6 +35,7 @@ public class Config {
 		
 		OresPlus.regenKeyOre = getProp("regenKey", OresPlus.regenKeyOre, "change this to regenerate ores");
 		OresPlus.regenKeyOil = getProp("regenKeyOil", OresPlus.regenKeyOil, "change this to regenerate buildcraft oil wells");
+		OresPlus.regenKeyRubberTree = getProp("regenKeyRubberTree", OresPlus.regenKeyRubberTree, "change this to regenerate IC2 rubber trees");
 	}
 
 	public static void save() {

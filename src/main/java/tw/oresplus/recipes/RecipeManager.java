@@ -72,6 +72,8 @@ public class RecipeManager {
 		addOreRecipes("Electrum", 0.0F, true);
 		addOreRecipes("Lead", 0.0F);
 		addOreRecipes("Mithral", 0.0F);
+		addOreRecipes("Nickel", 0.0F);
+		addOreRecipes("Platinum", 0.0F);
 		addOreRecipes("Silver", 0.0F);
 		addOreRecipes("Tin", 0.0F);
 		addOreRecipes("Zinc", 0.0F);
@@ -84,8 +86,6 @@ public class RecipeManager {
 		new GrinderRecipe("oreGold", new ItemStack(OresPlusAPI.getItem("dustGold"), 2));
 		new GrinderRecipe("oreIron", new ItemStack(OresPlusAPI.getItem("dustIron"), 2));
 		// new GrinderRecipe("oreManganese", new ItemStack(Items.get("dustManganese"), 2));
-		// new GrinderRecipe("oreNickel", new ItemStack(Items.get("dustNickel"), 2));
-		// new GrinderRecipe("orePlatinum", new ItemStack(Items.get("dustPlatinum"), 2));
 		// new GrinderRecipe("oreSheldonite", new ItemStack(Items.get("dustSheldonite"), 2));
 		// new GrinderRecipe("oreTetrahedrite", new ItemStack(Items.get("dustTetrahedrite"), 2));
 		
@@ -118,13 +118,24 @@ public class RecipeManager {
 		String ingotName = "ingot" + name;
 		String nuggetName = "nugget" + name;
 		String oreBlockName = "oreBlock" + name;
+		String crushedOreName = "crushed" + name;
 
 		ItemStack ingot = new ItemStack(OresPlusAPI.getItem(ingotName), 1);
 		ItemStack block = new ItemStack(OresPlusAPI.getBlock(oreBlockName), 1);
 		
 		// add Grinder Recipe
-		if (!isAlloy)
-			new GrinderRecipe(oreName, new ItemStack(OresPlusAPI.getItem(dustName), 2));
+		if (!isAlloy) {
+			new GrinderRecipe(oreName, new ItemStack(OresPlusAPI.getItem(crushedOreName), 2));
+			// add IC2 macerator recipe
+			if (Helpers.IC2.isLoaded() && !isIC2MaceratorRecipe(name)) {
+				Helpers.IC2.registerGrind(new ItemStack(OresPlusAPI.getBlock(oreName), 1), new ItemStack(OresPlusAPI.getItem(crushedOreName), 2));
+			}
+		}
+		// add ingot Grinder recipe
+		new GrinderRecipe(ingotName, new ItemStack(OresPlusAPI.getItem(dustName), 1));
+		//add ingot macerator recipe
+		if (Helpers.IC2.isLoaded() && !isIC2MaceratorRecipe(name))
+			Helpers.IC2.registerGrind(new ItemStack(OresPlusAPI.getItem(ingotName), 1), new ItemStack(OresPlusAPI.getItem(dustName), 1));
 		// add ingot -> nugget recipe
 		addShapelessRecipe(new ItemStack(OresPlusAPI.getItem(nuggetName), 9), ingotName);
 		// add nugget -> ingot recipe
@@ -133,6 +144,9 @@ public class RecipeManager {
 		addShapedRecipe(new ItemStack(OresPlusAPI.getBlock(oreBlockName), 1), "iii", "iii", "iii", 'i', ingotName);
 		// add oreBlock -> ingot recipe
 		addShapelessRecipe(new ItemStack(OresPlusAPI.getItem(ingotName), 9), block);
+		// add crushed ore smelting recipe
+		if (!isAlloy)
+			addSmelting(new ItemStack(OresPlusAPI.getItem(crushedOreName), 1), ingot, smeltXP);
 		// add dust smelting recipe
 		addSmelting(new ItemStack(OresPlusAPI.getItem(dustName), 1), ingot, smeltXP);
 		// add ore smelting recipe
@@ -162,6 +176,13 @@ public class RecipeManager {
 				return recipe.getResult();
 		}
 		return null;
+	}
+	
+	private static boolean isIC2MaceratorRecipe(String oreName) {
+		if (oreName == "Bronze" || oreName == "Copper" || oreName == "Lead" || oreName == "Silver" || oreName == "Tin")
+			return true;
+		else
+			return false;
 	}
 
 }

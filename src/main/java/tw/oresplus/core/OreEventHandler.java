@@ -41,15 +41,23 @@ public class OreEventHandler {
 			chunks.add(event.getChunk().getChunkCoordIntPair());
 			TickHandler.oilRegenList.put(Integer.valueOf(dim), chunks);
 		}
+		
+		if (!OresPlus.regenKeyRubberTree.equals("DISABLED") && !oresPlusRegen.getString("rubberTree").equals(OresPlus.regenKeyRubberTree)) {
+			int dim = event.world.provider.dimensionId;
+			ArrayList chunks = TickHandler.rubberTreeRegenList.get(Integer.valueOf(dim));
+			if (chunks == null)
+				chunks = new ArrayList();
+			chunks.add(event.getChunk().getChunkCoordIntPair());
+			TickHandler.rubberTreeRegenList.put(Integer.valueOf(dim), chunks);
+		}
 	}
 
 	@SubscribeEvent
 	public void chunkSave(ChunkDataEvent.Save event) {
-		if (OresPlus.regenKeyOre.equals("DISABLED"))
-			return;
 		NBTTagCompound oresPlusRegen = new NBTTagCompound();
 		oresPlusRegen.setString("ores", OresPlus.regenKeyOre);
 		oresPlusRegen.setString("oil", OresPlus.regenKeyOil);
+		oresPlusRegen.setString("rubberTree", OresPlus.regenKeyRubberTree);
 		event.getData().setTag("OresPlus", oresPlusRegen);
 	}
 	

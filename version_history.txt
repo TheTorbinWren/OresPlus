@@ -1,3 +1,12 @@
+v0.3.15 Beta
+-fixed bug in IC2 helper
+-implemented IC2 rubber tree regeneration
+-added grinder recipes for ingots
+-updated forge, now required minimum of build 1040
+-added IC2 macerator recipes
+-enabled nickel & platinum recipes
+-changed grinder & macerator recipes to crushed ores, ingots still grind into dusts. brings it more in line with ic2 experimental
+
 v0.2.14 Beta
 -code cleanup
 -implemented basic helpers for numerous mods for future use
