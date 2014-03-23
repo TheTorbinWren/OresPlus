@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import tw.oresplus.OresPlus;
 import tw.oresplus.blocks.Blocks;
-import tw.oresplus.enums.OreGenType;
+import tw.oresplus.ores.OreGenType;
 import tw.oresplus.worldgen.WorldGenOre;
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;

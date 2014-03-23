@@ -1,3 +1,12 @@
+v0.3.16 Beta
+-reorganized metallic ores so that adding new one in the future will be a snap
+-fixed ore smelt recipe (fixes issue 10)
+-added crushed purified ores and tiny piles of dust (for ic2 ore washing recipes to be added)
+-added ic2 ore washing recipes
+-Uranium ore now drops the ore. This will bring it in line with ic2 experimental.
+-added crushed uranium ore for grinder
+-added grinder & macerator recipes to turn uranium drops into crushed uranium.
+
 v0.3.15 Beta
 -fixed bug in IC2 helper
 -implemented IC2 rubber tree regeneration

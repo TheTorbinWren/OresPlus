@@ -1,4 +1,4 @@
-package tw.oresplus.enums;
+package tw.oresplus.ores;
 
 public enum OreSources {
 	DEFAULT,

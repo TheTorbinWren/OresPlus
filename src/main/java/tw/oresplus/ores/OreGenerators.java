@@ -1,4 +1,4 @@
-package tw.oresplus.enums;
+package tw.oresplus.ores;
 
 import tw.oresplus.core.OreGenClass;
 

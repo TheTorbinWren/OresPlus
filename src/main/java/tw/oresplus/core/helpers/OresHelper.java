@@ -5,7 +5,9 @@ import java.util.Random;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 public abstract class OresHelper {
@@ -31,5 +33,11 @@ public abstract class OresHelper {
 		return GameRegistry.findBlock(this._modID, blockName);
 	};
 	
-	public abstract void registerGrind(ItemStack input, ItemStack output);
+	public Item getItem(String itemName) {
+		if (this._modID == null)
+			return null;
+		return GameRegistry.findItem(this._modID, itemName);
+	}
+	
+	public abstract void registerRecipe(String recipeType, ItemStack input, NBTTagCompound metadata, ItemStack... outputs);
 }

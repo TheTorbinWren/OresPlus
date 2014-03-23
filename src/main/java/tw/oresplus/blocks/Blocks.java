@@ -15,8 +15,9 @@ import tw.oresplus.api.OresPlusAPI;
 import tw.oresplus.core.Config;
 import tw.oresplus.core.OreClass;
 import tw.oresplus.core.OreLog;
-import tw.oresplus.enums.OreDrops;
-import tw.oresplus.enums.Ores;
+import tw.oresplus.ores.MetallicOres;
+import tw.oresplus.ores.OreDrops;
+import tw.oresplus.ores.OresClassic;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -33,6 +34,10 @@ public class Blocks {
 			return;
 		}
 		OresPlus.log.info("Initializing Blocks");
+
+		for (MetallicOres ore : MetallicOres.values()) {
+			ore.registerBlocks();
+		}
 		
 		OresPlusAPI.registerBlock("oreIron", "minecraft", net.minecraft.init.Blocks.iron_ore);
 		OresPlusAPI.registerBlock("oreGold", "minecraft", net.minecraft.init.Blocks.gold_ore);
@@ -43,7 +48,7 @@ public class Blocks {
 		OresPlusAPI.registerBlock("oreQuartz", "minecraft", net.minecraft.init.Blocks.quartz_ore);
 		OresPlusAPI.registerBlock("oreCoal", "minecraft", net.minecraft.init.Blocks.coal_ore);
 		
-		for (Ores ore : Ores.values()) {
+		for (OresClassic ore : OresClassic.values()) {
 			OreClass oreConfig = Config.getOre(ore.getDefaultConfig());
 			if (oreConfig.enabled)
 				new BlockOre(oreConfig);
@@ -52,20 +57,6 @@ public class Blocks {
 		new BlockGrinder(false);
 		new BlockGrinder(true);
 		new BlockCracker();
-		
-		new BlockCore(Material.iron, "oreBlockAdamantine").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		new BlockCore(Material.iron, "oreBlockBrass").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		new BlockCore(Material.iron, "oreBlockBronze").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		new BlockCore(Material.iron, "oreBlockColdiron").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		new BlockCore(Material.iron, "oreBlockCopper").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		new BlockCore(Material.iron, "oreBlockElectrum").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		new BlockCore(Material.iron, "oreBlockLead").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		new BlockCore(Material.iron, "oreBlockMithral").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		new BlockCore(Material.iron, "oreBlockNickel").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		new BlockCore(Material.iron, "oreBlockPlatinum").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		new BlockCore(Material.iron, "oreBlockSilver").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		new BlockCore(Material.iron, "oreBlockTin").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
-		new BlockCore(Material.iron, "oreBlockZinc").setCreativeTab(CreativeTabs.tabBlock).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal);
 		
 		isInitialized=true;
 	}

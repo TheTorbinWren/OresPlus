@@ -7,7 +7,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import tw.oresplus.OresPlus;
 import tw.oresplus.core.OreLog;
-import tw.oresplus.enums.OreItems;
+import tw.oresplus.ores.MetallicOres;
+import tw.oresplus.ores.OreItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.oredict.OreDictionary;
@@ -23,6 +24,10 @@ public class Items {
 		else
 		{
 			OresPlus.log.info("Initializing Items");
+			
+			for (MetallicOres ore : MetallicOres.values()) {
+				ore.registerItems();
+			}
 			
 			for (OreItems item : OreItems.values()) {
 				new ItemCore(item.name()).setCreativeTab(CreativeTabs.tabMaterials);

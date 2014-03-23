@@ -13,6 +13,7 @@ import tw.oresplus.OresPlus;
 import tw.oresplus.core.OreDictHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
@@ -121,11 +122,29 @@ public class IC2Helper extends OresHelper {
 		}
 	}
 
-	@Override
-	public void registerGrind(ItemStack input, ItemStack output) {
+	private void registerGrind(ItemStack input, ItemStack... outputs) {
 		if (!this.isLoaded())
 			return;
 		if (Recipes.macerator.getOutputFor(input, true) == null)
-			Recipes.macerator.addRecipe(new RecipeInputItemStack(input), null, output);
+			Recipes.macerator.addRecipe(new RecipeInputItemStack(input), null, outputs);
+	}
+
+	private void registerWash(ItemStack input, NBTTagCompound metadata, ItemStack... outputs) {
+		if (!this.isLoaded())
+			return;
+		if (Recipes.oreWashing.getOutputFor(input, true) == null) {
+			Recipes.oreWashing.addRecipe(new RecipeInputItemStack(input), metadata, outputs);
+		}
+	}
+
+	@Override
+	public void registerRecipe(String recipeType, ItemStack input, 
+			NBTTagCompound metadata, ItemStack... outputs) {
+		if (recipeType.equals("Macerator")) {
+			this.registerGrind(input, outputs);
+		}
+		else if (recipeType.equals("OreWasher")) {
+			this.registerWash(input, metadata, outputs);
+		}
 	}
 }

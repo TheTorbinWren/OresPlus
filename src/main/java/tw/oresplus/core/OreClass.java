@@ -1,7 +1,7 @@
 package tw.oresplus.core;
 
-import tw.oresplus.enums.OreDrops;
-import tw.oresplus.enums.OreSources;
+import tw.oresplus.ores.OreDrops;
+import tw.oresplus.ores.OreSources;
 
 public class OreClass {
 	public String name;

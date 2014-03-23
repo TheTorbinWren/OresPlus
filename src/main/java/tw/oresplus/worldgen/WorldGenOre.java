@@ -8,7 +8,7 @@ import tw.oresplus.OresPlus;
 import tw.oresplus.api.OresPlusAPI;
 import tw.oresplus.blocks.Blocks;
 import tw.oresplus.core.OreGenClass;
-import tw.oresplus.enums.OreGenType;
+import tw.oresplus.ores.OreGenType;
 import net.minecraft.block.Block;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;

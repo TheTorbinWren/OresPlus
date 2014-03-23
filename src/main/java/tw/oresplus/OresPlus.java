@@ -36,17 +36,17 @@ import tw.oresplus.core.TickHandler;
 import tw.oresplus.core.helpers.AppEngHelper;
 import tw.oresplus.core.helpers.BCHelper;
 import tw.oresplus.core.helpers.Helpers;
-import tw.oresplus.enums.OreGenerators;
 import tw.oresplus.fluids.Fluids;
 import tw.oresplus.items.ItemCore;
 import tw.oresplus.items.Items;
+import tw.oresplus.ores.OreGenerators;
 import tw.oresplus.recipes.RecipeManager;
 import tw.oresplus.triggers.OresTrigger;
 import tw.oresplus.triggers.TriggerProvider;
 import tw.oresplus.worldgen.WorldGenCore;
 import tw.oresplus.worldgen.WorldGenOre;
 
-@Mod(modid = OresPlus.MOD_ID, name = OresPlus.MOD_NAME, version = OresPlus.MOD_VERSION, dependencies="required-after:Forge@10.12.0.1040")
+@Mod(modid = OresPlus.MOD_ID, name = OresPlus.MOD_NAME, version = OresPlus.MOD_VERSION, dependencies="required-after:Forge@10.12.0.1033")
 public class OresPlus {
 	
 	@SidedProxy(clientSide="tw.oresplus.client.ClientProxy", serverSide="tw.oresplus.core.ServerProxy") 
@@ -54,7 +54,7 @@ public class OresPlus {
 	
     public static final String MOD_ID = "OresPlus";
     public static final String MOD_NAME = "OresPlus";
-    public static final String MOD_VERSION = "0.3.15 Beta";
+    public static final String MOD_VERSION = "0.3.16 Beta";
     
 	@Instance(OresPlus.MOD_ID)
 	public static OresPlus instance;

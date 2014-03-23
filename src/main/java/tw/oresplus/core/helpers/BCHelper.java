@@ -9,6 +9,7 @@ import java.util.Random;
 import buildcraft.api.core.BuildCraftAPI;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.OresPlusAPI;
@@ -106,5 +107,6 @@ public class BCHelper extends OresHelper {
 	}
 
 	@Override
-	public void registerGrind(ItemStack input, ItemStack output) {}
+	public void registerRecipe(String recipeType, ItemStack input,
+			NBTTagCompound metadata, ItemStack... outputs) { }
 }

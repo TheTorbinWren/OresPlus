@@ -4,8 +4,8 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import tw.oresplus.OresPlus;
-import tw.oresplus.enums.OreDrops;
-import tw.oresplus.enums.OreSources;
+import tw.oresplus.ores.OreDrops;
+import tw.oresplus.ores.OreSources;
 
 public class Config {
 	private static final String CAT_ORES = "ores";

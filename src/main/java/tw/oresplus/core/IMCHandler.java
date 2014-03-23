@@ -4,7 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.OresPlusAPI;
 import tw.oresplus.blocks.Blocks;
-import tw.oresplus.enums.OreGenType;
+import tw.oresplus.ores.OreGenType;
 import tw.oresplus.worldgen.WorldGenOre;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;

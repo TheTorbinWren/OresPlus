@@ -5,6 +5,7 @@ import java.util.Random;
 import tw.oresplus.OresPlus;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.Loader;
 
@@ -28,6 +29,7 @@ public class NOHelper extends OresHelper {
 	}
 
 	@Override
-	public void registerGrind(ItemStack input, ItemStack output) {}
+	public void registerRecipe(String recipeType, ItemStack input,
+			NBTTagCompound metadata, ItemStack... outputs) { }
 
 }

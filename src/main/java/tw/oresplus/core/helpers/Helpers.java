@@ -3,7 +3,9 @@ package tw.oresplus.core.helpers;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 public enum Helpers {
@@ -39,8 +41,17 @@ public enum Helpers {
 		return this._oresHelper.getBlock(blockName);
 	}
 	
-	public void registerGrind(ItemStack input, ItemStack output) {
-		this._oresHelper.registerGrind(input, output);
+	public Item getItem(String itemName) {
+		return this._oresHelper.getItem(itemName);
 	}
+	
+	public void registerRecipe(String recipeType, ItemStack input, ItemStack... outputs) {
+		this.registerRecipe(recipeType, input, null, outputs);
+	}
+	
+	public void registerRecipe(String recipeType, ItemStack input, NBTTagCompound metadata, ItemStack... outputs) {
+		this._oresHelper.registerRecipe(recipeType, input, metadata, outputs);
+	}
+	
 }
 
