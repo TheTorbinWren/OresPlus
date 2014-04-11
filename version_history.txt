@@ -1,3 +1,38 @@
+v0.4.23 Beta
+-fixed NPE in RecipeItemStack when source is null
+
+v0.4.22 Beta
+-finally found and fixed the oregen height bug (no more lapis at level 75)
+-fixed cracker on/off blocks
+-fixed NPE with forge 1056 and higher
+-started nei & tmi integration
+
+v0.4.21 Beta
+-finished migrating dust ores to new format
+-new saltpeter & sulfur dust textures
+-dust ores now have tiny dusts and storage blocks
+-moved manganese to metallic ores, makes it smeltable & grindable
+
+v0.4.20 Beta
+-fixed beehive gen error
+
+v0.4.19 Beta
+-version update
+
+v0.4.18 Beta
+-fixed beehive & ic2 regen, apparently I'm still a newb when it comes to java reflections
+-finished adding basic config file comments
+-reorganized generic ores that drop dusts
+-updated lead ore washer recipe to match ic2
+
+v0.4.17 Beta
+-reorganized gemstone ores ala metallics
+-added rudamentary missing mappings handler
+-cleaned up the recipes
+-started to deprecate the item & block registry in API (not needed)
+-added ore manager to API - for world gen
+-added Forestry beehive regen - not sure this is working
+
 v0.3.16 Beta
 -reorganized metallic ores so that adding new one in the future will be a snap
 -fixed ore smelt recipe (fixes issue 10)

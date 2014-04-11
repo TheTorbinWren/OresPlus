@@ -106,7 +106,7 @@ public class IC2Helper extends OresHelper {
 			}
 			if (rand.nextInt(100) + 1 <= numTrees * 2) {
 				try {
-					this.genRubTreeMethod.invoke(world, rand, chunkX * 16 + rand.nextInt(16), numTrees, chunkZ * 16 + rand.nextInt(16));
+					this.genRubTreeMethod.invoke(this.genRubTreeClassObj, world, rand, chunkX * 16 + rand.nextInt(16), numTrees, chunkZ * 16 + rand.nextInt(16));
 				} catch (IllegalAccessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

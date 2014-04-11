@@ -1,6 +1,6 @@
 package tw.oresplus.blocks;
 
-import tw.oresplus.api.OresPlusAPI;
+import tw.oresplus.api.Ores;
 import tw.oresplus.core.FuelHelper;
 import tw.oresplus.recipes.RecipeManager;
 import cpw.mods.fml.relauncher.Side;
@@ -39,7 +39,7 @@ public class ContainerCracker extends ContainerMachine {
             		if (!this.mergeItemStack(slotStack, 1, 2, false))
             			return null;
             	}
-            	else if (slotStack.getItem() == OresPlusAPI.getItem("itemBitumen")) {
+            	else if (slotStack.getItem() == Ores.getItem("itemBitumen")) {
             		if (!this.mergeItemStack(slotStack, 0, 1, false))
             			return null;
             	} 

@@ -5,7 +5,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import tw.oresplus.OresPlus;
-import tw.oresplus.api.OresPlusAPI;
+import tw.oresplus.api.Ores;
 import tw.oresplus.core.OreLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -16,7 +16,6 @@ public class BlockCore extends net.minecraft.block.Block {
 		super(material);
 		this.setBlockName(blockName); // name
 		this.setBlockTextureName(OresPlus.MOD_ID +":" + blockName); // texture
-		OresPlusAPI.registerBlock(blockName, OresPlus.MOD_ID, this);
 		if (isMeta)
 			GameRegistry.registerBlock(this, ItemBlockWithMetadata.class, blockName);
 		else

@@ -10,7 +10,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import tw.oresplus.OresPlus;
-import tw.oresplus.api.OresPlusAPI;
+import tw.oresplus.api.Ores;
 import tw.oresplus.core.OreLog;
 
 public class ItemCore extends Item{
@@ -20,7 +20,7 @@ public class ItemCore extends Item{
 		super();
 		setUnlocalizedName(itemName);
 		setTextureName(OresPlus.MOD_ID + ":" + itemName);
-		OresPlusAPI.registerItem(itemName, this);
+		Ores.registerItem(itemName, this);
 		GameRegistry.registerItem(this, itemName);
 		OreDictionary.registerOre(itemName, this);
 	}

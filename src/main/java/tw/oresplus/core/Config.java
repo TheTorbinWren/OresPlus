@@ -30,12 +30,12 @@ public class Config {
 		configFile.load();
 		
 		configFile.addCustomCategoryComment(CAT_ORES, "Ore configuration = oreEnabled,oreSource");
-		//configFile.addCustomCategoryComment(CAT_ORES, "oreEnabled = true or false   // enables or disables the ore");
-		//configFile.addCustomCategoryComment(CAT_ORES, "oreSource = DEFAULT          // sets the ore source, DEFAULT is mod gen, used to generate ores from other mods");
+		configFile.addCustomCategoryComment(CAT_ORE_GEN, "Ore generator configuration = generatorEnabled,denisty%,regenerateOre");
 		
 		OresPlus.regenKeyOre = getProp("regenKey", OresPlus.regenKeyOre, "change this to regenerate ores");
 		OresPlus.regenKeyOil = getProp("regenKeyOil", OresPlus.regenKeyOil, "change this to regenerate buildcraft oil wells");
 		OresPlus.regenKeyRubberTree = getProp("regenKeyRubberTree", OresPlus.regenKeyRubberTree, "change this to regenerate IC2 rubber trees");
+		OresPlus.regenKeyBeehives = getProp("regenKeyBeehives", OresPlus.regenKeyBeehives, "change this to regenerate Forestry beehives");
 	}
 
 	public static void save() {

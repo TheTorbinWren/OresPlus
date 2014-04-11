@@ -5,7 +5,7 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import tw.oresplus.OresPlus;
-import tw.oresplus.api.OresPlusAPI;
+import tw.oresplus.api.Ores;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -48,7 +48,7 @@ public class BlockGrinder extends BlockMachine {
     @SideOnly(Side.CLIENT)
     public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
     {
-        return Item.getItemFromBlock(OresPlusAPI.getBlock("grinder"));
+        return Item.getItemFromBlock(Ores.getBlock("grinder"));
     }
 
 }

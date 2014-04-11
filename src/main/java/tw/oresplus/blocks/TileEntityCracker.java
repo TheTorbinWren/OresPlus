@@ -3,7 +3,7 @@ package tw.oresplus.blocks;
 import java.util.LinkedList;
 
 import tw.oresplus.OresPlus;
-import tw.oresplus.api.OresPlusAPI;
+import tw.oresplus.api.Ores;
 import tw.oresplus.core.FuelHelper;
 import tw.oresplus.triggers.OresTrigger;
 import net.minecraft.block.Block;
@@ -47,7 +47,7 @@ implements IFluidHandler {
 	
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack item) {
-		return slot == 0 ? item.getItem() == OresPlusAPI.getItem("itemBitumen") : FuelHelper.isItemFuel(item);
+		return slot == 0 ? item.getItem() == Ores.getItem("itemBitumen") : FuelHelper.isItemFuel(item);
 	}
 
 	@Override
@@ -65,7 +65,7 @@ implements IFluidHandler {
 			return false;
 		
 		ItemStack item = this.currentItem != null ? this.currentItem : this.inventory[0];
-		return item.getItem() == OresPlusAPI.getItem("itemBitumen")
+		return item.getItem() == Ores.getItem("itemBitumen")
 			&& this.tank.getFluidAmount() < this.tank.getCapacity();
 	}
 

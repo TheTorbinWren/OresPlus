@@ -1,6 +1,6 @@
 package tw.oresplus.core;
 
-import tw.oresplus.ores.OreGenType;
+import tw.oresplus.worldgen.OreGenType;
 
 public class OreGenClass {
 	public String name;

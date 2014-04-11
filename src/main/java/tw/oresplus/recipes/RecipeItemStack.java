@@ -11,22 +11,31 @@ public class RecipeItemStack implements IRecipeInput {
 	private ItemStack source;
 	
 	public RecipeItemStack(ItemStack input) {
-		this.source = input.copy();
-		this.source.stackSize = input.stackSize;
+		if (input == null) {
+			this.source = null;
+		}
+		else {
+			this.source = input.copy();
+			this.source.stackSize = 1;
+		}
 	}
 	
-	public RecipeItemStack(Item input, int amount) {
-		this.source = new ItemStack(input, amount);
+	public RecipeItemStack(Item input) {
+		this(new ItemStack(input, 1));
 	}
 	
-	public RecipeItemStack(Block input, int amount) {
-		this.source = new ItemStack(input, amount);
+	public RecipeItemStack(Item input, int damageValue) {
+		this(new ItemStack(input, 1, damageValue));
 	}
 	
-	public RecipeItemStack() {
-		this.source = null;
+	public RecipeItemStack(Block input) {
+		this(new ItemStack(input, 1));
 	}
-
+	
+	public RecipeItemStack(Block input, int meta) {
+		this(new ItemStack(input, 1, meta));
+	}
+	
 	@Override
 	public boolean matches(ItemStack subject) {
 		// TODO Auto-generated method stub
@@ -46,15 +55,15 @@ public class RecipeItemStack implements IRecipeInput {
 	}
 
 	public ItemStack getSource() {
+		return this.getSource(1);
+	}
+	
+	public ItemStack getSource(int size) {
+		if (this.source == null) {
+			return null;
+		}
+		this.source.stackSize = size;
 		return this.source.copy();
 	}
 	
-	public void setStackSize(int size) {
-		this.source.stackSize = size;
-	}
-	
-	public void setSource(ItemStack stack) {
-		this.source = stack;
-		this.source.stackSize = stack.stackSize;
-	}
 }

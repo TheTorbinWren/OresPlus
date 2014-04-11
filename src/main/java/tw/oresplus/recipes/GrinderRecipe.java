@@ -15,7 +15,7 @@ public class GrinderRecipe {
 	public GrinderRecipe(Object source, ItemStack result) {
 		this._sourceList.add(source);
 		this._result = result;
-		RecipeManager.grinderRecipes.add(this);
+		//RecipeManager.grinderRecipes.add(this);
 	}
 
 	public boolean hasSource(Object source) {

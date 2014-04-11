@@ -2,9 +2,9 @@ package tw.oresplus.core;
 
 import net.minecraft.nbt.NBTTagCompound;
 import tw.oresplus.OresPlus;
-import tw.oresplus.api.OresPlusAPI;
+import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.Blocks;
-import tw.oresplus.ores.OreGenType;
+import tw.oresplus.worldgen.OreGenType;
 import tw.oresplus.worldgen.WorldGenOre;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
@@ -20,12 +20,12 @@ public class IMCHandler {
 					break;
 				NBTTagCompound messageData = message.getNBTValue();
 				if (message.key.equals("registerOre")) {
-					if (!messageData.getString("oreName").equals("") && !OresPlusAPI.isBlockRegistered(messageData.getString("oreName"))) {
-						OresPlusAPI.registerBlock(messageData.getString("oreName"), message.getSender(), GameRegistry.findBlock(message.getSender(), messageData.getString("oreName")));
+					if (!messageData.getString("oreName").equals("") && !Ores.isBlockRegistered(messageData.getString("oreName"))) {
+						Ores.registerBlock(messageData.getString("oreName"), message.getSender(), GameRegistry.findBlock(message.getSender(), messageData.getString("oreName")));
 					}
 				}
 				else if (message.key.equals("registerGenerator")) {
-					if (!messageData.getString("oreName").equals("") && !OresPlusAPI.isBlockRegistered(messageData.getString("oreName"))) {
+					if (!messageData.getString("oreName").equals("") && !Ores.isBlockRegistered(messageData.getString("oreName"))) {
 						OreGenClass oreGen = new OreGenClass(
 								messageData.getString("genName"),
 								messageData.getString("oreName"), 

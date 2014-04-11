@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import tw.oresplus.OresPlus;
-import tw.oresplus.api.OresPlusAPI;
+import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.Blocks;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -35,7 +35,7 @@ public class BCHelper extends OresHelper {
 		if (this.isEnergyLoaded()) {
 			Block blockOil = this.getBlock("blockOil");
 			if (blockOil != null)
-				OresPlusAPI.registerBlock("blockOil", "BuildCraft", blockOil);
+				Ores.registerBlock("blockOil", "BuildCraft", blockOil);
 			
 			try {
 				this.genOilClass = Class.forName("buildcraft.energy.worldgen.OilPopulate");

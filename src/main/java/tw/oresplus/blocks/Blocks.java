@@ -6,27 +6,38 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
+import cpw.mods.fml.common.event.FMLMissingMappingsEvent.Action;
+import cpw.mods.fml.common.event.FMLMissingMappingsEvent.MissingMapping;
 import cpw.mods.fml.common.event.FMLModIdMappingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import tw.oresplus.OresPlus;
-import tw.oresplus.api.OresPlusAPI;
+import tw.oresplus.api.Ores;
 import tw.oresplus.core.Config;
 import tw.oresplus.core.OreClass;
 import tw.oresplus.core.OreLog;
+import tw.oresplus.ores.DustOres;
+import tw.oresplus.ores.GemstoneOres;
 import tw.oresplus.ores.MetallicOres;
 import tw.oresplus.ores.OreDrops;
-import tw.oresplus.ores.OresClassic;
+import tw.oresplus.ores.GeneralOres;
+import tw.oresplus.recipes.RecipeManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class Blocks {
 	private static boolean isInitialized = false;
+	
+	public static ItemStack grinder;
+	public static ItemStack grinder_lit;
+	public static ItemStack cracker;
+	public static ItemStack cracker_lit;
 	
 	public static void init() {
 		if (isInitialized) {
@@ -39,31 +50,42 @@ public class Blocks {
 			ore.registerBlocks();
 		}
 		
-		OresPlusAPI.registerBlock("oreIron", "minecraft", net.minecraft.init.Blocks.iron_ore);
-		OresPlusAPI.registerBlock("oreGold", "minecraft", net.minecraft.init.Blocks.gold_ore);
-		OresPlusAPI.registerBlock("oreLapis", "minecraft", net.minecraft.init.Blocks.lapis_ore);
-		OresPlusAPI.registerBlock("oreRedstone", "minecraft", net.minecraft.init.Blocks.redstone_ore);
-		OresPlusAPI.registerBlock("oreDiamond", "minecraft", net.minecraft.init.Blocks.diamond_ore);
-		//blockList.put("oreEmerald", new BlockInfo("minecraft", net.minecraft.init.Blocks.emerald_ore));
-		OresPlusAPI.registerBlock("oreQuartz", "minecraft", net.minecraft.init.Blocks.quartz_ore);
-		OresPlusAPI.registerBlock("oreCoal", "minecraft", net.minecraft.init.Blocks.coal_ore);
-		
-		for (OresClassic ore : OresClassic.values()) {
-			OreClass oreConfig = Config.getOre(ore.getDefaultConfig());
-			if (oreConfig.enabled)
-				new BlockOre(oreConfig);
+		for (GemstoneOres ore : GemstoneOres.values()) {
+			ore.registerBlocks();
 		}
 		
-		new BlockGrinder(false);
-		new BlockGrinder(true);
-		new BlockCracker();
+		for (DustOres ore : DustOres.values()) {
+			ore.registerBlocks();
+		}
+		
+		for (GeneralOres ore : GeneralOres.values()) {
+			ore.RegisterBlocks();
+		}
+		
+		// register machine blocks
+		grinder = new ItemStack(new BlockGrinder(false), 1);
+		grinder_lit = new ItemStack(new BlockGrinder(true), 1);
+		RecipeManager.hideItem(grinder_lit);
+		
+		cracker = new ItemStack(new BlockCracker(false), 1);
+		cracker_lit = new ItemStack(new BlockCracker(true), 1);
+		RecipeManager.hideItem(cracker_lit);
+		
+		// register vanilla ores for custom ore generators
+		Ores.manager.registerOre("oreIron", net.minecraft.init.Blocks.iron_ore);
+		Ores.manager.registerOre("oreGold", net.minecraft.init.Blocks.gold_ore);
+		Ores.manager.registerOre("oreDiamond", net.minecraft.init.Blocks.diamond_ore);
+		Ores.manager.registerOre("oreEmerald", net.minecraft.init.Blocks.emerald_ore);
+		Ores.manager.registerOre("oreLapis",  net.minecraft.init.Blocks.lapis_ore);
+		Ores.manager.registerOre("oreQuartz", net.minecraft.init.Blocks.quartz_ore);
+		Ores.manager.registerOre("oreCoal", net.minecraft.init.Blocks.coal_ore);
 		
 		isInitialized=true;
 	}
 	
 	public static Block getBlock(String blockName) {
 		try {
-			return OresPlusAPI.getBlock(blockName);
+			return Ores.getBlock(blockName);
 		} catch (Throwable e){
 			return null;
 		}
@@ -76,6 +98,11 @@ public class Blocks {
 
 	public static void handleMissingMaps(FMLMissingMappingsEvent event) {
 		OresPlus.log.info("recieved missing maps event");
+		for (MissingMapping map : event.get()) {
+			OresPlus.log.info("Missing Mapping for " + map.name);
+			if (map.name.startsWith("OresPlus:netherOre"))
+				map.setAction(Action.IGNORE);
+		}
 	}
 	
 }

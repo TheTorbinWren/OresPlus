@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import tw.oresplus.OresPlus;
 import tw.oresplus.blocks.Blocks;
-import tw.oresplus.ores.OreGenType;
+import tw.oresplus.worldgen.OreGenType;
 import tw.oresplus.worldgen.WorldGenOre;
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
@@ -50,6 +50,15 @@ public class OreEventHandler {
 			chunks.add(event.getChunk().getChunkCoordIntPair());
 			TickHandler.rubberTreeRegenList.put(Integer.valueOf(dim), chunks);
 		}
+		
+		if (!OresPlus.regenKeyBeehives.equals("DISABLED") && !oresPlusRegen.getString("beehives").equals(OresPlus.regenKeyBeehives)) {
+			int dim = event.world.provider.dimensionId;
+			ArrayList chunks = TickHandler.beehiveRegenList.get(Integer.valueOf(dim));
+			if (chunks == null)
+				chunks = new ArrayList();
+			chunks.add(event.getChunk().getChunkCoordIntPair());
+			TickHandler.beehiveRegenList.put(Integer.valueOf(dim), chunks);
+		}
 	}
 
 	@SubscribeEvent
@@ -58,6 +67,7 @@ public class OreEventHandler {
 		oresPlusRegen.setString("ores", OresPlus.regenKeyOre);
 		oresPlusRegen.setString("oil", OresPlus.regenKeyOil);
 		oresPlusRegen.setString("rubberTree", OresPlus.regenKeyRubberTree);
+		oresPlusRegen.setString("beehives", OresPlus.regenKeyBeehives);
 		event.getData().setTag("OresPlus", oresPlusRegen);
 	}
 	

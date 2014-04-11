@@ -16,6 +16,7 @@ public class TickHandler {
 	public static HashMap<Integer, ArrayList<ChunkCoordIntPair>> oreRegenList = new HashMap();
 	public static HashMap<Integer, ArrayList<ChunkCoordIntPair>> oilRegenList = new HashMap();
 	public static HashMap<Integer, ArrayList<ChunkCoordIntPair>> rubberTreeRegenList = new HashMap();
+	public static HashMap<Integer, ArrayList<ChunkCoordIntPair>> beehiveRegenList = new HashMap();
 	
 	@SubscribeEvent
 	public boolean onWorldTick(TickEvent.WorldTickEvent event) {
@@ -49,6 +50,17 @@ public class TickHandler {
 				Helpers.IC2.generate(event.world, event.world.rand, chunk.xPosition, chunk.zPosition);
 				chunks.remove(0);
 				rubberTreeRegenList.put(Integer.valueOf(dim), chunks);
+			}
+		}
+		
+		if (Helpers.Forestry.isLoaded()) {
+			chunks = beehiveRegenList.get(Integer.valueOf(dim));
+			if (chunks != null && !chunks.isEmpty()) {
+				ChunkCoordIntPair coords = (ChunkCoordIntPair) chunks.get(0);
+				Chunk chunk = event.world.getChunkFromChunkCoords(coords.chunkXPos, coords.chunkZPos);
+				Helpers.Forestry.generate(event.world, event.world.rand, chunk.xPosition, chunk.zPosition);
+				chunks.remove(0);
+				beehiveRegenList.put(Integer.valueOf(dim), chunks);
 			}
 		}
 		

@@ -20,7 +20,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.common.registry.GameRegistry;
-import tw.oresplus.api.OresPlusAPI;
+import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.BlockCore;
 import tw.oresplus.blocks.Blocks;
 import tw.oresplus.blocks.TileEntityCracker;
@@ -39,14 +39,16 @@ import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.fluids.Fluids;
 import tw.oresplus.items.ItemCore;
 import tw.oresplus.items.Items;
-import tw.oresplus.ores.OreGenerators;
+import tw.oresplus.network.NetHandler;
+import tw.oresplus.ores.OreManager;
 import tw.oresplus.recipes.RecipeManager;
 import tw.oresplus.triggers.OresTrigger;
 import tw.oresplus.triggers.TriggerProvider;
+import tw.oresplus.worldgen.OreGenerators;
 import tw.oresplus.worldgen.WorldGenCore;
 import tw.oresplus.worldgen.WorldGenOre;
 
-@Mod(modid = OresPlus.MOD_ID, name = OresPlus.MOD_NAME, version = OresPlus.MOD_VERSION, dependencies="required-after:Forge@10.12.0.1033")
+@Mod(modid = OresPlus.MOD_ID, name = OresPlus.MOD_NAME, version = OresPlus.MOD_VERSION, dependencies="required-after:Forge@10.12.0.1040")
 public class OresPlus {
 	
 	@SidedProxy(clientSide="tw.oresplus.client.ClientProxy", serverSide="tw.oresplus.core.ServerProxy") 
@@ -54,7 +56,7 @@ public class OresPlus {
 	
     public static final String MOD_ID = "OresPlus";
     public static final String MOD_NAME = "OresPlus";
-    public static final String MOD_VERSION = "0.3.16 Beta";
+    public static final String MOD_VERSION = "0.4.23 Beta";
     
 	@Instance(OresPlus.MOD_ID)
 	public static OresPlus instance;
@@ -65,6 +67,7 @@ public class OresPlus {
     public static String regenKeyOre = "DISABLED";
     public static String regenKeyOil = "DISABLED";
     public static String regenKeyRubberTree = "DISABLED";
+    public static String regenKeyBeehives = "DISABLED";
     
     public static WorldGenCore worldGen = new WorldGenCore();
     public static OreEventHandler eventHandler = new OreEventHandler();
@@ -74,8 +77,15 @@ public class OresPlus {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
     	log.init();
-    	config.init(event);
+    	
+		RecipeManager.init();
+
+		config.init(event);
 		config.load();
+		
+		NetHandler.instance.preInit();
+		
+		Ores.manager = new OreManager();
 		
     	Blocks.init();
     	Items.init();
@@ -85,7 +95,7 @@ public class OresPlus {
     	log.info("Registering Ore Generators");
     	for (OreGenerators oreGen : OreGenerators.values()) {
     		OreGenClass ore = Config.getOreGen(oreGen.getDefaultConfig());
-    		if (ore.enabled && (OresPlusAPI.getBlock(ore.oreName) != null)) 
+    		if (ore.enabled && (Ores.getBlock(ore.oreName) != null)) 
    				new WorldGenOre(ore);
     	}
 		config.save();
@@ -109,6 +119,8 @@ public class OresPlus {
     	OresTrigger.registerTriggers();
     	ActionManager.registerTriggerProvider(new TriggerProvider());
     	
+    	NetHandler.instance.init();
+    	
     	/* OreDictionaty dump
     	for (String ore : OreDictionary.getOreNames()) {
     		log.info(ore);
@@ -121,6 +133,8 @@ public class OresPlus {
     	for (Helpers helper : Helpers.values()) {
     		helper.init();
     	}
+    	
+    	RecipeManager.replaceRecipeResults();
     }
     
     @EventHandler

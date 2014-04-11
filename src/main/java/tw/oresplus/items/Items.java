@@ -7,8 +7,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import tw.oresplus.OresPlus;
 import tw.oresplus.core.OreLog;
+import tw.oresplus.ores.DustOres;
+import tw.oresplus.ores.GemstoneOres;
 import tw.oresplus.ores.MetallicOres;
-import tw.oresplus.ores.OreItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.oredict.OreDictionary;
@@ -29,8 +30,16 @@ public class Items {
 				ore.registerItems();
 			}
 			
+			for (GemstoneOres ore : GemstoneOres.values()) {
+				ore.registerItems();
+			}
+			
+			for (DustOres ore : DustOres.values()) {
+				ore.registerItems();
+			}
+			
 			for (OreItems item : OreItems.values()) {
-				new ItemCore(item.name()).setCreativeTab(CreativeTabs.tabMaterials);
+				item.registerItems();;
 			}
 			
 			isInitialized = true;

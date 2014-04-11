@@ -5,10 +5,9 @@ import java.util.Collection;
 import java.util.Random;
 
 import tw.oresplus.OresPlus;
-import tw.oresplus.api.OresPlusAPI;
+import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.Blocks;
 import tw.oresplus.core.OreGenClass;
-import tw.oresplus.ores.OreGenType;
 import net.minecraft.block.Block;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -25,7 +24,7 @@ public class WorldGenOre {
 
 	public WorldGenOre(OreGenClass genOre) {
 		this.ore = genOre;
-		this.block = OresPlusAPI.getBlock(genOre.oreName);
+		this.block = Ores.manager.getOre(genOre.oreName);
 		this.doRegen = genOre.doRegen;
 		switch(genOre.dimension)
 		{
@@ -72,10 +71,10 @@ public class WorldGenOre {
 			return false;
 		if (this.biomeList.isEmpty() || this.biomeList.contains(biomeName)) {
 			int actualVeins = this.ore.numVeins * this.ore.density / 100;
-			int seaLevel = world.provider.getHeight() + 1;
+			int seaLevel = world.provider.getAverageGroundLevel() + 1;
 			for (int a=0; a<actualVeins; a++){
 				int x = chunkX + random.nextInt(16);
-				int y = random.nextInt(this.ore.maxY - this.ore.minY) + this.ore.minY * seaLevel / 64;
+				int y = (random.nextInt(this.ore.maxY - this.ore.minY) + this.ore.minY) * seaLevel / 64;
 				int z = chunkZ + random.nextInt(16);
 				
 				switch (ore.veinSize) {

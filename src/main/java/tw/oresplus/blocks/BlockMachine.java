@@ -18,7 +18,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import tw.oresplus.OresPlus;
-import tw.oresplus.api.OresPlusAPI;
+import tw.oresplus.api.Ores;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -200,9 +200,9 @@ implements ITileEntityProvider {
     	isLocked = true;
     	if (te instanceof TileEntityGrinder) {
 	    	if (isBurning) 
-	    		world.setBlock(x, y, z, OresPlusAPI.getBlock("grinderLit"));
+	    		world.setBlock(x, y, z, Ores.getBlock("grinderLit"));
 	    	else 
-	    		world.setBlock(x, y, z, OresPlusAPI.getBlock("grinder"));
+	    		world.setBlock(x, y, z, Ores.getBlock("grinder"));
     	}
     	isLocked = false;
     	
