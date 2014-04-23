@@ -34,10 +34,7 @@ public class AppEngHelper extends OresHelper {
 	}
 
 	@Override
-	public void generate(World world, Random rand, int chunkX, int chunkZ) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void generate(World world, Random rand, int chunkX, int chunkZ) { }
 
 	@Override
 	public void registerRecipe(String recipeType, ItemStack input,
