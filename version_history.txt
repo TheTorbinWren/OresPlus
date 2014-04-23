@@ -11,6 +11,7 @@ v0.5.27 Beta
 --added armor & weapons for Adamantine, Cold Iron & Mithral
 --increased precious gemstone generator amounts (haven't found a single ore in months of testing)
 --added thaumcraft integration
+--made ore regeneration by per ore basis
 
 v0.4.24-5.26 Betas
 -the lost versions

@@ -1,5 +1,8 @@
 package tw.oresplus.worldgen;
 
+import tw.oresplus.api.Ores;
+import tw.oresplus.core.Config;
+
 
 public enum OreGenerators {
 	Adamantine("oreAdamantine", 0, 1, 4, 0, 25),
@@ -94,6 +97,8 @@ public enum OreGenerators {
 	private OreGenType _genType;
 	private int _density;
 	
+	public WorldGenOre generator;
+	
 	private OreGenerators(String oreName, int dimension, int numVeins, 
 			int veinSize, int minY, int maxY) {
 		this(oreName, dimension, numVeins, veinSize, minY, maxY, OreGenType.NORMAL);
@@ -118,5 +123,11 @@ public enum OreGenerators {
 		return new OreGenClass(this.name(), this._oreName, this._enabled, 
 				this._dimension, this._numVeins, this._veinSize, this._minY, 
 				this._maxY, this._enableRegen, this._genType, this._density, "DISABLED");
+	}
+	
+	public void registerGenerator() {
+		OreGenClass oreGen = Config.getOreGen(getDefaultConfig());
+		if (this._enabled && Ores.manager.isOreRegistered(this._oreName)) 
+			this.generator = new WorldGenOre(oreGen);
 	}
 }

@@ -106,10 +106,9 @@ public class OresPlus {
     	//Register Ore Generators
     	log.info("Registering Ore Generators");
     	for (OreGenerators oreGen : OreGenerators.values()) {
-    		OreGenClass ore = Config.getOreGen(oreGen.getDefaultConfig());
-    		if (ore.enabled && (Ores.getBlock(ore.oreName) != null)) 
-   				new WorldGenOre(ore);
+    		oreGen.registerGenerator();
     	}
+    	
 		config.save();
 		
 		// Initialize Integration Helpers

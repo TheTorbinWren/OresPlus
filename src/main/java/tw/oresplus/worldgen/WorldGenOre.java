@@ -2,6 +2,7 @@ package tw.oresplus.worldgen;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Random;
 
 import tw.oresplus.OresPlus;
@@ -9,6 +10,7 @@ import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.Blocks;
 import net.minecraft.block.Block;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -19,12 +21,17 @@ public class WorldGenOre {
 	Block block;		// block to generate
 	Block target;
 	public boolean doRegen;
+	public String regenKey;
+	public int dimension;
 	public Collection<String> biomeList;
+	public HashMap<Integer, ArrayList<ChunkCoordIntPair>> regenList = new HashMap();
 
 	public WorldGenOre(OreGenClass genOre) {
 		this.ore = genOre;
 		this.block = Ores.manager.getOre(genOre.oreName);
 		this.doRegen = genOre.doRegen;
+		this.regenKey = genOre.regenKey;
+		this.dimension = genOre.dimension;
 		switch(genOre.dimension)
 		{
 		case -1:

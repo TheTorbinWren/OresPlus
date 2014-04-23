@@ -7,6 +7,7 @@ import java.util.HashMap;
 import tw.oresplus.OresPlus;
 import tw.oresplus.core.helpers.BCHelper;
 import tw.oresplus.core.helpers.Helpers;
+import tw.oresplus.worldgen.OreGenerators;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.chunk.Chunk;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -22,43 +23,58 @@ public class TickHandler {
 	public boolean onWorldTick(TickEvent.WorldTickEvent event) {
 		int dim = event.world.provider.dimensionId;
 		
-		ArrayList chunks = oreRegenList.get(Integer.valueOf(dim));
-		if (chunks != null && !chunks.isEmpty()) {
-			ChunkCoordIntPair coords = (ChunkCoordIntPair) chunks.get(0);
-			Chunk chunk = event.world.getChunkFromChunkCoords(coords.chunkXPos, coords.chunkZPos);
-			OresPlus.worldGen.doWorldGen(event.world.rand, event.world, chunk.xPosition, chunk.zPosition, false);
-			chunks.remove(0);
-			oreRegenList.put(Integer.valueOf(dim), chunks);
-		}
+	    for (OreGenerators oreGen : OreGenerators.values()) {
+	        ArrayList chunks = (ArrayList)oreGen.generator.regenList.get(Integer.valueOf(dim));
+	        if ((chunks != null) && (!chunks.isEmpty())) {
+	          ChunkCoordIntPair coords = (ChunkCoordIntPair)chunks.get(0);
+	          oreGen.generator.generate(event.world, event.world.rand, coords.chunkXPos, coords.chunkZPos);
+	          event.world.getChunkFromChunkCoords(coords.chunkXPos, coords.chunkZPos).setChunkModified();;
+	          if (OresPlus.logRegenerations) {
+	            OreLog.info("Regenerated " + oreGen.toString() + " at chunk " + coords.chunkXPos + "," + coords.chunkZPos);
+	          }
+	          chunks.remove(0);
+	          oreGen.generator.regenList.put(Integer.valueOf(dim), chunks);
+	        }
+
+	      }
 		
 		if (Helpers.BuildCraft.isLoaded()) {
-			chunks = oilRegenList.get(Integer.valueOf(dim));
+			ArrayList chunks = oilRegenList.get(Integer.valueOf(dim));
 			if (chunks != null && !chunks.isEmpty()) {
 				ChunkCoordIntPair coords = (ChunkCoordIntPair) chunks.get(0);
 				Chunk chunk = event.world.getChunkFromChunkCoords(coords.chunkXPos, coords.chunkZPos);
 				Helpers.BuildCraft.generate(event.world, event.world.rand, chunk.xPosition, chunk.zPosition);
+		        if (OresPlus.logRegenerations) {
+		            OreLog.info("Regenerated oil at chunk " + coords.chunkXPos + "," + coords.chunkZPos);
+		          }
 				chunks.remove(0);
 				oilRegenList.put(Integer.valueOf(dim), chunks);
 			}
 		}
 		
 		if (Helpers.IC2.isLoaded()) {
-			chunks = rubberTreeRegenList.get(Integer.valueOf(dim));
+			ArrayList chunks = rubberTreeRegenList.get(Integer.valueOf(dim));
 			if (chunks != null && !chunks.isEmpty()) {
 				ChunkCoordIntPair coords = (ChunkCoordIntPair) chunks.get(0);
 				Chunk chunk = event.world.getChunkFromChunkCoords(coords.chunkXPos, coords.chunkZPos);
 				Helpers.IC2.generate(event.world, event.world.rand, chunk.xPosition, chunk.zPosition);
+		        if (OresPlus.logRegenerations) {
+		            OreLog.info("Regenerated rubber trees at chunk " + coords.chunkXPos + "," + coords.chunkZPos);
+		          }
 				chunks.remove(0);
 				rubberTreeRegenList.put(Integer.valueOf(dim), chunks);
 			}
 		}
 		
 		if (Helpers.Forestry.isLoaded()) {
-			chunks = beehiveRegenList.get(Integer.valueOf(dim));
+			ArrayList chunks = beehiveRegenList.get(Integer.valueOf(dim));
 			if (chunks != null && !chunks.isEmpty()) {
 				ChunkCoordIntPair coords = (ChunkCoordIntPair) chunks.get(0);
 				Chunk chunk = event.world.getChunkFromChunkCoords(coords.chunkXPos, coords.chunkZPos);
 				Helpers.Forestry.generate(event.world, event.world.rand, chunk.xPosition, chunk.zPosition);
+		        if (OresPlus.logRegenerations) {
+		            OreLog.info("Regenerated beehives at chunk " + coords.chunkXPos + "," + coords.chunkZPos);
+		          }
 				chunks.remove(0);
 				beehiveRegenList.put(Integer.valueOf(dim), chunks);
 			}

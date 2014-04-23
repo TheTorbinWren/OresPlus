@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import tw.oresplus.OresPlus;
 import tw.oresplus.blocks.Blocks;
 import tw.oresplus.worldgen.OreGenType;
+import tw.oresplus.worldgen.OreGenerators;
 import tw.oresplus.worldgen.WorldGenOre;
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
@@ -12,6 +13,7 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable;
 import net.minecraftforge.event.world.ChunkDataEvent;
 
@@ -24,14 +26,23 @@ public class OreEventHandler {
 			oresPlusRegen.setString("ores", event.getData().getString("OresPlus:regenKey"));
 		}
 		
-		if (!OresPlus.regenKeyOre.equals("DISABLED") && !oresPlusRegen.getString("ores").equals(OresPlus.regenKeyOre)) {
-			int dim = event.world.provider.dimensionId;
-			ArrayList chunks = TickHandler.oreRegenList.get(Integer.valueOf(dim));
-			if (chunks == null)
-				chunks = new ArrayList();
-			chunks.add(event.getChunk().getChunkCoordIntPair());
-			TickHandler.oreRegenList.put(Integer.valueOf(dim), chunks);
-		}
+	    NBTTagCompound oreRegenArray = oresPlusRegen.getCompoundTag("oreRegenArray");
+	    for (OreGenerators oreGen : OreGenerators.values()) {
+	      String oreRegenKey = oreRegenArray.getString(oreGen.toString());
+	      if (oreRegenKey.equals("")) {
+	        oreRegenKey = oresPlusRegen.getString("ores");
+	      }
+	      if ((oreGen.generator.doRegen) && (!oreGen.generator.regenKey.equals(oreRegenKey))) {
+	        int dim = event.world.provider.dimensionId;
+	        if (oreGen.generator.dimension == dim) {
+	          ArrayList<ChunkCoordIntPair> chunks = (ArrayList)oreGen.generator.regenList.get(Integer.valueOf(dim));
+	          if (chunks == null)
+	            chunks = new ArrayList();
+	          chunks.add(event.getChunk().getChunkCoordIntPair());
+	          oreGen.generator.regenList.put(Integer.valueOf(dim), chunks);
+	        }
+	      }
+	    }
 		
 		if (!OresPlus.regenKeyOil.equals("DISABLED") && !oresPlusRegen.getString("oil").equals(OresPlus.regenKeyOil)) {
 			int dim = event.world.provider.dimensionId;
