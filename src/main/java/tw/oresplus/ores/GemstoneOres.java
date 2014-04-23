@@ -169,4 +169,9 @@ public enum GemstoneOres implements IOres {
 		}
 	}
 
+	public void registerAspects() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

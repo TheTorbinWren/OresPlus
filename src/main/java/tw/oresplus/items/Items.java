@@ -5,8 +5,11 @@ import java.util.HashMap;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.AspectList;
 import tw.oresplus.OresPlus;
 import tw.oresplus.core.OreLog;
+import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.ores.DustOres;
 import tw.oresplus.ores.GemstoneOres;
 import tw.oresplus.ores.MetallicOres;
@@ -110,6 +113,38 @@ public class Items {
 		    toolMithralSword = new OreItemStack(new OreSword("toolMithralSword", toolMithral));
 
 			isInitialized = true;
+		}
+	}
+
+	public static void registerAspects() {
+		if (Helpers.ThaumCraft.isLoaded()) {
+			ThaumcraftApi.registerObjectTag(armorAdamantineHelmet.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(armorAdamantineChestplate.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(armorAdamantineLeggings.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(armorAdamantineBoots.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(armorColdironHelmet.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(armorColdironChestplate.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(armorColdironLeggings.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(armorColdironBoots.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(armorMithralHelmet.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(armorMithralChestplate.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(armorMithralLeggings.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(armorMithralBoots.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolAdamantineAxe.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolAdamantineHoe.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolAdamantinePickaxe.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolAdamantineSpade.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolAdamantineSword.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolColdironAxe.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolColdironHoe.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolColdironPickaxe.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolColdironSpade.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolColdironSword.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolMithralAxe.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolMithralHoe.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolMithralPickaxe.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolMithralSpade.source, new AspectList());
+			ThaumcraftApi.registerObjectTag(toolMithralSword.source, new AspectList());
 		}
 	}
 }

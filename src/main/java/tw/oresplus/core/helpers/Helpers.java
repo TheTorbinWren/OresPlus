@@ -14,7 +14,6 @@ public enum Helpers {
 	Forestry(new ForestryHelper()),
 	GregTech(new GTHelper()),
 	IC2(new IC2Helper()),
-	NetherOres(new NOHelper()),
 	RailCraft(new RCHelper()),
 	ThaumCraft(new TCHelper()),
 	ThermalExpansion(new TEHelper());

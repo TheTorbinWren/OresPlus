@@ -20,6 +20,7 @@ public class TEHelper extends OresHelper {
 			OresPlus.log.info("ThermalExpansion not found, helper disabled");
 			return;
 		}
+		OresPlus.log.info("ThermalExpeansion found, helper initialized");
 	}
 
 	@Override

@@ -12,6 +12,8 @@ import cpw.mods.fml.common.event.FMLModIdMappingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.AspectList;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.core.Config;
@@ -84,14 +86,6 @@ public class Blocks {
 		isInitialized=true;
 	}
 	
-	public static Block getBlock(String blockName) {
-		try {
-			return Ores.getBlock(blockName);
-		} catch (Throwable e){
-			return null;
-		}
-	}
-
 	public static void handleRemaps(FMLModIdMappingEvent event) {
 		OresPlus.log.info("recieved remap event");
 		
@@ -102,8 +96,13 @@ public class Blocks {
 		for (MissingMapping map : event.get()) {
 			OresPlus.log.info("Missing Mapping for " + map.name);
 			if (map.name.startsWith("OresPlus:netherOre"))
-				map.setAction(Action.IGNORE);
+				map.ignore();;
 		}
+	}
+
+	public static void registerAspects() {
+	    ThaumcraftApi.registerObjectTag(cracker.source, new AspectList());
+	    ThaumcraftApi.registerObjectTag(grinder.source, new AspectList());
 	}
 	
 }

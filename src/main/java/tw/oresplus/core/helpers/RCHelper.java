@@ -20,6 +20,7 @@ public class RCHelper extends OresHelper {
 			OresPlus.log.info("Railcraft not found, helper disabled");
 			return;
 		}
+		OresPlus.log.info("RailCraft found, helper initialized");
 	}
 
 	@Override

@@ -12,4 +12,6 @@ public interface IOres {
 	public void registerItems();
 	
 	public void registerRecipes();
+	
+	public void registerAspects();
 }

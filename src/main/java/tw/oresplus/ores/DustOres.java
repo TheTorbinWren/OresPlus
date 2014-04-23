@@ -125,4 +125,10 @@ public enum DustOres implements IOres {
 		RecipeManager.addShapelessRecipe(dustStack.newStack(9), oreBlockStack.newStack());
 	}
 
+	@Override
+	public void registerAspects() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

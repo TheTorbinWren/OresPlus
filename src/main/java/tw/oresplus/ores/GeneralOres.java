@@ -6,7 +6,7 @@ import tw.oresplus.core.Config;
 import tw.oresplus.core.OreClass;
 import tw.oresplus.recipes.OreItemStack;
 
-public enum GeneralOres {
+public enum GeneralOres implements IOres {
 	Bauxite (1),
 	Bitumen (1, OreDrops.BITUMEN),
 	Cassiterite (2),
@@ -80,6 +80,36 @@ public enum GeneralOres {
 		OreClass oreConfig = Config.getOre(this.getDefaultConfig());
 		if (oreConfig.enabled)
 			this.ore = new OreItemStack(new BlockOre(oreConfig));
+		
+	}
+
+	@Override
+	public OreClass getDefaultConfigNether() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void registerBlocks() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void registerItems() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void registerRecipes() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void registerAspects() {
+		// TODO Auto-generated method stub
 		
 	}
 }

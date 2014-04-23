@@ -277,4 +277,9 @@ public enum MetallicOres implements IOres {
 		// add dust -> tiny dust recipe
 		RecipeManager.addShapelessRecipe(this.tinyDust.newStack(9), this.dust.newStack());
 	}
+
+	public void registerAspects() {
+		// TODO Auto-generated method stub
+		
+	}
 }

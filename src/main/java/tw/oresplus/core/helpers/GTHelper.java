@@ -20,6 +20,8 @@ public class GTHelper extends OresHelper {
 			OresPlus.log.info("gregtech_addon not found, helper disabled");
 			return;
 		}
+		
+		OresPlus.log.info("gregtech_addon found, helper initialized");
 	}
 
 	@Override
