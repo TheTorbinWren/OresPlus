@@ -1,5 +1,6 @@
 package tw.oresplus.items;
 
+import thaumcraft.api.aspects.AspectList;
 import tw.oresplus.recipes.OreItemStack;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -29,8 +30,22 @@ public enum OreItems {
 	itemBitumen;
 	
 	public OreItemStack item;
+	private AspectList _aspects;
+	
+	private OreItems(AspectList aspects) {
+		this._aspects = aspects;
+	}
+	
+	private OreItems() {
+		this(new AspectList());
+	}
 	
 	public void registerItems() {
 		item = new OreItemStack(new ItemCore(this.toString()).setCreativeTab(CreativeTabs.tabMaterials));
+	}
+
+	public void registerAspects() {
+		// TODO Auto-generated method stub
+		
 	}
 }

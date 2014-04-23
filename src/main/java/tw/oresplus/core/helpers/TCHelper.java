@@ -7,6 +7,7 @@ import thaumcraft.api.aspects.AspectList;
 import tw.oresplus.OresPlus;
 import tw.oresplus.blocks.Blocks;
 import tw.oresplus.items.Items;
+import tw.oresplus.items.OreItems;
 import tw.oresplus.ores.DustOres;
 import tw.oresplus.ores.GemstoneOres;
 import tw.oresplus.ores.GeneralOres;
@@ -42,6 +43,10 @@ public class TCHelper extends OresHelper {
 
 	    for (GeneralOres ore : GeneralOres.values()) {
 	        ore.registerAspects();
+	    }
+	    
+	    for (OreItems item : OreItems.values()) {
+	    	item.registerAspects();
 	    }
 
 	    Blocks.registerAspects();

@@ -62,7 +62,7 @@ public class Blocks {
 		}
 		
 		for (GeneralOres ore : GeneralOres.values()) {
-			ore.RegisterBlocks();
+			ore.registerBlocks();
 		}
 		
 		// register machine blocks

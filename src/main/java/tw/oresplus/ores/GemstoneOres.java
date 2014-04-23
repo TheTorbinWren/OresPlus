@@ -5,6 +5,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import scala.reflect.internal.Trees.This;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.BlockCore;
 import tw.oresplus.blocks.BlockOre;
@@ -170,8 +173,24 @@ public enum GemstoneOres implements IOres {
 	}
 
 	public void registerAspects() {
-		// TODO Auto-generated method stub
+		if (!Helpers.ThaumCraft.isLoaded())
+			return;
 		
+	    switch (this) {
+	    case Apatite:
+	      ThaumcraftApi.registerObjectTag(this.gemName, new AspectList().add(Aspect.CRYSTAL, 3).add(Aspect.CROP, 1));
+	      ThaumcraftApi.registerObjectTag(this.oreName, new AspectList().add(Aspect.CRYSTAL, 2).add(Aspect.EARTH, 1));
+	      ThaumcraftApi.registerObjectTag(this.oreBlockName, new AspectList().add(Aspect.CRYSTAL, 6).add(Aspect.CROP, 4));
+	      ThaumcraftApi.registerObjectTag(this.netherOreName, new AspectList().add(Aspect.CRYSTAL, 2).add(Aspect.ENERGY, 1).add(Aspect.EARTH, 1).add(Aspect.FIRE, 1));
+	      break;
+	    default:
+	      if (!isVanilla()) {
+	        ThaumcraftApi.registerObjectTag(this.gemName, new AspectList().add(Aspect.CRYSTAL, 4).add(Aspect.GREED, 4));
+	        ThaumcraftApi.registerObjectTag(this.oreName, new AspectList().add(Aspect.EARTH, 1).add(Aspect.GREED, 3).add(Aspect.CRYSTAL, 3));
+	        ThaumcraftApi.registerObjectTag(this.oreBlockName, new AspectList().add(Aspect.CRYSTAL, 6).add(Aspect.GREED, 6));
+	      }
+	      ThaumcraftApi.registerObjectTag(this.netherOreName, new AspectList().add(Aspect.EARTH, 1).add(Aspect.FIRE, 1).add(Aspect.GREED, 3).add(Aspect.CRYSTAL, 3));
+	    }
 	}
 
 }

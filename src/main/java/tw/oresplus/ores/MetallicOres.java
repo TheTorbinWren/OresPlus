@@ -5,6 +5,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.BlockCore;
@@ -18,26 +21,26 @@ import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
 
 public enum MetallicOres implements IOres {
-	Adamantine(3),
-	Aluminium(2),
-	Ardite(4),
-	Brass(true),
-	Bronze(true),
-	Cobalt(4),
-	Coldiron(2),
-	Copper(1),
-	Electrum(true),
-	Gold(2),
-	Iron(1),
-	Lead(1),
-	Manganese(2),
-	Mithral(3),
-	Nickel(2),
-	Osmium(1),
-	Platinum(2),
-	Silver(2),
-	Tin(1),
-	Zinc(2);
+	Adamantine(3, Aspect.ARMOR),
+	Aluminium(2, Aspect.EXCHANGE),
+	Ardite(4, Aspect.VOID),
+	Brass(Aspect.MECHANISM, true),
+	Bronze(Aspect.MECHANISM, true),
+	Cobalt(4, Aspect.CRAFT),
+	Coldiron(2, Aspect.COLD),
+	Copper(1, Aspect.EXCHANGE),
+	Electrum(Aspect.EXCHANGE, true),
+	Gold(2, Aspect.GREED),
+	Iron(1, Aspect.METAL),
+	Lead(1, Aspect.ORDER),
+	Manganese(2, Aspect.ORDER),
+	Mithral(3, Aspect.MAGIC),
+	Nickel(2, Aspect.ORDER),
+	Osmium(1, Aspect.ARMOR),
+	Platinum(2, Aspect.GREED),
+	Silver(2, Aspect.GREED),
+	Tin(1, Aspect.CRYSTAL),
+	Zinc(2, Aspect.CRYSTAL);
 	
 	public String oreName;
 	public String netherOreName;
@@ -66,18 +69,19 @@ public enum MetallicOres implements IOres {
 	private OreSources _source;
 	private boolean _isAlloy;
 	private float _smeltXP;
+	private Aspect _secondaryAspect;
 	
 	public boolean enabled;
 	
-	private MetallicOres(boolean isAlloy) {
-		this(0, isAlloy);
+	private MetallicOres(Aspect secondaryAspect, boolean isAlloy) {
+		this(0, secondaryAspect, isAlloy);
 	}
 	
-	private MetallicOres(int harvestLevel) {
-		this(harvestLevel, false);
+	private MetallicOres(int harvestLevel, Aspect secondaryAspect) {
+		this(harvestLevel, secondaryAspect, false);
 	}
 		
-	private MetallicOres(int harvestLevel, boolean isAlloy) {
+	private MetallicOres(int harvestLevel, Aspect secondaryAspect, boolean isAlloy) {
 		this.oreName = "ore" + this.toString();
 		this.netherOreName = "oreNether" + this.toString();
 		this.oreBlockName = "oreBlock" + this.toString();
@@ -97,6 +101,7 @@ public enum MetallicOres implements IOres {
 		this._source = OreSources.DEFAULT;
 		this._isAlloy = isAlloy;
 		this._drops = OreDrops.ORE;
+		this._secondaryAspect = secondaryAspect;
 	}
 
 	@Override
@@ -279,7 +284,16 @@ public enum MetallicOres implements IOres {
 	}
 
 	public void registerAspects() {
-		// TODO Auto-generated method stub
-		
+	    if (!Helpers.ThaumCraft.isLoaded()) {
+	        return;
+	      }
+	      if ((!isVanilla()) && (this != Copper) && (this != Tin) && (this != Silver) && (this != Lead)) {
+	        ThaumcraftApi.registerObjectTag(this.nuggetName, new AspectList().add(Aspect.METAL, 1));
+	        ThaumcraftApi.registerObjectTag(this.ingotName, new AspectList().add(Aspect.METAL, 3).add(this._secondaryAspect, 1));
+	        ThaumcraftApi.registerObjectTag(this.dustName, new AspectList().add(Aspect.METAL, 2).add(Aspect.ENTROPY, 1).add(this._secondaryAspect, 1));
+	        ThaumcraftApi.registerObjectTag(this.oreName, new AspectList().add(Aspect.METAL, 2).add(Aspect.EARTH, 1).add(this._secondaryAspect, 1));
+	        ThaumcraftApi.registerObjectTag(this.oreBlockName, new AspectList().add(Aspect.METAL, 5).add(this._secondaryAspect, 3));
+	      }
+	      ThaumcraftApi.registerObjectTag(this.netherOreName, new AspectList().add(Aspect.METAL, 2).add(this._secondaryAspect, 2).add(Aspect.EARTH, 1).add(Aspect.FIRE, 1));
 	}
 }

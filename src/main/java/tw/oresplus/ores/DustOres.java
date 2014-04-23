@@ -4,22 +4,26 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.BlockCore;
 import tw.oresplus.blocks.BlockOre;
 import tw.oresplus.core.Config;
 import tw.oresplus.core.OreClass;
+import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.items.ItemCore;
 import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
 
 public enum DustOres implements IOres {
-		Nikolite(2, OreDrops.NIKOLITE),
-		Phosphorite(1, OreDrops.PHOSPHORITE),
-		Potash(1, OreDrops.POTASH),
-		Redstone(2),
-		Saltpeter(1, OreDrops.SALTPETER),
-		Sulfur(1, OreDrops.SULFUR)
+		Nikolite(2, Aspect.ENERGY, Aspect.MECHANISM, OreDrops.NIKOLITE),
+		Phosphorite(1, Aspect.ENERGY, Aspect.HARVEST, OreDrops.PHOSPHORITE),
+		Potash(1, Aspect.ENERGY, Aspect.HARVEST, OreDrops.POTASH),
+		Redstone(2, Aspect.ENERGY, Aspect.MECHANISM),
+		Saltpeter(1, Aspect.FIRE, Aspect.HARVEST, OreDrops.SALTPETER),
+		Sulfur(1, Aspect.FIRE, Aspect.ENTROPY, OreDrops.SULFUR)
 	;
 		
 	public String oreName;
@@ -36,12 +40,14 @@ public enum DustOres implements IOres {
 	
 	private int _harvestLevel;
 	private OreDrops _drops;
+	private Aspect _aspect;
+	private Aspect _secondaryAspect;
 		
-	private DustOres (int harvestLevel) {
-		this(harvestLevel, OreDrops.ORE);
+	private DustOres (int harvestLevel, Aspect aspect, Aspect secondaryAspect) {
+		this(harvestLevel, aspect, secondaryAspect, OreDrops.ORE);
 	}
 	
-	private DustOres (int harvestLevel, OreDrops drops) {
+	private DustOres (int harvestLevel, Aspect aspect, Aspect secondaryAspect, OreDrops drops) {
 		this.oreName = "ore" + this.toString();
 		this.netherOreName = "oreNether" + this.toString();
 		this.oreBlockName = "oreBlock" + this.toString();
@@ -49,6 +55,8 @@ public enum DustOres implements IOres {
 		this.tinyDustName = "dustTiny" + this.toString();
 		this._harvestLevel = harvestLevel;
 		this._drops = drops;
+		this._aspect = aspect;
+		this._secondaryAspect = secondaryAspect;
 	}
 
 	@Override
@@ -127,8 +135,15 @@ public enum DustOres implements IOres {
 
 	@Override
 	public void registerAspects() {
-		// TODO Auto-generated method stub
+		if (!Helpers.ThaumCraft.isLoaded())
+			return;
 		
+	    if (this != Redstone) {
+	        ThaumcraftApi.registerObjectTag(this.oreName, new AspectList().add(Aspect.EARTH, 1).add(this._aspect, 2).add(this._secondaryAspect, 2));
+	        ThaumcraftApi.registerObjectTag(this.dustName, new AspectList().add(this._aspect, 2).add(this._secondaryAspect, 1));
+	        ThaumcraftApi.registerObjectTag(this.oreBlockName, new AspectList().add(this._aspect, 3).add(this._secondaryAspect, 4));
+	      }
+	      ThaumcraftApi.registerObjectTag(this.netherOreName, new AspectList().add(Aspect.EARTH, 1).add(Aspect.FIRE, 1).add(this._aspect, 2).add(this._secondaryAspect, 2));
 	}
 
 }
