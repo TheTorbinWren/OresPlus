@@ -1,9 +1,13 @@
 v0.5.27 Beta
--recovered lost work from v23 to v26
+-recovered lost work from v24 to v26
 -includes:
 -lots of code cleanup
 -certus quartz will now drop ae2 items if ae2 present
 -added Aluminium, Ardite & Cobalt ores (Tinker's Constructs)
+-applied energistics integration
+-option to set output size for brass and broze dust crafting
+-crafting recipes for forestry fertilizer
+-added armor & weapons for Adamantine, Cold Iron & Mithral
 
 v0.4.24-5.26 Betas
 -the lost versions

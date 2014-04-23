@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 
 public enum OreItems {
 	crushedUranium,
-	dustAluminium,
 	dustBauxite, // TODO: Update texture
 	dustCassiterite, // TODO: Update texture
 	dustCharcoal, 

@@ -22,6 +22,7 @@ import tw.oresplus.ores.GemstoneOres;
 import tw.oresplus.ores.MetallicOres;
 import tw.oresplus.ores.OreDrops;
 import tw.oresplus.ores.GeneralOres;
+import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -34,10 +35,10 @@ import net.minecraftforge.oredict.OreDictionary;
 public class Blocks {
 	private static boolean isInitialized = false;
 	
-	public static ItemStack grinder;
-	public static ItemStack grinder_lit;
-	public static ItemStack cracker;
-	public static ItemStack cracker_lit;
+	public static OreItemStack grinder;
+	public static OreItemStack grinder_lit;
+	public static OreItemStack cracker;
+	public static OreItemStack cracker_lit;
 	
 	public static void init() {
 		if (isInitialized) {
@@ -63,12 +64,12 @@ public class Blocks {
 		}
 		
 		// register machine blocks
-		grinder = new ItemStack(new BlockGrinder(false), 1);
-		grinder_lit = new ItemStack(new BlockGrinder(true), 1);
+		grinder = new OreItemStack(new BlockGrinder(false));
+		grinder_lit = new OreItemStack(new BlockGrinder(true));
 		RecipeManager.hideItem(grinder_lit);
 		
-		cracker = new ItemStack(new BlockCracker(false), 1);
-		cracker_lit = new ItemStack(new BlockCracker(true), 1);
+		cracker = new OreItemStack(new BlockCracker(false));
+		cracker_lit = new OreItemStack(new BlockCracker(true));
 		RecipeManager.hideItem(cracker_lit);
 		
 		// register vanilla ores for custom ore generators

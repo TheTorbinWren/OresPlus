@@ -6,6 +6,8 @@ bin/
 build/
 eclipse/
 gradle/
+libs/
+run/
 .classpath
 .project
 gradlew
@@ -19,3 +21,6 @@ src/main/java/buildcraft/
 
 # Forestry API
 src/main/java/forestry/
+
+# Thaumcraft API
+src/main/java/thaumcraft/
