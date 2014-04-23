@@ -1,4 +1,4 @@
-#Test
+# Forge Stuff
 .gradle/
 .metadata/
 .settings/
@@ -10,3 +10,12 @@ gradle/
 .project
 gradlew
 gradlew.bat
+
+# IC2 API
+src/main/java/ic2/
+
+# Buildcraft API
+src/main/java/buildcraft/
+
+# Forestry API
+src/main/java/forestry/
