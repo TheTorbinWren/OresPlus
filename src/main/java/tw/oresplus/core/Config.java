@@ -6,6 +6,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import tw.oresplus.OresPlus;
 import tw.oresplus.ores.OreDrops;
 import tw.oresplus.ores.OreSources;
+import tw.oresplus.worldgen.OreGenClass;
 
 public class Config {
 	public static final String CAT_ORES = "ores";

@@ -7,7 +7,6 @@ import java.util.Random;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.Blocks;
-import tw.oresplus.core.OreGenClass;
 import net.minecraft.block.Block;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;

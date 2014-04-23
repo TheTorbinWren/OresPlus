@@ -8,6 +8,7 @@ v0.5.27 Beta
 -option to set output size for brass and broze dust crafting
 -crafting recipes for forestry fertilizer
 -added armor & weapons for Adamantine, Cold Iron & Mithral
+-increased precious gemstone generator amounts (haven't found a single ore in monthes of testing)
 
 v0.4.24-5.26 Betas
 -the lost versions
