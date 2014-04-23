@@ -8,8 +8,9 @@ import tw.oresplus.ores.OreDrops;
 import tw.oresplus.ores.OreSources;
 
 public class Config {
-	private static final String CAT_ORES = "ores";
-	private static final String CAT_ORE_GEN = "ore_generation";
+	public static final String CAT_ORES = "ores";
+	public static final String CAT_ORE_GEN = "ore_generation";
+	public static final String CAT_REGEN = "regeneration";
 	
 	private static OreLog log = OresPlus.log;
 	private static boolean configured;
@@ -18,26 +19,15 @@ public class Config {
 	public static void init(FMLPreInitializationEvent event) {
 		log.info("Initializing Configuration");
 		configFile = new Configuration(event.getSuggestedConfigurationFile());
-		configured = true;
-	}
-	
-	public static void load() {
-		if (!configured) {
-			log.info("Error - configuration not initialized!");
-			return;
-		}
-		log.info("Loading Configuration");
 		configFile.load();
 		
 		configFile.addCustomCategoryComment(CAT_ORES, "Ore configuration = oreEnabled,oreSource");
 		configFile.addCustomCategoryComment(CAT_ORE_GEN, "Ore generator configuration = generatorEnabled,denisty%,regenerateOre");
+	    configFile.addCustomCategoryComment("regeneration", "Configure general regeneration options here");
 		
-		OresPlus.regenKeyOre = getProp("regenKey", OresPlus.regenKeyOre, "change this to regenerate ores");
-		OresPlus.regenKeyOil = getProp("regenKeyOil", OresPlus.regenKeyOil, "change this to regenerate buildcraft oil wells");
-		OresPlus.regenKeyRubberTree = getProp("regenKeyRubberTree", OresPlus.regenKeyRubberTree, "change this to regenerate IC2 rubber trees");
-		OresPlus.regenKeyBeehives = getProp("regenKeyBeehives", OresPlus.regenKeyBeehives, "change this to regenerate Forestry beehives");
+		configured = true;
 	}
-
+	
 	public static void save() {
 		if (!configured) {
 			log.info("Error - configuration not initialized!");
@@ -48,26 +38,30 @@ public class Config {
 			configFile.save();
 	}
 	
-	private static boolean getProp(String key, boolean defaultValue, String comment) {
+	public static boolean getBoolean(String key, boolean defaultValue, String comment) {
 		Property prop = configFile.get(Configuration.CATEGORY_GENERAL, key, defaultValue);
 		if (comment != "")
 			prop.comment = comment;
 		return prop.getBoolean(defaultValue);
 	}
 	
-	private static boolean getProp(String key, boolean defaultValue) {
-		return getProp(key, defaultValue, "");
+	public static boolean getBoolean(String key, boolean defaultValue) {
+		return getBoolean(key, defaultValue, "");
 	}
 	
-	private static String getProp(String key, String defaultValue, String comment) {
-		Property prop = configFile.get(Configuration.CATEGORY_GENERAL, key, defaultValue);
+	public static String getString(String catagory, String key, String defaultValue, String comment) {
+		Property prop = configFile.get(catagory, key, defaultValue);
 		if (comment != "")
 			prop.comment = comment;
 		return prop.getString();
 	}
 	
-	private static String getProp(String key, String defaultValue) {
-		return getProp(key, defaultValue, "");
+	public static String getString(String key, String defaultValue, String comment) {
+		return getString(Configuration.CATEGORY_GENERAL, key, defaultValue, comment);
+	}
+
+	public static String getString(String key, String defaultValue) {
+		return getString(Configuration.CATEGORY_GENERAL, key, defaultValue, "");
 	}
 	
 	public static String getOreGenCfgLine(OreGenClass oreConfig) {

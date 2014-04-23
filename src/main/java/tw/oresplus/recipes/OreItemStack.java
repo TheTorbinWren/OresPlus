@@ -7,10 +7,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import ic2.api.recipe.IRecipeInput;
 
-public class RecipeItemStack implements IRecipeInput {
-	private ItemStack source;
+public class OreItemStack implements IRecipeInput {
+	public ItemStack source;
 	
-	public RecipeItemStack(ItemStack input) {
+	public OreItemStack(ItemStack input) {
 		if (input == null) {
 			this.source = null;
 		}
@@ -20,19 +20,19 @@ public class RecipeItemStack implements IRecipeInput {
 		}
 	}
 	
-	public RecipeItemStack(Item input) {
+	public OreItemStack(Item input) {
 		this(new ItemStack(input, 1));
 	}
 	
-	public RecipeItemStack(Item input, int damageValue) {
+	public OreItemStack(Item input, int damageValue) {
 		this(new ItemStack(input, 1, damageValue));
 	}
 	
-	public RecipeItemStack(Block input) {
+	public OreItemStack(Block input) {
 		this(new ItemStack(input, 1));
 	}
 	
-	public RecipeItemStack(Block input, int meta) {
+	public OreItemStack(Block input, int meta) {
 		this(new ItemStack(input, 1, meta));
 	}
 	
@@ -54,11 +54,11 @@ public class RecipeItemStack implements IRecipeInput {
 		return null;
 	}
 
-	public ItemStack getSource() {
-		return this.getSource(1);
+	public ItemStack newStack() {
+		return this.newStack(1);
 	}
 	
-	public ItemStack getSource(int size) {
+	public ItemStack newStack(int size) {
 		if (this.source == null) {
 			return null;
 		}

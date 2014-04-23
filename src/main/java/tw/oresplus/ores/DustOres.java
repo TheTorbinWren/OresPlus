@@ -10,7 +10,7 @@ import tw.oresplus.blocks.BlockOre;
 import tw.oresplus.core.Config;
 import tw.oresplus.core.OreClass;
 import tw.oresplus.items.ItemCore;
-import tw.oresplus.recipes.RecipeItemStack;
+import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
 
 public enum DustOres implements IOres {
@@ -103,26 +103,26 @@ public enum DustOres implements IOres {
 
 	@Override
 	public void registerRecipes() {
-		RecipeItemStack dustStack = new RecipeItemStack(this.dust);
-		RecipeItemStack tinyDustStack = new RecipeItemStack(this.tinyDust);
-		RecipeItemStack oreStack = new RecipeItemStack(this.ore);
-		RecipeItemStack netherOreStack = new RecipeItemStack(this.netherOre);
-		RecipeItemStack oreBlockStack = new RecipeItemStack(this.oreBlock);
+		OreItemStack dustStack = new OreItemStack(this.dust);
+		OreItemStack tinyDustStack = new OreItemStack(this.tinyDust);
+		OreItemStack oreStack = new OreItemStack(this.ore);
+		OreItemStack netherOreStack = new OreItemStack(this.netherOre);
+		OreItemStack oreBlockStack = new OreItemStack(this.oreBlock);
 		
 		//Add tiny dust -> dust recipes
-		RecipeManager.addShapedRecipe(dustStack.getSource(), "ttt", "ttt", "ttt", 't', this.tinyDustName);
+		RecipeManager.addShapedRecipe(dustStack.newStack(), "ttt", "ttt", "ttt", 't', this.tinyDustName);
 		
 		//Add dust -> tiny dust recipes
-		RecipeManager.addShapelessRecipe(tinyDustStack.getSource(9), this.dustName);
+		RecipeManager.addShapelessRecipe(tinyDustStack.newStack(9), this.dustName);
 		
 		//Add nether ore smelting
-		RecipeManager.addSmelting(netherOreStack.getSource(), oreStack.getSource(2), 0.0F);
+		RecipeManager.addSmelting(netherOreStack.newStack(), oreStack.newStack(2), 0.0F);
 		
 		//Add dust -> ore block
-		RecipeManager.addShapedRecipe(oreBlockStack.getSource(), "ddd", "ddd", "ddd", 'd', this.dustName);
+		RecipeManager.addShapedRecipe(oreBlockStack.newStack(), "ddd", "ddd", "ddd", 'd', this.dustName);
 		
 		//Add ore block -> dust
-		RecipeManager.addShapelessRecipe(dustStack.getSource(9), oreBlockStack.getSource());
+		RecipeManager.addShapelessRecipe(dustStack.newStack(9), oreBlockStack.newStack());
 	}
 
 }

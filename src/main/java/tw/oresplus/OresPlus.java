@@ -44,6 +44,7 @@ import tw.oresplus.ores.OreManager;
 import tw.oresplus.recipes.RecipeManager;
 import tw.oresplus.triggers.OresTrigger;
 import tw.oresplus.triggers.TriggerProvider;
+import tw.oresplus.worldgen.OreChestLoot;
 import tw.oresplus.worldgen.OreGenerators;
 import tw.oresplus.worldgen.WorldGenCore;
 import tw.oresplus.worldgen.WorldGenOre;
@@ -68,6 +69,9 @@ public class OresPlus {
     public static String regenKeyOil = "DISABLED";
     public static String regenKeyRubberTree = "DISABLED";
     public static String regenKeyBeehives = "DISABLED";
+    public static boolean iridiumPlateRecipe = true;
+    public static boolean difficultAlloys = false;
+    public static boolean logRegenerations = false;
     
     public static WorldGenCore worldGen = new WorldGenCore();
     public static OreEventHandler eventHandler = new OreEventHandler();
@@ -81,8 +85,16 @@ public class OresPlus {
 		RecipeManager.init();
 
 		config.init(event);
-		config.load();
 		
+	    regenKeyOre = Config.getString(Config.CAT_REGEN, "regenKey", regenKeyOre, "change this to regenerate ores");
+	    regenKeyOil = Config.getString(Config.CAT_REGEN, "regenKeyOil", regenKeyOil, "change this to regenerate buildcraft oil wells");
+	    regenKeyRubberTree = Config.getString(Config.CAT_REGEN, "regenKeyRubberTree", regenKeyRubberTree, "change this to regenerate IC2 rubber trees");
+	    regenKeyBeehives = Config.getString(Config.CAT_REGEN, "regenKeyBeehives", regenKeyBeehives, "change this to regenerate Forestry beehives");
+
+	    iridiumPlateRecipe = Config.getBoolean("iridiumPlateRecipe", iridiumPlateRecipe, "enables an ore dictionary-enabled recipe for iridium plate");
+	    difficultAlloys = Config.getBoolean("difficultAlloys", difficultAlloys, "enable true to set brass & bronze alloy recipes to output only 2 dusts");
+	    logRegenerations = Config.getBoolean("logRegenerations", logRegenerations, "enavble to log all regenerations that occur");
+
 		NetHandler.instance.preInit();
 		
 		Ores.manager = new OreManager();
@@ -100,7 +112,10 @@ public class OresPlus {
     	}
 		config.save();
 		
-    	//GameData.dumpRegistry(new File(event.getModConfigurationDirectory() + "registryDump.log"));
+		// Initialize Integration Helpers
+    	for (Helpers helper : Helpers.values()) {
+    		helper.init();
+    	}
     }
     
     @EventHandler
@@ -120,21 +135,13 @@ public class OresPlus {
     	ActionManager.registerTriggerProvider(new TriggerProvider());
     	
     	NetHandler.instance.init();
-    	
-    	/* OreDictionaty dump
-    	for (String ore : OreDictionary.getOreNames()) {
-    		log.info(ore);
-    	}
-    	*/
     }
     
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-    	for (Helpers helper : Helpers.values()) {
-    		helper.init();
-    	}
-    	
     	RecipeManager.replaceRecipeResults();
+    	
+    	OreChestLoot.registerChestLoot();
     }
     
     @EventHandler

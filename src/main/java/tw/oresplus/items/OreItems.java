@@ -1,5 +1,6 @@
 package tw.oresplus.items;
 
+import tw.oresplus.recipes.OreItemStack;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -28,9 +29,9 @@ public enum OreItems {
 	gemYellowGarnet,
 	itemBitumen;
 	
-	public ItemStack item;
+	public OreItemStack item;
 	
 	public void registerItems() {
-		item = new ItemStack(new ItemCore(this.toString()).setCreativeTab(CreativeTabs.tabMaterials), 1);
+		item = new OreItemStack(new ItemCore(this.toString()).setCreativeTab(CreativeTabs.tabMaterials));
 	}
 }

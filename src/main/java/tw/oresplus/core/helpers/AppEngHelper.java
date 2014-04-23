@@ -10,17 +10,27 @@ import net.minecraft.world.World;
 import cpw.mods.fml.common.Loader;
 
 public class AppEngHelper extends OresHelper {
+	private static IAppEngApi api = null;
 	
 	public AppEngHelper() {
-		super("AppliedEnergistics");
+		super("appliedenergistics2");
 	}
 	
 	@Override
 	public void init() {
 		if (!this.isLoaded()) {
-			OresPlus.log.info("AppliedEnergistics not found, helper disabled");
+			OresPlus.log.info("Applied Energistics 2 not found, helper disabled");
 			return;
 		}
+	    try 
+	    {
+	        api = AEApi.instance();
+	    }
+	    catch (Exception e) {
+	        OresPlus.log.info("Error initializing Applied Energistics 2");
+	        return;
+	    }
+	    OresPlus.log.info("Applied Energistics 2 found, helper Initialized");
 	}
 
 	@Override

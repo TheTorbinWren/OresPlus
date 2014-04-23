@@ -12,6 +12,7 @@ import tw.oresplus.core.helpers.AppEngHelper;
 import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.items.Items;
 import tw.oresplus.ores.OreDrops;
+import tw.oresplus.recipes.OreItemStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
@@ -63,8 +64,15 @@ public class BlockOre extends BlockCore {
 			break;
 		case CERTUSQUARTZ:
 			if (Helpers.AppliedEnergistics.isLoaded()) {
-				// TODO: drop app eng drops here.
-				rList.add(new ItemStack(this.getItemDropped(metadata, world.rand, fortune), 1));
+				OreItemStack certusQuartz = world.rand.nextFloat() > 0.92F ? 
+					new OreItemStack(Helpers.AppliedEnergistics.getItem("appliedenergistics2.ItemMaterial.CertusQuartzCrystalCharged")) :
+					new OreItemStack(Helpers.AppliedEnergistics.getItem("appliedenergistics2.ItemMaterial.CertusQuartzCrystal"));
+				if (certusQuartz.source != null) {
+					rList.add(certusQuartz.newStack(fortuneHelper(world, 1 + world.rand.nextInt(2), fortune)));
+				}
+				else {
+					rList.add(new ItemStack(this.getItemDropped(metadata, world.rand, fortune), 1));
+				}
 			} 
 			else {
 				rList.add(new ItemStack(this.getItemDropped(metadata, world.rand, fortune), 1));
@@ -148,6 +156,7 @@ public class BlockOre extends BlockCore {
 	private int fortuneHelper(World world, int stackSize, int fortune) {
 		switch (this.drops){
 		case AMETHYST:
+		case CERTUSQUARTZ:
 		case CINNABAR:
 		case GREENSAPPHIRE:
 		case IRIDIUM:
@@ -189,7 +198,6 @@ public class BlockOre extends BlockCore {
 			break;
 		case APATITE:
 		case BITUMEN:
-		case CERTUSQUARTZ:
 		case MAGNESIUM:
 		case NIKOLITE:
 		case OLIVINE:

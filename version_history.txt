@@ -1,7 +1,11 @@
-v0.5.27
+v0.5.27 Beta
 -recovered lost work from v23 to v26
+-includes:
+-lots of code cleanup
+-certus quartz will now drop ae2 items if ae2 present
+-added Aluminium, Ardite & Cobalt ores (Tinker's Constructs)
 
-v0.4.24-26
+v0.4.24-5.26 Betas
 -the lost versions
 
 v0.4.23 Beta

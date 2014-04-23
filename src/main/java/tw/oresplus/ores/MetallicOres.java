@@ -14,13 +14,16 @@ import tw.oresplus.core.OreClass;
 import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.items.ItemCore;
 import tw.oresplus.recipes.GrinderRecipe;
-import tw.oresplus.recipes.RecipeItemStack;
+import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
 
 public enum MetallicOres implements IOres {
 	Adamantine(3),
+	Aluminium(2),
+	Ardite(4),
 	Brass(true),
 	Bronze(true),
+	Cobalt(4),
 	Coldiron(2),
 	Copper(1),
 	Electrum(true),
@@ -46,15 +49,15 @@ public enum MetallicOres implements IOres {
 	public String crushedOreName;
 	public String purifiedCrushedOreName;
 	
-	public ItemStack ore;
-	public ItemStack netherOre;
-	public ItemStack ingot;
-	public ItemStack oreBlock;
-	public ItemStack nugget;
-	public ItemStack dust;
-	public ItemStack tinyDust;
-	public ItemStack crushedOre;
-	public ItemStack purifiedCrushedOre;
+	public OreItemStack ore;
+	public OreItemStack netherOre;
+	public OreItemStack oreBlock;
+	public OreItemStack ingot;
+	public OreItemStack nugget;
+	public OreItemStack dust;
+	public OreItemStack tinyDust;
+	public OreItemStack crushedOre;
+	public OreItemStack purifiedCrushedOre;
 	
 	private int _harvestLevel;
 	private int _xpLow;
@@ -109,163 +112,169 @@ public enum MetallicOres implements IOres {
 	}
 	
 	private boolean isVanilla() {
-		return (this.toString().equals("Iron") || this.toString().equals("Gold"));
+		return (this == Iron || this == Gold);
 	}
 
 	@Override
 	public void registerBlocks() {
+		// Register Ore
 		if (!this.isVanilla() && !this._isAlloy) {
 			OreClass oreConfig = Config.getOre(this.getDefaultConfig());
 			if (oreConfig.enabled) {
-				this.ore = new ItemStack(new BlockOre(oreConfig), 1);
+				this.ore = new OreItemStack(new BlockOre(oreConfig));
 			}
 		}
-		else {
-			if (this.toString().equals("Gold"))
-				this.ore = new ItemStack(net.minecraft.init.Blocks.gold_ore, 1);
-			else if (this.toString().equals("Iron"))
-				this.ore = new ItemStack(net.minecraft.init.Blocks.iron_ore, 1);
+		else if (this == Gold) {
+			this.ore = new OreItemStack(net.minecraft.init.Blocks.gold_ore);
+		}
+		else if (this == Iron) {
+			this.ore = new OreItemStack(net.minecraft.init.Blocks.iron_ore);
 		}
 		
+		// Register Nether Ore
 		if (!this._isAlloy)	{
 			OreClass oreConfig = Config.getOre(this.getDefaultConfigNether());
 			if (oreConfig.enabled) {
-				this.netherOre = new ItemStack(new BlockOre(oreConfig), 1);
+				this.netherOre = new OreItemStack(new BlockOre(oreConfig));
 			}
 		}
 		
+		// Register Storage Block
 		if (!this.isVanilla()) {
-			this.oreBlock = new ItemStack(new BlockCore(Material.iron, this.oreBlockName)
+			this.oreBlock = new OreItemStack(new BlockCore(Material.iron, this.oreBlockName)
 				.setCreativeTab(CreativeTabs.tabBlock)
 				.setHardness(5.0F)
 				.setResistance(10.0F)
-				.setStepSound(Block.soundTypeMetal), 1);
+				.setStepSound(Block.soundTypeMetal));
 		}
-		else {
-			if (this.toString().equals("Gold"))
-				this.oreBlock = new ItemStack(net.minecraft.init.Blocks.gold_block, 1);
-			else if (this.toString().equals("Iron"))
-				this.oreBlock = new ItemStack(net.minecraft.init.Blocks.iron_block, 1);
+		else if (this == Gold) {
+			this.oreBlock = new OreItemStack(net.minecraft.init.Blocks.gold_block);
+		}
+		else if (this == Iron) {
+			this.oreBlock = new OreItemStack(net.minecraft.init.Blocks.iron_block);
 		}
 	}
 
 	@Override
 	public void registerItems() {
+		// Register Ingot
 		if (!this.isVanilla()) {
-			this.ingot = new ItemStack(new ItemCore(this.ingotName).setCreativeTab(CreativeTabs.tabMaterials), 1);
+			this.ingot = new OreItemStack(new ItemCore(this.ingotName).setCreativeTab(CreativeTabs.tabMaterials));
+		}
+		else if (this == Gold) {
+			this.ingot = new OreItemStack(net.minecraft.init.Items.gold_ingot);
+		}
+		else if (this == Iron) {
+			this.ingot = new OreItemStack(net.minecraft.init.Items.iron_ingot);
+		}
+		
+		// Register Nugget
+		if (this != Gold) {
+			this.nugget = new OreItemStack(new ItemCore(this.nuggetName).setCreativeTab(CreativeTabs.tabMaterials));
 		}
 		else {
-			if (this.toString().equals("Gold"))
-				this.ingot = new ItemStack(net.minecraft.init.Items.gold_ingot, 1);
-			else if (this.toString().equals("Iron"))
-				this.ingot = new ItemStack(net.minecraft.init.Items.iron_ingot, 1);
+			this.nugget = new OreItemStack(net.minecraft.init.Items.gold_nugget);
 		}
-		if (!this.toString().equals("Gold"))
-			this.nugget = new ItemStack(new ItemCore(this.nuggetName).setCreativeTab(CreativeTabs.tabMaterials), 1);
-		else
-			this.nugget = new ItemStack(net.minecraft.init.Items.gold_nugget, 1);
-		this.dust = new ItemStack(new ItemCore(this.dustName).setCreativeTab(CreativeTabs.tabMaterials), 1);
-		this.tinyDust = new ItemStack(new ItemCore(this.tinyDustName).setCreativeTab(CreativeTabs.tabMaterials), 1);
+		
+		// Register Dust & Tiny Dust
+		this.dust = new OreItemStack(new ItemCore(this.dustName).setCreativeTab(CreativeTabs.tabMaterials));
+		this.tinyDust = new OreItemStack(new ItemCore(this.tinyDustName).setCreativeTab(CreativeTabs.tabMaterials));
+
+		// Register Crushed & Purified Crushed Ores
 		if (!this._isAlloy) {
-			this.crushedOre = new ItemStack(new ItemCore(this.crushedOreName).setCreativeTab(CreativeTabs.tabMaterials), 1);
-			this.purifiedCrushedOre = new ItemStack(new ItemCore(this.purifiedCrushedOreName).setCreativeTab(CreativeTabs.tabMaterials), 1);
+			this.crushedOre = new OreItemStack(new ItemCore(this.crushedOreName).setCreativeTab(CreativeTabs.tabMaterials));
+			this.purifiedCrushedOre = new OreItemStack(new ItemCore(this.purifiedCrushedOreName).setCreativeTab(CreativeTabs.tabMaterials));
 		}
 	}
 
 	@Override
 	public void registerRecipes() {
-		RecipeItemStack rIngot = new RecipeItemStack(this.ingot);
-		RecipeItemStack rBlock = new RecipeItemStack(this.oreBlock);
-		RecipeItemStack rOre = new RecipeItemStack(this.ore);
-		RecipeItemStack rDust = new RecipeItemStack(this.dust);
-		RecipeItemStack rCrushedOre = new RecipeItemStack(this.crushedOre);
-		RecipeItemStack rNugget = new RecipeItemStack(this.nugget);
-		RecipeItemStack rDustTiny = new RecipeItemStack(this.tinyDust);
-		RecipeItemStack rPurifiedCrushedOre = new RecipeItemStack(this.purifiedCrushedOre);
-		RecipeItemStack rNetherOre = new RecipeItemStack(this.netherOre);
-		RecipeItemStack stoneDust = new RecipeItemStack(new ItemStack(Helpers.IC2.getItem("itemDust"), 1, 9));
+		OreItemStack stoneDust = new OreItemStack(new ItemStack(Helpers.IC2.getItem("itemDust"), 1, 9));
 
 		if (!this.isVanilla()) {
 			// add ingot -> oreBlock recipe
-			RecipeManager.addShapedRecipe(rBlock.getSource(), "iii", "iii", "iii", 'i', ingotName);
+			RecipeManager.addShapedRecipe(this.oreBlock.newStack(), "iii", "iii", "iii", 'i', ingotName);
 			
 			// add oreBlock -> ingot recipe
-			RecipeManager.addShapelessRecipe(rIngot.getSource(9), rBlock.getSource());
+			RecipeManager.addShapelessRecipe(this.ingot.newStack(9), this.oreBlock.newStack());
 			
 			// add ore smelting recipe
 			if (!this._isAlloy) {
-				RecipeManager.addSmelting(rOre.getSource(), rIngot.getSource(), this._smeltXP);
+				RecipeManager.addSmelting(this.ore.newStack(), this.ingot.newStack(), this._smeltXP);
 			}
 		}
 		
 		if (!this.toString().equals("Gold")) {
 			// add ingot -> nugget recipe
 			if (this.toString().equals("Iron")) {
-				RecipeManager.addShapelessRecipe(rNugget.getSource(9), rIngot.getSource());
+				RecipeManager.addShapelessRecipe(this.nugget.newStack(9), this.ingot.newStack());
 			}
 			else {
-				RecipeManager.addShapelessRecipe(rNugget.getSource(9), ingotName);
+				RecipeManager.addShapelessRecipe(this.nugget.newStack(9), ingotName);
 			}
 			
 			// add nugget -> ingot recipe
-			RecipeManager.addShapedRecipe(rIngot.getSource(), "nnn", "nnn", "nnn", 'n', this.nuggetName);
+			RecipeManager.addShapedRecipe(this.ingot.newStack(), "nnn", "nnn", "nnn", 'n', this.nuggetName);
 		}
 		
 		// add ingot Grinder recipe
 		
-		if (this.isVanilla())
-			RecipeManager.addGrinderRecipe(rIngot.getSource(), rDust.getSource());
-		else
-			RecipeManager.addGrinderRecipe(this.ingotName, rDust.getSource());
+		if (this.isVanilla()) {
+			Ores.grinderRecipes.add(this.ingot.newStack(), this.dust.newStack());
+		}
+		else {
+			Ores.grinderRecipes.add(this.ingotName, this.dust.newStack());
+		}
+		
 		
 		//add ingot macerator recipe
 		if (Helpers.IC2.isLoaded()) {
-			Helpers.IC2.registerRecipe("Macerator", rIngot.getSource(), rDust.getSource());
+			Helpers.IC2.registerRecipe("Macerator", this.ingot.newStack(), this.dust.newStack());
 		}
 		
 		if (!this._isAlloy) {
 			// add nether ore -> ore smelting recipe
-			RecipeManager.addSmelting(rNetherOre.getSource(), rOre.getSource(2), 0.0F);
+			RecipeManager.addSmelting(this.netherOre.newStack(), this.ore.newStack(2), 0.0F);
 			
 			// add crushed ore smelting recipe
-			RecipeManager.addSmelting(rCrushedOre.getSource(), rIngot.getSource(), this._smeltXP);
+			RecipeManager.addSmelting(this.crushedOre.newStack(), this.ingot.newStack(), this._smeltXP);
 			
 			// add purified crushed ore smelting recipe
-			RecipeManager.addSmelting(rPurifiedCrushedOre.getSource(), rIngot.getSource(), this._smeltXP);
+			RecipeManager.addSmelting(this.purifiedCrushedOre.newStack(), this.ingot.newStack(), this._smeltXP);
 			
 			// add ore grinder recipe
-			RecipeManager.addGrinderRecipe(this.oreName, rCrushedOre.getSource(2));
+			RecipeManager.addGrinderRecipe(this.oreName, this.crushedOre.newStack(2));
 			
 			if (Helpers.IC2.isLoaded()) {
 				// add ore macerator recipe
-				Helpers.IC2.registerRecipe("Macerator", rOre.getSource(), rCrushedOre.getSource(2));
+				Helpers.IC2.registerRecipe("Macerator", this.ore.newStack(), this.crushedOre.newStack(2));
 				
 				// add ore washing recipe
 				NBTTagCompound metadata = new NBTTagCompound();
 				metadata.setInteger("amount", 1000);
 				switch(this) {
 				case Lead:
-					Helpers.IC2.registerRecipe("OreWasher", rCrushedOre.getSource(), metadata, new ItemStack[] {
-						rPurifiedCrushedOre.getSource(),
+					Helpers.IC2.registerRecipe("OreWasher", this.crushedOre.newStack(), metadata, new ItemStack[] {
+						this.purifiedCrushedOre.newStack(),
 						new ItemStack(DustOres.Sulfur.tinyDust.getItem(), 3),
-						stoneDust.getSource()	});
+						stoneDust.newStack()	});
 					break;
 				default:
-					Helpers.IC2.registerRecipe("OreWasher", rCrushedOre.getSource(), metadata, new ItemStack[] {
-						rPurifiedCrushedOre.getSource(),
-						rDustTiny.getSource(2),
-						stoneDust.getSource()	});
+					Helpers.IC2.registerRecipe("OreWasher", this.crushedOre.newStack(), metadata, new ItemStack[] {
+						this.purifiedCrushedOre.newStack(),
+						this.tinyDust.newStack(2),
+						stoneDust.newStack()	});
 				}
 			}
 		}
 		
 		// add dust smelting recipe
-		RecipeManager.addSmelting(rDust.getSource(), rIngot.getSource(), this._smeltXP);
+		RecipeManager.addSmelting(this.dust.newStack(), this.ingot.newStack(), this._smeltXP);
 		
 		// add tiny dust -> dust recipe
-		RecipeManager.addShapedRecipe(rDust.getSource(), "ttt", "ttt", "ttt", 't', this.tinyDustName);
+		RecipeManager.addShapedRecipe(this.dust.newStack(), "ttt", "ttt", "ttt", 't', this.tinyDustName);
 		
 		// add dust -> tiny dust recipe
-		RecipeManager.addShapelessRecipe(rDustTiny.getSource(9), rDust.getSource());
+		RecipeManager.addShapelessRecipe(this.tinyDust.newStack(9), this.dust.newStack());
 	}
 }

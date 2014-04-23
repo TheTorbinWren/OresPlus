@@ -12,7 +12,7 @@ import tw.oresplus.core.Config;
 import tw.oresplus.core.OreClass;
 import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.items.ItemCore;
-import tw.oresplus.recipes.RecipeItemStack;
+import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
 
 public enum GemstoneOres implements IOres {
@@ -31,10 +31,10 @@ public enum GemstoneOres implements IOres {
 	public String gemName;
 	public String oreBlockName;
 	
-	public ItemStack ore;
-	public ItemStack netherOre;
-	public ItemStack gem;
-	public ItemStack oreBlock;
+	public OreItemStack ore;
+	public OreItemStack netherOre;
+	public OreItemStack gem;
+	public OreItemStack oreBlock;
 	
 	public boolean enabled;
 	
@@ -64,7 +64,7 @@ public enum GemstoneOres implements IOres {
 	}
 	
 	private boolean isVanilla() {
-		return (this.toString().equals("Diamond") || this.toString().equals("Emerald"));
+		return (this == Diamond || this == Emerald);
 	}
 
 	@Override
@@ -81,86 +81,91 @@ public enum GemstoneOres implements IOres {
 
 	@Override
 	public void registerBlocks() {
+		//Register Ore
 		if (!this.isVanilla()) {
 			OreClass oreConfig = Config.getOre(this.getDefaultConfig());
 			if (oreConfig.enabled)
-				this.ore = new ItemStack(new BlockOre(oreConfig), 1);
+				this.ore = new OreItemStack(new BlockOre(oreConfig));
 		}
-		else if (this.toString().equals("Diamond"))
-			this.ore = new ItemStack(net.minecraft.init.Blocks.diamond_ore);
-		else if (this.toString().equals("Emerald"))
-			this.ore = new ItemStack(net.minecraft.init.Blocks.emerald_ore);
+		else if (this == Diamond) {
+			this.ore = new OreItemStack(net.minecraft.init.Blocks.diamond_ore);
+		}
+		else if (this == Emerald) {
+			this.ore = new OreItemStack(net.minecraft.init.Blocks.emerald_ore);
+		}
 		
+		// Register Nether Ore
 		OreClass oreConfig = Config.getOre(this.getDefaultConfigNether());
-		if (oreConfig.enabled)
-			this.netherOre = new ItemStack(new BlockOre(oreConfig), 1);
+		if (oreConfig.enabled) {
+			this.netherOre = new OreItemStack(new BlockOre(oreConfig));
+		}
 		
+		// Register Storage Block
 		if (!this.isVanilla()) {
-			this.oreBlock = new ItemStack(new BlockCore(Material.iron, this.oreBlockName)
+			this.oreBlock = new OreItemStack(new BlockCore(Material.iron, this.oreBlockName)
 				.setCreativeTab(CreativeTabs.tabBlock)
 				.setHardness(5.0F)
 				.setResistance(10.0F)
-			.	setStepSound(Block.soundTypeMetal), 1);
+			.	setStepSound(Block.soundTypeMetal));
 		}
-		else if (this.toString().equals("Diamond"))
-			this.oreBlock = new ItemStack(net.minecraft.init.Blocks.diamond_block);
-		else if (this.toString().equals("Emerald"))
-			this.oreBlock = new ItemStack(net.minecraft.init.Blocks.emerald_block);
+		else if (this == Diamond) {
+			this.oreBlock = new OreItemStack(net.minecraft.init.Blocks.diamond_block);
+		}
+		else if (this == Emerald) {
+			this.oreBlock = new OreItemStack(net.minecraft.init.Blocks.emerald_block);
+		}
 	}
 
 	@Override
 	public void registerItems() {
+		// Register Gem
 		if (!this.isVanilla()) {
-			this.gem = new ItemStack(new ItemCore(this.gemName).setCreativeTab(CreativeTabs.tabMaterials), 1);
+			this.gem = new OreItemStack(new ItemCore(this.gemName).setCreativeTab(CreativeTabs.tabMaterials));
 		}
-		else if (this.toString().equals("Diamond"))
-			this.gem = new ItemStack(net.minecraft.init.Items.diamond, 1);
-		else if (this.toString().equals("Emerald"))
-			this.gem = new ItemStack(net.minecraft.init.Items.emerald, 1);
+		else if (this == Diamond) {
+			this.gem = new OreItemStack(net.minecraft.init.Items.diamond);
+		}
+		else if (this == Emerald) {
+			this.gem = new OreItemStack(net.minecraft.init.Items.emerald);
+		}
 	}
 
 	@Override
 	public void registerRecipes() {
-		RecipeItemStack rOre = new RecipeItemStack(this.ore);
-		RecipeItemStack rGem = new RecipeItemStack(this.gem);
-		RecipeItemStack rNetherOre = new RecipeItemStack(this.netherOre);
-		RecipeItemStack rOreBlock = new RecipeItemStack(this.oreBlock);
-		
 		// register ore smelt & grinds
 		switch (this) {
 		case Diamond:
 		case Emerald:
-			RecipeManager.addGrinderRecipe(this.oreName, rGem.getSource(2));
+			RecipeManager.addGrinderRecipe(this.oreName, this.gem.newStack(2));
 			if (Helpers.IC2.isLoaded()) {
-				Helpers.IC2.registerRecipe("Macerator", rOre.getSource(), rGem.getSource(2));
+				Helpers.IC2.registerRecipe("Macerator", this.ore.newStack(), this.gem.newStack(2));
 			}
 			break;
 		case Apatite:
-			RecipeManager.addSmelting(rOre.getSource(6), rGem.getSource(), 0.0F);
-			RecipeManager.addGrinderRecipe(this.oreName, rGem.getSource(6));
+			RecipeManager.addSmelting(this.ore.newStack(), this.gem.newStack(6), 0.0F);
+			RecipeManager.addGrinderRecipe(this.oreName, this.gem.newStack(6));
 			if (Helpers.IC2.isLoaded()) {
-				Helpers.IC2.registerRecipe("Macerator", rOre.getSource(), rGem.getSource(6));
+				Helpers.IC2.registerRecipe("Macerator", this.ore.newStack(), this.gem.newStack(6));
 			}
 			break;
 		default:
-			RecipeManager.addSmelting(rOre.getSource(), rGem.getSource(), 0.0F);
-			RecipeManager.addGrinderRecipe(this.oreName, rGem.getSource(2));
+			RecipeManager.addSmelting(this.ore.newStack(), this.gem.newStack(), 0.0F);
+			RecipeManager.addGrinderRecipe(this.oreName, this.gem.newStack(2));
 			if (Helpers.IC2.isLoaded()) {
-				Helpers.IC2.registerRecipe("Macerator", rOre.getSource(), rGem.getSource(2));
+				Helpers.IC2.registerRecipe("Macerator", this.ore.newStack(), this.gem.newStack(2));
 			}
 		}
 		
-		
 		//register nether ore smelt
-		RecipeManager.addSmelting(rNetherOre.getSource(), rOre.getSource(2), 0.0F);
+		RecipeManager.addSmelting(this.netherOre.newStack(), this.ore.newStack(2), 0.0F);
 		
 		// register gem -> oreblock
 		if (!this.isVanilla()) {
-			RecipeManager.addShapedRecipe(rOreBlock.getSource(), "ggg", "ggg", "ggg", 'g', this.gemName);
+			RecipeManager.addShapedRecipe(this.oreBlock.newStack(), "ggg", "ggg", "ggg", 'g', this.gemName);
 		}
 		// register oreblock -> gem
 		if (!this.isVanilla()) {
-			RecipeManager.addShapelessRecipe(rGem.getSource(9), rOreBlock.getSource());
+			RecipeManager.addShapelessRecipe(this.gem.newStack(9), this.oreBlock.newStack());
 		}
 	}
 

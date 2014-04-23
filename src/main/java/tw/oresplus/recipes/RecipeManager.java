@@ -43,46 +43,42 @@ public class RecipeManager {
 	}
 	
 	public static void initRecipes() {
-		RecipeItemStack grinder = new RecipeItemStack(Blocks.grinder);
-		RecipeItemStack furnace = new RecipeItemStack(net.minecraft.init.Blocks.furnace);
-		RecipeItemStack flint = new RecipeItemStack(net.minecraft.init.Items.flint);
-		RecipeItemStack coal = new RecipeItemStack(net.minecraft.init.Items.coal, 0);
-		RecipeItemStack charcoal = new RecipeItemStack(net.minecraft.init.Items.coal, 1);
-		RecipeItemStack cracker = new RecipeItemStack(Blocks.cracker);
-		RecipeItemStack glass = new RecipeItemStack(net.minecraft.init.Blocks.glass);
-		RecipeItemStack gunpowder = new RecipeItemStack(net.minecraft.init.Items.gunpowder);
-		RecipeItemStack oreCoal = new RecipeItemStack(net.minecraft.init.Blocks.coal_ore);
-		RecipeItemStack oreLapis = new RecipeItemStack(net.minecraft.init.Blocks.lapis_ore);
-		RecipeItemStack oreNikolite = new RecipeItemStack(DustOres.Nikolite.ore);
-		RecipeItemStack oreRedstone = new RecipeItemStack(net.minecraft.init.Blocks.redstone_ore);
-		RecipeItemStack oreUranium = new RecipeItemStack(GeneralOres.Uranium.ore);
-		RecipeItemStack dustCharcoal = new RecipeItemStack(OreItems.dustCharcoal.item);
-		RecipeItemStack dustCoal = new RecipeItemStack(OreItems.dustCoal.item);
-		RecipeItemStack gemUranium = new RecipeItemStack(OreItems.gemUranium.item);
-		RecipeItemStack crushedUranium = new RecipeItemStack(OreItems.crushedUranium.item);
-		RecipeItemStack tank = new RecipeItemStack(Helpers.BuildCraft.getBlock("tankBlock"));
+		OreItemStack grinder = new OreItemStack(Blocks.grinder);
+		OreItemStack furnace = new OreItemStack(net.minecraft.init.Blocks.furnace);
+		OreItemStack flint = new OreItemStack(net.minecraft.init.Items.flint);
+		OreItemStack coal = new OreItemStack(net.minecraft.init.Items.coal, 0);
+		OreItemStack charcoal = new OreItemStack(net.minecraft.init.Items.coal, 1);
+		OreItemStack cracker = new OreItemStack(Blocks.cracker);
+		OreItemStack glass = new OreItemStack(net.minecraft.init.Blocks.glass);
+		OreItemStack gunpowder = new OreItemStack(net.minecraft.init.Items.gunpowder);
+		OreItemStack oreCoal = new OreItemStack(net.minecraft.init.Blocks.coal_ore);
+		OreItemStack oreLapis = new OreItemStack(net.minecraft.init.Blocks.lapis_ore);
+		OreItemStack oreNikolite = new OreItemStack(DustOres.Nikolite.ore);
+		OreItemStack oreRedstone = new OreItemStack(net.minecraft.init.Blocks.redstone_ore);
+		OreItemStack tank = new OreItemStack(Helpers.BuildCraft.getBlock("tankBlock"));
 		
 		// cracker recipe
-		if (tank.getSource() != null) {
-			addShapedRecipe(cracker.getSource(), "t", "F", 't', tank.getSource(), 'F', furnace.getSource());
+		if (tank.newStack() != null) {
+			addShapedRecipe(cracker.newStack(), "t", "F", 't', tank.newStack(), 'F', furnace.newStack());
 		}
 		else
-			addShapedRecipe(cracker.getSource(), "ggg", "gFg", "ggg", 'g', glass.getSource(), 'F', furnace.getSource());
+			addShapedRecipe(cracker.newStack(), "ggg", "gFg", "ggg", 'g', glass.newStack(), 'F', furnace.newStack());
 		
 		// grinder recipe
-		addShapedRecipe(grinder.getSource(), "fff", "fFf", "fff", 'f', flint.getSource(), 'F', furnace.getSource());
+		addShapedRecipe(grinder.newStack(), "fff", "fFf", "fff", 'f', flint.newStack(), 'F', furnace.newStack());
 		
 		//gunpowder recipes
-		addShapedRecipe(gunpowder.getSource(4), "sSs", "csc", "sSs", 's', "dustSaltpeter", 'c', "dustCoal", 'S', "dustSulfur");
-		addShapedRecipe(gunpowder.getSource(4), "scs", "SsS", "scs", 's', "dustSaltpeter", 'c', "dustCoal", 'S', "dustSulfur");
-		addShapedRecipe(gunpowder.getSource(4), "sSs", "csc", "sSs", 's', "dustSaltpeter", 'c', "dustCharcoal", 'S', "dustSulfur");
-		addShapedRecipe(gunpowder.getSource(4), "scs", "SsS", "scs", 's', "dustSaltpeter", 'c', "dustCharcoal", 'S', "dustSulfur");
+		addShapedRecipe(gunpowder.newStack(4), "sSs", "csc", "sSs", 's', "dustSaltpeter", 'c', "dustCoal", 'S', "dustSulfur");
+		addShapedRecipe(gunpowder.newStack(4), "scs", "SsS", "scs", 's', "dustSaltpeter", 'c', "dustCoal", 'S', "dustSulfur");
+		addShapedRecipe(gunpowder.newStack(4), "sSs", "csc", "sSs", 's', "dustSaltpeter", 'c', "dustCharcoal", 'S', "dustSulfur");
+		addShapedRecipe(gunpowder.newStack(4), "scs", "SsS", "scs", 's', "dustSaltpeter", 'c', "dustCharcoal", 'S', "dustSulfur");
 		
 		// misc grinder recipes
-		new GrinderRecipe(charcoal.getSource(), dustCharcoal.getSource());
-		new GrinderRecipe(coal.getSource(), dustCoal.getSource());
-		new GrinderRecipe(gemUranium.getSource(), crushedUranium.getSource());
-		Helpers.IC2.registerRecipe("Macerator", gemUranium.getSource(), crushedUranium.getSource());
+		addGrinderRecipe(charcoal.newStack(), OreItems.dustCharcoal.item.newStack());
+		addGrinderRecipe(coal.newStack(), OreItems.dustCoal.item.newStack());
+		addGrinderRecipe(OreItems.gemUranium.item.newStack(), OreItems.crushedUranium.item.newStack());
+		Helpers.IC2.registerRecipe("Macerator", OreItems.gemUranium.item.newStack(), OreItems.crushedUranium.item.newStack());
+		addGrinderRecipe(GeneralOres.Uranium.ore.newStack(), OreItems.crushedUranium.item.newStack(2));
 		
 		// alloy recipes
 		addShapelessRecipe(new ItemStack(Ores.getItem("dustBrass"), 4), "dustCopper", "dustCopper", "dustCopper", "dustZinc");
@@ -90,9 +86,9 @@ public class RecipeManager {
 		addShapelessRecipe(new ItemStack(Ores.getItem("dustElectrum"), 2), "dustGold", "dustSilver");
 		
 		// misc nether ore smelting recipes
-		addSmelting(new ItemStack(Ores.getBlock("oreNetherCoal"), 1), oreCoal.getSource(2), 0.0F);
-		addSmelting(new ItemStack(Ores.getBlock("oreNetherLapis"), 1), oreLapis.getSource(2), 0.0F);
-		addSmelting(new ItemStack(Ores.getBlock("oreNetherUranium"), 1), oreUranium.getSource(2), 0.0F);
+		addSmelting(GeneralOres.NetherCoal.ore.newStack(), oreCoal.newStack(2), 0.0F);
+		addSmelting(GeneralOres.NetherLapis.ore.newStack(), oreLapis.newStack(2), 0.0F);
+		addSmelting(GeneralOres.NetherUranium.ore.newStack(), GeneralOres.Uranium.ore.newStack(2), 0.0F);
 		
 		for (MetallicOres ore : MetallicOres.values()) {
 			ore.registerRecipes();
@@ -132,7 +128,6 @@ public class RecipeManager {
 			return false;
 	}
 
-	@Deprecated
 	public static void addGrinderRecipe(Object input, ItemStack output) {
 		if (!(input instanceof String) && !(input instanceof ItemStack))
 			return;

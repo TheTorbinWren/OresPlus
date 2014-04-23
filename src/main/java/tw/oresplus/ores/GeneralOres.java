@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 import tw.oresplus.blocks.BlockOre;
 import tw.oresplus.core.Config;
 import tw.oresplus.core.OreClass;
+import tw.oresplus.recipes.OreItemStack;
 
 public enum GeneralOres {
 	Bauxite (1),
@@ -31,7 +32,7 @@ public enum GeneralOres {
 	
 	public String oreName;
 	
-	public ItemStack ore;
+	public OreItemStack ore;
 	
 	private boolean _enabled;
 	private int _harvestLevel;
@@ -78,7 +79,7 @@ public enum GeneralOres {
 	public void RegisterBlocks() {
 		OreClass oreConfig = Config.getOre(this.getDefaultConfig());
 		if (oreConfig.enabled)
-			this.ore = new ItemStack(new BlockOre(oreConfig), 1);
+			this.ore = new OreItemStack(new BlockOre(oreConfig));
 		
 	}
 }
