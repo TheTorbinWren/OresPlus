@@ -1,3 +1,9 @@
+v0.5.27
+-recovered lost work from v23 to v26
+
+v0.4.24-26
+-the lost versions
+
 v0.4.23 Beta
 -fixed NPE in RecipeItemStack when source is null
 
