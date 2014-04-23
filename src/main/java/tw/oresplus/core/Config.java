@@ -65,12 +65,13 @@ public class Config {
 		return getString(Configuration.CATEGORY_GENERAL, key, defaultValue, "");
 	}
 	
-	public static String getOreGenCfgLine(OreGenClass oreConfig) {
+	private static String getOreGenCfgLine(OreGenClass oreConfig) {
 		if (oreConfig == null)
 			return null;
 		return Boolean.toString(oreConfig.enabled) + ","
 				+ oreConfig.density + ","
-				+ Boolean.toString(oreConfig.doRegen);
+				+ Boolean.toString(oreConfig.doRegen) + ","
+				+ oreConfig.regenKey;
 	}
 	
 	public static OreGenClass getOreGen(OreGenClass oreConfig) {
@@ -79,19 +80,19 @@ public class Config {
 			String cfg[] = prop.getString().split(",");
 			boolean configChanged = false;
 			switch (cfg.length) {
-			case 3:
+			case 3: // v0.1.4 - 0.4.23
 				oreConfig.enabled = Boolean.parseBoolean(cfg[0]);
 				oreConfig.density = Integer.parseInt(cfg[1]);
 				oreConfig.doRegen = Boolean.parseBoolean(cfg[2]);
 				break;
+			case 4: // current
+				oreConfig.enabled = Boolean.parseBoolean(cfg[0]);
+				oreConfig.density = Integer.parseInt(cfg[1]);
+				oreConfig.doRegen = Boolean.parseBoolean(cfg[2]);
+				oreConfig.regenKey = cfg[3];
+				break;
 			case 8: // v0.1.1 - v0.1.3
-				///oreConfig.oreName = cfg[0];
 				oreConfig.enabled = Boolean.parseBoolean(cfg[1]);
-				//oreConfig.dimension = Integer.parseInt(cfg[2]);
-				//oreConfig.numVeins = Integer.parseInt(cfg[3]);
-				//oreConfig.veinSize = Integer.parseInt(cfg[4]);
-				//oreConfig.minY = Integer.parseInt(cfg[5]);
-				//oreConfig.maxY = Integer.parseInt(cfg[6]);
 				oreConfig.doRegen = Boolean.parseBoolean(cfg[7]);
 				configChanged = true;
 				break;
@@ -125,8 +126,6 @@ public class Config {
 				break;
 			case 3: // v0.1.1 - v0.1.3
 				ore.enabled = Boolean.parseBoolean(cfg[0]);
-				// ore.harvestLevel = Integer.parseInt(cfg[1]);
-				// ore.drops = OreDrops.valueOf(cfg[2]);
 				configChanged = true;
 				break;
 			default:

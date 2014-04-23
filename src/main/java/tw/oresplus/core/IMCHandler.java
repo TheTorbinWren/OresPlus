@@ -38,7 +38,8 @@ public class IMCHandler {
 								messageData.getInteger("maxY"), 
 								messageData.getBoolean("doRegen"), 
 								OreGenType.NORMAL, 
-								messageData.getInteger("oreDensity"));
+								messageData.getInteger("oreDensity"),
+								messageData.getString("regenKey"));
 						new WorldGenOre(oreGen);
 					}
 				}

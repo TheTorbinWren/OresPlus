@@ -117,6 +117,6 @@ public enum OreGenerators {
 	public OreGenClass getDefaultConfig() {
 		return new OreGenClass(this.name(), this._oreName, this._enabled, 
 				this._dimension, this._numVeins, this._veinSize, this._minY, 
-				this._maxY, this._enableRegen, this._genType, this._density);
+				this._maxY, this._enableRegen, this._genType, this._density, "DISABLED");
 	}
 }

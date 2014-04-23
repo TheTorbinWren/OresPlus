@@ -13,9 +13,10 @@ public class OreGenClass {
 	public boolean doRegen;
 	public OreGenType genType;
 	public int density;
+	public String regenKey;
 	
 	public OreGenClass(String name, String oreName, boolean en, int dim, int num, int size, 
-			int min, int max, boolean regen, OreGenType oreGenType, int oreDensity) {
+			int min, int max, boolean regen, OreGenType oreGenType, int oreDensity, String regenKey) {
 		this.name = name;
 		this.oreName = oreName;
 		this.enabled = en;
@@ -27,6 +28,7 @@ public class OreGenClass {
 		this.doRegen = regen;
 		this.genType = oreGenType;
 		this.density = oreDensity;
+		this.regenKey = regenKey;
 	}
 
 }
