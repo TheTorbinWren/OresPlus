@@ -1,0 +1,12 @@
+#Test
+.gradle/
+.metadata/
+.settings/
+bin/
+build/
+eclipse/
+gradle/
+.classpath
+.project
+gradlew
+gradlew.bat

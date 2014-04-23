@@ -1,0 +1,134 @@
+v0.4.23 Beta
+-fixed NPE in RecipeItemStack when source is null
+
+v0.4.22 Beta
+-finally found and fixed the oregen height bug (no more lapis at level 75)
+-fixed cracker on/off blocks
+-fixed NPE with forge 1056 and higher
+-started nei & tmi integration
+
+v0.4.21 Beta
+-finished migrating dust ores to new format
+-new saltpeter & sulfur dust textures
+-dust ores now have tiny dusts and storage blocks
+-moved manganese to metallic ores, makes it smeltable & grindable
+
+v0.4.20 Beta
+-fixed beehive gen error
+
+v0.4.19 Beta
+-version update
+
+v0.4.18 Beta
+-fixed beehive & ic2 regen, apparently I'm still a newb when it comes to java reflections
+-finished adding basic config file comments
+-reorganized generic ores that drop dusts
+-updated lead ore washer recipe to match ic2
+
+v0.4.17 Beta
+-reorganized gemstone ores ala metallics
+-added rudamentary missing mappings handler
+-cleaned up the recipes
+-started to deprecate the item & block registry in API (not needed)
+-added ore manager to API - for world gen
+-added Forestry beehive regen - not sure this is working
+
+v0.3.16 Beta
+-reorganized metallic ores so that adding new one in the future will be a snap
+-fixed ore smelt recipe (fixes issue 10)
+-added crushed purified ores and tiny piles of dust (for ic2 ore washing recipes to be added)
+-added ic2 ore washing recipes
+-Uranium ore now drops the ore. This will bring it in line with ic2 experimental.
+-added crushed uranium ore for grinder
+-added grinder & macerator recipes to turn uranium drops into crushed uranium.
+
+v0.3.15 Beta
+-fixed bug in IC2 helper
+-implemented IC2 rubber tree regeneration
+-added grinder recipes for ingots
+-updated forge, now required minimum of build 1040
+-added IC2 macerator recipes
+-enabled nickel & platinum recipes
+-changed grinder & macerator recipes to crushed ores, ingots still grind into dusts. brings it more in line with ic2 experimental
+
+v0.2.14 Beta
+-code cleanup
+-implemented basic helpers for numerous mods for future use
+-added nuggets & ore storage blocks
+-enabled lead recipes
+
+v0.2.13 Beta
+-nether diamond harvest level too high
+-added smelting recipes for nether ores
+-fixed an error in BlockMachine
+
+v0.2.12 Beta
+-npe in cracker when bitumen stack is empty
+-npe in buildcraft with haswork trigger
+-grinder and cracker were using energy when no work available
+-somewhere in time, green sapphire was renamed to Peridot
+-implemented work done trigger
+
+v0.2.11 Beta
+-implemented a hasWork bc gate trigger for machines.
+
+v0.2.10 Beta
+-implemented a has work bc trigger for the machines - not quite functional yet
+
+v0.2.9 Beta
+-code cleanup
+-finished cracker basics
+-added brass, bronze & electrum alloys
+
+v0.2.8 Beta
+-grinder will now work with buildcraft energy
+-started work on cracker - will break Bitumen down into oil
+-fixed grinder hardness
+-code cleanup
+-added recipes to craft gunpowder from charcoal/coal dust, sulfur, & saltpeter
+-fixed a metadata bug in grinder recipes
+
+v0.2.7 Beta
+-fixed grinder item icon, ok maybe not
+-finished grinder shift click rules
+-more API work - all blocks & items should be accessable though the api
+-ok, actually fixed the grinder item icon now
+
+v0.2.6 Beta
+-code cleanup
+-finished grinder basics
+-started API developement
+-sphalerite wasn't dropping dusts correctly
+-olivine wasn't dropping gems correctly
+-added remaining ore dusts
+
+v0.1.5 Alpha
+-moved vanilla ore gen to this mod. density for vanilla ores can now be configured
+-emerald oregen not replacable yet
+-fixed more possible NPEs
+-added IMCMessage event handler to receive oregen registrations from other mods (experimental). this is my first step to actually unifiying ore gen
+-added Certus Quartz
+-added a simple grinder - not fully implemented yet
+-implemented BuildCreaft oil regeneration
+-implemented xp drops for ores - partial
+
+v0.1.4 Alpha
+-ore generators seem to be ignoring the biome restrictions somehow, attempted to fix
+-bauxite was generating in all biomes, fixed
+-updated to forge 1024
+-corrected possible NPEs
+-added configuration for possible generation/regeneration of other mods ores.
+-removed configuration options for block hardness and ore drops from config file
+-added ore density configuration. this is a percentage setting to adjust the number of veins per chunk
+-removed other configuration options for ore generation from config file
+-switched to more robust regen management, will allow regen of other features independent of ore regen
+
+v0.1.3 Alpha
+-hopefully reduced memory consumption when regenerating ores
+
+v0.1.2 Alpha
+-added version history file
+-added missing Nikolite generator
+
+v0.1.1 Alpha
+-initial public release

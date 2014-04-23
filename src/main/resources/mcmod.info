@@ -1,0 +1,16 @@
+[
+{
+  "modid": "oresplus",
+  "name": "OresPlus",
+  "description": "Adds ores.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["TheTorbinWren"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["mod_MinecraftForge"]
+}
+]
