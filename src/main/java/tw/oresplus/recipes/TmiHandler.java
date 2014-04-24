@@ -3,6 +3,7 @@ package tw.oresplus.recipes;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import tw.oresplus.OresPlus;
 import cpw.mods.fml.common.Loader;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -35,8 +36,8 @@ public class TmiHandler implements ICraftingHandler {
 		}
 		
 		if (this.tmi != null && this.tmiObject != null) {
-			for (Method method : this.tmi.getDeclaredMethods()) {
-				if (method.toString().equals("hideItem"))
+			for (Method method : this.tmi.getMethods()) {
+				if (method.getName().equals("hideItem"))
 					this.hideItemMethod = method;
 			}
 		}

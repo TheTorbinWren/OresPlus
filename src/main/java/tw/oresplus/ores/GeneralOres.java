@@ -32,8 +32,6 @@ public enum GeneralOres implements IOres {
 	Tungsten (2),
 	Uranium (2);
 	
-	
-	
 	public String oreName;
 	
 	public OreItemStack ore;
@@ -54,6 +52,7 @@ public enum GeneralOres implements IOres {
 		this._source = OreSources.DEFAULT;
 		this._xpdropLow = xpdropLow;
 		this._xpdropHigh = xpdropHigh;
+		this._aspects = aspects;
 	}
 	
 	private GeneralOres(int harvestLevel, AspectList aspects) {

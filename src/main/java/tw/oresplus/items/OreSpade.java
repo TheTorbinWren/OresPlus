@@ -9,7 +9,7 @@ public class OreSpade extends ItemSpade {
 	public OreSpade(String itemName, ToolMaterial material) {
 		super(material);
 		setUnlocalizedName(itemName);
-		setTextureName(OresPlus.MOD_ID + itemName);
+		setTextureName("OresPlus:" + itemName);
 		GameRegistry.registerItem(this, itemName);
 	}
 

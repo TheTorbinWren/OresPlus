@@ -1,17 +1,19 @@
 v0.5.27 Beta
 -removed nether ores integration helper
+-added versioning to config file
 -recovered lost work from v24 to v26
 -includes:
 --lots of code cleanup
 --certus quartz will now drop ae2 items if ae2 present
 --added Aluminium, Ardite & Cobalt ores (Tinker's Constructs)
 --applied energistics integration
---option to set output size for brass and broze dust crafting
+--option to set output size for brass and bronze dust crafting
 --crafting recipes for forestry fertilizer
 --added armor & weapons for Adamantine, Cold Iron & Mithral
 --increased precious gemstone generator amounts (haven't found a single ore in months of testing)
 --added thaumcraft integration
 --made ore regeneration by per ore basis
+--added alternate recipe for iridium plate (ic2 recipe not ore dict enabled)
 
 v0.4.24-5.26 Betas
 -the lost versions

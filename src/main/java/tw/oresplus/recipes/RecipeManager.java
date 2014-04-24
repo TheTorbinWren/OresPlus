@@ -148,6 +148,12 @@ public class RecipeManager {
 		for (DustOres ore : DustOres.values()) {
 			ore.registerRecipes();
 		}
+		
+		if (OresPlus.iridiumPlateRecipe && Helpers.IC2.isLoaded()) {
+			OreItemStack iridiumPlate = new OreItemStack(Helpers.IC2.getItem("itemPartIridium"));
+			OreItemStack alloyPlate = new OreItemStack(Helpers.IC2.getItem("itemPartAlloy"));
+			addShapedRecipe(iridiumPlate.newStack(), "ipi", "pdp", "ipi", 'i', OreItems.gemIridium.item.newStack(), 'p', alloyPlate.newStack(), 'd', GemstoneOres.Diamond.gem.newStack());
+		}
 	}
 
 	public static void addShapelessRecipe(ItemStack output, Object... params) {

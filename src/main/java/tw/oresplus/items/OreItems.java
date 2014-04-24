@@ -1,6 +1,8 @@
 package tw.oresplus.items;
 
+import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
+import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.recipes.OreItemStack;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -45,7 +47,7 @@ public enum OreItems {
 	}
 
 	public void registerAspects() {
-		// TODO Auto-generated method stub
-		
+		if (Helpers.ThaumCraft.isLoaded() && this._aspects.size() > 0)
+			ThaumcraftApi.registerObjectTag(this.item.source, this._aspects);
 	}
 }

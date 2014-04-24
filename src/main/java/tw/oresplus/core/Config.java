@@ -2,6 +2,7 @@ package tw.oresplus.core;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import net.minecraftforge.common.config.Property.Type;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import tw.oresplus.OresPlus;
 import tw.oresplus.ores.OreDrops;
@@ -16,6 +17,8 @@ public class Config {
 	private static OreLog log = OresPlus.log;
 	private static boolean configured;
 	private static Configuration configFile;
+	private static final int configVersion = 1;
+	private static int configFileVersion;
 	
 	public static void init(FMLPreInitializationEvent event) {
 		log.info("Initializing Configuration");
@@ -26,15 +29,41 @@ public class Config {
 		configFile.addCustomCategoryComment(CAT_ORE_GEN, "Ore generator configuration = generatorEnabled,denisty%,regenerateOre");
 	    configFile.addCustomCategoryComment("regeneration", "Configure general regeneration options here");
 		
+	    if (configFile.hasKey(Configuration.CATEGORY_GENERAL, "configVersion")) {
+		    configFileVersion = getInt("configVersion", configFileVersion, "Configuration File Version - Do not change, modifying this may break your game");
+	    }
+	    else {
+	    	configFileVersion = 0;
+	    }
+	    OresPlus.log.info("Reading from v" + configFileVersion + " Configuration File");
+	    
 		configured = true;
 	}
 	
+	private static int getInt(String key, int defaultValue, String comment) {
+		return getiInt(Configuration.CATEGORY_GENERAL, key, defaultValue, comment);
+	}
+
+	private static int getiInt(String category, String key, int defaultValue, String comment) {
+		Property prop = configFile.get(category, key, defaultValue);
+		if (comment != "")
+			prop.comment = comment;
+		return prop.getInt(defaultValue);
+	}
+
 	public static void save() {
 		if (!configured) {
 			log.info("Error - configuration not initialized!");
 			return;		
 		}
 		log.info("Saving Configuration");
+		
+		if (configFileVersion != configVersion) {
+			Property prop = configFile.get(Configuration.CATEGORY_GENERAL, "configVersion", configVersion);
+			prop.comment = "Configuration File Version - Do not change, modifying this may break your game";
+			prop.set(configVersion);
+		}
+		
 		if (configFile.hasChanged())
 			configFile.save();
 	}
@@ -79,26 +108,35 @@ public class Config {
 			Property prop = configFile.get(CAT_ORE_GEN, oreConfig.name, getOreGenCfgLine(oreConfig));
 			String cfg[] = prop.getString().split(",");
 			boolean configChanged = false;
-			switch (cfg.length) {
-			case 3: // v0.1.4 - 0.4.23
-				oreConfig.enabled = Boolean.parseBoolean(cfg[0]);
-				oreConfig.density = Integer.parseInt(cfg[1]);
-				oreConfig.doRegen = Boolean.parseBoolean(cfg[2]);
-				break;
-			case 4: // current
+			switch (configFileVersion) {
+			case 1:
 				oreConfig.enabled = Boolean.parseBoolean(cfg[0]);
 				oreConfig.density = Integer.parseInt(cfg[1]);
 				oreConfig.doRegen = Boolean.parseBoolean(cfg[2]);
 				oreConfig.regenKey = cfg[3];
 				break;
-			case 8: // v0.1.1 - v0.1.3
-				oreConfig.enabled = Boolean.parseBoolean(cfg[1]);
-				oreConfig.doRegen = Boolean.parseBoolean(cfg[7]);
-				configChanged = true;
-				break;
 			default:
-				OresPlus.log.info("Could not read config for ore " + oreConfig.name + ". Resetting to default");
-				configChanged = true;
+				switch (cfg.length) {
+				case 3: // v0.1.4 - 0.4.23
+					oreConfig.enabled = Boolean.parseBoolean(cfg[0]);
+					oreConfig.density = Integer.parseInt(cfg[1]);
+					oreConfig.doRegen = Boolean.parseBoolean(cfg[2]);
+					break;
+				case 4: // current
+					oreConfig.enabled = Boolean.parseBoolean(cfg[0]);
+					oreConfig.density = Integer.parseInt(cfg[1]);
+					oreConfig.doRegen = Boolean.parseBoolean(cfg[2]);
+					oreConfig.regenKey = cfg[3];
+					break;
+				case 8: // v0.1.1 - v0.1.3
+					oreConfig.enabled = Boolean.parseBoolean(cfg[1]);
+					oreConfig.doRegen = Boolean.parseBoolean(cfg[7]);
+					configChanged = true;
+					break;
+				default:
+					OresPlus.log.info("Could not read config for ore " + oreConfig.name + ". Resetting to default");
+					configChanged = true;
+				}
 			}
 			if (configChanged)
 				prop.set(getOreGenCfgLine(oreConfig));

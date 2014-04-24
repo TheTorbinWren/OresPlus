@@ -10,6 +10,7 @@ libs/
 run/
 .classpath
 .project
+build.bat
 gradlew
 gradlew.bat
 

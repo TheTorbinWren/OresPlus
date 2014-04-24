@@ -75,6 +75,12 @@ public class OreEventHandler {
 	@SubscribeEvent
 	public void chunkSave(ChunkDataEvent.Save event) {
 		NBTTagCompound oresPlusRegen = new NBTTagCompound();
+		
+	    NBTTagCompound oreRegenArray = new NBTTagCompound();
+	    for (OreGenerators oreGen : OreGenerators.values()) {
+	      oreRegenArray.setString(oreGen.toString(), oreGen.generator.regenKey);
+	    }
+	    oresPlusRegen.setTag("oreRegenArray", oreRegenArray);
 		oresPlusRegen.setString("ores", OresPlus.regenKeyOre);
 		oresPlusRegen.setString("oil", OresPlus.regenKeyOil);
 		oresPlusRegen.setString("rubberTree", OresPlus.regenKeyRubberTree);

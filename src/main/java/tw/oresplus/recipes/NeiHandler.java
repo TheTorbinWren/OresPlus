@@ -3,6 +3,7 @@ package tw.oresplus.recipes;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import tw.oresplus.OresPlus;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.Loader;
 
@@ -17,7 +18,7 @@ public class NeiHandler implements ICraftingHandler {
 			return;
 		
 		try {
-			this.api = Class.forName("codechicken.nei.api");
+			this.api = Class.forName("codechicken.nei.api.API");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -30,9 +31,23 @@ public class NeiHandler implements ICraftingHandler {
 		}
 		
 		if (this.api != null && this.apiObject != null) {
+			/*
 			for (Method method : this.api.getDeclaredMethods()) {
-				if (method.toString().equals("hideItem"))
+				OresPlus.log.info(method.toString());
+				if (method.toString().equals("hideItem")) {
 					this.hideItemMethod = method;
+				}
+			}
+			*/
+			// hideItem(net.minecraft.item.ItemStack)
+			try {
+				this.hideItemMethod = api.getMethod("hideItem", net.minecraft.item.ItemStack.class);
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		
