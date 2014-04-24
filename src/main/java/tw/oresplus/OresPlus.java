@@ -49,7 +49,7 @@ import tw.oresplus.worldgen.OreGenerators;
 import tw.oresplus.worldgen.WorldGenCore;
 import tw.oresplus.worldgen.WorldGenOre;
 
-@Mod(modid = OresPlus.MOD_ID, name = OresPlus.MOD_NAME, version = OresPlus.MOD_VERSION, dependencies="required-after:Forge@10.12.0.1040")
+@Mod(modid = OresPlus.MOD_ID, name = OresPlus.MOD_NAME, version = OresPlus.MOD_VERSION, dependencies="required-after:Forge@10.12.1.1060")
 public class OresPlus {
 	
 	@SidedProxy(clientSide="tw.oresplus.client.ClientProxy", serverSide="tw.oresplus.core.ServerProxy") 
@@ -72,6 +72,7 @@ public class OresPlus {
     public static boolean iridiumPlateRecipe = true;
     public static boolean difficultAlloys = false;
     public static boolean logRegenerations = false;
+    public static boolean angryPigmen = true;
     
     public static WorldGenCore worldGen = new WorldGenCore();
     public static OreEventHandler eventHandler = new OreEventHandler();
@@ -91,6 +92,7 @@ public class OresPlus {
 	    regenKeyRubberTree = Config.getString(Config.CAT_REGEN, "regenKeyRubberTree", regenKeyRubberTree, "change this to regenerate IC2 rubber trees");
 	    regenKeyBeehives = Config.getString(Config.CAT_REGEN, "regenKeyBeehives", regenKeyBeehives, "change this to regenerate Forestry beehives");
 
+	    angryPigmen = Config.getBoolean("angryPigmen", angryPigmen, "set to false to prevent zombie pigmen from attacking when mining nether ores");
 	    iridiumPlateRecipe = Config.getBoolean("iridiumPlateRecipe", iridiumPlateRecipe, "enables an ore dictionary-enabled recipe for iridium plate");
 	    difficultAlloys = Config.getBoolean("difficultAlloys", difficultAlloys, "enable true to set brass & bronze alloy recipes to output only 2 dusts");
 	    logRegenerations = Config.getBoolean("logRegenerations", logRegenerations, "enavble to log all regenerations that occur");

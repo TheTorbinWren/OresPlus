@@ -2,6 +2,7 @@ package tw.oresplus.blocks;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 import tw.oresplus.OresPlus;
@@ -18,7 +19,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.monster.EntityPigZombie;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
@@ -27,8 +33,9 @@ public class BlockOre extends BlockCore {
 	private OreDrops drops;
 	private int xpDropLow;
 	private int xpDropHigh;
+	private boolean _isNether;
 	
-	public BlockOre(OreClass ore) {
+	public BlockOre(OreClass ore, boolean isNether) {
 		super (Material.rock, ore.name);
 		this.drops = ore.drops;
 		this.setCreativeTab(CreativeTabs.tabBlock);
@@ -37,8 +44,13 @@ public class BlockOre extends BlockCore {
 		this.setHarvestLevel("pickaxe", ore.harvestLevel);
 		this.xpDropLow = ore.xpDropLow;
 		this.xpDropHigh = ore.xpDropHigh;
+		this._isNether = isNether;
 		Ores.manager.registerOre(ore.name, this);
-}
+	}
+	
+	public BlockOre(OreClass ore) {
+		this(ore, false);
+	}
 
 	private Random rand = new Random();
     @Override
@@ -63,17 +75,13 @@ public class BlockOre extends BlockCore {
 			rList.add(new ItemStack(Ores.getItem("itemBitumen"), this.fortuneHelper(world, 2 + world.rand.nextInt(4), fortune)));
 			break;
 		case CERTUSQUARTZ:
-			if (Helpers.AppliedEnergistics.isLoaded()) {
-				OreItemStack certusQuartz = world.rand.nextFloat() > 0.92F ? 
-					new OreItemStack(Helpers.AppliedEnergistics.getItem("appliedenergistics2.ItemMaterial.CertusQuartzCrystalCharged")) :
-					new OreItemStack(Helpers.AppliedEnergistics.getItem("appliedenergistics2.ItemMaterial.CertusQuartzCrystal"));
-				if (certusQuartz.source != null) {
-					rList.add(certusQuartz.newStack(fortuneHelper(world, 1 + world.rand.nextInt(2), fortune)));
-				}
-				else {
-					rList.add(new ItemStack(this.getItemDropped(metadata, world.rand, fortune), 1));
-				}
-			} 
+			Item certusQuartz = Helpers.AppliedEnergistics.getItem("item.ItemMaterial");
+			if (Helpers.AppliedEnergistics.isLoaded() && certusQuartz != null) {
+				OreItemStack cqStack = world.rand.nextFloat() > 0.92F ? 
+					new OreItemStack(new ItemStack(certusQuartz, 1, 1)) :
+					new OreItemStack(new ItemStack(certusQuartz, 1, 0));
+					rList.add(cqStack.newStack(fortuneHelper(world, 1 + world.rand.nextInt(2), fortune)));
+			}
 			else {
 				rList.add(new ItemStack(this.getItemDropped(metadata, world.rand, fortune), 1));
 			}
@@ -218,4 +226,21 @@ public class BlockOre extends BlockCore {
 		return stackSize;
 	}
 
+	@Override
+    public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
+		super.harvestBlock(world, player, x, y, z, meta);
+		if (OresPlus.angryPigmen)
+			upsetThePigs(player, world, x, y, z);
+	}
+
+	private static void upsetThePigs(EntityPlayer player, World world, int x, int y, int z) {
+		int range = 32;
+		List entities = world.getEntitiesWithinAABB(net.minecraft.entity.monster.EntityPigZombie.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range + 1, y  + range + 1, z + range + 1));
+		
+		for (Object entity : entities) {
+			if (entity instanceof EntityPigZombie) {
+				((EntityPigZombie)entity).attackEntityFrom(DamageSource.causePlayerDamage(player), 0);
+			}
+		}
+	}
 }

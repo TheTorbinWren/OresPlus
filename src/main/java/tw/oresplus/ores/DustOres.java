@@ -93,7 +93,7 @@ public enum DustOres implements IOres {
 		}
 		oreClass = Config.getOre(this.getDefaultConfigNether());
 		if (oreClass.enabled)
-			this.netherOre = new ItemStack(new BlockOre(oreClass), 1);
+			this.netherOre = new ItemStack(new BlockOre(oreClass, true), 1);
 		
 	}
 

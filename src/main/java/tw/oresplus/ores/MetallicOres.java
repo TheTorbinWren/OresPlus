@@ -140,7 +140,7 @@ public enum MetallicOres implements IOres {
 		if (!this._isAlloy)	{
 			OreClass oreConfig = Config.getOre(this.getDefaultConfigNether());
 			if (oreConfig.enabled) {
-				this.netherOre = new OreItemStack(new BlockOre(oreConfig));
+				this.netherOre = new OreItemStack(new BlockOre(oreConfig, true));
 			}
 		}
 		

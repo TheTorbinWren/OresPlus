@@ -100,7 +100,7 @@ public enum GemstoneOres implements IOres {
 		// Register Nether Ore
 		OreClass oreConfig = Config.getOre(this.getDefaultConfigNether());
 		if (oreConfig.enabled) {
-			this.netherOre = new OreItemStack(new BlockOre(oreConfig));
+			this.netherOre = new OreItemStack(new BlockOre(oreConfig, true));
 		}
 		
 		// Register Storage Block

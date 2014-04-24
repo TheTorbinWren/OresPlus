@@ -14,9 +14,11 @@ public enum Helpers {
 	Forestry(new ForestryHelper()),
 	GregTech(new GTHelper()),
 	IC2(new IC2Helper()),
+	Mekanism(new MekanismHelper()),
 	RailCraft(new RCHelper()),
 	ThaumCraft(new TCHelper()),
-	ThermalExpansion(new TEHelper());
+	ThermalExpansion(new TEHelper()),
+	Tinkers(new TinkersHelper());
 	
 	private OresHelper _oresHelper;
 	

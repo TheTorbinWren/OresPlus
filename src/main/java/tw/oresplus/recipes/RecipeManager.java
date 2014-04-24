@@ -152,7 +152,7 @@ public class RecipeManager {
 		if (OresPlus.iridiumPlateRecipe && Helpers.IC2.isLoaded()) {
 			OreItemStack iridiumPlate = new OreItemStack(Helpers.IC2.getItem("itemPartIridium"));
 			OreItemStack alloyPlate = new OreItemStack(Helpers.IC2.getItem("itemPartAlloy"));
-			addShapedRecipe(iridiumPlate.newStack(), "ipi", "pdp", "ipi", 'i', OreItems.gemIridium.item.newStack(), 'p', alloyPlate.newStack(), 'd', GemstoneOres.Diamond.gem.newStack());
+			addShapedRecipe(iridiumPlate.newStack(), "ipi", "pdp", "ipi", 'i', OreItems.gemIridium.toString(), 'p', alloyPlate.newStack(), 'd', GemstoneOres.Diamond.gem.newStack());
 		}
 	}
 

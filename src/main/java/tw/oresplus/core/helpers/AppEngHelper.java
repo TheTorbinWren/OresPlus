@@ -41,6 +41,9 @@ public class AppEngHelper extends OresHelper {
 	@Override
 	public void registerRecipe(String recipeType, ItemStack input,
 			NBTTagCompound metadata, ItemStack... outputs) {
+		if (!this.isLoaded())
+			return;
+		
 	    if (recipeType == "grinder") {
 	        try {
 	        	api.registries().grinder().addRecipe(input, outputs[0], metadata.getInteger("cranks"));

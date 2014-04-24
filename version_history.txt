@@ -1,10 +1,12 @@
 v0.5.27 Beta
 -removed nether ores integration helper
+-added integration helpers for Tinkers & Mekanism
 -added versioning to config file
+-added angry pigmen option for nether ores
 -recovered lost work from v24 to v26
 -includes:
 --lots of code cleanup
---certus quartz will now drop ae2 items if ae2 present
+--certus quartz ore will now drop ae2 certus quartz if ae2 present
 --added Aluminium, Ardite & Cobalt ores (Tinker's Constructs)
 --applied energistics integration
 --option to set output size for brass and bronze dust crafting
@@ -14,6 +16,7 @@ v0.5.27 Beta
 --added thaumcraft integration
 --made ore regeneration by per ore basis
 --added alternate recipe for iridium plate (ic2 recipe not ore dict enabled)
+--added chest loot
 
 v0.4.24-5.26 Betas
 -the lost versions
