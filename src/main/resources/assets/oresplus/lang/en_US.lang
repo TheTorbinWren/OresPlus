@@ -1,6 +1,6 @@
 tile.oreAdamantine.name=Adamantine Ore
 tile.oreNetherAdamantine.name=Nether Adamantine Ore
-tile.oreBlockAdamantine.name=Block of Adamantine
+tile.blockAdamantine.name=Block of Adamantine
 item.dustTinyAdamantine.name=Tiny Pile of Adamantine Dust
 item.dustAdamantine.name=Adamantine Dust
 item.crushedAdamantine.name=Crushed Adamantine Ore
@@ -8,7 +8,7 @@ item.crushedPurifiedAdamantine.name=Purified Crushed Adamantine Ore
 
 tile.oreAluminium.name=Aluminium Ore
 tile.oreNetherAluminium.name=Nether Aluminium Ore
-tile.oreBlockAluminium.name=Block of Aluminium
+tile.blockAluminium.name=Block of Aluminium
 item.ingotAluminium.name=Aluminium Ingot
 item.nuggetAluminium.name=Aluminium Nugget
 item.dustAluminium.name=Aluminium Dust
@@ -18,7 +18,7 @@ item.crushedPurifiedAluminium.name=Purified Crushed Aluminium Ore
 
 tile.oreArdite.name=Ardite Ore
 tile.oreNetherArdite.name=Nether Ardite Ore
-tile.oreBlockArdite.name=Block of Ardite
+tile.blockArdite.name=Block of Ardite
 item.ingotArdite.name=Ardite Ingot
 item.nuggetArdite.name=Ardite Nugget
 item.dustArdite.name=Ardite Dust
@@ -26,17 +26,17 @@ item.dustTinyArdite.name=Tiny Pile of Ardite Dust
 item.crushedArdite.name=Crushed Ardite Ore
 item.crushedPurifiedArdite.name=Purified Crushed Ardite Ore
 
-tile.oreBlockBrass.name=Block of Brass
+tile.blockBrass.name=Block of Brass
 item.dustBrass.name=Brass Dust
 item.dustTinyBrass.name=Tiny Pile of Brass Dust
 
-tile.oreBlockBronze.name=Block of Bronze
+tile.blockBronze.name=Block of Bronze
 item.dustBronze.name=Bronze Dust
 item.dustTinyBronze.name=Tiny Pile of Bronze Dust
 
 tile.oreCobalt.name=Cobalt Ore
 tile.oreNetherCobalt.name=Nether Cobalt Ore
-tile.oreBlockCobalt.name=Block of Cobalt
+tile.blockCobalt.name=Block of Cobalt
 item.ingotCobalt.name=Cobalt Ingot
 item.nuggetCobalt.name=Cobalt Nugget
 item.dustCobalt.name=Cobalt Dust
@@ -46,7 +46,7 @@ item.crushedPurifiedCobalt.name=Purified Crushed Cobalt Ore
 
 tile.oreColdiron.name=Cold Iron Ore
 tile.oreNetherColdiron.name=Nether Cold Iron Ore
-tile.oreBlockColdiron.name=Block of Cold Iron
+tile.blockColdiron.name=Block of Cold Iron
 item.dustColdiron.name=Cold Iron Dust
 item.dustTinyColdiron.name=Tiny Pile of Cold Iron Dust
 item.crushedColdiron.name=Crushed Cold Iron Ore
@@ -54,13 +54,13 @@ item.crushedPurifiedColdiron.name=Purified Crushed Cold Iron Ore
 
 tile.oreCopper.name=Copper Ore
 tile.oreNetherCopper.name=Nether Copper Ore
-tile.oreBlockCopper.name=Block of Copper
+tile.blockCopper.name=Block of Copper
 item.dustCopper.name=Copper Dust
 item.dustTinyCopper.name=Tiny Pile of Copper Dust
 item.crushedCopper.name=Crushed Copper Ore
 item.crushedPurifiedCopper.name=Purified Crushed Copper Ore
 
-tile.oreBlockElectrum.name=Block of Electrum
+tile.blockElectrum.name=Block of Electrum
 item.dustElectrum.name=Electrum Dust
 item.dustTinyElectrum.name=Tiny Pile of Electrum Dust
 
@@ -78,7 +78,7 @@ item.crushedPurifiedIron.name=Purified Crushed Iron Ore
 
 tile.oreLead.name=Lead Ore
 tile.oreNetherLead.name=Nether Lead Ore
-tile.oreBlockLead.name=Block of Lead
+tile.blockLead.name=Block of Lead
 item.dustLead.name=Lead Dust
 item.dustTinyLead.name=Tiny Pile of Lead Dust
 item.crushedLead.name=Crushed Lead Ore
@@ -86,7 +86,7 @@ item.crushedPurifiedLead.name=Purified Crushed Lead Ore
 
 tile.oreManganese.name=Manganese Ore
 tile.oreNetherManganese.name=Nether Manganese Ore
-tile.oreBlockManganese.name=Block of Manganese
+tile.blockManganese.name=Block of Manganese
 item.ingotManganese.name=Manganese Ingot
 item.nuggetManganese.name=Manganese Nugget
 item.dustManganese.name=Manganese Dust
@@ -96,7 +96,7 @@ item.crushedPurifiedManganese.name=Crushed Purified Manganese Ore
 
 tile.oreMithral.name=Mithral Ore
 tile.oreNetherMithral.name=Nether Mithral Ore
-tile.oreBlockMithral.name=Block of Mithral
+tile.blockMithral.name=Block of Mithral
 item.dustMithral.name=Mithral Dust
 item.dustTinyMithral.name=Tiny Pile of Mithral Dust
 item.crushedMithral.name=Crushed Mithral Ore
@@ -104,7 +104,7 @@ item.crushedPurifiedMithral.name=Purified Crushed Mithral Ore
 
 tile.oreNickel.name=Nickel Ore
 tile.oreNetherNickel.name=Nether Nickel Ore
-tile.oreBlockNickel.name=Block of Nickel
+tile.blockNickel.name=Block of Nickel
 item.dustNickel.name=Nickel Dust
 item.dustTinyNickel.name=Tiny Pile of Nickel Dust
 item.crushedNickel.name=Crushed Nickel Ore
@@ -112,7 +112,7 @@ item.crushedPurifiedNickel.name=Purified Crushed Nickel Ore
 
 tile.oreOsmium.name=Osmium Ore
 tile.oreNetherOsmium.name=Nether Osmium Ore
-tile.oreBlockOsmium.name=Block of Osmium
+tile.blockOsmium.name=Block of Osmium
 item.ingotOsmium.name=Osmium Ingot
 item.dustOsmium.name=Osmium Dust
 item.dustTinyOsmium.name=Tiny Pile of Osmium Dust
@@ -122,7 +122,7 @@ item.crushedPurifiedOsmium.name=Crushed Purified Osmium Ore
 
 tile.orePlatinum.name=Platinum Ore
 tile.oreNetherPlatinum.name=Nether Platinum Ore
-tile.oreBlockPlatinum.name=Block of Platinum
+tile.blockPlatinum.name=Block of Platinum
 item.dustPlatinum.name=Platinum Dust
 item.dustTinyPlatinum.name=Tiny Pile of Platinum Dust
 item.crushedPlatinum.name=Crushed Platinum Ore
@@ -130,7 +130,7 @@ item.crushedPurifiedPlatinum.name=Purified Crushed Platinum Ore
 
 tile.oreSilver.name=Silver Ore
 tile.oreNetherSilver.name=Nether Silver Ore
-tile.oreBlockSilver.name=Block of Silver
+tile.blockSilver.name=Block of Silver
 item.dustSilver.name=Silver Dust
 item.dustTinySilver.name=Tiny Pile of Silver Dust
 item.crushedSilver.name=Crushed Silver Ore
@@ -138,7 +138,7 @@ item.crushedPurifiedSilver.name=Purified Crushed Silver Ore
 
 tile.oreTin.name=Tin Ore
 tile.oreNetherTin.name=Nether Tin Ore
-tile.oreBlockTin.name=Block of Tin
+tile.blockTin.name=Block of Tin
 item.dustTin.name=Tin Dust
 item.dustTinyTin.name=Tiny Pile of Tin Dust
 item.crushedTin.name=Crushed Tin Ore
@@ -146,7 +146,7 @@ item.crushedPurifiedTin.name=Purified Crushed Tin Ore
 
 tile.oreZinc.name=Zinc Ore
 tile.oreNetherZinc.name=Nether Zinc Ore
-tile.oreBlockZinc.name=Block of Zinc
+tile.blockZinc.name=Block of Zinc
 item.dustZinc.name=Zinc Dust
 item.dustTinyZinc.name=Tiny Pile of Zinc Dust
 item.crushedZinc.name=Crushed Zinc Ore
@@ -155,12 +155,12 @@ item.crushedPurifiedZinc.name=Purified Crushed Zinc Ore
 tile.oreAmethyst.name=Amethyst Ore
 tile.oreNetherAmethyst.name=Nether Amethyst Ore
 item.gemAmethyst.name=Amethyst
-tile.oreBlockAmethyst.name=Block of Amethyst
+tile.blockAmethyst.name=Block of Amethyst
 
 tile.oreApatite.name=Apatite Ore
 tile.oreNetherApatite.name=Nether Apatite Ore
 item.gemApatite.name=Apatite
-tile.oreBlockApatite.name=Block of Apatite
+tile.blockApatite.name=Block of Apatite
 
 tile.oreNetherDiamond.name=Nether Diamond Ore
 
@@ -169,38 +169,38 @@ tile.oreNetherEmerald.name=Nether Emerald Ore
 tile.oreGreenSapphire.name=Peridot Ore
 tile.oreNetherGreenSapphire.name=Nether Peridot Ore
 item.gemGreenSapphire.name=Peridot
-tile.oreBlockGreenSapphire.name=Block of Peridot
+tile.blockGreenSapphire.name=Block of Peridot
 
 tile.oreRuby.name=Ruby Ore
 tile.oreNetherRuby.name=Nether Ruby Ore
 item.gemRuby.name=Ruby
-tile.oreBlockRuby.name=Block of Ruby
+tile.blockRuby.name=Block of Ruby
 
 tile.oreSapphire.name=Sapphire Ore
 tile.oreNetherSapphire.name=Nether Sapphire Ore
 item.gemSapphire.name=Sapphire
-tile.oreBlockSapphire.name=Block of Sapphire
+tile.blockSapphire.name=Block of Sapphire
 
 tile.oreTopaz.name=Topaz Ore
 tile.oreNetherTopaz.name=Nether Topaz Ore
 item.gemTopaz.name=Topaz
-tile.oreBlockTopaz.name=Block of Topaz
+tile.blockTopaz.name=Block of Topaz
 
 tile.oreNikolite.name=Nikolite Ore
 tile.oreNetherNikolite.name=Nether Nikolite Ore
-tile.oreBlockNikolite.name=Block of Nikolite
+tile.blockNikolite.name=Block of Nikolite
 item.dustNikolite.name=Nikolite Dust
 item.dustTinyNikolite.name=Tiny Pile of Nikolite Dust
 
 tile.orePhosphorite.name=Phosphorite Ore
 tile.oreNetherPhosphorite.name=NetherPhosphoriteOre
-tile.oreBlockPhosphorite.name=Block of Phosphorite
+tile.blockPhosphorite.name=Block of Phosphorite
 item.dustPhosphorite.name=Phosphorite Dust
 item.dustTinyPhosphorite.name=Tiny Pile of Phosphorite Dust
 
 tile.orePotash.name=Potash Ore
 tile.oreNetherPotash.name=Nether Potash Ore
-tile.oreBlockPotash.name=Block of Potash
+tile.blockPotash.name=Block of Potash
 item.dustPotash.name=Potash Dust
 item.dustTinyPotash.name=Tiny Pile of Potash Dust
 
@@ -209,13 +209,13 @@ item.dustTinyRedstone.name=Tiny Pile of Redstone Dust
 
 tile.oreSaltpeter.name=Saltpeter Ore
 tile.oreNetherSaltpeter.name=Nether Saltpeter Ore
-tile.oreBlockSaltpeter.name=Block of Saltpeter
+tile.blockSaltpeter.name=Block of Saltpeter
 item.dustSaltpeter.name=Saltpeter Dust
 item.dustTinySaltpeter.name=Tiny Pile of Saltpeter Dust
 
 tile.oreSulfur.name=Sulfur Ore
 tile.oreNetherSulfur.name=Nether Sulfur Ore
-tile.oreBlockSulfur.name=Block of Sulfur
+tile.blockSulfur.name=Block of Sulfur
 item.dustSulfur.name=Sulfur Dust
 item.dustTinySulfur.name=Tiny Pile of Saltpeter Dust
 
