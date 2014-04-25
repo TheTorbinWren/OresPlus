@@ -28,15 +28,15 @@ public enum DustOres implements IOres {
 		
 	public String oreName;
 	public String netherOreName;
-	public String oreBlockName;
+	public String blockName;
 	public String dustName;
 	public String tinyDustName;
 	
-	public ItemStack ore;
-	public ItemStack netherOre;
-	public ItemStack oreBlock;
-	public ItemStack dust;
-	public ItemStack tinyDust;
+	public OreItemStack ore;
+	public OreItemStack netherOre;
+	public OreItemStack block;
+	public OreItemStack dust;
+	public OreItemStack tinyDust;
 	
 	private int _harvestLevel;
 	private OreDrops _drops;
@@ -50,7 +50,7 @@ public enum DustOres implements IOres {
 	private DustOres (int harvestLevel, Aspect aspect, Aspect secondaryAspect, OreDrops drops) {
 		this.oreName = "ore" + this.toString();
 		this.netherOreName = "oreNether" + this.toString();
-		this.oreBlockName = "oreBlock" + this.toString();
+		this.blockName = "block" + this.toString();
 		this.dustName = "dust" + this.toString();
 		this.tinyDustName = "dustTiny" + this.toString();
 		this._harvestLevel = harvestLevel;
@@ -73,27 +73,30 @@ public enum DustOres implements IOres {
 
 	@Override
 	public void registerBlocks() {
+		// Register ore & storage block
 		OreClass oreClass;
 		switch (this) {
 		case Redstone:
-			this.ore = new ItemStack(net.minecraft.init.Blocks.redstone_ore, 1);
+			this.ore = new OreItemStack(net.minecraft.init.Blocks.redstone_ore);
 			Ores.manager.registerOre(this.oreName, net.minecraft.init.Blocks.redstone_ore);
-			this.oreBlock = new ItemStack(net.minecraft.init.Blocks.redstone_block, 1);
-			Ores.manager.registerOre(this.oreBlockName, net.minecraft.init.Blocks.redstone_block);
+			this.block = new OreItemStack(net.minecraft.init.Blocks.redstone_block);
+			Ores.manager.registerOre(this.blockName, net.minecraft.init.Blocks.redstone_block);
 			break;
 		default:
 			oreClass = Config.getOre(this.getDefaultConfig());
 			if (oreClass.enabled)
-				this.ore = new ItemStack(new BlockOre(oreClass), 1);
-			this.oreBlock = new ItemStack(new BlockCore(Material.iron, this.oreBlockName)
+				this.ore = new OreItemStack(new BlockOre(oreClass));
+			this.block = new OreItemStack(new BlockCore(Material.iron, this.blockName)
 				.setCreativeTab(CreativeTabs.tabBlock)
 				.setHardness(5.0F)
 				.setResistance(10.0F)
-				.setStepSound(Block.soundTypeMetal), 1);
+				.setStepSound(Block.soundTypeMetal));
 		}
+		
+		// Register Nether Ore
 		oreClass = Config.getOre(this.getDefaultConfigNether());
 		if (oreClass.enabled)
-			this.netherOre = new ItemStack(new BlockOre(oreClass, true), 1);
+			this.netherOre = new OreItemStack(new BlockOre(oreClass, true));
 		
 	}
 
@@ -101,36 +104,30 @@ public enum DustOres implements IOres {
 	public void registerItems() {
 		switch (this) {
 		case Redstone:
-			this.dust = new ItemStack(net.minecraft.init.Items.redstone, 1);
+			this.dust = new OreItemStack(net.minecraft.init.Items.redstone);
 			break;
 		default:
-			this.dust = new ItemStack(new ItemCore(this.dustName).setCreativeTab(CreativeTabs.tabMaterials), 1);
+			this.dust = new OreItemStack(new ItemCore(this.dustName).setCreativeTab(CreativeTabs.tabMaterials));
 		}
-		this.tinyDust = new ItemStack(new ItemCore(this.tinyDustName).setCreativeTab(CreativeTabs.tabMaterials));
+		this.tinyDust = new OreItemStack(new ItemCore(this.tinyDustName).setCreativeTab(CreativeTabs.tabMaterials));
 	}
 
 	@Override
 	public void registerRecipes() {
-		OreItemStack dustStack = new OreItemStack(this.dust);
-		OreItemStack tinyDustStack = new OreItemStack(this.tinyDust);
-		OreItemStack oreStack = new OreItemStack(this.ore);
-		OreItemStack netherOreStack = new OreItemStack(this.netherOre);
-		OreItemStack oreBlockStack = new OreItemStack(this.oreBlock);
-		
 		//Add tiny dust -> dust recipes
-		RecipeManager.addShapedRecipe(dustStack.newStack(), "ttt", "ttt", "ttt", 't', this.tinyDustName);
+		RecipeManager.addShapedRecipe(this.dust.newStack(), "ttt", "ttt", "ttt", 't', this.tinyDustName);
 		
 		//Add dust -> tiny dust recipes
-		RecipeManager.addShapelessRecipe(tinyDustStack.newStack(9), this.dustName);
+		RecipeManager.addShapelessRecipe(this.tinyDust.newStack(9), this.dustName);
 		
 		//Add nether ore smelting
-		RecipeManager.addSmelting(netherOreStack.newStack(), oreStack.newStack(2), 0.0F);
+		RecipeManager.addSmelting(this.netherOre.newStack(), this.ore.newStack(2), 0.0F);
 		
 		//Add dust -> ore block
-		RecipeManager.addShapedRecipe(oreBlockStack.newStack(), "ddd", "ddd", "ddd", 'd', this.dustName);
+		RecipeManager.addShapedRecipe(this.block.newStack(), "ddd", "ddd", "ddd", 'd', this.dustName);
 		
 		//Add ore block -> dust
-		RecipeManager.addShapelessRecipe(dustStack.newStack(9), oreBlockStack.newStack());
+		RecipeManager.addShapelessRecipe(this.dust.newStack(9), this.block.newStack());
 	}
 
 	@Override
@@ -141,7 +138,7 @@ public enum DustOres implements IOres {
 	    if (this != Redstone) {
 	        ThaumcraftApi.registerObjectTag(this.oreName, new AspectList().add(Aspect.EARTH, 1).add(this._aspect, 2).add(this._secondaryAspect, 2));
 	        ThaumcraftApi.registerObjectTag(this.dustName, new AspectList().add(this._aspect, 2).add(this._secondaryAspect, 1));
-	        ThaumcraftApi.registerObjectTag(this.oreBlockName, new AspectList().add(this._aspect, 3).add(this._secondaryAspect, 4));
+	        ThaumcraftApi.registerObjectTag(this.blockName, new AspectList().add(this._aspect, 3).add(this._secondaryAspect, 4));
 	      }
 	      ThaumcraftApi.registerObjectTag(this.netherOreName, new AspectList().add(Aspect.EARTH, 1).add(Aspect.FIRE, 1).add(this._aspect, 2).add(this._secondaryAspect, 2));
 	}

@@ -13,6 +13,7 @@ public class Config {
 	public static final String CAT_ORES = "ores";
 	public static final String CAT_ORE_GEN = "ore_generation";
 	public static final String CAT_REGEN = "regeneration";
+	public static final String CAT_CONFIG = "configFile";
 	
 	private static OreLog log = OresPlus.log;
 	private static boolean configured;
@@ -25,12 +26,13 @@ public class Config {
 		configFile = new Configuration(event.getSuggestedConfigurationFile());
 		configFile.load();
 		
+		configFile.addCustomCategoryComment(CAT_CONFIG, "Config file versioning");
 		configFile.addCustomCategoryComment(CAT_ORES, "Ore configuration = oreEnabled,oreSource");
 		configFile.addCustomCategoryComment(CAT_ORE_GEN, "Ore generator configuration = generatorEnabled,denisty%,regenerateOre");
-	    configFile.addCustomCategoryComment("regeneration", "Configure general regeneration options here");
+	    configFile.addCustomCategoryComment(CAT_REGEN, "Configure general regeneration options here");
 		
-	    if (configFile.hasKey(Configuration.CATEGORY_GENERAL, "configVersion")) {
-		    configFileVersion = getInt("configVersion", configFileVersion, "Configuration File Version - Do not change, modifying this may break your game");
+	    if (configFile.hasKey(CAT_CONFIG, "configVersion")) {
+		    configFileVersion = getInt(CAT_CONFIG, "configVersion", configFileVersion, "Configuration File Version - Do not change, modifying this may break your game");
 	    }
 	    else {
 	    	configFileVersion = 0;
@@ -41,10 +43,10 @@ public class Config {
 	}
 	
 	private static int getInt(String key, int defaultValue, String comment) {
-		return getiInt(Configuration.CATEGORY_GENERAL, key, defaultValue, comment);
+		return getInt(Configuration.CATEGORY_GENERAL, key, defaultValue, comment);
 	}
 
-	private static int getiInt(String category, String key, int defaultValue, String comment) {
+	private static int getInt(String category, String key, int defaultValue, String comment) {
 		Property prop = configFile.get(category, key, defaultValue);
 		if (comment != "")
 			prop.comment = comment;
@@ -59,7 +61,7 @@ public class Config {
 		log.info("Saving Configuration");
 		
 		if (configFileVersion != configVersion) {
-			Property prop = configFile.get(Configuration.CATEGORY_GENERAL, "configVersion", configVersion);
+			Property prop = configFile.get(CAT_CONFIG, "configVersion", configVersion);
 			prop.comment = "Configuration File Version - Do not change, modifying this may break your game";
 			prop.set(configVersion);
 		}

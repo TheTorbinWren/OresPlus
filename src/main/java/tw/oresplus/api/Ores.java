@@ -24,7 +24,7 @@ public class Ores {
 	
 	public static IOreManager manager;
 	
-	public static IOreRecipeList grinderRecipes;
+	public static IOreRecipeManager grinderRecipes;
 	
 	//private static Map<String, BlockInfo> blockList = new HashMap();
 	private static HashMap<String, Item> itemList = new HashMap(); 

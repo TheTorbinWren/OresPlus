@@ -44,8 +44,8 @@ public enum MetallicOres implements IOres {
 	
 	public String oreName;
 	public String netherOreName;
+	public String blockName;
 	public String ingotName;
-	public String oreBlockName;
 	public String nuggetName;
 	public String dustName;
 	public String tinyDustName;
@@ -54,7 +54,7 @@ public enum MetallicOres implements IOres {
 	
 	public OreItemStack ore;
 	public OreItemStack netherOre;
-	public OreItemStack oreBlock;
+	public OreItemStack block;
 	public OreItemStack ingot;
 	public OreItemStack nugget;
 	public OreItemStack dust;
@@ -84,7 +84,7 @@ public enum MetallicOres implements IOres {
 	private MetallicOres(int harvestLevel, Aspect secondaryAspect, boolean isAlloy) {
 		this.oreName = "ore" + this.toString();
 		this.netherOreName = "oreNether" + this.toString();
-		this.oreBlockName = "oreBlock" + this.toString();
+		this.blockName = "block" + this.toString();
 
 		this.ingotName = "ingot" + this.toString();
 		this.nuggetName = "nugget" + this.toString();
@@ -146,17 +146,17 @@ public enum MetallicOres implements IOres {
 		
 		// Register Storage Block
 		if (!this.isVanilla()) {
-			this.oreBlock = new OreItemStack(new BlockCore(Material.iron, this.oreBlockName)
+			this.block = new OreItemStack(new BlockCore(Material.iron, this.blockName)
 				.setCreativeTab(CreativeTabs.tabBlock)
 				.setHardness(5.0F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundTypeMetal));
 		}
 		else if (this == Gold) {
-			this.oreBlock = new OreItemStack(net.minecraft.init.Blocks.gold_block);
+			this.block = new OreItemStack(net.minecraft.init.Blocks.gold_block);
 		}
 		else if (this == Iron) {
-			this.oreBlock = new OreItemStack(net.minecraft.init.Blocks.iron_block);
+			this.block = new OreItemStack(net.minecraft.init.Blocks.iron_block);
 		}
 	}
 
@@ -198,10 +198,10 @@ public enum MetallicOres implements IOres {
 
 		if (!this.isVanilla()) {
 			// add ingot -> oreBlock recipe
-			RecipeManager.addShapedRecipe(this.oreBlock.newStack(), "iii", "iii", "iii", 'i', ingotName);
+			RecipeManager.addShapedRecipe(this.block.newStack(), "iii", "iii", "iii", 'i', ingotName);
 			
 			// add oreBlock -> ingot recipe
-			RecipeManager.addShapelessRecipe(this.ingot.newStack(9), this.oreBlock.newStack());
+			RecipeManager.addShapelessRecipe(this.ingot.newStack(9), this.block.newStack());
 			
 			// add ore smelting recipe
 			if (!this._isAlloy) {
@@ -261,7 +261,7 @@ public enum MetallicOres implements IOres {
 				case Lead:
 					Helpers.IC2.registerRecipe("OreWasher", this.crushedOre.newStack(), metadata, new ItemStack[] {
 						this.purifiedCrushedOre.newStack(),
-						new ItemStack(DustOres.Sulfur.tinyDust.getItem(), 3),
+						DustOres.Sulfur.tinyDust.newStack(3),
 						stoneDust.newStack()	});
 					break;
 				default:
@@ -292,7 +292,7 @@ public enum MetallicOres implements IOres {
 	        ThaumcraftApi.registerObjectTag(this.ingotName, new AspectList().add(Aspect.METAL, 3).add(this._secondaryAspect, 1));
 	        ThaumcraftApi.registerObjectTag(this.dustName, new AspectList().add(Aspect.METAL, 2).add(Aspect.ENTROPY, 1).add(this._secondaryAspect, 1));
 	        ThaumcraftApi.registerObjectTag(this.oreName, new AspectList().add(Aspect.METAL, 2).add(Aspect.EARTH, 1).add(this._secondaryAspect, 1));
-	        ThaumcraftApi.registerObjectTag(this.oreBlockName, new AspectList().add(Aspect.METAL, 5).add(this._secondaryAspect, 3));
+	        ThaumcraftApi.registerObjectTag(this.blockName, new AspectList().add(Aspect.METAL, 5).add(this._secondaryAspect, 3));
 	      }
 	      ThaumcraftApi.registerObjectTag(this.netherOreName, new AspectList().add(Aspect.METAL, 2).add(this._secondaryAspect, 2).add(Aspect.EARTH, 1).add(Aspect.FIRE, 1));
 	}

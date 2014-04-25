@@ -14,7 +14,6 @@ public class OreLog {
 	public static void init(){
 		log = LogManager.getLogger(OresPlus.MOD_ID);
 		configured = true;
-		//log.setParent(LogManager.getLogger("FML"));
 	}
 	
 	public static void log(Level level, String message){
@@ -26,6 +25,11 @@ public class OreLog {
 	
 	public static void info(String message) {
 		log(Level.INFO, message);
+	}
+	
+	public static void debug(String message) {
+		if (OresPlus.debugMode)
+			log(Level.DEBUG, message);
 	}
 
 }

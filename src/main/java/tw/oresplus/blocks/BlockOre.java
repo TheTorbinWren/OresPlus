@@ -229,7 +229,7 @@ public class BlockOre extends BlockCore {
 	@Override
     public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
 		super.harvestBlock(world, player, x, y, z, meta);
-		if (OresPlus.angryPigmen)
+		if (OresPlus.angryPigmen & this._isNether)
 			upsetThePigs(player, world, x, y, z);
 	}
 

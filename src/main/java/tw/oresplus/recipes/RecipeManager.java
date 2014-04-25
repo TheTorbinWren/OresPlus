@@ -37,7 +37,7 @@ public class RecipeManager {
 	private static ICraftingHandler tmiHandler;
 	
 	public static void init() {
-		Ores.grinderRecipes = new OreRecipeManager();
+		Ores.grinderRecipes = new GrinderRecipeManager();
 		
 		neiHandler = new NeiHandler();
 		tmiHandler = new TmiHandler();
@@ -53,12 +53,11 @@ public class RecipeManager {
 		OreItemStack gunpowder = new OreItemStack(net.minecraft.init.Items.gunpowder);
 		OreItemStack oreCoal = new OreItemStack(net.minecraft.init.Blocks.coal_ore);
 		OreItemStack oreLapis = new OreItemStack(net.minecraft.init.Blocks.lapis_ore);
-		OreItemStack oreNikolite = new OreItemStack(DustOres.Nikolite.ore);
 	    OreItemStack stick = new OreItemStack(net.minecraft.init.Items.stick);
 		OreItemStack tank = new OreItemStack(Helpers.BuildCraft.getBlock("tankBlock"));
 		
 		// cracker recipe
-		if (tank.newStack() != null) {
+		if (Helpers.BuildCraft.isLoaded() && tank.source.getItem() != null) {
 			addShapedRecipe(Blocks.cracker.newStack(), "t", "F", 't', tank.newStack(), 'F', furnace.newStack());
 		}
 		else

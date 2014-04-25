@@ -200,9 +200,9 @@ implements ITileEntityProvider {
     	isLocked = true;
     	if (te instanceof TileEntityGrinder) {
 	    	if (isBurning) 
-	    		world.setBlock(x, y, z, Ores.getBlock("grinderLit"));
+	    		world.setBlock(x, y, z, Block.getBlockFromItem(Blocks.grinder_lit.source.getItem()));
 	    	else 
-	    		world.setBlock(x, y, z, Ores.getBlock("grinder"));
+	    		world.setBlock(x, y, z, Block.getBlockFromItem(Blocks.grinder.source.getItem()));
     	}
     	isLocked = false;
     	

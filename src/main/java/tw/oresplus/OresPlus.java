@@ -1,9 +1,11 @@
 package tw.oresplus;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 import buildcraft.api.gates.ActionManager;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -29,6 +31,7 @@ import tw.oresplus.core.Config;
 import tw.oresplus.core.GuiHandler;
 import tw.oresplus.core.IMCHandler;
 import tw.oresplus.core.IProxy;
+import tw.oresplus.core.ItemMapHelper;
 import tw.oresplus.core.OreEventHandler;
 import tw.oresplus.core.OreLog;
 import tw.oresplus.core.TickHandler;
@@ -57,7 +60,7 @@ public class OresPlus {
 	
     public static final String MOD_ID = "OresPlus";
     public static final String MOD_NAME = "OresPlus";
-    public static final String MOD_VERSION = "0.5.27 Beta";
+    public static final String MOD_VERSION = "0.5.28 Beta";
     
 	@Instance(OresPlus.MOD_ID)
 	public static OresPlus instance;
@@ -73,11 +76,13 @@ public class OresPlus {
     public static boolean difficultAlloys = false;
     public static boolean logRegenerations = false;
     public static boolean angryPigmen = true;
+    public static boolean debugMode = false;
     
     public static WorldGenCore worldGen = new WorldGenCore();
     public static OreEventHandler eventHandler = new OreEventHandler();
     public static TickHandler tickHandler = new TickHandler();
     public static IMCHandler imcHandler = new IMCHandler();
+    public static ItemMapHelper itemMapHelper;
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -87,15 +92,16 @@ public class OresPlus {
 
 		config.init(event);
 		
+	    angryPigmen = Config.getBoolean("angryPigmen", angryPigmen, "set to false to prevent zombie pigmen from attacking when mining nether ores");
+	    iridiumPlateRecipe = Config.getBoolean("iridiumPlateRecipe", iridiumPlateRecipe, "enables an ore dictionary-enabled recipe for iridium plate");
+	    difficultAlloys = Config.getBoolean("difficultAlloys", difficultAlloys, "enable true to set brass & bronze alloy recipes to output only 2 dusts");
+	    logRegenerations = Config.getBoolean("logRegenerations", logRegenerations, "enable to log all regenerations that occur");
+	    debugMode = Config.getBoolean("debugMode", debugMode, "set to true to enable finer debug logging");
+
 	    regenKeyOre = Config.getString(Config.CAT_REGEN, "regenKey", regenKeyOre, "change this to regenerate ores");
 	    regenKeyOil = Config.getString(Config.CAT_REGEN, "regenKeyOil", regenKeyOil, "change this to regenerate buildcraft oil wells");
 	    regenKeyRubberTree = Config.getString(Config.CAT_REGEN, "regenKeyRubberTree", regenKeyRubberTree, "change this to regenerate IC2 rubber trees");
 	    regenKeyBeehives = Config.getString(Config.CAT_REGEN, "regenKeyBeehives", regenKeyBeehives, "change this to regenerate Forestry beehives");
-
-	    angryPigmen = Config.getBoolean("angryPigmen", angryPigmen, "set to false to prevent zombie pigmen from attacking when mining nether ores");
-	    iridiumPlateRecipe = Config.getBoolean("iridiumPlateRecipe", iridiumPlateRecipe, "enables an ore dictionary-enabled recipe for iridium plate");
-	    difficultAlloys = Config.getBoolean("difficultAlloys", difficultAlloys, "enable true to set brass & bronze alloy recipes to output only 2 dusts");
-	    logRegenerations = Config.getBoolean("logRegenerations", logRegenerations, "enavble to log all regenerations that occur");
 
 		NetHandler.instance.preInit();
 		
@@ -132,6 +138,8 @@ public class OresPlus {
     	
     	NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
     	
+    	itemMapHelper = new ItemMapHelper();
+    	
     	OresTrigger.registerTriggers();
     	ActionManager.registerTriggerProvider(new TriggerProvider());
     	
@@ -140,6 +148,10 @@ public class OresPlus {
     
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+    	if (debugMode) {
+    		Ores.grinderRecipes.debug();
+    	}
+    	
     	RecipeManager.replaceRecipeResults();
     	
     	OreChestLoot.registerChestLoot();
@@ -152,7 +164,7 @@ public class OresPlus {
     
     @EventHandler
     public void handleMissingMaps(FMLMissingMappingsEvent event) {
-    	Blocks.handleMissingMaps(event);
+    	itemMapHelper.handleMissingMaps(event);
     }
     
     @EventHandler

@@ -21,6 +21,7 @@ public class BCHelper extends OresHelper {
 	private Class genOilClass;
 	private Object genOilClassObj;
 	private Method genOilMethod;
+	private String[] subMods = { "BuildCraft|Builders", "BuildCraft|Energy", "BuildCraft|Factory", "BuildCraft|Silicon", "BuildCraft|Transport" };
 	
 	public BCHelper() {
 		super("BuildCraft|Core");
@@ -109,4 +110,18 @@ public class BCHelper extends OresHelper {
 	@Override
 	public void registerRecipe(String recipeType, ItemStack input,
 			NBTTagCompound metadata, ItemStack... outputs) { }
+	
+	@Override
+	public Block getBlock(String blockName) {
+		Block result = super.getBlock(blockName);
+		if (result == null) {
+			for (String subModName : subMods ) {
+				Block subModResult = GameRegistry.findBlock(subModName, blockName);
+				if (subModResult != null) {
+					result = subModResult;
+				}
+			}
+		}
+		return result;
+	}
 }

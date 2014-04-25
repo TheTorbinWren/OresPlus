@@ -91,15 +91,6 @@ public class Blocks {
 		
 	}
 
-	public static void handleMissingMaps(FMLMissingMappingsEvent event) {
-		OresPlus.log.info("recieved missing maps event");
-		for (MissingMapping map : event.get()) {
-			OresPlus.log.info("Missing Mapping for " + map.name);
-			if (map.name.startsWith("OresPlus:netherOre"))
-				map.ignore();;
-		}
-	}
-
 	public static void registerAspects() {
 	    ThaumcraftApi.registerObjectTag(cracker.source, new AspectList());
 	    ThaumcraftApi.registerObjectTag(grinder.source, new AspectList());

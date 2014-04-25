@@ -1,3 +1,10 @@
+v0.5.28 Beta
+-cracker recipe not working (fixes issue 13)
+-grinder not working (fixes issue 13)
+-angry pigmen were attacking for every ore in nether, not just marked ores
+-renamed storage blocks to move in line to standard ore dictionary names (for tinkers)
+-finished missing mappings handler (to handle storage block renames)
+
 v0.5.27 Beta
 -removed nether ores integration helper
 -added integration helpers for Tinkers & Mekanism

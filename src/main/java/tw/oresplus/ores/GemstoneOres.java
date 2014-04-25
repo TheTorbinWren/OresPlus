@@ -31,13 +31,13 @@ public enum GemstoneOres implements IOres {
 		
 	public String oreName;
 	public String netherOreName;
+	public String blockName;
 	public String gemName;
-	public String oreBlockName;
 	
 	public OreItemStack ore;
 	public OreItemStack netherOre;
+	public OreItemStack block;
 	public OreItemStack gem;
-	public OreItemStack oreBlock;
 	
 	public boolean enabled;
 	
@@ -50,8 +50,8 @@ public enum GemstoneOres implements IOres {
 	GemstoneOres (int harvestLevel, int xpLow, int xpHigh, OreDrops drops) {
 		this.oreName = "ore" + this.toString();
 		this.netherOreName = "oreNether" + this.toString();
+		this.blockName = "block" + this.toString();
 		this.gemName = "gem" + this.toString();
-		this.oreBlockName = "oreBlock" + this.toString();
 		
 		this.enabled = true;
 		
@@ -105,17 +105,17 @@ public enum GemstoneOres implements IOres {
 		
 		// Register Storage Block
 		if (!this.isVanilla()) {
-			this.oreBlock = new OreItemStack(new BlockCore(Material.iron, this.oreBlockName)
+			this.block = new OreItemStack(new BlockCore(Material.iron, this.blockName)
 				.setCreativeTab(CreativeTabs.tabBlock)
 				.setHardness(5.0F)
 				.setResistance(10.0F)
 			.	setStepSound(Block.soundTypeMetal));
 		}
 		else if (this == Diamond) {
-			this.oreBlock = new OreItemStack(net.minecraft.init.Blocks.diamond_block);
+			this.block = new OreItemStack(net.minecraft.init.Blocks.diamond_block);
 		}
 		else if (this == Emerald) {
-			this.oreBlock = new OreItemStack(net.minecraft.init.Blocks.emerald_block);
+			this.block = new OreItemStack(net.minecraft.init.Blocks.emerald_block);
 		}
 	}
 
@@ -164,11 +164,11 @@ public enum GemstoneOres implements IOres {
 		
 		// register gem -> oreblock
 		if (!this.isVanilla()) {
-			RecipeManager.addShapedRecipe(this.oreBlock.newStack(), "ggg", "ggg", "ggg", 'g', this.gemName);
+			RecipeManager.addShapedRecipe(this.block.newStack(), "ggg", "ggg", "ggg", 'g', this.gemName);
 		}
 		// register oreblock -> gem
 		if (!this.isVanilla()) {
-			RecipeManager.addShapelessRecipe(this.gem.newStack(9), this.oreBlock.newStack());
+			RecipeManager.addShapelessRecipe(this.gem.newStack(9), this.block.newStack());
 		}
 	}
 
@@ -180,14 +180,14 @@ public enum GemstoneOres implements IOres {
 	    case Apatite:
 	      ThaumcraftApi.registerObjectTag(this.gemName, new AspectList().add(Aspect.CRYSTAL, 3).add(Aspect.CROP, 1));
 	      ThaumcraftApi.registerObjectTag(this.oreName, new AspectList().add(Aspect.CRYSTAL, 2).add(Aspect.EARTH, 1));
-	      ThaumcraftApi.registerObjectTag(this.oreBlockName, new AspectList().add(Aspect.CRYSTAL, 6).add(Aspect.CROP, 4));
+	      ThaumcraftApi.registerObjectTag(this.blockName, new AspectList().add(Aspect.CRYSTAL, 6).add(Aspect.CROP, 4));
 	      ThaumcraftApi.registerObjectTag(this.netherOreName, new AspectList().add(Aspect.CRYSTAL, 2).add(Aspect.ENERGY, 1).add(Aspect.EARTH, 1).add(Aspect.FIRE, 1));
 	      break;
 	    default:
 	      if (!isVanilla()) {
 	        ThaumcraftApi.registerObjectTag(this.gemName, new AspectList().add(Aspect.CRYSTAL, 4).add(Aspect.GREED, 4));
 	        ThaumcraftApi.registerObjectTag(this.oreName, new AspectList().add(Aspect.EARTH, 1).add(Aspect.GREED, 3).add(Aspect.CRYSTAL, 3));
-	        ThaumcraftApi.registerObjectTag(this.oreBlockName, new AspectList().add(Aspect.CRYSTAL, 6).add(Aspect.GREED, 6));
+	        ThaumcraftApi.registerObjectTag(this.blockName, new AspectList().add(Aspect.CRYSTAL, 6).add(Aspect.GREED, 6));
 	      }
 	      ThaumcraftApi.registerObjectTag(this.netherOreName, new AspectList().add(Aspect.EARTH, 1).add(Aspect.FIRE, 1).add(Aspect.GREED, 3).add(Aspect.CRYSTAL, 3));
 	    }
