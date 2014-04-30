@@ -1,8 +1,10 @@
 package tw.oresplus.ores;
 
+import java.util.Random;
+
 import tw.oresplus.core.OreClass;
 
-public interface IOres {
+public interface IOreList {
 	public OreClass getDefaultConfig();
 	
 	public OreClass getDefaultConfigNether();
@@ -14,4 +16,8 @@ public interface IOres {
 	public void registerRecipes();
 	
 	public void registerAspects();
+	
+	public int getTradeToAmount(Random random);
+	
+	public int getTradeFromAmount(Random random);
 }

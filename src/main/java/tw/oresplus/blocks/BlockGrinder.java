@@ -14,7 +14,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,7 +26,7 @@ import net.minecraft.world.World;
 public class BlockGrinder extends BlockMachine {
 
 	public BlockGrinder(boolean isGrinding) {
-		super(isGrinding ? "grinderLit" : "grinder");
+		super(isGrinding, isGrinding ? "grinderLit" : "grinder");
 		this._isWorking = isGrinding;
 		if (!isGrinding)
 			this.setCreativeTab(CreativeTabs.tabDecorations);
@@ -42,13 +41,14 @@ public class BlockGrinder extends BlockMachine {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister icon) {
     	super.registerBlockIcons(icon);
-        this.iconArray[2] = icon.registerIcon(this._isWorking ? OresPlus.MOD_ID + ":grinder_front_on" : OresPlus.MOD_ID + ":grinder_front_off");
+    	this.iconArray[1] = icon.registerIcon(OresPlus.MOD_ID + ":grinder_side_1");
+        this.iconArray[2] = icon.registerIcon(this._isWorking ? OresPlus.MOD_ID + ":grinder_front_on_1" : OresPlus.MOD_ID + ":grinder_front_off_1");
     }
 
     @SideOnly(Side.CLIENT)
     public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
     {
-        return Item.getItemFromBlock(Ores.getBlock("grinder"));
+        return Blocks.grinder.source.getItem();
     }
 
 }

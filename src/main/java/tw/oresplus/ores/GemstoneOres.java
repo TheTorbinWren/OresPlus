@@ -1,5 +1,7 @@
 package tw.oresplus.ores;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -8,17 +10,18 @@ import scala.reflect.internal.Trees.This;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.BlockCore;
 import tw.oresplus.blocks.BlockOre;
-import tw.oresplus.core.Config;
 import tw.oresplus.core.OreClass;
+import tw.oresplus.core.config.ConfigCore;
 import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.items.ItemCore;
 import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
 
-public enum GemstoneOres implements IOres {
+public enum GemstoneOres implements IOreList {
 		Amethyst (2, OreDrops.AMETHYST),
 		Apatite (1, OreDrops.APATITE),
 		Diamond (2, 3, 7, OreDrops.DIAMOND),
@@ -86,7 +89,7 @@ public enum GemstoneOres implements IOres {
 	public void registerBlocks() {
 		//Register Ore
 		if (!this.isVanilla()) {
-			OreClass oreConfig = Config.getOre(this.getDefaultConfig());
+			OreClass oreConfig = OresPlus.config.getOre(this.getDefaultConfig());
 			if (oreConfig.enabled)
 				this.ore = new OreItemStack(new BlockOre(oreConfig));
 		}
@@ -98,7 +101,7 @@ public enum GemstoneOres implements IOres {
 		}
 		
 		// Register Nether Ore
-		OreClass oreConfig = Config.getOre(this.getDefaultConfigNether());
+		OreClass oreConfig = OresPlus.config.getOre(this.getDefaultConfigNether());
 		if (oreConfig.enabled) {
 			this.netherOre = new OreItemStack(new BlockOre(oreConfig, true));
 		}
@@ -143,6 +146,9 @@ public enum GemstoneOres implements IOres {
 			if (Helpers.IC2.isLoaded()) {
 				Helpers.IC2.registerRecipe("Macerator", this.ore.newStack(), this.gem.newStack(2));
 			}
+			if (Helpers.RailCraft.isLoaded()) {
+				Helpers.RailCraft.registerRecipe("rockCrusher", this.ore.newStack(), this.gem.newStack(2));
+			}
 			break;
 		case Apatite:
 			RecipeManager.addSmelting(this.ore.newStack(), this.gem.newStack(6), 0.0F);
@@ -150,12 +156,18 @@ public enum GemstoneOres implements IOres {
 			if (Helpers.IC2.isLoaded()) {
 				Helpers.IC2.registerRecipe("Macerator", this.ore.newStack(), this.gem.newStack(6));
 			}
+			if (Helpers.RailCraft.isLoaded()) {
+				Helpers.RailCraft.registerRecipe("rockCrucher", this.ore.newStack(), this.gem.newStack(6));
+			}
 			break;
 		default:
 			RecipeManager.addSmelting(this.ore.newStack(), this.gem.newStack(), 0.0F);
 			RecipeManager.addGrinderRecipe(this.oreName, this.gem.newStack(2));
 			if (Helpers.IC2.isLoaded()) {
 				Helpers.IC2.registerRecipe("Macerator", this.ore.newStack(), this.gem.newStack(2));
+			}
+			if (Helpers.RailCraft.isLoaded()) {
+				Helpers.RailCraft.registerRecipe("rockCrusher", this.ore.newStack(), this.gem.newStack(2));
 			}
 		}
 		
@@ -191,6 +203,18 @@ public enum GemstoneOres implements IOres {
 	      }
 	      ThaumcraftApi.registerObjectTag(this.netherOreName, new AspectList().add(Aspect.EARTH, 1).add(Aspect.FIRE, 1).add(Aspect.GREED, 3).add(Aspect.CRYSTAL, 3));
 	    }
+	}
+
+	@Override
+	public int getTradeToAmount(Random random) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getTradeFromAmount(Random random) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

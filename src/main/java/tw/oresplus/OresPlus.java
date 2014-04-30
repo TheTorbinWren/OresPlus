@@ -22,12 +22,12 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.BlockCore;
 import tw.oresplus.blocks.Blocks;
 import tw.oresplus.blocks.TileEntityCracker;
 import tw.oresplus.blocks.TileEntityGrinder;
-import tw.oresplus.core.Config;
 import tw.oresplus.core.GuiHandler;
 import tw.oresplus.core.IMCHandler;
 import tw.oresplus.core.IProxy;
@@ -35,6 +35,8 @@ import tw.oresplus.core.ItemMapHelper;
 import tw.oresplus.core.OreEventHandler;
 import tw.oresplus.core.OreLog;
 import tw.oresplus.core.TickHandler;
+import tw.oresplus.core.config.ConfigCore;
+import tw.oresplus.core.config.ConfigMain;
 import tw.oresplus.core.helpers.AppEngHelper;
 import tw.oresplus.core.helpers.BCHelper;
 import tw.oresplus.core.helpers.Helpers;
@@ -49,6 +51,7 @@ import tw.oresplus.triggers.TriggerProvider;
 import tw.oresplus.worldgen.OreChestLoot;
 import tw.oresplus.worldgen.OreGenClass;
 import tw.oresplus.worldgen.OreGenerators;
+import tw.oresplus.worldgen.VillagerTradeHandler;
 import tw.oresplus.worldgen.WorldGenCore;
 import tw.oresplus.worldgen.WorldGenOre;
 
@@ -60,13 +63,14 @@ public class OresPlus {
 	
     public static final String MOD_ID = "OresPlus";
     public static final String MOD_NAME = "OresPlus";
-    public static final String MOD_VERSION = "0.5.28 Beta";
+    public static final String MOD_VERSION = "0.5.32 Beta";
     
 	@Instance(OresPlus.MOD_ID)
 	public static OresPlus instance;
 
     public static OreLog log;
-    public static Config config;
+    
+    public static ConfigMain config = new ConfigMain();
     
     public static String regenKeyOre = "DISABLED";
     public static String regenKeyOil = "DISABLED";
@@ -83,6 +87,7 @@ public class OresPlus {
     public static TickHandler tickHandler = new TickHandler();
     public static IMCHandler imcHandler = new IMCHandler();
     public static ItemMapHelper itemMapHelper;
+    public static NetHandler netHandler = new NetHandler();
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -90,20 +95,21 @@ public class OresPlus {
     	
 		RecipeManager.init();
 
+		ConfigCore.setBaseDir(event.getModConfigurationDirectory());
 		config.init(event);
 		
-	    angryPigmen = Config.getBoolean("angryPigmen", angryPigmen, "set to false to prevent zombie pigmen from attacking when mining nether ores");
-	    iridiumPlateRecipe = Config.getBoolean("iridiumPlateRecipe", iridiumPlateRecipe, "enables an ore dictionary-enabled recipe for iridium plate");
-	    difficultAlloys = Config.getBoolean("difficultAlloys", difficultAlloys, "enable true to set brass & bronze alloy recipes to output only 2 dusts");
-	    logRegenerations = Config.getBoolean("logRegenerations", logRegenerations, "enable to log all regenerations that occur");
-	    debugMode = Config.getBoolean("debugMode", debugMode, "set to true to enable finer debug logging");
+	    angryPigmen = config.getBoolean("angryPigmen", angryPigmen, "set to false to prevent zombie pigmen from attacking when mining nether ores");
+	    iridiumPlateRecipe = config.getBoolean("iridiumPlateRecipe", iridiumPlateRecipe, "enables an ore dictionary-enabled recipe for iridium plate");
+	    difficultAlloys = config.getBoolean("difficultAlloys", difficultAlloys, "enable true to set brass & bronze alloy recipes to output only 2 dusts");
+	    logRegenerations = config.getBoolean("logRegenerations", logRegenerations, "enable to log all regenerations that occur");
+	    debugMode = config.getBoolean("debugMode", debugMode, "set to true to enable finer debug logging");
 
-	    regenKeyOre = Config.getString(Config.CAT_REGEN, "regenKey", regenKeyOre, "change this to regenerate ores");
-	    regenKeyOil = Config.getString(Config.CAT_REGEN, "regenKeyOil", regenKeyOil, "change this to regenerate buildcraft oil wells");
-	    regenKeyRubberTree = Config.getString(Config.CAT_REGEN, "regenKeyRubberTree", regenKeyRubberTree, "change this to regenerate IC2 rubber trees");
-	    regenKeyBeehives = Config.getString(Config.CAT_REGEN, "regenKeyBeehives", regenKeyBeehives, "change this to regenerate Forestry beehives");
+	    regenKeyOre = config.getString(ConfigCore.CAT_REGEN, "regenKey", regenKeyOre, "change this to regenerate ores");
+	    regenKeyOil = config.getString(ConfigCore.CAT_REGEN, "regenKeyOil", regenKeyOil, "change this to regenerate buildcraft oil wells");
+	    regenKeyRubberTree = config.getString(ConfigCore.CAT_REGEN, "regenKeyRubberTree", regenKeyRubberTree, "change this to regenerate IC2 rubber trees");
+	    regenKeyBeehives = config.getString(ConfigCore.CAT_REGEN, "regenKeyBeehives", regenKeyBeehives, "change this to regenerate Forestry beehives");
 
-		NetHandler.instance.preInit();
+		netHandler.preInit();
 		
 		Ores.manager = new OreManager();
 		
@@ -143,7 +149,9 @@ public class OresPlus {
     	OresTrigger.registerTriggers();
     	ActionManager.registerTriggerProvider(new TriggerProvider());
     	
-    	NetHandler.instance.init();
+    	VillagerRegistry.instance().registerVillageTradeHandler(VillagerTradeHandler.VILLAGER_BLACKSMITH, new VillagerTradeHandler(VillagerTradeHandler.VILLAGER_BLACKSMITH));
+    	
+    	netHandler.init();
     }
     
     @EventHandler

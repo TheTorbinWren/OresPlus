@@ -1,3 +1,18 @@
+v0.5.31
+-fixed multiple crashes caused by nethandler
+
+v0.5.30 Beta
+-added Railcraft rock crusher recipes
+-implemented villager trading
+-fixed mithral tool recipes
+-implemented packet hancler
+-new cracker gui (with working tank gauge)
+-new certus quartz texture
+
+v0.5.29 Beta
+-new grinder and cracker textures
+-fixed machine light level when lit
+
 v0.5.28 Beta
 -cracker recipe not working (fixes issue 13)
 -grinder not working (fixes issue 13)

@@ -43,6 +43,8 @@ implements ISidedInventory, IPowerReceptor, ITriggerProvider {
     protected float energyRequired = 25F;
 
 	protected ItemStack currentItem;
+	
+	protected NBTTagCompound oldDataTag;
 
     protected TileEntityMachine(int worktime) {
     	powerHandler = new PowerHandler(this, PowerHandler.Type.MACHINE);

@@ -81,7 +81,7 @@ public class BCHelper extends OresHelper {
 				
 				}
 		}	
-		OresPlus.log.info("BuildCraft found, helper Initialized");
+		OresPlus.log.info("BuildCraft found, integration helper initialized");
 	}
 	
 	private boolean isEnergyLoaded() {

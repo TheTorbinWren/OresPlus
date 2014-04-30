@@ -1,5 +1,7 @@
 package tw.oresplus.ores;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -7,17 +9,18 @@ import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.BlockCore;
 import tw.oresplus.blocks.BlockOre;
-import tw.oresplus.core.Config;
 import tw.oresplus.core.OreClass;
+import tw.oresplus.core.config.ConfigCore;
 import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.items.ItemCore;
 import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
 
-public enum DustOres implements IOres {
+public enum DustOres implements IOreList {
 		Nikolite(2, Aspect.ENERGY, Aspect.MECHANISM, OreDrops.NIKOLITE),
 		Phosphorite(1, Aspect.ENERGY, Aspect.HARVEST, OreDrops.PHOSPHORITE),
 		Potash(1, Aspect.ENERGY, Aspect.HARVEST, OreDrops.POTASH),
@@ -83,7 +86,7 @@ public enum DustOres implements IOres {
 			Ores.manager.registerOre(this.blockName, net.minecraft.init.Blocks.redstone_block);
 			break;
 		default:
-			oreClass = Config.getOre(this.getDefaultConfig());
+			oreClass = OresPlus.config.getOre(this.getDefaultConfig());
 			if (oreClass.enabled)
 				this.ore = new OreItemStack(new BlockOre(oreClass));
 			this.block = new OreItemStack(new BlockCore(Material.iron, this.blockName)
@@ -94,7 +97,7 @@ public enum DustOres implements IOres {
 		}
 		
 		// Register Nether Ore
-		oreClass = Config.getOre(this.getDefaultConfigNether());
+		oreClass = OresPlus.config.getOre(this.getDefaultConfigNether());
 		if (oreClass.enabled)
 			this.netherOre = new OreItemStack(new BlockOre(oreClass, true));
 		
@@ -141,6 +144,18 @@ public enum DustOres implements IOres {
 	        ThaumcraftApi.registerObjectTag(this.blockName, new AspectList().add(this._aspect, 3).add(this._secondaryAspect, 4));
 	      }
 	      ThaumcraftApi.registerObjectTag(this.netherOreName, new AspectList().add(Aspect.EARTH, 1).add(Aspect.FIRE, 1).add(this._aspect, 2).add(this._secondaryAspect, 2));
+	}
+
+	@Override
+	public int getTradeToAmount(Random random) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getTradeFromAmount(Random random) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

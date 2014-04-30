@@ -32,7 +32,7 @@ public class AppEngHelper extends OresHelper {
 	        OresPlus.log.info("Error initializing Applied Energistics 2");
 	        return;
 	    }
-	    OresPlus.log.info("Applied Energistics 2 found, helper Initialized");
+	    OresPlus.log.info("Applied Energistics 2 found, integration helper Initialized");
 	}
 
 	@Override

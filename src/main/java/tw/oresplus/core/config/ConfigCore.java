@@ -1,102 +1,107 @@
-package tw.oresplus.core;
+package tw.oresplus.core.config;
+
+import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.common.config.Property.Type;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import tw.oresplus.OresPlus;
+import tw.oresplus.core.OreClass;
 import tw.oresplus.ores.OreDrops;
 import tw.oresplus.ores.OreSources;
 import tw.oresplus.worldgen.OreGenClass;
 
-public class Config {
+public abstract class ConfigCore {
 	public static final String CAT_ORES = "ores";
 	public static final String CAT_ORE_GEN = "ore_generation";
 	public static final String CAT_REGEN = "regeneration";
-	public static final String CAT_CONFIG = "configFile";
+	private static final String CAT_CONFIG = "configFile";
 	
-	private static OreLog log = OresPlus.log;
-	private static boolean configured;
-	private static Configuration configFile;
-	private static final int configVersion = 1;
-	private static int configFileVersion;
+	protected boolean configured = false;
+	protected Configuration config;
 	
-	public static void init(FMLPreInitializationEvent event) {
-		log.info("Initializing Configuration");
-		configFile = new Configuration(event.getSuggestedConfigurationFile());
-		configFile.load();
-		
-		configFile.addCustomCategoryComment(CAT_CONFIG, "Config file versioning");
-		configFile.addCustomCategoryComment(CAT_ORES, "Ore configuration = oreEnabled,oreSource");
-		configFile.addCustomCategoryComment(CAT_ORE_GEN, "Ore generator configuration = generatorEnabled,denisty%,regenerateOre");
-	    configFile.addCustomCategoryComment(CAT_REGEN, "Configure general regeneration options here");
-		
-	    if (configFile.hasKey(CAT_CONFIG, "configVersion")) {
-		    configFileVersion = getInt(CAT_CONFIG, "configVersion", configFileVersion, "Configuration File Version - Do not change, modifying this may break your game");
-	    }
-	    else {
-	    	configFileVersion = 0;
-	    }
-	    OresPlus.log.info("Reading from v" + configFileVersion + " Configuration File");
-	    
-		configured = true;
+	protected final int configVersion = 1;
+	protected int configFileVersion;
+	
+	protected static File baseConfigDir;
+	
+	public static void setBaseDir(File modConfigDir) {
+		baseConfigDir = new File(modConfigDir, OresPlus.MOD_ID + "/");
 	}
 	
-	private static int getInt(String key, int defaultValue, String comment) {
+	public void init(String configName, File configFile) {
+		OresPlus.log.info("Initializing " + configName + " Configuration");
+		
+		this.config = new Configuration(configFile);
+		
+		this.config.load();
+		
+		this.config.addCustomCategoryComment(CAT_CONFIG, "Config file versioning");
+
+		if (this.config.hasKey(CAT_CONFIG, "configVersion")) {
+		    this.configFileVersion = getInt(CAT_CONFIG, "configVersion", configFileVersion, "Configuration File Version - Do not change, modifying this may break your game");
+	    }
+	    else {
+	    	this.configFileVersion = 0;
+	    }
+	    OresPlus.log.info("Reading from v" + configFileVersion + " Configuration File");
+	}
+	
+	public void save() {
+		if (!configured) {
+			OresPlus.log.info("Error - configuration not initialized!");
+			return;		
+		}
+		OresPlus.log.info("Saving Configuration");
+		
+		if (configFileVersion != configVersion) {
+			Property prop = config.get(CAT_CONFIG, "configVersion", configVersion);
+			prop.comment = "Configuration File Version - Do not change, modifying this may break your game";
+			prop.set(configVersion);
+		}
+		
+		if (config.hasChanged())
+			config.save();
+	}
+	
+	private int getInt(String key, int defaultValue, String comment) {
 		return getInt(Configuration.CATEGORY_GENERAL, key, defaultValue, comment);
 	}
 
-	private static int getInt(String category, String key, int defaultValue, String comment) {
-		Property prop = configFile.get(category, key, defaultValue);
+	private int getInt(String category, String key, int defaultValue, String comment) {
+		Property prop = config.get(category, key, defaultValue);
 		if (comment != "")
 			prop.comment = comment;
 		return prop.getInt(defaultValue);
 	}
 
-	public static void save() {
-		if (!configured) {
-			log.info("Error - configuration not initialized!");
-			return;		
-		}
-		log.info("Saving Configuration");
-		
-		if (configFileVersion != configVersion) {
-			Property prop = configFile.get(CAT_CONFIG, "configVersion", configVersion);
-			prop.comment = "Configuration File Version - Do not change, modifying this may break your game";
-			prop.set(configVersion);
-		}
-		
-		if (configFile.hasChanged())
-			configFile.save();
-	}
-	
-	public static boolean getBoolean(String key, boolean defaultValue, String comment) {
-		Property prop = configFile.get(Configuration.CATEGORY_GENERAL, key, defaultValue);
+	public boolean getBoolean(String key, boolean defaultValue, String comment) {
+		Property prop = config.get(Configuration.CATEGORY_GENERAL, key, defaultValue);
 		if (comment != "")
 			prop.comment = comment;
 		return prop.getBoolean(defaultValue);
 	}
 	
-	public static boolean getBoolean(String key, boolean defaultValue) {
+	public boolean getBoolean(String key, boolean defaultValue) {
 		return getBoolean(key, defaultValue, "");
 	}
 	
-	public static String getString(String catagory, String key, String defaultValue, String comment) {
-		Property prop = configFile.get(catagory, key, defaultValue);
+	public String getString(String catagory, String key, String defaultValue, String comment) {
+		Property prop = config.get(catagory, key, defaultValue);
 		if (comment != "")
 			prop.comment = comment;
 		return prop.getString();
 	}
 	
-	public static String getString(String key, String defaultValue, String comment) {
+	public String getString(String key, String defaultValue, String comment) {
 		return getString(Configuration.CATEGORY_GENERAL, key, defaultValue, comment);
 	}
 
-	public static String getString(String key, String defaultValue) {
+	public String getString(String key, String defaultValue) {
 		return getString(Configuration.CATEGORY_GENERAL, key, defaultValue, "");
 	}
 	
-	private static String getOreGenCfgLine(OreGenClass oreConfig) {
+	private String getOreGenCfgLine(OreGenClass oreConfig) {
 		if (oreConfig == null)
 			return null;
 		return Boolean.toString(oreConfig.enabled) + ","
@@ -105,9 +110,9 @@ public class Config {
 				+ oreConfig.regenKey;
 	}
 	
-	public static OreGenClass getOreGen(OreGenClass oreConfig) {
+	public OreGenClass getOreGen(OreGenClass oreConfig) {
 		if (oreConfig != null) {
-			Property prop = configFile.get(CAT_ORE_GEN, oreConfig.name, getOreGenCfgLine(oreConfig));
+			Property prop = config.get(CAT_ORE_GEN, oreConfig.name, getOreGenCfgLine(oreConfig));
 			String cfg[] = prop.getString().split(",");
 			boolean configChanged = false;
 			switch (configFileVersion) {
@@ -146,16 +151,16 @@ public class Config {
 		return oreConfig;
 	}
 	
-	private static String getOreCfgLine(OreClass ore) {
+	private String getOreCfgLine(OreClass ore) {
 		if (ore == null)
 			return null;
 		return Boolean.toString(ore.enabled) + ","
 				+ ore.source.name();
 	}
 	
-	public static OreClass getOre(OreClass ore) {
+	public OreClass getOre(OreClass ore) {
 		if (ore != null) {
-			Property prop = configFile.get(CAT_ORES, ore.name, getOreCfgLine(ore));
+			Property prop = config.get(CAT_ORES, ore.name, getOreCfgLine(ore));
 			String cfg[] = prop.getString().split(",");
 			
 			boolean configChanged = false;
@@ -177,5 +182,5 @@ public class Config {
 		}
 		return ore;
 	}
-	
+
 }

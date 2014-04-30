@@ -107,34 +107,34 @@ public class RecipeManager {
 	        addShapelessRecipe(fertalizer.newStack(16), new Object[] { DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName, DustOres.Potash.dustName, OreItems.dustMagnesium.item.newStack() });
 	      }
 
-	    addShapedRecipe(tw.oresplus.items.Items.armorAdamantineHelmet.newStack(), new Object[] { "aaa", "a a", Character.valueOf('a'), MetallicOres.Adamantine.ingotName });
-	    addShapedRecipe(tw.oresplus.items.Items.armorAdamantineChestplate.newStack(), new Object[] { "a a", "aaa", "aaa", Character.valueOf('a'), MetallicOres.Adamantine.ingotName });
-	    addShapedRecipe(tw.oresplus.items.Items.armorAdamantineLeggings.newStack(), new Object[] { "aaa", "a a", "a a", Character.valueOf('a'), MetallicOres.Adamantine.ingotName });
-	    addShapedRecipe(tw.oresplus.items.Items.armorAdamantineBoots.newStack(), new Object[] { "a a", "a a", Character.valueOf('a'), MetallicOres.Adamantine.ingotName });
-	    addShapedRecipe(tw.oresplus.items.Items.armorColdironHelmet.newStack(), new Object[] { "ccc", "c c", Character.valueOf('c'), MetallicOres.Coldiron.ingotName });
-	    addShapedRecipe(tw.oresplus.items.Items.armorColdironChestplate.newStack(), new Object[] { "c c", "ccc", "ccc", Character.valueOf('c'), MetallicOres.Coldiron.ingotName });
-	    addShapedRecipe(tw.oresplus.items.Items.armorColdironLeggings.newStack(), new Object[] { "ccc", "c c", "c c", Character.valueOf('c'), MetallicOres.Coldiron.ingotName });
-	    addShapedRecipe(tw.oresplus.items.Items.armorColdironBoots.newStack(), new Object[] { "c c", "c c", Character.valueOf('c'), MetallicOres.Coldiron.ingotName });
-	    addShapedRecipe(tw.oresplus.items.Items.armorMithralHelmet.newStack(), new Object[] { "mmm", "m m", Character.valueOf('m'), MetallicOres.Mithral.ingotName });
-	    addShapedRecipe(tw.oresplus.items.Items.armorMithralChestplate.newStack(), new Object[] { "m m", "mmm", "mmm", Character.valueOf('m'), MetallicOres.Mithral.ingotName });
-	    addShapedRecipe(tw.oresplus.items.Items.armorMithralLeggings.newStack(), new Object[] { "mmm", "m m", "m m", Character.valueOf('m'), MetallicOres.Mithral.ingotName });
-	    addShapedRecipe(tw.oresplus.items.Items.armorMithralBoots.newStack(), new Object[] { "m m", "m m", Character.valueOf('m'), MetallicOres.Mithral.ingotName });
+	    addShapedRecipe(Items.armorAdamantineHelmet.newStack(), "aaa", "a a", 'a', MetallicOres.Adamantine.ingotName );
+	    addShapedRecipe(Items.armorAdamantineChestplate.newStack(), "a a", "aaa", "aaa", 'a', MetallicOres.Adamantine.ingotName );
+	    addShapedRecipe(Items.armorAdamantineLeggings.newStack(), "aaa", "a a", "a a", 'a', MetallicOres.Adamantine.ingotName );
+	    addShapedRecipe(Items.armorAdamantineBoots.newStack(), "a a", "a a", 'a', MetallicOres.Adamantine.ingotName );
+	    addShapedRecipe(Items.armorColdironHelmet.newStack(), "ccc", "c c", 'c', MetallicOres.Coldiron.ingotName );
+	    addShapedRecipe(Items.armorColdironChestplate.newStack(), "c c", "ccc", "ccc", 'c', MetallicOres.Coldiron.ingotName );
+	    addShapedRecipe(Items.armorColdironLeggings.newStack(), "ccc", "c c", "c c", 'c', MetallicOres.Coldiron.ingotName );
+	    addShapedRecipe(Items.armorColdironBoots.newStack(), "c c", "c c", 'c', MetallicOres.Coldiron.ingotName );
+	    addShapedRecipe(Items.armorMithralHelmet.newStack(), "mmm", "m m", 'm', MetallicOres.Mithral.ingotName );
+	    addShapedRecipe(Items.armorMithralChestplate.newStack(), "m m", "mmm", "mmm", 'm', MetallicOres.Mithral.ingotName );
+	    addShapedRecipe(Items.armorMithralLeggings.newStack(), "mmm", "m m", "m m", 'm', MetallicOres.Mithral.ingotName );
+	    addShapedRecipe(Items.armorMithralBoots.newStack(), "m m", "m m", 'm', MetallicOres.Mithral.ingotName );
 
-	    addShapedRecipe(tw.oresplus.items.Items.toolAdamantineAxe.newStack(), new Object[] { " aa", " sa", " s ", Character.valueOf('a'), MetallicOres.Adamantine.ingotName, Character.valueOf('s'), stick.newStack() });
-	    addShapedRecipe(tw.oresplus.items.Items.toolAdamantineHoe.newStack(), new Object[] { " aa", " s ", " s ", Character.valueOf('a'), MetallicOres.Adamantine.ingotName, Character.valueOf('s'), stick.newStack() });
-	    addShapedRecipe(tw.oresplus.items.Items.toolAdamantinePickaxe.newStack(), new Object[] { "aaa", " s ", " s ", Character.valueOf('a'), MetallicOres.Adamantine.ingotName, Character.valueOf('s'), stick.newStack() });
+	    addShapedRecipe(Items.toolAdamantineAxe.newStack(), " aa", " sa", " s ", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(Items.toolAdamantineHoe.newStack(), " aa", " s ", " s ", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(Items.toolAdamantinePickaxe.newStack(), "aaa", " s ", " s ", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack() );
 	    addShapedRecipe(Items.toolAdamantineSpade.newStack(), "a", "s", "s", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack());
-	    addShapedRecipe(tw.oresplus.items.Items.toolAdamantineSword.newStack(), new Object[] { "a", "a", "s", Character.valueOf('a'), MetallicOres.Adamantine.ingotName, Character.valueOf('s'), stick.newStack() });
-	    addShapedRecipe(tw.oresplus.items.Items.toolColdironAxe.newStack(), new Object[] { " cc", " sc", " s ", Character.valueOf('c'), MetallicOres.Coldiron.ingotName, Character.valueOf('s'), stick.newStack() });
-	    addShapedRecipe(tw.oresplus.items.Items.toolColdironHoe.newStack(), new Object[] { " cc", " s ", " s ", Character.valueOf('c'), MetallicOres.Coldiron.ingotName, Character.valueOf('s'), stick.newStack() });
-	    addShapedRecipe(tw.oresplus.items.Items.toolColdironPickaxe.newStack(), new Object[] { "ccc", " s ", " s ", Character.valueOf('c'), MetallicOres.Coldiron.ingotName, Character.valueOf('s'), stick.newStack() });
+	    addShapedRecipe(Items.toolAdamantineSword.newStack(), "a", "a", "s", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(Items.toolColdironAxe.newStack(), " cc", " sc", " s ", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(Items.toolColdironHoe.newStack(), " cc", " s ", " s ", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(Items.toolColdironPickaxe.newStack(), "ccc", " s ", " s ", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack() );
 	    addShapedRecipe(Items.toolColdironSpade.newStack(), "c", "s", "s", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack());
-	    addShapedRecipe(tw.oresplus.items.Items.toolColdironSword.newStack(), new Object[] { "c", "c", "s", Character.valueOf('c'), MetallicOres.Coldiron.ingotName, Character.valueOf('s'), stick.newStack() });
-	    addShapedRecipe(tw.oresplus.items.Items.toolMithralAxe.newStack(), new Object[] { " mm", " sm", " s ", Character.valueOf('c'), MetallicOres.Mithral.ingotName, Character.valueOf('s'), stick.newStack() });
-	    addShapedRecipe(tw.oresplus.items.Items.toolMithralHoe.newStack(), new Object[] { " mm", " s ", " s ", Character.valueOf('c'), MetallicOres.Mithral.ingotName, Character.valueOf('s'), stick.newStack() });
-	    addShapedRecipe(tw.oresplus.items.Items.toolMithralPickaxe.newStack(), new Object[] { "mmm", " s ", " s ", Character.valueOf('c'), MetallicOres.Mithral.ingotName, Character.valueOf('s'), stick.newStack() });
+	    addShapedRecipe(Items.toolColdironSword.newStack(), "c", "c", "s", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(Items.toolMithralAxe.newStack(), " mm", " sm", " s ", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(Items.toolMithralHoe.newStack(), " mm", " s ", " s ", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(Items.toolMithralPickaxe.newStack(), "mmm", " s ", " s ", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack() );
 	    addShapedRecipe(Items.toolMithralSpade.newStack(), "m", "s", "s", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack());
-	    addShapedRecipe(tw.oresplus.items.Items.toolMithralSword.newStack(), new Object[] { "m", "m", "s", Character.valueOf('c'), MetallicOres.Mithral.ingotName, Character.valueOf('s'), stick.newStack() });
+	    addShapedRecipe(Items.toolMithralSword.newStack(), "m", "m", "s", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack() );
 
 		for (MetallicOres ore : MetallicOres.values()) {
 			ore.registerRecipes();

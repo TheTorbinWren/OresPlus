@@ -10,7 +10,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public abstract class ContainerMachine extends Container {
-	protected TileEntityMachine _te;
+	public TileEntityMachine tileEntity;
     private int lastCookTime;
     private int lastBurnTime;
     private int lastItemBurnTime;
@@ -35,15 +35,15 @@ public abstract class ContainerMachine extends Container {
     
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {
-		return this._te.isUseableByPlayer(player);
+		return this.tileEntity.isUseableByPlayer(player);
 	}
 
     public void addCraftingToCrafters(ICrafting par1ICrafting)
     {
         super.addCraftingToCrafters(par1ICrafting);
-        par1ICrafting.sendProgressBarUpdate(this, 0, this._te.machineWorkTime);
-        par1ICrafting.sendProgressBarUpdate(this, 1, this._te.furnaceBurnTime);
-        par1ICrafting.sendProgressBarUpdate(this, 2, this._te.currentItemBurnTime);
+        par1ICrafting.sendProgressBarUpdate(this, 0, this.tileEntity.machineWorkTime);
+        par1ICrafting.sendProgressBarUpdate(this, 1, this.tileEntity.furnaceBurnTime);
+        par1ICrafting.sendProgressBarUpdate(this, 2, this.tileEntity.currentItemBurnTime);
     }
     
     public void detectAndSendChanges()
@@ -54,25 +54,25 @@ public abstract class ContainerMachine extends Container {
         {
             ICrafting icrafting = (ICrafting)this.crafters.get(i);
 
-            if (this.lastCookTime != this._te.machineWorkTime)
+            if (this.lastCookTime != this.tileEntity.machineWorkTime)
             {
-                icrafting.sendProgressBarUpdate(this, 0, this._te.machineWorkTime);
+                icrafting.sendProgressBarUpdate(this, 0, this.tileEntity.machineWorkTime);
             }
 
-            if (this.lastBurnTime != this._te.furnaceBurnTime)
+            if (this.lastBurnTime != this.tileEntity.furnaceBurnTime)
             {
-                icrafting.sendProgressBarUpdate(this, 1, this._te.furnaceBurnTime);
+                icrafting.sendProgressBarUpdate(this, 1, this.tileEntity.furnaceBurnTime);
             }
 
-            if (this.lastItemBurnTime != this._te.currentItemBurnTime)
+            if (this.lastItemBurnTime != this.tileEntity.currentItemBurnTime)
             {
-                icrafting.sendProgressBarUpdate(this, 2, this._te.currentItemBurnTime);
+                icrafting.sendProgressBarUpdate(this, 2, this.tileEntity.currentItemBurnTime);
             }
         }
 
-        this.lastCookTime = this._te.machineWorkTime;
-        this.lastBurnTime = this._te.furnaceBurnTime;
-        this.lastItemBurnTime = this._te.currentItemBurnTime;
+        this.lastCookTime = this.tileEntity.machineWorkTime;
+        this.lastBurnTime = this.tileEntity.furnaceBurnTime;
+        this.lastItemBurnTime = this.tileEntity.currentItemBurnTime;
     }
 
     @SideOnly(Side.CLIENT)
@@ -80,17 +80,17 @@ public abstract class ContainerMachine extends Container {
     {
         if (par1 == 0)
         {
-            this._te.machineWorkTime = par2;
+            this.tileEntity.machineWorkTime = par2;
         }
 
         if (par1 == 1)
         {
-            this._te.furnaceBurnTime = par2;
+            this.tileEntity.furnaceBurnTime = par2;
         }
 
         if (par1 == 2)
         {
-            this._te.currentItemBurnTime = par2;
+            this.tileEntity.currentItemBurnTime = par2;
         }
     }
 

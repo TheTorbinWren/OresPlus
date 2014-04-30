@@ -1,7 +1,8 @@
 package tw.oresplus.worldgen;
 
+import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
-import tw.oresplus.core.Config;
+import tw.oresplus.core.config.ConfigCore;
 
 
 public enum OreGenerators {
@@ -126,7 +127,7 @@ public enum OreGenerators {
 	}
 	
 	public void registerGenerator() {
-		OreGenClass oreGen = Config.getOreGen(getDefaultConfig());
+		OreGenClass oreGen = OresPlus.config.getOreGen(getDefaultConfig());
 		if (this._enabled && Ores.manager.isOreRegistered(this._oreName)) 
 			this.generator = new WorldGenOre(oreGen);
 	}

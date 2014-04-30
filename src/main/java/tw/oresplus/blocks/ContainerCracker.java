@@ -11,12 +11,13 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class ContainerCracker extends ContainerMachine {
 	public ContainerCracker(InventoryPlayer inventory, TileEntityMachine te) {
-		this._te = te;
-        this.addSlotToContainer(new Slot(te, 0, 56, 17));
-        this.addSlotToContainer(new Slot(te, 1, 56, 53));
+		this.tileEntity = te;
+        this.addSlotToContainer(new Slot(te, 0, 32, 20));
+        this.addSlotToContainer(new Slot(te, 1, 79, 56));
         this.addPlayerInventory(inventory);
 	}
 
@@ -67,4 +68,9 @@ public class ContainerCracker extends ContainerMachine {
         return itemstack;
 	}
 
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+		((TileEntityCracker)this.tileEntity).sendUpdate();
+	}
 }

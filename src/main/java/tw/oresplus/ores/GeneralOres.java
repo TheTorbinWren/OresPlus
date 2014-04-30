@@ -1,16 +1,19 @@
 package tw.oresplus.ores;
 
+import java.util.Random;
+
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import tw.oresplus.OresPlus;
 import tw.oresplus.blocks.BlockOre;
-import tw.oresplus.core.Config;
 import tw.oresplus.core.OreClass;
+import tw.oresplus.core.config.ConfigCore;
 import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.recipes.OreItemStack;
 
-public enum GeneralOres implements IOres {
+public enum GeneralOres implements IOreList {
 	Bauxite (1),
 	Bitumen (1, OreDrops.BITUMEN),
 	Cassiterite (2),
@@ -87,7 +90,7 @@ public enum GeneralOres implements IOres {
 	
 	@Override
 	public void registerBlocks() {
-		OreClass oreConfig = Config.getOre(this.getDefaultConfig());
+		OreClass oreConfig = OresPlus.config.getOre(this.getDefaultConfig());
 		if (oreConfig.enabled)
 			this.ore = new OreItemStack(new BlockOre(oreConfig));
 		
@@ -112,5 +115,15 @@ public enum GeneralOres implements IOres {
 	    if (this != Uranium) {
 	        ThaumcraftApi.registerObjectTag(this.oreName, this._aspects.add(Aspect.EARTH, 1));
 	    }
+	}
+
+	@Override
+	public int getTradeToAmount(Random random) {
+		return 0;
+	}
+
+	@Override
+	public int getTradeFromAmount(Random random) {
+		return 0;
 	}
 }

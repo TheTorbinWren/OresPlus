@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class BlockCracker extends BlockMachine {
 	public BlockCracker(boolean isActive) {
-		super(isActive ? "CrackerLit" : "cracker");
+		super(isActive, isActive ? "CrackerLit" : "cracker");
 		this._isWorking = isActive;
 		if (!isActive)
 			this.setCreativeTab(CreativeTabs.tabDecorations);
@@ -28,6 +28,7 @@ public class BlockCracker extends BlockMachine {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister icon) {
     	super.registerBlockIcons(icon);
+    	this.iconArray[1] = icon.registerIcon(OresPlus.MOD_ID + ":cracker_side");
     	this.iconArray[2] = icon.registerIcon(OresPlus.MOD_ID + (this._isWorking ? ":cracker_front_on" : ":cracker_front_off"));
     }
 

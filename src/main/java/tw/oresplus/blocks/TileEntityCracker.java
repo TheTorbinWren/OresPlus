@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.core.FuelHelper;
+import tw.oresplus.network.NetHandler;
+import tw.oresplus.network.PacketUpdateCracker;
 import tw.oresplus.triggers.OresTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -168,5 +170,23 @@ implements IFluidHandler {
 		LinkedList triggers = new LinkedList();
 		triggers.add(OresTrigger.hasWork);
 		return triggers;
+	}
+
+	public void sendUpdate() {
+		if (!this.worldObj.isRemote) {
+			NBTTagCompound newDataTag = new NBTTagCompound();
+			this.writeToNBT(newDataTag);
+			if (!newDataTag.equals(this.oldDataTag)) {
+				OresPlus.netHandler.sendToPlayers(new PacketUpdateCracker(newDataTag, this.xCoord, this.yCoord, this.zCoord));
+				this.oldDataTag = newDataTag;
+			}
+		}
+	}
+
+	public void updateFromPacket(NBTTagCompound data) {
+		this.tank.readFromNBT(data);
+		this.powerHandler.readFromNBT(data);
+		this.furnaceBurnTime = data.getInteger("BurnTime");
+		this.machineWorkTime = data.getInteger("CookTime");
 	}
 }

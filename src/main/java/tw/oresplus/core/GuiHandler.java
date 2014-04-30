@@ -36,7 +36,7 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiGrinder(player.inventory, teGrinder);
 		case 1:
 			TileEntityCracker teCracker = (TileEntityCracker)world.getTileEntity(x, y, z);
-			return new GuiCracker(player.inventory, teCracker);
+			return new GuiCracker(new ContainerCracker(player.inventory, teCracker));
 		default:
 			return null;
 		}

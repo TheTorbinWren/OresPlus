@@ -77,7 +77,7 @@ public class ForestryHelper extends OresHelper {
 			*/
 			
 		}
-		OresPlus.log.info("Forestry found, helper Initialized");
+		OresPlus.log.info("Forestry found, integration helper initialized");
 	}
 
 	@Override

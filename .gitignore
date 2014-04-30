@@ -25,3 +25,6 @@ src/main/java/forestry/
 
 # Thaumcraft API
 src/main/java/thaumcraft/
+
+#Railcraft API
+src/main/java/mods/

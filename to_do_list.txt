@@ -1,26 +1,20 @@
--exploding/angry nether ores (waiting on nether ores update)
--villager trading
+-exploding nether ores
 -force disable of world gen in other mods (need to see if possible through reflection)
 -ic2 centrifuge recipes
 -better ore textures
--better machine textures
--finish cracker behaviour (lit/unlit)
--fix machine lit/unlit light level
--add oil gauge in cracker
--applied energistics recipes (waiting on mod update)
+-new gui for grinder
 -thermal expansion recipes (waiting on mod update)
--thaumcraft aspects
+-finish thaumcraft aspects
 -improved generation biome control lists
 -dimensional generation control
 -gregtech recipes (waiting on mod update)
--manganese will be for an alternative steel recipe (railcraft/gregstech)
--railcraft recipes (waiting on mod update)
+-manganese will be for an alternative steel recipe (gregtech)
 -redpower/project red recipes (we'll see)
 -improved build.gradle (need to figure that shit out, exclude API files, automatic version updating)
--enable a packet handler, going to need it for oil gauge on cracker.
 -add some new nether ore gens for the newly enabled one
 -establish a wiki for the mod
 -add a slot to the machines to show item currently being processed
 -craftguide integration
 -expanded bitumen processing
 -replace recipe results with mod specific items (unify the recipe results)
+-finish villager trading (Metallic ores)

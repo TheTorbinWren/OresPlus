@@ -31,11 +31,14 @@ implements ITileEntityProvider {
 	protected boolean _isWorking;
 	protected int guiID;
 
-	public BlockMachine(String machineName) {
+	public BlockMachine(boolean isActive, String machineName) {
 		super(Material.rock, machineName, false);
 		this.setHardness(3.5F);
+		this.setStepSound(soundTypePiston);
+		if (isActive)
+			this.setLightLevel(0.875F);
 	}
-
+	
 	public void onBlockAddded(World world, int x, int y, int z) {
 		super.onBlockAdded(world, x, y, z);
 		this.func_149930_e(world, x, y, z);
@@ -200,9 +203,15 @@ implements ITileEntityProvider {
     	isLocked = true;
     	if (te instanceof TileEntityGrinder) {
 	    	if (isBurning) 
-	    		world.setBlock(x, y, z, Block.getBlockFromItem(Blocks.grinder_lit.source.getItem()));
+	    		world.setBlock(x, y, z, BlockHelper.getBlock(Blocks.grinder_lit));
 	    	else 
-	    		world.setBlock(x, y, z, Block.getBlockFromItem(Blocks.grinder.source.getItem()));
+	    		world.setBlock(x, y, z, BlockHelper.getBlock(Blocks.grinder));
+    	}
+    	else if (te instanceof TileEntityCracker) {
+	    	if (isBurning) 
+	    		world.setBlock(x, y, z, BlockHelper.getBlock(Blocks.cracker_lit));
+	    	else 
+	    		world.setBlock(x, y, z, BlockHelper.getBlock(Blocks.cracker));
     	}
     	isLocked = false;
     	

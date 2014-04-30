@@ -1,5 +1,7 @@
 package tw.oresplus.ores;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,15 +14,15 @@ import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.BlockCore;
 import tw.oresplus.blocks.BlockOre;
-import tw.oresplus.core.Config;
 import tw.oresplus.core.OreClass;
+import tw.oresplus.core.config.ConfigCore;
 import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.items.ItemCore;
 import tw.oresplus.recipes.GrinderRecipe;
 import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
 
-public enum MetallicOres implements IOres {
+public enum MetallicOres implements IOreList {
 	Adamantine(3, Aspect.ARMOR),
 	Aluminium(2, Aspect.EXCHANGE),
 	Ardite(4, Aspect.VOID),
@@ -70,6 +72,8 @@ public enum MetallicOres implements IOres {
 	private boolean _isAlloy;
 	private float _smeltXP;
 	private Aspect _secondaryAspect;
+	private int _tradeToAmount;
+	private int _tradeFromAmount;
 	
 	public boolean enabled;
 	
@@ -82,6 +86,10 @@ public enum MetallicOres implements IOres {
 	}
 		
 	private MetallicOres(int harvestLevel, Aspect secondaryAspect, boolean isAlloy) {
+		this(harvestLevel, secondaryAspect, isAlloy, 0, 0);
+	}
+	
+	private MetallicOres(int harvestLevel, Aspect secondaryAspect, boolean isAlloy, int tradeToAmount, int tradeFromAmount) {
 		this.oreName = "ore" + this.toString();
 		this.netherOreName = "oreNether" + this.toString();
 		this.blockName = "block" + this.toString();
@@ -124,7 +132,7 @@ public enum MetallicOres implements IOres {
 	public void registerBlocks() {
 		// Register Ore
 		if (!this.isVanilla() && !this._isAlloy) {
-			OreClass oreConfig = Config.getOre(this.getDefaultConfig());
+			OreClass oreConfig = OresPlus.config.getOre(this.getDefaultConfig());
 			if (oreConfig.enabled) {
 				this.ore = new OreItemStack(new BlockOre(oreConfig));
 			}
@@ -138,7 +146,7 @@ public enum MetallicOres implements IOres {
 		
 		// Register Nether Ore
 		if (!this._isAlloy)	{
-			OreClass oreConfig = Config.getOre(this.getDefaultConfigNether());
+			OreClass oreConfig = OresPlus.config.getOre(this.getDefaultConfigNether());
 			if (oreConfig.enabled) {
 				this.netherOre = new OreItemStack(new BlockOre(oreConfig, true));
 			}
@@ -223,7 +231,6 @@ public enum MetallicOres implements IOres {
 		}
 		
 		// add ingot Grinder recipe
-		
 		if (this.isVanilla()) {
 			Ores.grinderRecipes.add(this.ingot.newStack(), this.dust.newStack());
 		}
@@ -271,6 +278,11 @@ public enum MetallicOres implements IOres {
 						stoneDust.newStack()	});
 				}
 			}
+			
+			if (Helpers.RailCraft.isLoaded()) {
+				// add RC grinder recipe
+				Helpers.RailCraft.registerRecipe("rockCrusher", this.ore.newStack(), this.crushedOre.newStack(2));
+			}
 		}
 		
 		// add dust smelting recipe
@@ -295,5 +307,21 @@ public enum MetallicOres implements IOres {
 	        ThaumcraftApi.registerObjectTag(this.blockName, new AspectList().add(Aspect.METAL, 5).add(this._secondaryAspect, 3));
 	      }
 	      ThaumcraftApi.registerObjectTag(this.netherOreName, new AspectList().add(Aspect.METAL, 2).add(this._secondaryAspect, 2).add(Aspect.EARTH, 1).add(Aspect.FIRE, 1));
+	}
+
+	@Override
+	public int getTradeToAmount(Random random) {
+		if (this._tradeToAmount <= 0) {
+			return 0;
+		}
+		return this._tradeToAmount + random.nextInt(this._tradeToAmount / 4);
+	}
+
+	@Override
+	public int getTradeFromAmount(Random random) {
+		if (this._tradeFromAmount <= 0) {
+			return 0;
+		}
+		return this._tradeFromAmount + random.nextInt(this._tradeFromAmount / 4);
 	}
 }
