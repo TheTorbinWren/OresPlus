@@ -32,21 +32,22 @@ public class OreEventHandler {
 		}
 		
 	    NBTTagCompound oreRegenArray = oresPlusRegen.getCompoundTag("oreRegenArray");
-	    for (OreGenerators oreGen : OreGenerators.values()) {
-	      String oreRegenKey = oreRegenArray.getString(oreGen.toString());
-	      if (oreRegenKey.equals("")) {
-	        oreRegenKey = oresPlusRegen.getString("ores");
-	      }
-	      if ((oreGen.generator.doRegen) && (!oreGen.generator.regenKey.equals(oreRegenKey))) {
-	        int dim = event.world.provider.dimensionId;
-	        if (oreGen.generator.dimension == dim) {
-	          ArrayList<ChunkCoordIntPair> chunks = (ArrayList)oreGen.generator.regenList.get(Integer.valueOf(dim));
-	          if (chunks == null)
-	            chunks = new ArrayList();
-	          chunks.add(event.getChunk().getChunkCoordIntPair());
-	          oreGen.generator.regenList.put(Integer.valueOf(dim), chunks);
-	        }
-	      }
+	    int dimId = event.world.provider.dimensionId;
+	    ArrayList<WorldGenOre> oreGenArray = WorldGenCore.oreGenerators.get(dimId);
+	    if (oreGenArray != null) {
+	    	for (WorldGenOre oreGen : oreGenArray) {
+	    		String oreRegenKey = oreRegenArray.getString(oreGen.getOreName());
+	    		if (oreRegenKey.equals("")) {
+	    			oreRegenKey = oresPlusRegen.getString("ores");
+	    		}
+	    		if (oreGen.doRegen && !oreGen.regenKey.equals(oreRegenKey)) {
+	    			ArrayList<ChunkCoordIntPair> chunks = oreGen.regenList.get(Integer.valueOf(dimId));
+	    			if (chunks == null)
+	    				chunks = new ArrayList();
+	    			chunks.add(event.getChunk().getChunkCoordIntPair());
+	    			oreGen.regenList.put(dimId, chunks);
+	    		}
+	    	}
 	    }
 		
 		if (!OresPlus.regenKeyOil.equals("DISABLED") && !oresPlusRegen.getString("oil").equals(OresPlus.regenKeyOil)) {
