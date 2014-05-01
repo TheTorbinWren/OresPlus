@@ -114,7 +114,7 @@ public class OreEventHandler {
 			sources = OreGenerators.values();
 		}
 		for (IOreGenerator oreGen : sources) {
-			WorldGenOre generator = oreGen.getOreGenerator();
+			WorldGenOre generator = oreGen.getOreGenerator(dim);
 			if (generator != null) {
 				OresPlus.log.debug("Adding generator for " + generator.getOreName() + " to dimension id " + dim);
 				oreGenList.add(generator);

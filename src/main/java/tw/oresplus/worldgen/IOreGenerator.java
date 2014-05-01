@@ -5,5 +5,5 @@ public interface IOreGenerator {
 	
 	public void registerGenerator();
 	
-	public WorldGenOre getOreGenerator();
+	public WorldGenOre getOreGenerator(int dimId);
 }

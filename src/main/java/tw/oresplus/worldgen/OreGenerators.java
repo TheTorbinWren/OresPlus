@@ -1,5 +1,7 @@
 package tw.oresplus.worldgen;
 
+import java.util.HashMap;
+
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.core.config.ConfigCore;
@@ -66,6 +68,8 @@ public enum OreGenerators implements IOreGenerator {
 	
 	public WorldGenOre generator;
 	
+	private HashMap<Integer, WorldGenOre> generators = new HashMap();
+	
 	private OreGenerators(String oreName, int dimension, int numVeins, 
 			int veinSize, int minY, int maxY) {
 		this(oreName, dimension, numVeins, veinSize, minY, maxY, OreGenType.NORMAL);
@@ -93,14 +97,26 @@ public enum OreGenerators implements IOreGenerator {
 	}
 	
 	public void registerGenerator() {
-		OreGenClass oreGen = ConfigOreGen.getOreGeneratorConfig(getDefaultConfig(), 0);
-		if (this._enabled && Ores.manager.isOreRegistered(this._oreName)) 
-			this.generator = new WorldGenOre(oreGen);
+		this.generator = this.registerGenerator(0);
+	}
+	
+	private WorldGenOre registerGenerator(int dimId) {
+		OreGenClass oreGen = ConfigOreGen.getOreGeneratorConfig(getDefaultConfig(), dimId);
+		if (this._enabled && Ores.manager.isOreRegistered(this._oreName)) { 
+			WorldGenOre gen = new WorldGenOre(oreGen);
+			this.generators.put(dimId, gen);
+			return gen;
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
-	public WorldGenOre getOreGenerator() {
-		// TODO Auto-generated method stub
-		return null;
+	public WorldGenOre getOreGenerator(int dimId) {
+		if (this.generators.get(dimId) == null) {
+			this.registerGenerator(dimId);
+		}
+		return this.generators.get(dimId);
 	}
 }

@@ -58,8 +58,10 @@ public enum OreGeneratorsEnd implements IOreGenerator {
 	}
 
 	@Override
-	public WorldGenOre getOreGenerator() {
-		// TODO Auto-generated method stub
-		return null;
+	public WorldGenOre getOreGenerator(int dimId) {
+		if (this.generator == null) {
+			this.registerGenerator();
+		}
+		return this.generator;
 	}
 }
