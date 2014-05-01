@@ -82,9 +82,13 @@ public class OreEventHandler {
 	public void chunkSave(ChunkDataEvent.Save event) {
 		NBTTagCompound oresPlusRegen = new NBTTagCompound();
 		
+		int dimId = event.world.provider.dimensionId;
 	    NBTTagCompound oreRegenArray = new NBTTagCompound();
-	    for (OreGenerators oreGen : OreGenerators.values()) {
-	      oreRegenArray.setString(oreGen.toString(), oreGen.generator.regenKey);
+	    ArrayList<WorldGenOre> oreGenArray = WorldGenCore.oreGenerators.get(dimId);
+	    if (oreGenArray != null) {
+	    	for (WorldGenOre oreGen : oreGenArray) {
+	    		oreRegenArray.setString(oreGen.getOreName(), oreGen.regenKey);
+	    	}
 	    }
 	    oresPlusRegen.setTag("oreRegenArray", oreRegenArray);
 		oresPlusRegen.setString("ores", OresPlus.regenKeyOre);
