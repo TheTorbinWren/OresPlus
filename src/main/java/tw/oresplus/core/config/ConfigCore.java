@@ -48,11 +48,15 @@ public abstract class ConfigCore {
 	}
 	
 	public void save() {
+		OresPlus.log.info("Saving Configuration");
+		this.saveQuiet();
+	}
+	
+	public void saveQuiet() {
 		if (!configured) {
 			OresPlus.log.info("Error - configuration not initialized!");
 			return;		
 		}
-		OresPlus.log.info("Saving Configuration");
 		
 		if (configFileVersion != configVersion) {
 			Property prop = config.get(CAT_CONFIG, "configVersion", configVersion);
