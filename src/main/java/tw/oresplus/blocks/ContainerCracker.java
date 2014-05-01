@@ -2,6 +2,7 @@ package tw.oresplus.blocks;
 
 import tw.oresplus.api.Ores;
 import tw.oresplus.core.FuelHelper;
+import tw.oresplus.items.OreItems;
 import tw.oresplus.recipes.RecipeManager;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -40,7 +41,7 @@ public class ContainerCracker extends ContainerMachine {
             		if (!this.mergeItemStack(slotStack, 1, 2, false))
             			return null;
             	}
-            	else if (slotStack.getItem() == Ores.getItem("itemBitumen")) {
+            	else if (slotStack.getItem() == OreItems.itemBitumen.item.source.getItem()) {
             		if (!this.mergeItemStack(slotStack, 0, 1, false))
             			return null;
             	} 

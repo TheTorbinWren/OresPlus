@@ -21,12 +21,12 @@ public class IMCHandler {
 					break;
 				NBTTagCompound messageData = message.getNBTValue();
 				if (message.key.equals("registerOre")) {
-					if (!messageData.getString("oreName").equals("") && !Ores.isBlockRegistered(messageData.getString("oreName"))) {
-						Ores.registerBlock(messageData.getString("oreName"), message.getSender(), GameRegistry.findBlock(message.getSender(), messageData.getString("oreName")));
+					if (!messageData.getString("oreName").equals("") && !Ores.manager.isOreRegistered(messageData.getString("oreName"))) {
+						Ores.manager.registerOre(messageData.getString("oreName"), GameRegistry.findBlock(message.getSender(), messageData.getString("oreName")));
 					}
 				}
 				else if (message.key.equals("registerGenerator")) {
-					if (!messageData.getString("oreName").equals("") && !Ores.isBlockRegistered(messageData.getString("oreName"))) {
+					if (!messageData.getString("oreName").equals("") && !Ores.manager.isOreRegistered(messageData.getString("oreName"))) {
 						OreGenClass oreGen = new OreGenClass(
 								messageData.getString("genName"),
 								messageData.getString("oreName"), 

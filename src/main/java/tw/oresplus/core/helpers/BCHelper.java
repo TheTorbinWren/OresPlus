@@ -34,10 +34,6 @@ public class BCHelper extends OresHelper {
 		}
 		
 		if (this.isEnergyLoaded()) {
-			Block blockOil = this.getBlock("blockOil");
-			if (blockOil != null)
-				Ores.registerBlock("blockOil", "BuildCraft", blockOil);
-			
 			try {
 				this.genOilClass = Class.forName("buildcraft.energy.worldgen.OilPopulate");
 			} catch (ClassNotFoundException e) {

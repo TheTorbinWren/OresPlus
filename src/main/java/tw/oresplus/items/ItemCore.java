@@ -20,7 +20,7 @@ public class ItemCore extends Item{
 		super();
 		setUnlocalizedName(itemName);
 		setTextureName(OresPlus.MOD_ID + ":" + itemName);
-		Ores.registerItem(itemName, this);
+		Ores.manager.registerOreItem(itemName, this);
 		GameRegistry.registerItem(this, itemName);
 		OreDictionary.registerOre(itemName, this);
 	}

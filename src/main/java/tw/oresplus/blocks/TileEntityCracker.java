@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.core.FuelHelper;
+import tw.oresplus.items.OreItems;
 import tw.oresplus.network.NetHandler;
 import tw.oresplus.network.PacketUpdateCracker;
 import tw.oresplus.triggers.OresTrigger;
@@ -49,7 +50,7 @@ implements IFluidHandler {
 	
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack item) {
-		return slot == 0 ? item.getItem() == Ores.getItem("itemBitumen") : FuelHelper.isItemFuel(item);
+		return slot == 0 ? item.getItem() == OreItems.itemBitumen.item.source.getItem() : FuelHelper.isItemFuel(item);
 	}
 
 	@Override
@@ -67,7 +68,7 @@ implements IFluidHandler {
 			return false;
 		
 		ItemStack item = this.currentItem != null ? this.currentItem : this.inventory[0];
-		return item.getItem() == Ores.getItem("itemBitumen")
+		return item.getItem() == OreItems.itemBitumen.item.source.getItem()
 			&& this.tank.getFluidAmount() < this.tank.getCapacity();
 	}
 
