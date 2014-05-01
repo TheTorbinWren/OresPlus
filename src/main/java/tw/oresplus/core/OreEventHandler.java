@@ -16,6 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable;
 import net.minecraftforge.event.world.ChunkDataEvent;
+import net.minecraftforge.event.world.WorldEvent;
 
 public class OreEventHandler {
 	@SubscribeEvent
@@ -86,6 +87,11 @@ public class OreEventHandler {
 		oresPlusRegen.setString("rubberTree", OresPlus.regenKeyRubberTree);
 		oresPlusRegen.setString("beehives", OresPlus.regenKeyBeehives);
 		event.getData().setTag("OresPlus", oresPlusRegen);
+	}
+	
+	@SubscribeEvent
+	public void worldLoad(WorldEvent.Load event) {
+		OresPlus.log.info("Loading world, dimension id " + event.world.provider.dimensionId);
 	}
 	
 	@SubscribeEvent
