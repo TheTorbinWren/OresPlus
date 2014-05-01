@@ -36,15 +36,12 @@ public class WorldGenOre {
 		{
 		case -1:
 			target = net.minecraft.init.Blocks.netherrack;
-			WorldGenCore.oreGenNether.add(this);
 			break;
 		case 1:
 			target = net.minecraft.init.Blocks.end_stone;
-			WorldGenCore.oreGenEnd.add(this);
 			break;
 		default:
 			target = net.minecraft.init.Blocks.stone;
-			WorldGenCore.oreGenOverworld.add(this);
 		}
 		
 		if (ore.oreName.equals("oreBauxite"))

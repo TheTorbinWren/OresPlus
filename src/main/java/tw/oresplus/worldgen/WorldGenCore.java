@@ -18,10 +18,6 @@ public class WorldGenCore
 implements IWorldGenerator {
 	public static HashMap<Integer, ArrayList<WorldGenOre>> oreGenerators = new HashMap();
 	
-	public static List<WorldGenOre> oreGenOverworld = new ArrayList();
-	public static List<WorldGenOre> oreGenNether = new ArrayList();
-	public static List<WorldGenOre> oreGenEnd = new ArrayList();
-	
 	public static Collection<String> biomeListBauxite = new ArrayList();
 	public static Collection<String> biomeListCassiterite = new ArrayList();
 	public static Collection<String> biomeListColdiron = new ArrayList();
@@ -43,43 +39,9 @@ implements IWorldGenerator {
 	}
 	
 	public void doWorldGen(Random random, World world, int chunkX, int chunkZ, boolean newChunk) {
-		switch (world.provider.dimensionId) {
-		case -1:
-			generateNether(world, random, chunkX*16, chunkZ*16, newChunk);
-			break;
-		case 1:
-			generateEnd(world, random, chunkX*16, chunkZ*16, newChunk);
-			break;
-		default: 
-			generateSurface(world, random, chunkX*16, chunkZ*16, newChunk);
+		for (WorldGenOre oreGen : oreGenerators.get(world.provider.dimensionId)) {
+			oreGen.generate(world, random, chunkX * 16, chunkZ * 16);
 		}
-		
-		if (!newChunk)
-			world.getChunkFromChunkCoords(chunkX, chunkZ).setChunkModified();
-	}
-	
-	public void generateEnd(World world, Random random, int blockX, int blockZ, boolean newChunk){
-		for (WorldGenOre oreGen : this.oreGenEnd)
-			if(newChunk || oreGen.doRegen)
-			{
-				oreGen.generate(world, random, blockX, blockZ);
-			}
-	}
-	
-	public void generateNether(World world, Random random, int blockX, int blockZ, boolean newChunk){
-		for (WorldGenOre oreGen : this.oreGenNether)
-			if (newChunk || oreGen.doRegen) {
-				oreGen.generate(world, random, blockX, blockZ);
-			}
-
-	}
-	
-	public void generateSurface(World world, Random random, int blockX, int blockZ, boolean newChunk){
-		
-		for (WorldGenOre oreGen : this.oreGenOverworld)
-			if (newChunk || oreGen.doRegen) {
-				oreGen.generate(world, random, blockX, blockZ);
-			}
 	}
 
 	static {
