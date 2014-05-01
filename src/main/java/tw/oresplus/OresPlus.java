@@ -48,9 +48,12 @@ import tw.oresplus.ores.OreManager;
 import tw.oresplus.recipes.RecipeManager;
 import tw.oresplus.triggers.OresTrigger;
 import tw.oresplus.triggers.TriggerProvider;
+import tw.oresplus.worldgen.IOreGenerator;
 import tw.oresplus.worldgen.OreChestLoot;
 import tw.oresplus.worldgen.OreGenClass;
 import tw.oresplus.worldgen.OreGenerators;
+import tw.oresplus.worldgen.OreGeneratorsEnd;
+import tw.oresplus.worldgen.OreGeneratorsNether;
 import tw.oresplus.worldgen.VillagerTradeHandler;
 import tw.oresplus.worldgen.WorldGenCore;
 import tw.oresplus.worldgen.WorldGenOre;
@@ -120,6 +123,12 @@ public class OresPlus {
     	//Register Ore Generators
     	log.info("Registering Ore Generators");
     	for (OreGenerators oreGen : OreGenerators.values()) {
+    		oreGen.registerGenerator();
+    	}
+    	for (OreGeneratorsNether oreGen : OreGeneratorsNether.values()) {
+    		oreGen.registerGenerator();
+    	}
+    	for (OreGeneratorsEnd oreGen : OreGeneratorsEnd.values()) {
     		oreGen.registerGenerator();
     	}
     	

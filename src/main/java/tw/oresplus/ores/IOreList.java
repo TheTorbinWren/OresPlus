@@ -2,8 +2,6 @@ package tw.oresplus.ores;
 
 import java.util.Random;
 
-import tw.oresplus.core.OreClass;
-
 public interface IOreList {
 	public OreClass getDefaultConfig();
 	

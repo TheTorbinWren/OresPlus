@@ -1,7 +1,5 @@
-package tw.oresplus.core;
+package tw.oresplus.ores;
 
-import tw.oresplus.ores.OreDrops;
-import tw.oresplus.ores.OreSources;
 
 public class OreClass {
 	public String name;

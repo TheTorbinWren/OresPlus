@@ -6,7 +6,7 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.common.config.Property.Type;
 import tw.oresplus.OresPlus;
-import tw.oresplus.core.OreClass;
+import tw.oresplus.ores.OreClass;
 import tw.oresplus.ores.OreDrops;
 import tw.oresplus.ores.OreSources;
 import tw.oresplus.worldgen.OreGenClass;

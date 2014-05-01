@@ -7,7 +7,6 @@ import java.util.Random;
 
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
-import tw.oresplus.core.OreClass;
 import tw.oresplus.core.helpers.AppEngHelper;
 import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.items.Items;
@@ -15,6 +14,7 @@ import tw.oresplus.items.OreItems;
 import tw.oresplus.ores.DustOres;
 import tw.oresplus.ores.GemstoneOres;
 import tw.oresplus.ores.MetallicOres;
+import tw.oresplus.ores.OreClass;
 import tw.oresplus.ores.OreDrops;
 import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.worldgen.OreGenClass;
