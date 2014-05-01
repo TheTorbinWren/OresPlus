@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 import tw.oresplus.OresPlus;
 import tw.oresplus.blocks.Blocks;
+import tw.oresplus.worldgen.IOreGenerator;
 import tw.oresplus.worldgen.OreGenType;
 import tw.oresplus.worldgen.OreGenerators;
+import tw.oresplus.worldgen.OreGeneratorsEnd;
+import tw.oresplus.worldgen.OreGeneratorsNether;
+import tw.oresplus.worldgen.WorldGenCore;
 import tw.oresplus.worldgen.WorldGenOre;
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
@@ -91,7 +95,35 @@ public class OreEventHandler {
 	
 	@SubscribeEvent
 	public void worldLoad(WorldEvent.Load event) {
-		OresPlus.log.info("Loading world, dimension id " + event.world.provider.dimensionId);
+		OresPlus.log.info("Loading ore generators for dimension id " + event.world.provider.dimensionId);
+		int dim = event.world.provider.dimensionId;
+		if (WorldGenCore.oreGenerators.get(dim) != null) {
+			OresPlus.log.debug("Skipping load, dimension already loaded");
+			return;
+		}
+		ArrayList<WorldGenOre> oreGenList = new ArrayList();
+		IOreGenerator[] sources;
+		switch (dim) {
+		case -1:
+			sources = OreGeneratorsNether.values();
+			break;
+		case 1:
+			sources = OreGeneratorsEnd.values();
+			break;
+		default:
+			sources = OreGenerators.values();
+		}
+		for (IOreGenerator oreGen : sources) {
+			WorldGenOre generator = oreGen.getOreGenerator();
+			if (generator != null) {
+				OresPlus.log.debug("Adding generator for " + generator.getOreName() + " to dimension id " + dim);
+				oreGenList.add(generator);
+			}
+		}
+		if (!oreGenList.isEmpty()) {
+			WorldGenCore.oreGenerators.put(dim, oreGenList);
+		}
+		OresPlus.log.info("Loaded world gen for dimension id " + dim);
 	}
 	
 	@SubscribeEvent

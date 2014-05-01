@@ -2,6 +2,7 @@ package tw.oresplus.worldgen;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -15,6 +16,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class WorldGenCore 
 implements IWorldGenerator {
+	public static HashMap<Integer, ArrayList<WorldGenOre>> oreGenerators = new HashMap();
+	
 	public static List<WorldGenOre> oreGenOverworld = new ArrayList();
 	public static List<WorldGenOre> oreGenNether = new ArrayList();
 	public static List<WorldGenOre> oreGenEnd = new ArrayList();
