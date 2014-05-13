@@ -14,10 +14,12 @@ import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.Blocks;
 import tw.oresplus.core.OreDictHelper;
+import tw.oresplus.core.config.ConfigMain;
 import tw.oresplus.core.helpers.BCHelper;
 import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.items.Items;
 import tw.oresplus.items.OreItems;
+import tw.oresplus.ores.AdvancedOres;
 import tw.oresplus.ores.DustOres;
 import tw.oresplus.ores.GemstoneOres;
 import tw.oresplus.ores.GeneralOres;
@@ -36,14 +38,22 @@ public class RecipeManager {
 	private static ICraftingHandler neiHandler;
 	private static ICraftingHandler tmiHandler;
 	
+	private static ArrayList<ItemStack> maceratorBlackList = new ArrayList();
+	private static ArrayList<ItemStack> grinderBlackList = new ArrayList();
+	private static ArrayList<ItemStack> rockCrusherBlackList = new ArrayList();
+	
 	public static void init() {
 		Ores.grinderRecipes = new GrinderRecipeManager();
+		Ores.crackerRecipes = new CrackerRecipeManager();
 		
 		neiHandler = new NeiHandler();
 		tmiHandler = new TmiHandler();
 	}
 	
 	public static void initRecipes() {
+		maceratorBlackList.add(new ItemStack(net.minecraft.init.Items.coal, 1, 0));
+		maceratorBlackList.add(new ItemStack(net.minecraft.init.Items.coal, 1, 1));
+
 		OreItemStack coal = new OreItemStack(net.minecraft.init.Items.coal, 0);
 		OreItemStack charcoal = new OreItemStack(net.minecraft.init.Items.coal, 1);
 	    OreItemStack fertalizer = new OreItemStack(Helpers.Forestry.getItem("fertilizerCompound"));
@@ -56,15 +66,17 @@ public class RecipeManager {
 	    OreItemStack stick = new OreItemStack(net.minecraft.init.Items.stick);
 		OreItemStack tank = new OreItemStack(Helpers.BuildCraft.getBlock("tankBlock"));
 		
-		// cracker recipe
-		if (Helpers.BuildCraft.isLoaded() && tank.source.getItem() != null) {
-			addShapedRecipe(Blocks.cracker.newStack(), "t", "F", 't', tank.newStack(), 'F', furnace.newStack());
+		if (OresPlus.config.enableMachines) {
+			// cracker recipe
+			if (Helpers.BuildCraft.isLoaded() && tank.source.getItem() != null) {
+				addShapedRecipe(Blocks.cracker.newStack(), "t", "F", 't', tank.newStack(), 'F', furnace.newStack());
+			}
+			else
+				addShapedRecipe(Blocks.cracker.newStack(), "ggg", "gFg", "ggg", 'g', glass.newStack(), 'F', furnace.newStack());
+			
+			// grinder recipe
+			addShapedRecipe(Blocks.grinder.newStack(), "fff", "fFf", "fff", 'f', flint.newStack(), 'F', furnace.newStack());
 		}
-		else
-			addShapedRecipe(Blocks.cracker.newStack(), "ggg", "gFg", "ggg", 'g', glass.newStack(), 'F', furnace.newStack());
-		
-		// grinder recipe
-		addShapedRecipe(Blocks.grinder.newStack(), "fff", "fFf", "fff", 'f', flint.newStack(), 'F', furnace.newStack());
 		
 		//gunpowder recipes
 		addShapedRecipe(gunpowder.newStack(4), "sSs", "csc", "sSs", 's', "dustSaltpeter", 'c', "dustCoal", 'S', "dustSulfur");
@@ -76,11 +88,7 @@ public class RecipeManager {
 		addGrinderRecipe(charcoal.newStack(), OreItems.dustCharcoal.item.newStack());
 		addGrinderRecipe(coal.newStack(), OreItems.dustCoal.item.newStack());
 		addGrinderRecipe(OreItems.gemUranium.item.newStack(), OreItems.crushedUranium.item.newStack());
-		Helpers.IC2.registerRecipe("Macerator", OreItems.gemUranium.item.newStack(), OreItems.crushedUranium.item.newStack());
 		addGrinderRecipe(GeneralOres.Uranium.ore.newStack(), OreItems.crushedUranium.item.newStack(2));
-		NBTTagCompound cranks = new NBTTagCompound();
-		cranks.setInteger("cranks", 8);
-		Helpers.AppliedEnergistics.registerRecipe("grinder", GeneralOres.Uranium.ore.newStack(), cranks, OreItems.crushedUranium.item.newStack());
 		
 		// alloy recipes
 		int amount = 4;
@@ -96,7 +104,7 @@ public class RecipeManager {
 		addSmelting(GeneralOres.NetherLapis.ore.newStack(), oreLapis.newStack(2), 0.0F);
 		addSmelting(GeneralOres.NetherUranium.ore.newStack(), GeneralOres.Uranium.ore.newStack(2), 0.0F);
 		
-	    if (fertalizer.source != null) {
+	    if (Helpers.Forestry.isLoaded()) {
 	        addShapelessRecipe(fertalizer.newStack(8), new Object[] { DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName });
 	        addShapelessRecipe(fertalizer.newStack(12), new Object[] { DustOres.Saltpeter.dustName, DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName });
 	        addShapelessRecipe(fertalizer.newStack(12), new Object[] { DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName });
@@ -135,7 +143,14 @@ public class RecipeManager {
 	    addShapedRecipe(Items.toolMithralPickaxe.newStack(), "mmm", " s ", " s ", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack() );
 	    addShapedRecipe(Items.toolMithralSpade.newStack(), "m", "s", "s", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack());
 	    addShapedRecipe(Items.toolMithralSword.newStack(), "m", "m", "s", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack() );
-
+	    
+	    // Misc IC2 recipes
+	    NBTTagCompound metadata = new NBTTagCompound();
+	    metadata.setInteger("minHeat", 2000);
+	    Helpers.IC2.registerRecipe(RecipeType.Centrifuge, OreItems.dustPyrite.item.newStack(3), metadata, MetallicOres.Iron.dust.newStack(), DustOres.Sulfur.dust.newStack(2));
+	    Helpers.IC2.registerRecipe(RecipeType.Centrifuge, OreItems.dustSphalerite.item.newStack(2), metadata, MetallicOres.Zinc.dust.newStack(), DustOres.Sulfur.dust.newStack());
+	    Helpers.IC2.registerRecipe(RecipeType.Centrifuge, OreItems.dustCinnabar.item.newStack(2), metadata, OreItems.itemMercury.item.newStack(), DustOres.Sulfur.dust.newStack());
+	    
 		for (MetallicOres ore : MetallicOres.values()) {
 			ore.registerRecipes();
 		}
@@ -145,6 +160,10 @@ public class RecipeManager {
 		}
 		
 		for (DustOres ore : DustOres.values()) {
+			ore.registerRecipes();
+		}
+		
+		for (AdvancedOres ore : AdvancedOres.values()) {
 			ore.registerRecipes();
 		}
 		
@@ -166,25 +185,38 @@ public class RecipeManager {
 	public static void addShapedRecipe (ItemStack output, Object... params) {
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(output, params));
 	}
-	
-	@Deprecated
-	public static ItemStack getGrinderRecipeResult(Object input) {
-		return Ores.grinderRecipes.getResult(input);
-	}
-	
-	@Deprecated
-	public static boolean isIC2MaceratorRecipe(String oreName) {
-		if (oreName.equals("Bronze") || oreName.equals("Copper") || oreName.equals("Lead") || oreName.equals("Silver") || oreName.equals("Tin"))
-			return true;
-		else
-			return false;
+
+	public static void addGrinderRecipe(ItemStack input, ItemStack output) {
+		// Register Grinder Recipe
+		Ores.grinderRecipes.add(input, output);
+		OresPlus.log.debug("Registered OresPlus:Grinder recipe for " + input.getUnlocalizedName());
+		// Register IC2 Macerator Recipe
+		if (Helpers.IC2.isLoaded() && !isBlackListed(maceratorBlackList, input)) {
+			Helpers.IC2.registerRecipe(RecipeType.Macerator, input, output);
+			OresPlus.log.debug("Registered IC2:Macerator recipe for " + input.getUnlocalizedName());
+		}
+		// Register AE2 Grinder Recipe
+		if (Helpers.AppliedEnergistics.isLoaded() && !isBlackListed(grinderBlackList, input)) {
+			NBTTagCompound metadata = new NBTTagCompound();
+			metadata.setInteger("cranks", 8);
+			Helpers.AppliedEnergistics.registerRecipe(RecipeType.Grinder, input, metadata, output);
+			OresPlus.log.debug("Registered AE2:Grinder recipe for " + input.getUnlocalizedName());
+		}
+		// Register Railcraft Rock Crusher Recipe
+		if (Helpers.RailCraft.isLoaded() && !isBlackListed(rockCrusherBlackList , input)) {
+			Helpers.RailCraft.registerRecipe(RecipeType.RockCrusher, input, output);
+			OresPlus.log.debug("Registered RailCraft:RockCrusher recipe for " + input.getUnlocalizedName());
+		}
 	}
 
-	public static void addGrinderRecipe(Object input, ItemStack output) {
-		if (!(input instanceof String) && !(input instanceof ItemStack))
-			return;
-		Ores.grinderRecipes.add(input, output);
-		
+	private static boolean isBlackListed(
+			ArrayList<ItemStack> blacklist, ItemStack input) {
+		for (ItemStack item : blacklist) {
+			if (item.isItemEqual(input)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static void replaceRecipeResults() {
@@ -195,14 +227,21 @@ public class RecipeManager {
 			if (result instanceof ItemStack) {
 				Item item = ((ItemStack)result).getItem();
 				UniqueIdentifier itemUid = GameRegistry.findUniqueIdentifierFor(item);
-				OresPlus.log.info("Recipe Result " + itemUid.modId + ":" + itemUid.name);
+				if (itemUid.modId != "minecraft" && itemUid.modId != OresPlus.MOD_ID) {
+					OresPlus.log.info("Recipe Result " + itemUid.modId + ":" + itemUid.name);
+					ItemStack newItem = new ItemStack(Ores.manager.getOreItem(itemUid.name), ((ItemStack)result).stackSize);
+					if (newItem != null) {
+						((ItemStack)result).func_150996_a(newItem.getItem());
+						net.minecraft.init.Items.apple.setDamage(newItem, net.minecraft.init.Items.apple.getDamage(((ItemStack)result)));
+					}
+				}
 			}
 		}
-		//ItemStack test = smeltingResultsList.
 	}
 	
 	public static void hideItem(OreItemStack item) {
 		neiHandler.hideItem(item.source);
 		tmiHandler.hideItem(item.source);
 	}
+	
 }

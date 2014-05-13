@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.Blocks;
+import tw.oresplus.recipes.RecipeType;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -27,9 +28,9 @@ public class BCHelper extends OresHelper {
 		super("BuildCraft|Core");
 	}
 	
-	public void init() {
+	public void preInit() {
 		if (!this.isLoaded()) {
-			OresPlus.log.info("BuildCraft not found, helper disabled");
+			OresPlus.log.info("BuildCraft not found, integration helper disabled");
 			return;
 		}
 		
@@ -80,6 +81,18 @@ public class BCHelper extends OresHelper {
 		OresPlus.log.info("BuildCraft found, integration helper initialized");
 	}
 	
+	@Override
+	public void init() {
+		if (!this.isLoaded()) 
+			return;
+	}
+
+	@Override
+	public void postInit() {
+		if (!this.isLoaded()) 
+			return;
+	}
+	
 	private boolean isEnergyLoaded() {
 		return Loader.isModLoaded("BuildCraft|Energy");
 	}
@@ -104,7 +117,7 @@ public class BCHelper extends OresHelper {
 	}
 
 	@Override
-	public void registerRecipe(String recipeType, ItemStack input,
+	public void registerRecipe(RecipeType recipeType, ItemStack input,
 			NBTTagCompound metadata, ItemStack... outputs) { }
 	
 	@Override
@@ -120,4 +133,5 @@ public class BCHelper extends OresHelper {
 		}
 		return result;
 	}
+
 }

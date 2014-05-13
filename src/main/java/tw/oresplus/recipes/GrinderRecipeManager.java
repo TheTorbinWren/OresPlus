@@ -71,11 +71,11 @@ public class GrinderRecipeManager implements IOreRecipeManager {
 	
 	private void add(ItemStack input, ItemStack output) {
 		if (this.getResult(input) != null) {
-			OresPlus.log.info("Failed to register Grinder recipe, type ItemStack, source: " + input.toString() + ", recipe already exists");
+			OresPlus.log.info("Failed to register Grinder recipe, type ItemStack, source: " + input.getUnlocalizedName() + ", recipe already exists");
 			return;
 		}
 		this.recipeList.put(input, output);
-		OresPlus.log.info("Added Grinder recipe, type ItemStack, source: " + input.toString());
+		OresPlus.log.info("Added Grinder recipe, type ItemStack, source: " + input.getUnlocalizedName());
 	}
 
 	@Override

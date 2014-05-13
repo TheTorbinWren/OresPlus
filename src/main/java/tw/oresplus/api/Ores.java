@@ -9,6 +9,11 @@ import net.minecraft.item.Item;
 public class Ores {
 	private static Ores instance = new Ores();
 	
+	public static IOreManager manager;
+	
+	public static IOreRecipeManager grinderRecipes;
+	public static IOreFluidRecipeManager crackerRecipes;
+
 	private Ores () {}
 	
 	private class BlockInfo {
@@ -22,7 +27,5 @@ public class Ores {
 
 	}
 	
-	public static IOreManager manager;
 	
-	public static IOreRecipeManager grinderRecipes;
 }

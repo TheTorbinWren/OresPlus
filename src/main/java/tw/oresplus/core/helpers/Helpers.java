@@ -2,6 +2,7 @@ package tw.oresplus.core.helpers;
 
 import java.util.Random;
 
+import tw.oresplus.recipes.RecipeType;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,7 +19,8 @@ public enum Helpers {
 	RailCraft(new RCHelper()),
 	ThaumCraft(new TCHelper()),
 	ThermalExpansion(new TEHelper()),
-	Tinkers(new TinkersHelper());
+	Tinkers(new TinkersHelper()),
+	Treecapitator(new TreecapitatorHelper());
 	
 	private OresHelper _oresHelper;
 	
@@ -26,8 +28,16 @@ public enum Helpers {
 		_oresHelper = oresHelper;
 	}
 	
+	public void preInit() {
+		this._oresHelper.preInit();
+	}
+	
 	public void init() {
 		this._oresHelper.init();
+	}
+	
+	public void postInit() {
+		this._oresHelper.postInit();
 	}
 	
 	public boolean isLoaded() {
@@ -46,11 +56,11 @@ public enum Helpers {
 		return this._oresHelper.getItem(itemName);
 	}
 	
-	public void registerRecipe(String recipeType, ItemStack input, ItemStack... outputs) {
+	public void registerRecipe(RecipeType recipeType, ItemStack input, ItemStack... outputs) {
 		this.registerRecipe(recipeType, input, null, outputs);
 	}
 	
-	public void registerRecipe(String recipeType, ItemStack input, NBTTagCompound metadata, ItemStack... outputs) {
+	public void registerRecipe(RecipeType recipeType, ItemStack input, NBTTagCompound metadata, ItemStack... outputs) {
 		this._oresHelper.registerRecipe(recipeType, input, metadata, outputs);
 	}
 	

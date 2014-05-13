@@ -10,18 +10,15 @@ import net.minecraft.item.ItemStack;
 
 public enum OreItems {
 	crushedUranium,
-	dustBauxite, // TODO: Update texture
-	dustCassiterite, // TODO: Update texture
+	dustAntimony,
 	dustCharcoal, 
 	dustCinnabar,
 	dustCoal, 
-	dustGalena, // TODO: Update texture
 	dustMagnesium,
 	dustPyrite,
 	dustSheldonite, // TODO: Update texture
 	dustSodalite,
 	dustSphalerite,
-	dustTetrahedrite, // TODO: Update texture
 	dustTungstate, // TODO: Update texture
 	dustTungsten, // TODO: Update texture
 	gemIridium,
@@ -29,7 +26,8 @@ public enum OreItems {
 	gemRedGarnet,
 	gemUranium,
 	gemYellowGarnet,
-	itemBitumen;
+	itemBitumen,
+	itemMercury;
 	
 	public OreItemStack item;
 	private AspectList _aspects;

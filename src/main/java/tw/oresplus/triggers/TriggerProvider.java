@@ -2,7 +2,7 @@ package tw.oresplus.triggers;
 
 import java.util.LinkedList;
 
-import tw.oresplus.blocks.TileEntityMachine;
+import tw.oresplus.blocks.OldTileEntityMachine;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import buildcraft.api.gates.ITrigger;
@@ -20,7 +20,7 @@ public class TriggerProvider implements ITriggerProvider {
 	public LinkedList<ITrigger> getNeighborTriggers(Block block, TileEntity tile) {
 		LinkedList triggers = new LinkedList();
 		
-		if (tile instanceof TileEntityMachine) {
+		if (tile instanceof OldTileEntityMachine) {
 			triggers.add(OresTrigger.hasWork);
 			triggers.add(OresTrigger.workDone);
 		}

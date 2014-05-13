@@ -1,15 +1,18 @@
 package tw.oresplus.blocks;
 
-import buildcraft.api.gates.ITileTrigger;
+import java.util.LinkedList;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import tw.oresplus.core.FuelHelper;
+import tw.oresplus.triggers.OresTrigger;
+import buildcraft.api.gates.ITrigger;
 import buildcraft.api.gates.ITriggerProvider;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.api.power.PowerHandler;
 import buildcraft.api.power.PowerHandler.PowerReceiver;
-import tw.oresplus.OresPlus;
-import tw.oresplus.core.FuelHelper;
-import tw.oresplus.recipes.RecipeManager;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import buildcraft.api.transport.IPipeTile;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
@@ -20,42 +23,209 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public abstract class TileEntityMachine 
-extends TileEntity 
-implements ISidedInventory, IPowerReceptor, ITriggerProvider {
-    private static final int[] slotsTop = new int[] {0};
-    private static final int[] slotsBottom = new int[] {2, 1};
-    private static final int[] slotsSides = new int[] {1};
+public abstract class TileEntityMachine extends TileEntity 
+implements IPowerReceptor, ITriggerProvider, ISidedInventory {
+	public boolean isBurning;
+
+	private boolean _hasFurnace = false;
+	protected int _furnaceBurnTime;
+	private int _currentItemBurnTime;
+	protected float _energyRequired;
+	protected float _energySpent;
+	protected float _efficiancy = 1.0F;
+	protected float _minimumBCEnergyRequired = 25.0F;
+	protected float _maximumBCEnergyStored = 1500.0F;
 	
-	protected ItemStack[] inventory;
-    //private abstract ItemStack[] inventory;
-	
-    public int furnaceBurnTime;
-    public int currentItemBurnTime;
-    public int machineWorkTime;
-	protected final int workTimeNeeded; 
-    
     protected String inventoryName;
     protected String customInventoryName = "";
     
-    protected PowerHandler powerHandler;
-    
-    protected float energyRequired = 25F;
-
-	protected ItemStack currentItem;
+	protected PowerHandler powerHandler;
 	
-	protected NBTTagCompound oldDataTag;
+	protected ItemStack[] inventory;
+	private int furnaceSlot = -1;
+	
+	protected NBTTagCompound updateData = new NBTTagCompound();
+	
+	public TileEntityMachine(float energyRequired) {
+		super();
+		
+		this._energyRequired = energyRequired;
+		this._energySpent = 0.0F;
+		
+		this.powerHandler = new PowerHandler(this, PowerHandler.Type.MACHINE);
+		this.initPowerHandler();
+	}
+	
+	public TileEntityMachine setMinimumBCEnergyRequired(float minimumBCEnergyRequired) {
+		this._minimumBCEnergyRequired = minimumBCEnergyRequired;
+		this.initPowerHandler();
+		return this;
+	}
+	
+	public TileEntityMachine setMaximumBCEnergyStored(float maximumBCEnergyStored) {
+		this._maximumBCEnergyStored = maximumBCEnergyStored;
+		this.initPowerHandler();
+		return this;
+	}
+	
+	public TileEntityMachine setEfficiancy(float efficiancy) {
+		this._efficiancy = efficiancy;
+		return this;
+	}
+	
+	public TileEntityMachine initFurnace(int slotNum) {
+		if (slotNum >= 0) {
+			this._hasFurnace = true;
+			this.furnaceSlot = slotNum;
+		}
+		return this;
+	}
+	
+	private void initPowerHandler() {
+		this.powerHandler.configure(50.0F, 100.0F, this._minimumBCEnergyRequired, this._maximumBCEnergyStored);
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound tagCompound) {
+		super.readFromNBT(tagCompound);
+		
+		this.powerHandler.readFromNBT(tagCompound);
+		this._minimumBCEnergyRequired = tagCompound.getFloat("minBCEnergy");
+		this._maximumBCEnergyStored = tagCompound.getFloat("maxBCEnergy");
+		this.initPowerHandler();
+		
+		this._hasFurnace = tagCompound.getBoolean("hasFurnace");
+		this.furnaceSlot = tagCompound.getInteger("furnaceSlot");
+		this._efficiancy = tagCompound.getFloat("efficiency");
+		this._energyRequired = tagCompound.getFloat("energyRequired");
+		this._energySpent = tagCompound.getFloat("energySpent");
+		
+		NBTTagList itemList = tagCompound.getTagList("inventory", 10);
+		for (int i = 0; i < itemList.tagCount(); i++) {
+			NBTTagCompound tag = itemList.getCompoundTagAt(i);
+			byte slot = tag.getByte("slot");
+			if (slot >=0 && slot < this.inventory.length) {
+				this.inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
+			}
+		}
+		
+		if (this.canBurn()) {
+			this._furnaceBurnTime = tagCompound.getInteger("furnaceBurnTime");
+			this._currentItemBurnTime = FuelHelper.getItemBurnTime(this.inventory[this.furnaceSlot]);
+		}
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound tagCompound) {
+		super.writeToNBT(tagCompound);
+		
+		this.powerHandler.writeToNBT(tagCompound);
+		tagCompound.setFloat("minBCEnergy", this._minimumBCEnergyRequired);
+		tagCompound.setFloat("maxBCEnergy", this._maximumBCEnergyStored);
+		
+		tagCompound.setBoolean("hasFurnace", this._hasFurnace);
+		tagCompound.setInteger("furnaceSlot", this.furnaceSlot);
+		tagCompound.setFloat("efficiency", this._efficiancy);
+		tagCompound.setFloat("energyRequired", this._energyRequired);
+		tagCompound.setFloat("energySpent", this._energySpent);
+		
+		NBTTagList itemList = new NBTTagList();
+		for (int i = 0; i < this.inventory.length; i++) {
+			ItemStack stack = this.inventory[i];
+			if (stack != null) {
+				NBTTagCompound tag = new NBTTagCompound();
+				tag.setByte("slot", (byte) i);
+				stack.writeToNBT(tag);
+				itemList.appendTag(tag);
+			}
+		}
+		tagCompound.setTag("inventory", itemList);
+		
+		if (this.canBurn()) {
+			tagCompound.setInteger("furnaceBurnTime", this._furnaceBurnTime);
+		}
+	}
+	
+	@Override
+	public PowerReceiver getPowerReceiver(ForgeDirection side) {
+		return this.powerHandler.getPowerReceiver();
+	}
 
-    protected TileEntityMachine(int worktime) {
-    	powerHandler = new PowerHandler(this, PowerHandler.Type.MACHINE);
-    	this.initPower();
-    	this.workTimeNeeded = worktime;
-    }
-    
-    private void initPower() {
-    	powerHandler.configure(50F, 100F, this.energyRequired, 1500F);
-    }
-    
+	@Override
+	public void doWork(PowerHandler workProvider) {}
+
+	@Override
+	public World getWorld() {
+		return this.worldObj;
+	}
+	
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
+		this.burnFuel();
+		this.powerHandler.update();
+	}
+	
+	private boolean canBurn() {
+		return this._hasFurnace && this.furnaceSlot >= 0;
+	}
+	
+	private void burnFuel() {
+		/*
+		if (!this.canBurn()) {
+			return;
+		}
+		*/
+		
+		boolean wasBurning = this._furnaceBurnTime > 0;
+		boolean needsSave = false;
+		
+		if (this._furnaceBurnTime > 0) {
+			this._furnaceBurnTime--;
+		}
+		
+		if (!this.worldObj.isRemote) {
+			if (this._furnaceBurnTime == 0 && this.hasWork()) {
+				this._currentItemBurnTime = this._furnaceBurnTime = FuelHelper.getItemBurnTime(this.inventory[this.furnaceSlot]);
+				if (this._furnaceBurnTime > 0) {
+					this.markDirty();
+					if (this.inventory[this.furnaceSlot] != null) {
+						--this.inventory[this.furnaceSlot].stackSize;
+						if (this.inventory[this.furnaceSlot].stackSize == 0) {
+							this.inventory[this.furnaceSlot] = this.inventory[this.furnaceSlot].getItem().getContainerItem(this.inventory[this.furnaceSlot]);
+						}
+					}
+				}
+			}
+			if (wasBurning != this._furnaceBurnTime > 0) {
+				needsSave = true;
+				BlockMachine.updateMachineBlockState(this._furnaceBurnTime > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+			}
+		}
+		if (this._furnaceBurnTime > 0) {
+			this.powerHandler.addEnergy(1);
+		}
+		
+		if (needsSave) { 
+			this.markDirty();
+		}
+	}
+	
+	public abstract boolean hasWork();
+
+	@Override
+	public LinkedList<ITrigger> getPipeTriggers(IPipeTile pipe) {
+		return null;
+	}
+
+	@Override
+	public LinkedList<ITrigger> getNeighborTriggers(Block block, TileEntity tile) {
+		LinkedList triggers = new LinkedList();
+		triggers.add(OresTrigger.hasWork);
+		triggers.add(OresTrigger.workDone);
+		return triggers;
+	}
+	
 	@Override
 	public int getSizeInventory() {
 		if (this.inventory == null)
@@ -131,146 +301,22 @@ implements ISidedInventory, IPowerReceptor, ITriggerProvider {
 
 	@Override
 	public void closeInventory() {}
-
-	@Override
-	public void readFromNBT(NBTTagCompound tagCompound){
-		super.readFromNBT(tagCompound);
-		
-		powerHandler.readFromNBT(tagCompound);
-		this.initPower();
-
-		NBTTagList tagList = tagCompound.getTagList("Inventory", 10);
-
-		for(int i = 0; i < tagList.tagCount(); i++){
-			NBTTagCompound tag = tagList.getCompoundTagAt(i);
-
-			byte slot = tag.getByte("Slot");
-
-			if(slot >= 0 && slot < inventory.length){
-				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
-			}
-		}
-		this.furnaceBurnTime = tagCompound.getShort("BurnTime");
-		this.machineWorkTime = tagCompound.getShort("CookTime");
-		this.currentItemBurnTime = FuelHelper.getItemBurnTime(this.inventory[1]);
-		
-		NBTTagCompound itemTag = tagCompound.getCompoundTag("CurrentItem");
-		if (itemTag != null) {
-			this.currentItem = ItemStack.loadItemStackFromNBT(itemTag);
-		}
-	}
-
-	@Override
-	public void writeToNBT(NBTTagCompound tagCompound){
-		super.writeToNBT(tagCompound);
-		
-		powerHandler.writeToNBT(tagCompound);
-		
-		tagCompound.setShort("BurnTime", (short)this.furnaceBurnTime);
-		tagCompound.setShort("CookTime", (short)this.machineWorkTime);
-		
-		NBTTagList itemList = new NBTTagList();
-
-		for(int i = 0; i < inventory.length; i++){
-			ItemStack stack = inventory[i];
-
-			if(stack != null){
-				NBTTagCompound tag = new NBTTagCompound();
-
-				tag.setByte("Slot", (byte) i);
-				stack.writeToNBT(tag);
-				itemList.appendTag(tag);
-			}
-		}
-		tagCompound.setTag("Inventory", itemList);
-		
-		if (this.currentItem != null) {
-			NBTTagCompound itemTag = new NBTTagCompound(); 
-			this.currentItem.writeToNBT(itemTag);
-			tagCompound.setTag("CurrentItem", itemTag);
-		}
-	}
-
-	@Override
-	public int[] getAccessibleSlotsFromSide(int side) {
-		return side == 0 ? slotsBottom : (side == 1 ? slotsTop : slotsSides);
-	}
-
-	@Override
-	public boolean canInsertItem(int slot, ItemStack item, int side) {
-		return this.isItemValidForSlot(slot, item);
-	}
-
-	@Override
-	public boolean canExtractItem(int slot, ItemStack item, int side) {
-		return (side != 0 || slot != 1 || item.getItem() == Items.bucket);
-	}
 	
-	public void updateEntity() {
-		super.updateEntity();
-		powerHandler.update();
-	}
-
-	public boolean isBurning() {
-		return this.furnaceBurnTime > 0;
-	}
-
-	@Override
-	public PowerReceiver getPowerReceiver(ForgeDirection side) {
-		return this.powerHandler.getPowerReceiver();
-	}
-
-	@Override
-	public World getWorld() {
-		return this.worldObj;
-	}
-
-	public boolean canBurn() {
-		return false;
-	}
+	public abstract void sendUpdatePacket();
 	
-	public abstract boolean hasWork();
-	
+	public abstract void recieveUpdatePacket(NBTTagCompound data);
+
 	@SideOnly(Side.CLIENT)
 	public int getBurnTimeRemainingScaled(int scale) {
-		if (this.currentItemBurnTime == 0)
-			this.currentItemBurnTime = 200;
-		return this.furnaceBurnTime * scale / this.currentItemBurnTime;
+		if (this._currentItemBurnTime == 0)
+			this._currentItemBurnTime = 200;
+		return this._furnaceBurnTime * scale / this._currentItemBurnTime;
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public int getWorkProgressScaled(int scale) {
-		return this.machineWorkTime * scale / this.workTimeNeeded;
+		return (int)(this._energySpent * scale / this._energyRequired);
 	}
 	
 
-	protected void burnFuel() {
-		boolean wasBurning = this.furnaceBurnTime > 0;
-		boolean needsSave = false;
-		
-		if (this.furnaceBurnTime > 0) {
-			--this.furnaceBurnTime;
-		}
-		
-		if (!this.worldObj.isRemote) {
-			if (this.furnaceBurnTime == 0 && this.hasWork()) {
-				this.currentItemBurnTime = this.furnaceBurnTime = FuelHelper.getItemBurnTime(this.inventory[1]);
-				if (this.furnaceBurnTime > 0) {
-					this.markDirty();
-					if (this.inventory[1] != null) {
-						--this.inventory[1].stackSize;
-						if (this.inventory[1].stackSize == 0)
-							this.inventory[1] = this.inventory[1].getItem().getContainerItem(this.inventory[1]);
-					}
-				}
-			}
-			if (wasBurning != this.furnaceBurnTime > 0) {
-                needsSave = true;
-                BlockMachine.updateMachineBlockState(this.furnaceBurnTime > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
-			}
-		}
-		if (needsSave)
-			this.markDirty();
-
-	}
 }

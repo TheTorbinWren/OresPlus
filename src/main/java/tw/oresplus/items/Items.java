@@ -10,6 +10,7 @@ import thaumcraft.api.aspects.AspectList;
 import tw.oresplus.OresPlus;
 import tw.oresplus.core.OreLog;
 import tw.oresplus.core.helpers.Helpers;
+import tw.oresplus.ores.AdvancedOres;
 import tw.oresplus.ores.DustOres;
 import tw.oresplus.ores.GemstoneOres;
 import tw.oresplus.ores.MetallicOres;
@@ -77,6 +78,10 @@ public class Items {
 			}
 			
 			for (DustOres ore : DustOres.values()) {
+				ore.registerItems();
+			}
+			
+			for (AdvancedOres ore : AdvancedOres.values()) {
 				ore.registerItems();
 			}
 			

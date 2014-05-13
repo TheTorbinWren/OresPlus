@@ -7,7 +7,7 @@ import tw.oresplus.api.Ores;
 import tw.oresplus.core.FuelHelper;
 import tw.oresplus.items.OreItems;
 import tw.oresplus.network.NetHandler;
-import tw.oresplus.network.PacketUpdateCracker;
+import tw.oresplus.network.PacketUpdateOldCracker;
 import tw.oresplus.triggers.OresTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -24,12 +24,12 @@ import buildcraft.api.gates.ITrigger;
 import buildcraft.api.power.PowerHandler;
 import buildcraft.api.transport.IPipeTile;
 
-public class TileEntityCracker 
-extends TileEntityMachine 
+public class OldTileEntityCracker 
+extends OldTileEntityMachine 
 implements IFluidHandler {
 	public FluidTank tank = new FluidTank(5000);
 	
-	public TileEntityCracker() {
+	public OldTileEntityCracker() {
 		super(1200);
 		this.inventory = new ItemStack[2];
 		this.inventoryName = "container:cracker";
@@ -178,7 +178,7 @@ implements IFluidHandler {
 			NBTTagCompound newDataTag = new NBTTagCompound();
 			this.writeToNBT(newDataTag);
 			if (!newDataTag.equals(this.oldDataTag)) {
-				OresPlus.netHandler.sendToPlayers(new PacketUpdateCracker(newDataTag, this.xCoord, this.yCoord, this.zCoord));
+				OresPlus.netHandler.sendToPlayers(new PacketUpdateOldCracker(newDataTag, this.xCoord, this.yCoord, this.zCoord));
 				this.oldDataTag = newDataTag;
 			}
 		}

@@ -22,7 +22,7 @@ public class BlockCracker extends BlockMachine {
 
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2) {
-		return new TileEntityCracker();
+		return new OldTileEntityCracker();
 	}
 
     @SideOnly(Side.CLIENT)

@@ -25,8 +25,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.BlockCore;
+import tw.oresplus.blocks.BlockOre;
 import tw.oresplus.blocks.Blocks;
-import tw.oresplus.blocks.TileEntityCracker;
+import tw.oresplus.blocks.OldTileEntityCracker;
 import tw.oresplus.blocks.TileEntityGrinder;
 import tw.oresplus.core.GuiHandler;
 import tw.oresplus.core.IMCHandler;
@@ -43,7 +44,9 @@ import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.fluids.Fluids;
 import tw.oresplus.items.ItemCore;
 import tw.oresplus.items.Items;
+import tw.oresplus.items.OreItems;
 import tw.oresplus.network.NetHandler;
+import tw.oresplus.ores.MetallicOres;
 import tw.oresplus.ores.OreManager;
 import tw.oresplus.recipes.RecipeManager;
 import tw.oresplus.triggers.OresTrigger;
@@ -66,7 +69,7 @@ public class OresPlus {
 	
     public static final String MOD_ID = "OresPlus";
     public static final String MOD_NAME = "OresPlus";
-    public static final String MOD_VERSION = "0.5.32 Beta";
+    public static final String MOD_VERSION = "0.6.34 Beta";
     
 	@Instance(OresPlus.MOD_ID)
 	public static OresPlus instance;
@@ -75,10 +78,10 @@ public class OresPlus {
     
     public static ConfigMain config = new ConfigMain();
     
-    public static String regenKeyOre = "DISABLED";
-    public static String regenKeyOil = "DISABLED";
-    public static String regenKeyRubberTree = "DISABLED";
-    public static String regenKeyBeehives = "DISABLED";
+    public static String regenKeyOre = "DEFAULT";
+    public static String regenKeyOil = "DEFAULT";
+    public static String regenKeyRubberTree = "DEFAULT";
+    public static String regenKeyBeehives = "DEFAULT";
     public static boolean iridiumPlateRecipe = true;
     public static boolean difficultAlloys = false;
     public static boolean logRegenerations = false;
@@ -101,6 +104,8 @@ public class OresPlus {
 		ConfigCore.setBaseDir(event.getModConfigurationDirectory());
 		config.init(event);
 		
+		config.load();
+		
 	    angryPigmen = config.getBoolean("angryPigmen", angryPigmen, "set to false to prevent zombie pigmen from attacking when mining nether ores");
 	    iridiumPlateRecipe = config.getBoolean("iridiumPlateRecipe", iridiumPlateRecipe, "enables an ore dictionary-enabled recipe for iridium plate");
 	    difficultAlloys = config.getBoolean("difficultAlloys", difficultAlloys, "enable true to set brass & bronze alloy recipes to output only 2 dusts");
@@ -119,6 +124,17 @@ public class OresPlus {
     	Blocks.init();
     	Items.init();
     	Fluids.init();
+
+    	OreDictionary.registerOre("oreAluminum", MetallicOres.Aluminium.ore.source);
+    	OreDictionary.registerOre("oreNetherAluminum", MetallicOres.Aluminium.netherOre.source);
+    	OreDictionary.registerOre("blockAluminum", MetallicOres.Aluminium.block.source);
+    	OreDictionary.registerOre("ingotAluminum", MetallicOres.Aluminium.ingot.source);
+    	OreDictionary.registerOre("nuggetAluminum", MetallicOres.Aluminium.nugget.source);
+    	OreDictionary.registerOre("crushedAluminum", MetallicOres.Aluminium.crushedOre.source);
+    	OreDictionary.registerOre("crushedPurifiedAluminum", MetallicOres.Aluminium.purifiedCrushedOre.source);
+    	OreDictionary.registerOre("dustAluminum", MetallicOres.Aluminium.dust.source);
+    	OreDictionary.registerOre("dustTinyAluminum", MetallicOres.Aluminium.tinyDust.source);
+    	OreDictionary.registerOre("quicksilver", OreItems.itemMercury.item.source);
     	
     	//Register Ore Generators
     	log.info("Registering Ore Generators");
@@ -134,9 +150,8 @@ public class OresPlus {
     	
 		config.save();
 		
-		// Initialize Integration Helpers
     	for (Helpers helper : Helpers.values()) {
-    		helper.init();
+    		helper.preInit();
     	}
     }
     
@@ -145,7 +160,7 @@ public class OresPlus {
     	RecipeManager.initRecipes();
     	
     	GameRegistry.registerTileEntity(TileEntityGrinder.class, "TileEntityGrinder");
-    	GameRegistry.registerTileEntity(TileEntityCracker.class, "TileEntityCracker");
+    	GameRegistry.registerTileEntity(OldTileEntityCracker.class, "TileEntityCracker");
     	
     	MinecraftForge.EVENT_BUS.register(eventHandler);
     	MinecraftForge.ORE_GEN_BUS.register(eventHandler);
@@ -161,6 +176,10 @@ public class OresPlus {
     	VillagerRegistry.instance().registerVillageTradeHandler(VillagerTradeHandler.VILLAGER_BLACKSMITH, new VillagerTradeHandler(VillagerTradeHandler.VILLAGER_BLACKSMITH));
     	
     	netHandler.init();
+    	
+    	for (Helpers helper : Helpers.values()) {
+    		helper.init();
+    	}
     }
     
     @EventHandler
@@ -169,9 +188,13 @@ public class OresPlus {
     		Ores.grinderRecipes.debug();
     	}
     	
-    	RecipeManager.replaceRecipeResults();
+    	//RecipeManager.replaceRecipeResults();
     	
     	OreChestLoot.registerChestLoot();
+    	
+    	for (Helpers helper : Helpers.values()) {
+    		helper.postInit();
+    	}
     }
     
     @EventHandler

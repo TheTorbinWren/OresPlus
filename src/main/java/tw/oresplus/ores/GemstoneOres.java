@@ -19,6 +19,7 @@ import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.items.ItemCore;
 import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
+import tw.oresplus.recipes.RecipeType;
 
 public enum GemstoneOres implements IOreList {
 		Amethyst (2, OreDrops.AMETHYST),
@@ -26,8 +27,10 @@ public enum GemstoneOres implements IOreList {
 		Diamond (2, 3, 7, OreDrops.DIAMOND),
 		Emerald (2, 3, 7, OreDrops.EMERALD),
 		GreenSapphire (2, 3, 7, OreDrops.GREENSAPPHIRE),
+		Malachite (2, 3, 7, OreDrops.MALACHITE),
 		Ruby (2, 3, 7, OreDrops.RUBY),
 		Sapphire (2, 3, 7, OreDrops.SAPPHIRE),
+		Tanzanite(2, 3, 7, OreDrops.TANZANITE),
 		Topaz (2, 3, 7, OreDrops.TOPAZ)
 	;
 		
@@ -88,22 +91,19 @@ public enum GemstoneOres implements IOreList {
 	public void registerBlocks() {
 		//Register Ore
 		if (!this.isVanilla()) {
-			OreClass oreConfig = OresPlus.config.getOre(this.getDefaultConfig());
-			if (oreConfig.enabled)
-				this.ore = new OreItemStack(new BlockOre(oreConfig));
+			this.ore = new OreItemStack(new BlockOre(this.getDefaultConfig()));
 		}
 		else if (this == Diamond) {
 			this.ore = new OreItemStack(net.minecraft.init.Blocks.diamond_ore);
+			Ores.manager.registerOre(this.oreName, net.minecraft.init.Blocks.diamond_ore);
 		}
 		else if (this == Emerald) {
 			this.ore = new OreItemStack(net.minecraft.init.Blocks.emerald_ore);
+			Ores.manager.registerOre(this.oreName, net.minecraft.init.Blocks.emerald_ore);
 		}
 		
 		// Register Nether Ore
-		OreClass oreConfig = OresPlus.config.getOre(this.getDefaultConfigNether());
-		if (oreConfig.enabled) {
-			this.netherOre = new OreItemStack(new BlockOre(oreConfig, true));
-		}
+		this.netherOre = new OreItemStack(new BlockOre(this.getDefaultConfigNether(), true));
 		
 		// Register Storage Block
 		if (!this.isVanilla()) {
@@ -141,33 +141,15 @@ public enum GemstoneOres implements IOreList {
 		switch (this) {
 		case Diamond:
 		case Emerald:
-			RecipeManager.addGrinderRecipe(this.oreName, this.gem.newStack(2));
-			if (Helpers.IC2.isLoaded()) {
-				Helpers.IC2.registerRecipe("Macerator", this.ore.newStack(), this.gem.newStack(2));
-			}
-			if (Helpers.RailCraft.isLoaded()) {
-				Helpers.RailCraft.registerRecipe("rockCrusher", this.ore.newStack(), this.gem.newStack(2));
-			}
+			RecipeManager.addGrinderRecipe(this.ore.newStack(), this.gem.newStack(2));
 			break;
 		case Apatite:
 			RecipeManager.addSmelting(this.ore.newStack(), this.gem.newStack(6), 0.0F);
-			RecipeManager.addGrinderRecipe(this.oreName, this.gem.newStack(6));
-			if (Helpers.IC2.isLoaded()) {
-				Helpers.IC2.registerRecipe("Macerator", this.ore.newStack(), this.gem.newStack(6));
-			}
-			if (Helpers.RailCraft.isLoaded()) {
-				Helpers.RailCraft.registerRecipe("rockCrucher", this.ore.newStack(), this.gem.newStack(6));
-			}
+			RecipeManager.addGrinderRecipe(this.ore.newStack(), this.gem.newStack(6));
 			break;
 		default:
 			RecipeManager.addSmelting(this.ore.newStack(), this.gem.newStack(), 0.0F);
-			RecipeManager.addGrinderRecipe(this.oreName, this.gem.newStack(2));
-			if (Helpers.IC2.isLoaded()) {
-				Helpers.IC2.registerRecipe("Macerator", this.ore.newStack(), this.gem.newStack(2));
-			}
-			if (Helpers.RailCraft.isLoaded()) {
-				Helpers.RailCraft.registerRecipe("rockCrusher", this.ore.newStack(), this.gem.newStack(2));
-			}
+			RecipeManager.addGrinderRecipe(this.ore.newStack(), this.gem.newStack(2));
 		}
 		
 		//register nether ore smelt

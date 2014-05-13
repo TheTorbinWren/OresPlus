@@ -85,9 +85,7 @@ public enum DustOres implements IOreList {
 			Ores.manager.registerOre(this.blockName, net.minecraft.init.Blocks.redstone_block);
 			break;
 		default:
-			oreClass = OresPlus.config.getOre(this.getDefaultConfig());
-			if (oreClass.enabled)
-				this.ore = new OreItemStack(new BlockOre(oreClass));
+			this.ore = new OreItemStack(new BlockOre(this.getDefaultConfig()));
 			this.block = new OreItemStack(new BlockCore(Material.iron, this.blockName)
 				.setCreativeTab(CreativeTabs.tabBlock)
 				.setHardness(5.0F)
@@ -96,9 +94,7 @@ public enum DustOres implements IOreList {
 		}
 		
 		// Register Nether Ore
-		oreClass = OresPlus.config.getOre(this.getDefaultConfigNether());
-		if (oreClass.enabled)
-			this.netherOre = new OreItemStack(new BlockOre(oreClass, true));
+		this.netherOre = new OreItemStack(new BlockOre(this.getDefaultConfigNether(), true));
 		
 	}
 
@@ -125,6 +121,9 @@ public enum DustOres implements IOreList {
 		//Add nether ore smelting
 		RecipeManager.addSmelting(this.netherOre.newStack(), this.ore.newStack(2), 0.0F);
 		
+		//Add ore grinding
+		RecipeManager.addGrinderRecipe(this.ore.newStack(), this.dust.newStack(6));
+		
 		//Add dust -> ore block
 		RecipeManager.addShapedRecipe(this.block.newStack(), "ddd", "ddd", "ddd", 'd', this.dustName);
 		
@@ -147,13 +146,11 @@ public enum DustOres implements IOreList {
 
 	@Override
 	public int getTradeToAmount(Random random) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getTradeFromAmount(Random random) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.Random;
 
 import tw.oresplus.OresPlus;
+import tw.oresplus.recipes.RecipeType;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,9 +24,9 @@ public class ForestryHelper extends OresHelper {
 	}
 
 	@Override
-	public void init() {
+	public void preInit() {
 		if (!this.isLoaded()) {
-			OresPlus.log.info("Forestry not found, helper disabled");
+			OresPlus.log.info("Forestry not found, integration helper disabled");
 			return;
 		}
 		
@@ -64,29 +65,29 @@ public class ForestryHelper extends OresHelper {
 				if (method.getName().equals("generate"))
 					this.genBeesMethod = method;
 			}
-			
-			/*
-			try {
-				this.genBeesMethod = this.genBeesClass.getDeclaredMethod("decorateHives");
-			} catch (NoSuchMethodException e) {
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				e.printStackTrace();
-			}
-			this.genBeesMethod.setAccessible(true);
-			*/
-			
+						
 		}
 		OresPlus.log.info("Forestry found, integration helper initialized");
 	}
 
+	@Override
+	public void init() {
+		if (!this.isLoaded()) 
+			return;
+	}
+
+	@Override
+	public void postInit() {
+		if (!this.isLoaded()) 
+			return;
+	}
+	
 	@Override
 	public void generate(World world, Random rand, int chunkX, int chunkZ) {
 		if (!this.isLoaded())
 			return;
 		
 		try {
-			//this.genBeesMethod.invoke(this.genBeesClassObj, world, rand, chunkX * 16, chunkZ * 16);
 			this.genBeesMethod.invoke(this.genBeesClassObj, new PopulateChunkEvent.Post(world.getChunkProvider(), world, rand, chunkX, chunkZ, false));
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
@@ -95,10 +96,10 @@ public class ForestryHelper extends OresHelper {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		//OresPlus.log.info("Regenerated Beehives at chunk " + chunkX + ", " + chunkZ);
 	}
 
 	@Override
-	public void registerRecipe(String recipeType, ItemStack input,
+	public void registerRecipe(RecipeType recipeType, ItemStack input,
 			NBTTagCompound metadata, ItemStack... outputs) { }
+
 }

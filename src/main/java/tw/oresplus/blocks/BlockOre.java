@@ -79,12 +79,12 @@ public class BlockOre extends BlockCore {
 			rList.add(OreItems.itemBitumen.item.newStack(this.fortuneHelper(world, 2 + world.rand.nextInt(4), fortune)));
 			break;
 		case CERTUSQUARTZ:
-			Item certusQuartz = Helpers.AppliedEnergistics.getItem("item.ItemMaterial");
+			Item certusQuartz = Helpers.AppliedEnergistics.getItem("item.ItemMultiMaterial");
 			if (Helpers.AppliedEnergistics.isLoaded() && certusQuartz != null) {
 				OreItemStack cqStack = world.rand.nextFloat() > 0.92F ? 
 					new OreItemStack(new ItemStack(certusQuartz, 1, 1)) :
 					new OreItemStack(new ItemStack(certusQuartz, 1, 0));
-					rList.add(cqStack.newStack(fortuneHelper(world, 1 + world.rand.nextInt(2), fortune)));
+				rList.add(cqStack.newStack(fortuneHelper(world, 1 + world.rand.nextInt(2), fortune)));
 			}
 			else {
 				rList.add(new ItemStack(this.getItemDropped(metadata, world.rand, fortune), 1));
@@ -104,6 +104,9 @@ public class BlockOre extends BlockCore {
 			break;
 		case MAGNESIUM: // magnesium = 2-5 magnesium (metallurgy)
 			rList.add(OreItems.dustMagnesium.item.newStack(this.fortuneHelper(world, 2 + world.rand.nextInt(4), fortune)));
+			break;
+		case MALACHITE:
+			rList.add(GemstoneOres.Malachite.gem.newStack(this.fortuneHelper(world, 1, fortune)));
 			break;
 		case NIKOLITE: // nikolite = 4-5 nikolite (rp2)
 			rList.add(DustOres.Nikolite.dust.newStack(this.fortuneHelper(world, 4 + world.rand.nextInt(2), fortune)));
@@ -147,6 +150,9 @@ public class BlockOre extends BlockCore {
 		case SULFUR: // sulfur = 2-5 sulfur (railcraft/metallurgy)
 			rList.add(DustOres.Sulfur.dust.newStack(this.fortuneHelper(world, 2 + world.rand.nextInt(4), fortune)));
 			break;
+		case TANZANITE:
+			rList.add(GemstoneOres.Tanzanite.gem.newStack(this.fortuneHelper(world, 1, fortune)));
+			break;
 		case TOPAZ: // topaz = 1 topaz (twstuff)
 			rList.add(GemstoneOres.Topaz.gem.newStack(this.fortuneHelper(world, 1, fortune)));
 			break;
@@ -169,10 +175,12 @@ public class BlockOre extends BlockCore {
 		case CINNABAR:
 		case GREENSAPPHIRE:
 		case IRIDIUM:
+		case MALACHITE:
 		case PYRITE:
 		case RUBY:
 		case SAPPHIRE:
 		case SPHALERITE:
+		case TANZANITE:
 		case TOPAZ:
 		case URANIUM:
 			switch (fortune) {

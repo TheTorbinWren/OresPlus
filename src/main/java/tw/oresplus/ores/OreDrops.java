@@ -12,6 +12,7 @@ public enum OreDrops {
 	GREENSAPPHIRE, 
 	IRIDIUM, 
 	MAGNESIUM, 
+	MALACHITE,
 	NIKOLITE, 
 	OLIVINE,
 	PHOSPHORITE,
@@ -23,6 +24,7 @@ public enum OreDrops {
 	SODALITE,
 	SPHALERITE,
 	SULFUR,
+	TANZANITE,
 	TOPAZ,
 	URANIUM;
 }

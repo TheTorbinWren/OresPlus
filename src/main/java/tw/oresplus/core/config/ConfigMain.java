@@ -7,6 +7,7 @@ import tw.oresplus.OresPlus;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class ConfigMain extends ConfigCore {
+	public boolean enableMachines = true;
 
 	public void init(FMLPreInitializationEvent event) {
 		
@@ -19,11 +20,13 @@ public class ConfigMain extends ConfigCore {
 		
 		super.init("Main", configFile);
 		
-		config.addCustomCategoryComment(CAT_ORES, "Ore configuration = oreEnabled,oreSource");
-		config.addCustomCategoryComment(CAT_ORE_GEN, "Ore generator configuration = generatorEnabled,denisty%,regenerateOre");
 	    config.addCustomCategoryComment(CAT_REGEN, "Configure general regeneration options here");
 		
 		configured = true;
+	}
+	
+	public void load() {
+		this.enableMachines = this.getBoolean("enableMachines", this.enableMachines, "Set to false to disable crafting of this mods machinary");
 	}
 
 }

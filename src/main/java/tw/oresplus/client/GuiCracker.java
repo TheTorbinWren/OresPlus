@@ -2,8 +2,8 @@ package tw.oresplus.client;
 
 import org.lwjgl.opengl.GL11;
 
-import tw.oresplus.blocks.ContainerCracker;
-import tw.oresplus.blocks.TileEntityCracker;
+import tw.oresplus.blocks.OldContainerCracker;
+import tw.oresplus.blocks.OldTileEntityCracker;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -13,14 +13,14 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidRegistry;
 
 public class GuiCracker extends GuiContainer {
-	private TileEntityCracker _tileEntity;
+	private OldTileEntityCracker _tileEntity;
 	private final ResourceLocation gui = new ResourceLocation("oresplus", "textures/gui/guiCracker.png");
-	private ContainerCracker _container; 
+	private OldContainerCracker _container; 
 	
-	public GuiCracker(ContainerCracker container) {
+	public GuiCracker(OldContainerCracker container) {
 		super(container);
 		this._container = container;
-		this._tileEntity = (TileEntityCracker)this._container.tileEntity;
+		this._tileEntity = (OldTileEntityCracker)this._container.tileEntity;
 	}
 	
 	@Override
@@ -40,9 +40,9 @@ public class GuiCracker extends GuiContainer {
 
         int scale;
         // draw fluid tank
-        if (((TileEntityCracker)(this._container.tileEntity)).tank.getFluidAmount() > 0) {
-        	IIcon fluidIcon = FluidRegistry.getFluid(((TileEntityCracker)(this._tileEntity)).tank.getFluid().fluidID).getIcon();
-        	scale = ((TileEntityCracker)(this._container.tileEntity)).tank.getFluidAmount() * 47 / ((TileEntityCracker)(this._container.tileEntity)).tank.getCapacity();
+        if (((OldTileEntityCracker)(this._container.tileEntity)).tank.getFluidAmount() > 0) {
+        	IIcon fluidIcon = FluidRegistry.getFluid(((OldTileEntityCracker)(this._tileEntity)).tank.getFluid().fluidID).getIcon();
+        	scale = ((OldTileEntityCracker)(this._container.tileEntity)).tank.getFluidAmount() * 47 / ((OldTileEntityCracker)(this._container.tileEntity)).tank.getCapacity();
         	this.mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
         	RenderHelper.drawFluid(fluidIcon, x + 131, y + 20 + 47 - scale, 12, scale, this.zLevel);
         	this.mc.renderEngine.bindTexture(this.gui);

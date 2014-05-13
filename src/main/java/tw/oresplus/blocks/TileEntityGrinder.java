@@ -1,136 +1,162 @@
 package tw.oresplus.blocks;
 
-import java.util.LinkedList;
-
-import buildcraft.api.gates.ITrigger;
-import buildcraft.api.power.PowerHandler;
-import buildcraft.api.transport.IPipeTile;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import scala.reflect.internal.Trees.This;
 import tw.oresplus.OresPlus;
+import tw.oresplus.api.Ores;
 import tw.oresplus.core.FuelHelper;
-import tw.oresplus.recipes.RecipeManager;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFurnace;
+import tw.oresplus.network.PacketUpdateGrinder;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityGrinder 
-extends TileEntityMachine {
+public class TileEntityGrinder extends TileEntityMachine {
+	public static final int sourceItemSlot = 0;
+	public static final int furnaceItemSlot = 1;
+	public static final int currentItemSlot = 2;
+	public static final int outputItemSlot = 3;
 	
-	public TileEntityGrinder() {
-		super(1200);
-		this.inventory = new ItemStack[3];
+    private static final int[] slotsTop = new int[] {0};
+    private static final int[] slotsBottom = new int[] {3, 1};
+    private static final int[] slotsSides = new int[] {1};
+
+    public TileEntityGrinder() {
+		super(1200.0F);
+		this.inventory = new ItemStack[4];
 		this.inventoryName = "container:grinder";
-	}
-
-	@Override
-	public void doWork(PowerHandler workProvider) {
-		if (this.hasWork()) {
-			if (this.powerHandler.useEnergy(this.energyRequired, this.energyRequired, true) != this.energyRequired)
-				return;
-			doGrind((int)(this.energyRequired * 1.5));
-		}
-	}
-
-	private void grindItem() {
-		if (!this.hasWork())
-			return;
-		ItemStack item = RecipeManager.getGrinderRecipeResult(this.currentItem);
-		if (this.inventory[2] == null)
-			this.inventory[2] = item.copy();
-		else if (this.inventory[2].getItem() == item.getItem())
-			this.inventory[2].stackSize += item.stackSize;
-		
-		if (this.inventory[0] == null) {
-			this.currentItem = null;
-			this.machineWorkTime = 0;
-		}
+		this.initFurnace(furnaceItemSlot);
 	}
 	
+	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		
-		this.burnFuel();
-		
-		if (!this.worldObj.isRemote) {
-			
-			if (this.isBurning() && this.hasWork())
-				doGrind(1);
-			
+		if (this.hasWork()) {
+			float energyRequired = this._minimumBCEnergyRequired / this._efficiancy;
+			if (this.powerHandler.useEnergy(energyRequired, energyRequired, true) != energyRequired)
+				return;
+			this.grindItem((int)energyRequired);
 		}
-		
 	}
-
-	private void doGrind(int grindAmount) {
-		if (this.machineWorkTime == 0)
+	
+	private void grindItem(int grindAmount) {
+		if (this._energySpent == 0.0F) {
 			this.startGrind();
-		if (this.currentItem != null) {
-			this.machineWorkTime += grindAmount;
-			if (this.machineWorkTime >= this.workTimeNeeded) {
-				this.machineWorkTime -= this.workTimeNeeded;
-				this.grindItem();
-				this.markDirty();
+		}
+		if (this.inventory[currentItemSlot] != null) {
+			this._energySpent += grindAmount;
+			if (this._energySpent >= this._energyRequired) {
+				this.finishGrind();
 			}
 		}
 	}
 	
 	private void startGrind() {
-		if (this.currentItem == null && this.inventory[0] != null) {
-			this.currentItem = this.inventory[0].copy();
-			--this.inventory[0].stackSize;
-			if (this.inventory[0].stackSize == 0)
-				this.inventory[0] = null;
-		}
-		else if (this.inventory[0].isItemEqual(this.currentItem)) {
-			--this.inventory[0].stackSize;
-			if (this.inventory[0].stackSize == 0)
-				this.inventory[0] = null;
+		if (this.inventory[currentItemSlot] == null && this.inventory[sourceItemSlot] != null) {
+			this.inventory[currentItemSlot] = this.inventory[sourceItemSlot].splitStack(1);
+			if (this.inventory[sourceItemSlot].stackSize == 0)
+				this.inventory[sourceItemSlot] = null;
 		}
 	}
 	
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack item) {
-		return slot == 2 ? false : (slot == 1 ? FuelHelper.isItemFuel(item) : true);
+	private void finishGrind() {
+		// Add result to output slot
+		ItemStack grindResult = Ores.grinderRecipes.getResult(this.inventory[currentItemSlot]);
+		if (this.inventory[outputItemSlot] == null) {
+			this.inventory[outputItemSlot] = grindResult.copy();
+		}
+		else if (this.inventory[outputItemSlot].isItemEqual(grindResult)) {
+			this.inventory[outputItemSlot].stackSize += grindResult.stackSize;
+		}
+		
+		if (this.inventory[sourceItemSlot] == null) {
+			// source depleted, done grinding
+			this.inventory[currentItemSlot] = null;
+			this._energySpent = 0.0f;
+		}
+		else if (this.inventory[sourceItemSlot].isItemEqual(this.inventory[currentItemSlot])) {
+			// Decrease source stack size
+			--this.inventory[sourceItemSlot].stackSize;
+			if (this.inventory[sourceItemSlot].stackSize == 0) {
+				this.inventory[sourceItemSlot] = null;
+			}
+			this._energySpent -= this._energyRequired;
+		}
+		else {
+			// source item does not match current item
+			this.inventory[currentItemSlot] = null;
+			this._energySpent = 0.0F;
+		}
+		
+		// mark for saving
+		this.markDirty();
 	}
-	
+
 	@Override
 	public boolean hasWork() {
-		if (this.inventory[0] == null && this.currentItem == null)
+		if (this.inventory[sourceItemSlot] == null && this.inventory[currentItemSlot] == null)
 			return false;
 		
-		ItemStack item = RecipeManager.getGrinderRecipeResult(this.currentItem != null ? this.currentItem : this.inventory[0]);
-		if (item == null) {
+		ItemStack grindResult = Ores.grinderRecipes.getResult(this.inventory[currentItemSlot] != null ? this.inventory[currentItemSlot] : this.inventory[sourceItemSlot]);
+		if (grindResult == null)
 			return false;
-		}
-		if (this.inventory[2] == null) {
+		
+		if (this.inventory[outputItemSlot] == null)
 			return true;
-		}
-		if (!this.inventory[2].isItemEqual(item)) {
+		
+		if (!this.inventory[outputItemSlot].isItemEqual(grindResult))
+			return false;
+		
+		int resultSize = grindResult.stackSize + this.inventory[outputItemSlot].stackSize;
+		return resultSize <= this.getInventoryStackLimit() && resultSize <= this.inventory[outputItemSlot].getMaxStackSize();
+	}
+
+	/*
+	 * ISidedInventory methods
+	 */
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack item) {
+		switch (slot) {
+		case sourceItemSlot:
+			return Ores.grinderRecipes.getResult(item) != null;
+		case furnaceItemSlot:
+			return FuelHelper.isItemFuel(item);
+		default:
 			return false;
 		}
-		int result = this.inventory[2].stackSize + item.stackSize;
-		
-		return result <= this.getInventoryStackLimit() && result <= inventory[2].getMaxStackSize();
 	}
 
 	@Override
-	public LinkedList<ITrigger> getPipeTriggers(IPipeTile pipe) {
-		// TODO Auto-generated method stub
-		return null;
+	public int[] getAccessibleSlotsFromSide(int side) {
+		return side == 0 ? slotsBottom : (side == 1 ? slotsTop : slotsSides);
 	}
 
 	@Override
-	public LinkedList<ITrigger> getNeighborTriggers(Block block, TileEntity tile) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean canInsertItem(int slot, ItemStack item, int side) {
+		return this.isItemValidForSlot(slot, item);
 	}
+
+	@Override
+	public boolean canExtractItem(int slot, ItemStack item, int side) {
+		return (side != 0 || (slot != furnaceItemSlot && slot != currentItemSlot) || (item.getItem() == Items.bucket && slot == furnaceItemSlot));
+	}
+
+	@Override
+	public void sendUpdatePacket() {
+		if (!this.worldObj.isRemote) {
+			NBTTagCompound update = new NBTTagCompound();
+			this.writeToNBT(update);
+			if (!this.updateData.equals(update)) {
+				OresPlus.netHandler.sendToPlayers(new PacketUpdateGrinder(update, this.xCoord, this.yCoord, this.zCoord));
+				this.updateData = update;
+			}
+		}
+	}
+	
+	@Override
+	public void recieveUpdatePacket(NBTTagCompound data) {
+		this.powerHandler.readFromNBT(data);
+		this._energySpent = data.getFloat("energySpent");
+		this._furnaceBurnTime = data.getInteger("furnaceBurnTime");
+	}
+
 }

@@ -39,8 +39,12 @@ implements IWorldGenerator {
 	}
 	
 	public void doWorldGen(Random random, World world, int chunkX, int chunkZ, boolean newChunk) {
-		for (WorldGenOre oreGen : oreGenerators.get(world.provider.dimensionId)) {
-			oreGen.generate(world, random, chunkX * 16, chunkZ * 16);
+		ArrayList<WorldGenOre> oreGens = oreGenerators.get(world.provider.dimensionId);
+		if (oreGens == null)
+			return;
+		for (WorldGenOre oreGen : oreGens) {
+			if (oreGen != null)
+				oreGen.generate(world, random, chunkX * 16, chunkZ * 16);
 		}
 	}
 

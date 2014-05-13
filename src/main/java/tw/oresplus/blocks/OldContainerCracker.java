@@ -14,8 +14,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ContainerCracker extends ContainerMachine {
-	public ContainerCracker(InventoryPlayer inventory, TileEntityMachine te) {
+public class OldContainerCracker extends OldContainerMachine {
+	public OldContainerCracker(InventoryPlayer inventory, OldTileEntityMachine te) {
 		this.tileEntity = te;
         this.addSlotToContainer(new Slot(te, 0, 32, 20));
         this.addSlotToContainer(new Slot(te, 1, 79, 56));
@@ -72,6 +72,6 @@ public class ContainerCracker extends ContainerMachine {
 	@Override
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
-		((TileEntityCracker)this.tileEntity).sendUpdate();
+		((OldTileEntityCracker)this.tileEntity).sendUpdate();
 	}
 }

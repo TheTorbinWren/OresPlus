@@ -13,12 +13,9 @@ import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.recipes.OreItemStack;
 
 public enum GeneralOres implements IOreList {
-	Bauxite (1),
 	Bitumen (1, OreDrops.BITUMEN),
-	Cassiterite (2),
 	CertusQuartz (1, OreDrops.CERTUSQUARTZ),
 	Cinnabar (2, new AspectList().add(Aspect.FIRE, 1), OreDrops.CINNABAR),
-	Galena (2),
 	Iridium (3, OreDrops.IRIDIUM),
 	Magnesium (1, OreDrops.MAGNESIUM),
 	NetherCoal (1, new AspectList().add(Aspect.FIRE, 1)),
@@ -29,7 +26,6 @@ public enum GeneralOres implements IOreList {
 	Sheldonite (2, new AspectList().add(Aspect.ELDRITCH, 1)),
 	Sodalite (2, new AspectList().add(Aspect.ELDRITCH, 1), OreDrops.SODALITE),
 	Sphalerite (2, new AspectList().add(Aspect.FIRE, 1), OreDrops.SPHALERITE),
-	Tetrahedrite (2),
 	Tungstate (2, new AspectList().add(Aspect.ELDRITCH, 1)),
 	Tungsten (2),
 	Uranium (2);
@@ -89,10 +85,7 @@ public enum GeneralOres implements IOreList {
 	
 	@Override
 	public void registerBlocks() {
-		OreClass oreConfig = OresPlus.config.getOre(this.getDefaultConfig());
-		if (oreConfig.enabled)
-			this.ore = new OreItemStack(new BlockOre(oreConfig));
-		
+		this.ore = new OreItemStack(new BlockOre(this.getDefaultConfig()));
 	}
 
 	@Override

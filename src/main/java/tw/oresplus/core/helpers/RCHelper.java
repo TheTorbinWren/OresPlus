@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.Random;
 
 import tw.oresplus.OresPlus;
+import tw.oresplus.recipes.RecipeType;
 import mods.railcraft.api.crafting.IRockCrusherCraftingManager;
 import mods.railcraft.api.crafting.IRockCrusherRecipe;
 import mods.railcraft.api.crafting.RailcraftCraftingManager;
@@ -21,7 +22,7 @@ public class RCHelper extends OresHelper {
 	}
 
 	@Override
-	public void init() {
+	public void preInit() {
 		if (!this.isLoaded()) {
 			OresPlus.log.info("Railcraft not found, integration helper disabled");
 			return;
@@ -34,15 +35,31 @@ public class RCHelper extends OresHelper {
 	public void generate(World world, Random rand, int chunkX, int chunkZ) { }
 
 	@Override
-	public void registerRecipe(String recipeType, ItemStack input,
+	public void registerRecipe(RecipeType recipeType, ItemStack input,
 			NBTTagCompound metadata, ItemStack... outputs) {
-		if (recipeType == "rockCrusher") {
+		switch (recipeType) {
+		case RockCrusher:
 			if (this.rockCrusherManager == null) {
 				this.rockCrusherManager = RailcraftCraftingManager.rockCrusher;
 			}
 			IRockCrusherRecipe recipe = this.rockCrusherManager.createNewRecipe(input, true, true);
 			recipe.addOutput(outputs[0], 1.0F);
+			break;
+		default:
+			break;
 		}
+	}
+
+	@Override
+	public void init() {
+		if (!this.isLoaded()) 
+			return;
+	}
+
+	@Override
+	public void postInit() {
+		if (!this.isLoaded()) 
+			return;
 	}
 
 }

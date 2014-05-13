@@ -1,26 +1,26 @@
 package tw.oresplus.network;
 
-import tw.oresplus.blocks.TileEntityCracker;
+import tw.oresplus.blocks.OldTileEntityCracker;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidRegistry;
 
-public class PacketUpdateCracker implements IPacket {
+public class PacketUpdateOldCracker implements IPacket {
 	private int _x;
 	private int _y;
 	private int _z;
 	private NBTTagCompound _data;
 	
-	public PacketUpdateCracker(NBTTagCompound data, int x, int y, int z) {
+	public PacketUpdateOldCracker(NBTTagCompound data, int x, int y, int z) {
 		this._x = x;
 		this._y = y;
 		this._z = z;
 		this._data = data;
 	}
 	
-	public PacketUpdateCracker() {}
+	public PacketUpdateOldCracker() {}
 	
 	@Override
 	public void readBytes(ByteBuf bytes) {
@@ -66,8 +66,8 @@ public class PacketUpdateCracker implements IPacket {
 	@Override
 	public void executeClient(EntityPlayer player) {
 		TileEntity te = player.worldObj.getTileEntity(this._x, this._y, this._z);
-		if (te instanceof TileEntityCracker) {
-			((TileEntityCracker)te).updateFromPacket(this._data);
+		if (te instanceof OldTileEntityCracker) {
+			((OldTileEntityCracker)te).updateFromPacket(this._data);
 		}
 	}
 

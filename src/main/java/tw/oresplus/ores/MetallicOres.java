@@ -20,6 +20,7 @@ import tw.oresplus.items.ItemCore;
 import tw.oresplus.recipes.GrinderRecipe;
 import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
+import tw.oresplus.recipes.RecipeType;
 
 public enum MetallicOres implements IOreList {
 	Adamantine(3, Aspect.ARMOR),
@@ -131,10 +132,7 @@ public enum MetallicOres implements IOreList {
 	public void registerBlocks() {
 		// Register Ore
 		if (!this.isVanilla() && !this._isAlloy) {
-			OreClass oreConfig = OresPlus.config.getOre(this.getDefaultConfig());
-			if (oreConfig.enabled) {
-				this.ore = new OreItemStack(new BlockOre(oreConfig));
-			}
+			this.ore = new OreItemStack(new BlockOre(this.getDefaultConfig()));
 		}
 		else if (this == Gold) {
 			this.ore = new OreItemStack(net.minecraft.init.Blocks.gold_ore);
@@ -145,10 +143,7 @@ public enum MetallicOres implements IOreList {
 		
 		// Register Nether Ore
 		if (!this._isAlloy)	{
-			OreClass oreConfig = OresPlus.config.getOre(this.getDefaultConfigNether());
-			if (oreConfig.enabled) {
-				this.netherOre = new OreItemStack(new BlockOre(oreConfig, true));
-			}
+			this.netherOre = new OreItemStack(new BlockOre(this.getDefaultConfigNether(), true));
 		}
 		
 		// Register Storage Block
@@ -229,19 +224,8 @@ public enum MetallicOres implements IOreList {
 			RecipeManager.addShapedRecipe(this.ingot.newStack(), "nnn", "nnn", "nnn", 'n', this.nuggetName);
 		}
 		
-		// add ingot Grinder recipe
-		if (this.isVanilla()) {
-			Ores.grinderRecipes.add(this.ingot.newStack(), this.dust.newStack());
-		}
-		else {
-			Ores.grinderRecipes.add(this.ingotName, this.dust.newStack());
-		}
-		
-		
-		//add ingot macerator recipe
-		if (Helpers.IC2.isLoaded()) {
-			Helpers.IC2.registerRecipe("Macerator", this.ingot.newStack(), this.dust.newStack());
-		}
+		// add ingot Grinder recipes
+		RecipeManager.addGrinderRecipe(this.ingot.newStack(), this.dust.newStack());
 		
 		if (!this._isAlloy) {
 			// add nether ore -> ore smelting recipe
@@ -254,33 +238,25 @@ public enum MetallicOres implements IOreList {
 			RecipeManager.addSmelting(this.purifiedCrushedOre.newStack(), this.ingot.newStack(), this._smeltXP);
 			
 			// add ore grinder recipe
-			RecipeManager.addGrinderRecipe(this.oreName, this.crushedOre.newStack(2));
+			RecipeManager.addGrinderRecipe(this.ore.newStack(), this.crushedOre.newStack(2));
 			
 			if (Helpers.IC2.isLoaded()) {
-				// add ore macerator recipe
-				Helpers.IC2.registerRecipe("Macerator", this.ore.newStack(), this.crushedOre.newStack(2));
-				
 				// add ore washing recipe
 				NBTTagCompound metadata = new NBTTagCompound();
 				metadata.setInteger("amount", 1000);
 				switch(this) {
 				case Lead:
-					Helpers.IC2.registerRecipe("OreWasher", this.crushedOre.newStack(), metadata, new ItemStack[] {
+					Helpers.IC2.registerRecipe(RecipeType.OreWasher, this.crushedOre.newStack(), metadata, new ItemStack[] {
 						this.purifiedCrushedOre.newStack(),
 						DustOres.Sulfur.tinyDust.newStack(3),
 						stoneDust.newStack()	});
 					break;
 				default:
-					Helpers.IC2.registerRecipe("OreWasher", this.crushedOre.newStack(), metadata, new ItemStack[] {
+					Helpers.IC2.registerRecipe(RecipeType.OreWasher, this.crushedOre.newStack(), metadata, new ItemStack[] {
 						this.purifiedCrushedOre.newStack(),
 						this.tinyDust.newStack(2),
 						stoneDust.newStack()	});
 				}
-			}
-			
-			if (Helpers.RailCraft.isLoaded()) {
-				// add RC grinder recipe
-				Helpers.RailCraft.registerRecipe("rockCrusher", this.ore.newStack(), this.crushedOre.newStack(2));
 			}
 		}
 		

@@ -66,4 +66,12 @@ public class OreItemStack implements IRecipeInput {
 		return this.source.copy();
 	}
 	
+	public Block getSourceBlock() {
+		return Block.getBlockFromItem(this.getSourceItem());
+	}
+	
+	public Item getSourceItem() {
+		return this.source.getItem();
+	}
+	
 }

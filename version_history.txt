@@ -1,3 +1,21 @@
+v0.6.34
+-new grinder gui
+-added TreeCapitator support
+-added ic2 centrifuge recipes for pyrite, sphalerite & cinnabar dusts
+-added alternate Oredictionary entrys for Aluminium (Aluminum) so it will work with Tinkers
+-added grind, wash & centrifuge recipes for Bauxite, Cassiterite, Galena & Tetrahedrite
+-rewrote the grinder code
+-added tanzanite & malachite ores (from biomes'o'plenty)
+
+v0.6.33
+-implemented dimensional generation control
+-fixed ores not generating correctly
+-removed unused recipe code
+-fertilizer recipes registering when forestry not loaded
+
+v0.5.32
+-updated API
+
 v0.5.31
 -fixed multiple crashes caused by nethandler
 

@@ -11,6 +11,7 @@ import java.util.Random;
 
 import tw.oresplus.OresPlus;
 import tw.oresplus.core.OreDictHelper;
+import tw.oresplus.recipes.RecipeType;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -31,9 +32,9 @@ public class IC2Helper extends OresHelper {
 	}
 	
 	@Override
-	public void init() {
+	public void preInit() {
 		if (!this.isLoaded()) {
-			OresPlus.log.info("IC2 not found, helper disabled");
+			OresPlus.log.info("IC2 not found, integration helper disabled");
 			return;
 		}
 		if (this.getBlock("blockRubWood") != null) {
@@ -45,7 +46,6 @@ public class IC2Helper extends OresHelper {
 			try {
 				this.genRubTreeClass = Class.forName("ic2.core.block.WorldGenRubTree");
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -53,10 +53,8 @@ public class IC2Helper extends OresHelper {
 			try {
 				c = this.genRubTreeClass.getDeclaredConstructor();
 			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			if (c != null) {
@@ -64,16 +62,12 @@ public class IC2Helper extends OresHelper {
 				try {
 					this.genRubTreeClassObj = c.newInstance();
 				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -85,9 +79,21 @@ public class IC2Helper extends OresHelper {
 				}
 			}
 		}
-		OresPlus.log.info("IC2 found, helper Initialized");
+		OresPlus.log.info("IC2 found, integration helper Initialized");
 	}
 
+	@Override
+	public void init() {
+		if (!this.isLoaded()) 
+			return;
+	}
+
+	@Override
+	public void postInit() {
+		if (!this.isLoaded()) 
+			return;
+	}
+	
 	@Override
 	public void generate(World world, Random rand, int chunkX, int chunkZ) {
 		if (!this.genRubberTree || this.genRubTreeMethod == null) {
@@ -108,13 +114,10 @@ public class IC2Helper extends OresHelper {
 				try {
 					this.genRubTreeMethod.invoke(this.genRubTreeClassObj, world, rand, chunkX * 16 + rand.nextInt(16), numTrees, chunkZ * 16 + rand.nextInt(16));
 				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -138,13 +141,32 @@ public class IC2Helper extends OresHelper {
 	}
 
 	@Override
-	public void registerRecipe(String recipeType, ItemStack input, 
+	public void registerRecipe(RecipeType recipeType, ItemStack input, 
 			NBTTagCompound metadata, ItemStack... outputs) {
-		if (recipeType.equals("Macerator")) {
+		switch (recipeType) {
+		case Macerator:
 			this.registerGrind(input, outputs);
-		}
-		else if (recipeType.equals("OreWasher")) {
+			break;
+		case OreWasher:
 			this.registerWash(input, metadata, outputs);
+			break;
+		case Centrifuge:
+			this.registerCentrifuge(input, metadata, outputs);
+			break;
+		default:
+			break;
 		}
 	}
+
+	private void registerCentrifuge(ItemStack input, NBTTagCompound metadata,
+			ItemStack... outputs) {
+		if (!this.isLoaded())
+			return;
+		
+		if (Recipes.centrifuge.getOutputFor(input, true) == null) {
+			Recipes.centrifuge.addRecipe(new RecipeInputItemStack(input), metadata, outputs);
+		}
+		
+	}
+
 }

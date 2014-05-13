@@ -201,13 +201,13 @@ implements ITileEntityProvider {
     	TileEntity te = world.getTileEntity(x, y, z);
     	
     	isLocked = true;
-    	if (te instanceof TileEntityGrinder) {
+    	if (te instanceof OldTileEntityGrinder) {
 	    	if (isBurning) 
 	    		world.setBlock(x, y, z, BlockHelper.getBlock(Blocks.grinder_lit));
 	    	else 
 	    		world.setBlock(x, y, z, BlockHelper.getBlock(Blocks.grinder));
     	}
-    	else if (te instanceof TileEntityCracker) {
+    	else if (te instanceof OldTileEntityCracker) {
 	    	if (isBurning) 
 	    		world.setBlock(x, y, z, BlockHelper.getBlock(Blocks.cracker_lit));
 	    	else 

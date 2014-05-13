@@ -40,7 +40,8 @@ public class NetHandler extends FMLIndexedMessageToMessageCodec<IPacket> {
 	}
 
 	public void init() {
-		this.registerPacket(PacketUpdateCracker.class);
+		this.registerPacket(PacketUpdateOldCracker.class);
+		this.registerPacket(PacketUpdateGrinder.class);
 	}
 
 	@Override

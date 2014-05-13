@@ -1,6 +1,7 @@
 package tw.oresplus.triggers;
 
 import tw.oresplus.OresPlus;
+import tw.oresplus.blocks.OldTileEntityMachine;
 import tw.oresplus.blocks.TileEntityMachine;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
@@ -63,6 +64,11 @@ implements ITileTrigger {
 			if (this.active)
 				return ((TileEntityMachine)tile).hasWork();
 			return !((TileEntityMachine)tile).hasWork();
+		}
+		else if (tile instanceof OldTileEntityMachine) {
+			if (this.active)
+				return ((OldTileEntityMachine)tile).hasWork();
+			return !((OldTileEntityMachine)tile).hasWork();
 		}
 		return false;
 	}

@@ -18,8 +18,10 @@ import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.core.OreLog;
 import tw.oresplus.core.config.ConfigCore;
+import tw.oresplus.ores.AdvancedOres;
 import tw.oresplus.ores.DustOres;
 import tw.oresplus.ores.GemstoneOres;
+import tw.oresplus.ores.IOreList;
 import tw.oresplus.ores.MetallicOres;
 import tw.oresplus.ores.OreClass;
 import tw.oresplus.ores.OreDrops;
@@ -58,6 +60,10 @@ public class Blocks {
 		}
 		
 		for (DustOres ore : DustOres.values()) {
+			ore.registerBlocks();
+		}
+		
+		for (AdvancedOres ore : AdvancedOres.values()) {
 			ore.registerBlocks();
 		}
 		
