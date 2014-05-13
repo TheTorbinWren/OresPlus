@@ -64,7 +64,7 @@ tile.blockElectrum.name=Block of Electrum
 item.dustElectrum.name=Electrum Dust
 item.dustTinyElectrum.name=Tiny Pile of Electrum Dust
 
-tile.oreNetherGold.name=Nether Gold ore
+tile.oreNetherGold.name=Nether Gold Ore
 item.dustGold.name=Gold Dust
 item.dustTinyGold.name=Tiny Pile of Gold Dust
 item.crushedGold.name=Crushed Gold Ore
@@ -92,7 +92,7 @@ item.nuggetManganese.name=Manganese Nugget
 item.dustManganese.name=Manganese Dust
 item.dustTinyManganese.name=Tiny Pile of Manganese Dust
 item.crushedManganese.name=Crushed Manganese Ore
-item.crushedPurifiedManganese.name=Crushed Purified Manganese Ore
+item.crushedPurifiedManganese.name=Purified Crushed Manganese Ore
 
 tile.oreMithral.name=Mithral Ore
 tile.oreNetherMithral.name=Nether Mithral Ore
@@ -118,7 +118,7 @@ item.dustOsmium.name=Osmium Dust
 item.dustTinyOsmium.name=Tiny Pile of Osmium Dust
 item.nuggetOsmium.name=Osmium Nugget
 item.crushedOsmium.name=Crushed Osmium Ore
-item.crushedPurifiedOsmium.name=Crushed Purified Osmium Ore
+item.crushedPurifiedOsmium.name=Purified Crushed Osmium Ore
 
 tile.orePlatinum.name=Platinum Ore
 tile.oreNetherPlatinum.name=Nether Platinum Ore
@@ -193,7 +193,7 @@ item.dustNikolite.name=Nikolite Dust
 item.dustTinyNikolite.name=Tiny Pile of Nikolite Dust
 
 tile.orePhosphorite.name=Phosphorite Ore
-tile.oreNetherPhosphorite.name=NetherPhosphoriteOre
+tile.oreNetherPhosphorite.name=Nether Phosphorite Ore
 tile.blockPhosphorite.name=Block of Phosphorite
 item.dustPhosphorite.name=Phosphorite Dust
 item.dustTinyPhosphorite.name=Tiny Pile of Phosphorite Dust
@@ -217,7 +217,7 @@ tile.oreSulfur.name=Sulfur Ore
 tile.oreNetherSulfur.name=Nether Sulfur Ore
 tile.blockSulfur.name=Block of Sulfur
 item.dustSulfur.name=Sulfur Dust
-item.dustTinySulfur.name=Tiny Pile of Saltpeter Dust
+item.dustTinySulfur.name=Tiny Pile of Sulfur Dust
 
 tile.oreBauxite.name=Bauxite Ore
 tile.oreBitumen.name=Bitumen Ore
@@ -274,7 +274,7 @@ item.ingotSilver.name=Silver Ingot
 item.ingotTin.name=Tin Ingot
 item.ingotZinc.name=Zinc Ingot
 item.itemBitumen.name=Bitumen
-item.nuggetAdamantine.name=Adamantine nugget
+item.nuggetAdamantine.name=Adamantine Nugget
 item.nuggetBrass.name=Brass Nugget
 item.nuggetBronze.name=Bronze Nugget
 item.nuggetColdiron.name=Cold Iron Nugget
