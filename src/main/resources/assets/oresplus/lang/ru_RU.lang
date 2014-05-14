@@ -1,0 +1,321 @@
+tile.oreAdamantine.name=Адамантиновая руда
+tile.oreNetherAdamantine.name=Адамантиновая руда Нижнего мира
+tile.blockAdamantine.name=Адамантиновый блок
+item.dustTinyAdamantine.name=Крошечная кучка адамантиновой пыли
+item.dustAdamantine.name=Адамантиновая пыль
+item.crushedAdamantine.name=Измельчённый адамантиновая руда
+item.crushedPurifiedAdamantine.name=Очищенная измельчённая адамантиновая руда
+
+tile.oreAluminium.name=Алюминиевая руда
+tile.oreNetherAluminium.name=Алюминиевая руда Нижнего мира
+tile.blockAluminium.name=Алюминиевый блок
+item.ingotAluminium.name=Алюминиевый слиток
+item.nuggetAluminium.name=Алюминиевый самородок
+item.dustAluminium.name=Алюминиевая пыль
+item.dustTinyAluminium.name=Крошечная кучка алюминиевой пыли
+item.crushedAluminium.name=Измельчённая алюминиевая руда
+item.crushedPurifiedAluminium.name=Очищенная измельчённая алюминиевая руда
+
+tile.oreArdite.name=Ардитовая руда
+tile.oreNetherArdite.name=Ардитовая руда Нижнего мира
+tile.blockArdite.name=Ардитовый блок
+item.ingotArdite.name=Ардитовый слиток
+item.nuggetArdite.name=Ардитовый самородок
+item.dustArdite.name=Ардитовая пыль
+item.dustTinyArdite.name=Крошечная кучка ардитовой пыли
+item.crushedArdite.name=Измельчённая ардитовая руда
+item.crushedPurifiedArdite.name=Очищенная измельчённая ардитовая руда
+
+tile.blockBrass.name=Латунный блок
+item.dustBrass.name=Латунная пыль
+item.dustTinyBrass.name=Крошечная кучка латунной пыли
+
+tile.blockBronze.name=Бронзовый блок
+item.dustBronze.name=Бронзовая пыль
+item.dustTinyBronze.name=Крошечная кучка бронзовой пыли
+
+tile.oreCobalt.name=Кобальтовая руда
+tile.oreNetherCobalt.name=Кобальтовая руда Нижнего мира
+tile.blockCobalt.name=Кобальтовый блок
+item.ingotCobalt.name=Кобальтовый слиток
+item.nuggetCobalt.name=Кобальтовый самородок
+item.dustCobalt.name=Кобальтовая пыль
+item.dustTinyCobalt.name=Крошечная кучка кобальтовой пыли
+item.crushedCobalt.name=Измельчённая кобальтовая руда
+item.crushedPurifiedCobalt.name=Очищенная измельчённая кобальтовая руда
+
+tile.oreColdiron.name=Руда холодного железа
+tile.oreNetherColdiron.name=Руда холодного железа Нижнего мира
+tile.blockColdiron.name=Блок холодного железа
+item.dustColdiron.name=Пыль холодного железа
+item.dustTinyColdiron.name=Крошечная кучка пыли холодного железа
+item.crushedColdiron.name=Измельчённая руда холодного железа
+item.crushedPurifiedColdiron.name=Очищенная измельчённая руда холодного железа
+
+tile.oreCopper.name=Медная руда
+tile.oreNetherCopper.name=Медная руда Нижнего мира
+tile.blockCopper.name=Медный блок
+item.dustCopper.name=Медная пыль
+item.dustTinyCopper.name=Крошечная кучка медной пыли
+item.crushedCopper.name=Измельчённая медная руда
+item.crushedPurifiedCopper.name=Очищенная измельчённая медная руда
+
+tile.blockElectrum.name=Электрумовый блок
+item.dustElectrum.name=Электрумовая пыль
+item.dustTinyElectrum.name=Крошечная кучка электрумовый пыли
+
+tile.oreNetherGold.name=Золотая руда Нижнего мира
+item.dustGold.name=Золотая пыль
+item.dustTinyGold.name=Крошечная кучка золотой пыли
+item.crushedGold.name=Измельчённая золотая руда
+item.crushedPurifiedGold.name=Очищенная измельчённая золотая руда
+
+tile.oreNetherIron.name=Железная руда Нижнего мира
+item.dustIron.name=Железная пыль
+item.dustTinyIron.name=Крошечная кучка железной пыли
+item.crushedIron.name=Измельчённая железная руда
+item.crushedPurifiedIron.name=Очищенная измельчённая железная руда
+
+tile.oreLead.name=Свинцовая руда
+tile.oreNetherLead.name=Свинцовая руда Нижнего мира
+tile.blockLead.name=Свинцовый блок
+item.dustLead.name=Свинцовая пыль
+item.dustTinyLead.name=Крошечная кучка свинцовой пыли
+item.crushedLead.name=Измельчённая свинцовая руда
+item.crushedPurifiedLead.name=Очищенная измельчённая свинцовая руда
+
+tile.oreManganese.name=Марганцевая руда
+tile.oreNetherManganese.name=Марганцевая руда Нижнего мира
+tile.blockManganese.name=Марганцевый блок
+item.ingotManganese.name=Марганцевый слиток
+item.nuggetManganese.name=Марганцевый самородок
+item.dustManganese.name=Марганцевая пыль
+item.dustTinyManganese.name=Крошечная кучка марганцевой пыли
+item.crushedManganese.name=Измельчённая марганцевая руда
+item.crushedPurifiedManganese.name=Очищенная измельчённая марганцевая руда
+
+tile.oreMithral.name=Митриловая руда
+tile.oreNetherMithral.name=Митриловая руда Нижнего мира
+tile.blockMithral.name=Митриловый блок
+item.dustMithral.name=Митриловая пыль
+item.dustTinyMithral.name=Крошечная кучка митриловой пыли
+item.crushedMithral.name=Измельчённая митриловая руда
+item.crushedPurifiedMithral.name=Очищенная измельчённая митриловая руда
+
+tile.oreNickel.name=Никелевая руда
+tile.oreNetherNickel.name=Никелевая руда Нижнего мира
+tile.blockNickel.name=Никелевый блок
+item.dustNickel.name=Никелевая пыль
+item.dustTinyNickel.name=Крошечная кучка никелевой пыли
+item.crushedNickel.name=Измельчённая никелевая руда
+item.crushedPurifiedNickel.name=Очищенная измельчённая никелевая руда
+
+tile.oreOsmium.name=Осмиевая руда
+tile.oreNetherOsmium.name=Осмиевая руда Нижнего мира
+tile.blockOsmium.name=Осмиевый блок
+item.ingotOsmium.name=Осмиевый слиток
+item.dustOsmium.name=Осмиевая пыль
+item.dustTinyOsmium.name=Крошечная кучка осмиевой пыли
+item.nuggetOsmium.name=Осмиевый самородок
+item.crushedOsmium.name=Измельчённая осмиевая руда
+item.crushedPurifiedOsmium.name=Очищенная измельчённая осмиевая руда
+
+tile.orePlatinum.name=Платиновая руда
+tile.oreNetherPlatinum.name=Платиновая руда Нижнего мира
+tile.blockPlatinum.name=Платиновый блок
+item.dustPlatinum.name=Платиновая пыль
+item.dustTinyPlatinum.name=Крошечная кучка платиновой пыли
+item.crushedPlatinum.name=Измельчённая платиновая руда
+item.crushedPurifiedPlatinum.name=Очищенная измельчённая платиновая руда
+
+tile.oreSilver.name=Серебряная руда
+tile.oreNetherSilver.name=Серебряная руда Нижнего мира
+tile.blockSilver.name=Серебряный блок
+item.dustSilver.name=Серебряная пыль
+item.dustTinySilver.name=Крошечная кучка серебряной пыли
+item.crushedSilver.name=Измельчённая серебряная руда
+item.crushedPurifiedSilver.name=Очищенная измельчённая серебряная руда
+
+tile.oreTin.name=Оловянная руда
+tile.oreNetherTin.name=Оловянная руда Нижнего мира
+tile.blockTin.name=Оловянный блок
+item.dustTin.name=Оловянная пыль
+item.dustTinyTin.name=Крошечная кучка оловянной пыли
+item.crushedTin.name=Измельчённая оловянная руда
+item.crushedPurifiedTin.name=Очищенная измельчённая оловянная руда
+
+tile.oreZinc.name=Цинковая руда
+tile.oreNetherZinc.name=Цинковая руда Нижнего мира
+tile.blockZinc.name=Цинковый блок
+item.dustZinc.name=Цинковая пыль
+item.dustTinyZinc.name=Крошечная кучка цинковой пыли
+item.crushedZinc.name=Измельчённая цинковая руда
+item.crushedPurifiedZinc.name=Очищенная измельчённая цинковая руда
+
+tile.oreAmethyst.name=Аметистовая руда
+tile.oreNetherAmethyst.name=Аметистовая руда Нижнего мира
+item.gemAmethyst.name=Аметист
+tile.blockAmethyst.name=Аметистовый блок
+
+tile.oreApatite.name=Апатитовая руда
+tile.oreNetherApatite.name=Апатитовая руда Нижнего мира
+item.gemApatite.name=Апатит
+tile.blockApatite.name=Апатитовый блок
+
+tile.oreNetherDiamond.name=Алмазная руда Нижнего мира
+
+tile.oreNetherEmerald.name=Изумрудная руда Нижнего мира
+
+tile.oreGreenSapphire.name=Перидотовая руда
+tile.oreNetherGreenSapphire.name=Перидотовая руда Нижнего мира
+item.gemGreenSapphire.name=Перидот
+tile.blockGreenSapphire.name=Перидотовый блок
+
+tile.oreRuby.name=Рубиновая руда
+tile.oreNetherRuby.name=Рубиновая руда Нижнего мира
+item.gemRuby.name=Рубин
+tile.blockRuby.name=Рубиновый блок
+
+tile.oreSapphire.name=Сапфировая руда
+tile.oreNetherSapphire.name=Сапфировая руда Нижнего мира
+item.gemSapphire.name=Сапфир
+tile.blockSapphire.name=Сапфировый блок
+
+tile.oreTopaz.name=Топазовая руда
+tile.oreNetherTopaz.name=Топазовая руда Нижнего мира
+item.gemTopaz.name=Топаз
+tile.blockTopaz.name=Топазовый блок
+
+tile.oreNikolite.name=Николитовая руда
+tile.oreNetherNikolite.name=Николитовая руда Нижнего мира
+tile.blockNikolite.name=Николитовый блок
+item.dustNikolite.name=Николитовая пыль
+item.dustTinyNikolite.name=Крошечная кучка николитовой пыли
+
+tile.orePhosphorite.name=Фосфоритовая руда
+tile.oreNetherPhosphorite.name=Фосфоритовая руда Нижнего мира
+tile.blockPhosphorite.name=Фосфоритовый блок
+item.dustPhosphorite.name=Фосфоритовая пыль
+item.dustTinyPhosphorite.name=Крошечная кучка фосфоритовой пыли
+
+tile.orePotash.name=Калийная руда
+tile.oreNetherPotash.name=Калийная руда Нижнего мира
+tile.blockPotash.name=Калийный блок
+item.dustPotash.name=Калийная пыль
+item.dustTinyPotash.name=Крошечная кучка калийной пыли
+
+tile.oreNetherRedstone.name=Красная руда Нижнего мира
+item.dustTinyRedstone.name=Крошечная кучка красной пыли
+
+tile.oreSaltpeter.name=Селитровая руда
+tile.oreNetherSaltpeter.name=Селитровая руда Нижнего мира
+tile.blockSaltpeter.name=Селитровый блок
+item.dustSaltpeter.name=Селитровая пыль
+item.dustTinySaltpeter.name=Крошечная кучка селитровой пыли
+
+tile.oreSulfur.name=Серная руда
+tile.oreNetherSulfur.name=Серная руда Нижнего мира
+tile.blockSulfur.name=Серный блок
+item.dustSulfur.name=Серная пыль
+item.dustTinySulfur.name=Крошечная кучка серной пыли
+
+tile.oreBauxite.name=Бокситовая руда
+tile.oreBitumen.name=Битумная руда
+tile.oreCassiterite.name=Касситеритовая руда
+tile.oreCertusQuartz.name=Руда крепкого кварца
+tile.oreCinnabar.name=Киноварная руда
+tile.oreNetherCoal.name=Угольная руда Нижнего мира
+tile.oreGalena.name=Галенитовая руда
+tile.oreIridium.name=Иридиевая руда
+tile.oreMagnesium.name=Магниевая руда
+tile.oreNetherLapis.name=Лазуритовая руда Нижнего мира
+tile.oreNetherUranium.name=Урановая руда Нижнего мира
+tile.oreOlivine.name=Оливиновая руда
+tile.orePyrite.name=Пиритовая руда
+tile.oreSheldonite.name=Куперитовая руда
+tile.oreSodalite.name=Содалитовая руда
+tile.oreSphalerite.name=Сфалеритовая руда
+tile.oreTetrahedrite.name=Тетраэдритовая руда
+tile.oreTungstate.name=Вольфраматовая руда
+tile.oreTungsten.name=Вольфрамовая руда
+tile.oreUranium.name=Урановая руда
+
+item.crushedUranium.name=Измельчённая урановая руда
+item.dustBauxite.name=Бокситовая пыль
+item.dustCassiterite.name=Касситеритовая пыль
+item.dustCharcoal.name=Древесноугольная пыль
+item.dustCoal.name=Угольная пыль
+item.dustCinnabar.name=Киноварная пыль
+item.dustGalena.name=Галенитовая пыль
+item.dustMagnesium.name=Магниевый кусок
+item.dustPyrite.name=Пиритовая пыль
+item.dustSheldonite.name=Шелдонитовая пыль
+item.dustSodalite.name=Содалитовая пыль
+item.dustSphalerite.name=Сфалеритовая пыль
+item.dustTetrahedrite.name=Тетраэдритовая пыль
+item.dustTungstate.name=Вольфраматовая пыль
+item.dustTungsten.name=Вольфрамовая пыль
+item.gemIridium.name=Иридий
+item.gemOlivine.name=Оливин
+item.gemRedGarnet.name=Красный гранат
+item.gemUranium.name=Уран
+item.gemYellowGarnet.name=Жёлтый гранат
+item.ingotAdamantine.name=Адамантиновый слиток
+item.ingotBrass.name=Латунный слиток
+item.ingotBronze.name=Бронзовый слиток
+item.ingotColdiron.name=Слиток холодного железа
+item.ingotCopper.name=Медный слиток
+item.ingotElectrum.name=Электрумовый слиток
+item.ingotLead.name=Свинцовый слиток
+item.ingotMithral.name=Митриловый слиток
+item.ingotNickel.name=Никелевый слиток
+item.ingotPlatinum.name=Платиновый слиток
+item.ingotSilver.name=Серебряный слиток
+item.ingotTin.name=Оловянный слиток
+item.ingotZinc.name=Цинковый слиток
+item.itemBitumen.name=Битум
+item.nuggetAdamantine.name=Адамантиновый самородок
+item.nuggetBrass.name=Латунный самородок
+item.nuggetBronze.name=Бронзовый самородок
+item.nuggetColdiron.name=Самородок холодного железа
+item.nuggetCopper.name=Медный самородок
+item.nuggetElectrum.name=Электрумовый самородок
+item.nuggetIron.name=Железный самородок
+item.nuggetLead.name=Свинцовый самородок
+item.nuggetMithral.name=Митриловый самородок
+item.nuggetNickel.name=Никелевый самородок
+item.nuggetPlatinum.name=Платиновый самородок
+item.nuggetSilver.name=Серебряный самородок
+item.nuggetTin.name=Оловянный самородок
+item.nuggetZinc.name=Цинковый самородок
+
+tile.grinder.name=Дробилка
+tile.cracker.name=Выжиматель
+
+item.armorAdamantineHelmet.name=Адамантиновый шлем
+item.armorAdamantineChestplate.name=Адамантиновая кираса
+item.armorAdamantineLeggings.name=Адамантиновые поножи
+item.armorAdamantineBoots.name=Адамантиновые ботинки
+item.armorColdironHelmet.name=Шлем из холодного железа
+item.armorColdironChestplate.name=Кираса из холодного железа
+item.armorColdironLeggings.name=Поножи из холодного железа
+item.armorColdironBoots.name=Ботинки из холодного железа
+item.armorMithralHelmet.name=Митриловый шлем
+item.armorMithralChestplate.name=Митриловая кираса
+item.armorMithralLeggings.name=Митриловые поножи
+item.armorMithralBoots.name=Митриловые ботинки
+item.toolAdamantineAxe.name=Адамантиновый топор
+item.toolAdamantineHoe.name=Адамантиновая мотыга
+item.toolAdamantinePickaxe.name=Адамантиновая кирка
+item.toolAdamantineSpade.name=Адамантиновая лопата
+item.toolAdamantineSword.name=Адамантиновый меч
+item.toolColdironAxe.name=Топор из холодного железа
+item.toolColdironHoe.name=Мотыга из холодного железа
+item.toolColdironPickaxe.name=Кирка из холодного железа
+item.toolColdironSpade.name=Лопата из холодного железа
+item.toolColdironSword.name=Меч из холодного железа
+item.toolMithralAxe.name=Митриловый топор
+item.toolMithralHoe.name=Митриловая мотыга
+item.toolMithralPickaxe.name=Митриловая кирка
+item.toolMithralSpade.name=Митриловая лопата
+item.toolMithralSword.name=Митриловый меч
