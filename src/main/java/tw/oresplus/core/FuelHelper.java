@@ -11,9 +11,11 @@ import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
+import net.minecraft.tileentity.TileEntityFurnace;
 
 public class FuelHelper {
     public static int getItemBurnTime(ItemStack itemStack) {
+    	/*
     	if (itemStack == null)
     		return 0;	
     	
@@ -44,6 +46,8 @@ public class FuelHelper {
         if (item == Items.blaze_rod) 
         	return 2400;
     	return GameRegistry.getFuelValue(itemStack);
+    	*/
+    	return TileEntityFurnace.getItemBurnTime(itemStack);
     }
 
     public static boolean isItemFuel(ItemStack item) {

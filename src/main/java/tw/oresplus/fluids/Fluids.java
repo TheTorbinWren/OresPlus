@@ -7,6 +7,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 public class Fluids {
 	public static void init() {
 		if (!Helpers.BuildCraft.isLoaded())
-			new OreFluid("oil");
+			new OreFluid("Oil");
 	}
 }

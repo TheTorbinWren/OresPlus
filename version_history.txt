@@ -1,3 +1,12 @@
+v0.6.36
+-fixed npe when creating a world with an enmpty Ore generator list (all disabled or flat world) -fixes #18 & #19
+-updated to buildcraft 6 api
+-fixed error loading without buildcraft installed
+-merged Adapativitys pull (adds support for Russian)
+
+v0.6.35
+-fixed adv ores ore washing recipe
+
 v0.6.34
 -new grinder gui
 -added TreeCapitator support

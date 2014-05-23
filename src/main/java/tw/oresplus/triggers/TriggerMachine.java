@@ -8,6 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.ForgeDirection;
 import buildcraft.api.gates.ITileTrigger;
+import buildcraft.api.gates.ITrigger;
 import buildcraft.api.gates.ITriggerParameter;
 
 public class TriggerMachine 
@@ -71,5 +72,11 @@ implements ITileTrigger {
 			return !((OldTileEntityMachine)tile).hasWork();
 		}
 		return false;
+	}
+
+	@Override
+	public ITrigger rotateLeft() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

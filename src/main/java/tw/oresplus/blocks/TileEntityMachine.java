@@ -180,11 +180,13 @@ implements IPowerReceptor, ITriggerProvider, ISidedInventory {
 		boolean wasBurning = this._furnaceBurnTime > 0;
 		boolean needsSave = false;
 		
+		// tick burning fuel
 		if (this._furnaceBurnTime > 0) {
 			this._furnaceBurnTime--;
 		}
 		
 		if (!this.worldObj.isRemote) {
+			// start burn if needed
 			if (this._furnaceBurnTime == 0 && this.hasWork()) {
 				this._currentItemBurnTime = this._furnaceBurnTime = FuelHelper.getItemBurnTime(this.inventory[this.furnaceSlot]);
 				if (this._furnaceBurnTime > 0) {
@@ -197,15 +199,18 @@ implements IPowerReceptor, ITriggerProvider, ISidedInventory {
 					}
 				}
 			}
+			// update on/off state
 			if (wasBurning != this._furnaceBurnTime > 0) {
 				needsSave = true;
 				BlockMachine.updateMachineBlockState(this._furnaceBurnTime > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
 			}
 		}
+		// add energy to power handler 
 		if (this._furnaceBurnTime > 0) {
 			this.powerHandler.addEnergy(1);
 		}
 		
+		// save if nessesary
 		if (needsSave) { 
 			this.markDirty();
 		}

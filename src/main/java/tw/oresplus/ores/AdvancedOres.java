@@ -89,7 +89,7 @@ public enum AdvancedOres implements IOreList {
 			OreItemStack stoneDust = new OreItemStack(new ItemStack(Helpers.IC2.getItem("itemDust"), 1, 9));
 			NBTTagCompound metadata = new NBTTagCompound();
 			metadata.setInteger("amount", 1000);
-			Helpers.IC2.registerRecipe(RecipeType.OreWasher, this.crushedOre.newStack(), (NBTTagCompound)(metadata.copy()), this.purifiedCrushedOre.newStack(), stoneDust.newStack(2), this.tinyDust.newStack());
+			Helpers.IC2.registerRecipe(RecipeType.OreWasher, this.crushedOre.newStack(), (NBTTagCompound)(metadata.copy()), this.purifiedCrushedOre.newStack(), stoneDust.newStack(), this.tinyDust.newStack(2));
 		}
 		// Thermal Centrifuge Recipe
 		if (Helpers.IC2.isLoaded()) {
