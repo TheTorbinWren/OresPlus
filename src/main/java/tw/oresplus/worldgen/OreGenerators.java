@@ -32,6 +32,7 @@ public enum OreGenerators implements IOreGenerator {
 	Lapis("oreLapis", 0, 1, 6, 16, 32),
 	Lead("oreLead", 0, 4, 8, 10, 45),
 	Magnesium("oreMagnesium", 0, 4, 4, 0, 140),
+	Malachite("oreMalachite", 0, 4, 6, 0, 40),
 	Manganese("oreManganese", 0, 5, 5, 0, 140),
 	Mithral("oreMithral", 0, 3, 3, 0, 140),
 	Nickel("oreNickel", 0, 4, 8, 5, 25),
@@ -47,12 +48,14 @@ public enum OreGenerators implements IOreGenerator {
 	Silver("oreSilver", 0, 6, 8, 0, 40),
 	SphaleriteOverworld("oreSphalerite", 0, 8, 1, 2, 10, OreGenType.UNDER_LAVA),
 	Sulfur("oreSulfur", 0, 8, 10, 6, 15, OreGenType.NEAR_LAVA),
+	Tanzanite("oreTanzanite", 0, 4, 6, 0, 40),
 	Tetrahedrite("oreTetrahedrite", 0, 1, 32, 32, 70),
 	TetrahedriteHigh("oreTetrahedrite", 0, 1, 32, 70, 220),
 	Tin("oreTin", 0, 12, 10, 12, 56),
 	Topaz("oreTopaz", 0, 4, 6, 0, 40),
 	Tungsten("oreTungsten", 0, 1, 4, 0, 15),
 	Uranium("oreUranium", 0, 20, 3, 0, 62),
+	Yellorite("oreYellorium", 0, 5, 10, 0, 50),
 	Zinc("oreZinc", 0, 6, 5, 0, 140);
 	
 	private String _oreName;

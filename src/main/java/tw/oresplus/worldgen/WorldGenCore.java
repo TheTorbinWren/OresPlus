@@ -28,6 +28,8 @@ implements IWorldGenerator {
 	public static Collection<String> biomeListSaltpeter = new ArrayList();
 	public static Collection<String> biomeListSulfur = new ArrayList();
 	public static Collection<String> biomeListTetrahedrite = new ArrayList();
+	public static Collection<String> biomeListTanzanite = new ArrayList();
+	public static Collection<String> biomeListMalachite = new ArrayList();
 	
 	public WorldGenCore(){
 		
@@ -100,6 +102,18 @@ implements IWorldGenerator {
 		biomeListTetrahedrite.add(BiomeGenBase.mushroomIslandShore.biomeName);
 		biomeListTetrahedrite.add(BiomeGenBase.extremeHills.biomeName);
 		biomeListTetrahedrite.add(BiomeGenBase.extremeHillsEdge.biomeName);
+		biomeListMalachite.add(BiomeGenBase.swampland.biomeName);
+		biomeListTanzanite.add(BiomeGenBase.coldBeach.biomeName);
+		biomeListTanzanite.add(BiomeGenBase.coldTaiga.biomeName);
+		biomeListTanzanite.add(BiomeGenBase.coldTaigaHills.biomeName);
+		biomeListTanzanite.add(BiomeGenBase.frozenOcean.biomeName);
+		biomeListTanzanite.add(BiomeGenBase.frozenRiver.biomeName);
+		biomeListTanzanite.add(BiomeGenBase.iceMountains.biomeName);
+		biomeListTanzanite.add(BiomeGenBase.icePlains.biomeName);
+		biomeListTanzanite.add(BiomeGenBase.megaTaiga.biomeName);
+		biomeListTanzanite.add(BiomeGenBase.megaTaigaHills.biomeName);
+		biomeListTanzanite.add(BiomeGenBase.taiga.biomeName);
+		biomeListTanzanite.add(BiomeGenBase.taigaHills.biomeName);
 	}
 }
 

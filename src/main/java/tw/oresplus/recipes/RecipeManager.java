@@ -60,22 +60,29 @@ public class RecipeManager {
 		OreItemStack flint = new OreItemStack(net.minecraft.init.Items.flint);
 		OreItemStack furnace = new OreItemStack(net.minecraft.init.Blocks.furnace);
 		OreItemStack glass = new OreItemStack(net.minecraft.init.Blocks.glass);
+		OreItemStack glassPane = new OreItemStack(net.minecraft.init.Blocks.glass_pane);
 		OreItemStack gunpowder = new OreItemStack(net.minecraft.init.Items.gunpowder);
 		OreItemStack oreCoal = new OreItemStack(net.minecraft.init.Blocks.coal_ore);
 		OreItemStack oreLapis = new OreItemStack(net.minecraft.init.Blocks.lapis_ore);
 	    OreItemStack stick = new OreItemStack(net.minecraft.init.Items.stick);
+	    OreItemStack stone = new OreItemStack(net.minecraft.init.Blocks.stone);
 		OreItemStack tank = new OreItemStack(Helpers.BuildCraft.getBlock("tankBlock"));
 		
 		if (OresPlus.config.enableMachines) {
+			// machine casing
+			addShapedRecipe(OreItems.machineCasing.item.newStack(), "sss", "sis", "sss", 's', stone.newStack(), 'i', MetallicOres.Iron.ingot.newStack());
 			// cracker recipe
 			if (Helpers.BuildCraft.isLoaded() && tank.source.getItem() != null) {
-				addShapedRecipe(Blocks.cracker.newStack(), "t", "F", 't', tank.newStack(), 'F', furnace.newStack());
+				addShapedRecipe(Blocks.cracker.newStack(), "t", "c", "F", 't', tank.newStack(), 'c', OreItems.machineCasing.item.newStack(), 'F', furnace.newStack());
 			}
 			else
-				addShapedRecipe(Blocks.cracker.newStack(), "ggg", "gFg", "ggg", 'g', glass.newStack(), 'F', furnace.newStack());
+				addShapedRecipe(Blocks.cracker.newStack(), "ggg", "gcg", "gFg", 'g', glass.newStack(), 'c', OreItems.machineCasing.item.newStack(), 'F', furnace.newStack());
 			
 			// grinder recipe
-			addShapedRecipe(Blocks.grinder.newStack(), "fff", "fFf", "fff", 'f', flint.newStack(), 'F', furnace.newStack());
+			addShapedRecipe(Blocks.grinder.newStack(), "fff", "fcf", "fFf", 'f', flint.newStack(), 'c', OreItems.machineCasing.item.newStack(), 'F', furnace.newStack());
+			
+			// centrifuge recipe
+			// addShapedRecipe(Blocks.centrifuge.newStack(), "ipi" "ici", "iFi", 'i', MetallicOres.Iron.ingot.newStack(), 'p', glassPane.newStack(), 'c', Items.machineCasing.newStack(), 'F', furnace.newStack());
 		}
 		
 		//gunpowder recipes

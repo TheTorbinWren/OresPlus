@@ -169,6 +169,16 @@ item.dustTinyTin.name=Tiny Pile of Tin Dust
 item.crushedTin.name=Crushed Tin Ore
 item.crushedPurifiedTin.name=Purified Crushed Tin Ore
 
+tile.oreYellorium.name=Yellorite Ore
+tile.oreNetherYellorium.name=Nether Yellorite Ore
+tile.blockYellorium.name=Block of Yellorium
+item.ingotYellorium.name=Yellorium Ingot
+item.nuggetYellorium.name=Yellorium Nugget
+item.dustYellorium.name=Yellorium Dust
+item.dustTinyYellorium.name=Tiny Pile of Yellorium Dust
+item.crushedYellorium.name=Crushed Yellorite Ore
+item.crushedPurifiedYellorium.name=Purified Crushed Yellorite Ore
+
 tile.oreZinc.name=Zinc Ore
 tile.oreNetherZinc.name=Nether Zinc Ore
 tile.blockZinc.name=Block of Zinc
@@ -309,6 +319,7 @@ item.dustSodalite.name=Sodalite Dust
 item.dustSphalerite.name=Sphalerite Dust
 item.dustTungstate.name=Tungstate Dust
 item.dustTungsten.name=Tungsten Dust
+item.dustTinyTungsten.name=Tiny Pile of Tungsten Dust
 item.gemIridium.name=Iridium
 item.gemOlivine.name=Olivine
 item.gemRedGarnet.name=Red Garnet
@@ -317,6 +328,7 @@ item.gemYellowGarnet.name=Yellow Garnet
 item.itemBitumen.name=Bitumen
 item.itemMercury.name=Mercury
 
+item.machineCasing.name=Machine Casing
 tile.grinder.name=Grinder
 tile.cracker.name=Cracker
 

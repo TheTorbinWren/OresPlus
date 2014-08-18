@@ -1,8 +1,21 @@
+v0.7.38
+-updated some textures
+-added yellorium (yollorite) from Big Reactors
+-added ic2 centrifuge recipes
+-fixed the machine recipes
+
+v0.7.37
+-updated to mc 1.7.2
+-fixed recipe error on machine casing
+-updated railcraft API
+
 v0.6.36
--fixed npe when creating a world with an enmpty Ore generator list (all disabled or flat world) -fixes #18 & #19
+-fixed npe when creating a world with an empty Ore generator list (all disabled or flat world) -fixes #18 & #19
 -updated to buildcraft 6 api
 -fixed error loading without buildcraft installed
--merged Adapativitys pull (adds support for Russian)
+-merged Adapativity's pull (adds language support for Russian)
+-rewrote machine recipes - now based off a machineCore item
+-added generators for Malachite and Tanzanite 
 
 v0.6.35
 -fixed adv ores ore washing recipe

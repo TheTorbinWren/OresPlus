@@ -71,6 +71,9 @@ public class Blocks {
 			ore.registerBlocks();
 		}
 		
+		//nAdditional Ore Dictionary Support
+		OreDictionary.registerOre("oreYellorite", MetallicOres.Yellorium.ore.source);
+		
 		// register machine blocks
 		grinder = new OreItemStack(new BlockGrinder(false));
 		grinder_lit = new OreItemStack(new BlockGrinder(true));

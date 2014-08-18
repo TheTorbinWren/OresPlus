@@ -61,7 +61,7 @@ import tw.oresplus.worldgen.VillagerTradeHandler;
 import tw.oresplus.worldgen.WorldGenCore;
 import tw.oresplus.worldgen.WorldGenOre;
 
-@Mod(modid = OresPlus.MOD_ID, name = OresPlus.MOD_NAME, version = OresPlus.MOD_VERSION, dependencies="required-after:Forge@10.12.1.1060")
+@Mod(modid = OresPlus.MOD_ID, name = OresPlus.MOD_NAME, version = OresPlus.MOD_VERSION, dependencies="required-after:Forge@10.13.0.1180")
 public class OresPlus {
 	
 	@SidedProxy(clientSide="tw.oresplus.client.ClientProxy", serverSide="tw.oresplus.core.ServerProxy") 
@@ -69,7 +69,7 @@ public class OresPlus {
 	
     public static final String MOD_ID = "OresPlus";
     public static final String MOD_NAME = "OresPlus";
-    public static final String MOD_VERSION = "0.6.36-beta";
+    public static final String MOD_VERSION = "0.7.38-beta";
     
 	@Instance(OresPlus.MOD_ID)
 	public static OresPlus instance;

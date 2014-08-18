@@ -19,6 +19,7 @@ public enum OreItems {
 	dustSheldonite, // TODO: Update texture
 	dustSodalite,
 	dustSphalerite,
+	dustTinyTungsten,
 	dustTungstate, // TODO: Update texture
 	dustTungsten, // TODO: Update texture
 	gemIridium,
@@ -26,6 +27,7 @@ public enum OreItems {
 	gemRedGarnet,
 	gemUranium,
 	gemYellowGarnet,
+	machineCasing,
 	itemBitumen,
 	itemMercury;
 	

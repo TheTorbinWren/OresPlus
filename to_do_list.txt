@@ -1,6 +1,5 @@
 -exploding nether ores
 -force disable of world gen in other mods (need to see if possible through reflection)
--ic2 centrifuge recipes
 -thermal expansion recipes (waiting on mod update)
 -finish thaumcraft aspects
 -improved generation biome control lists
@@ -14,4 +13,4 @@
 -expanded bitumen processing
 -replace recipe results with mod specific items (unify the recipe results)
 -finish villager trading (Metallic & gemstone ores)
--add malachite (?) & tanzanite (gemstone) ores - biomes'o'plenty (also amethyst, apatite, peridot, ruby, sapphire, topaz) 
+-salt generation (mekanism)

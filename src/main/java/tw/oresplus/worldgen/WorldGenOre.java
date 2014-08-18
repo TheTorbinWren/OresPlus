@@ -62,6 +62,10 @@ public class WorldGenOre {
 			this.biomeList = WorldGenCore.biomeListSaltpeter;
 		else if (ore.oreName.equals("oreTetrahedrite"))
 			this.biomeList = WorldGenCore.biomeListTetrahedrite;
+		else if (ore.oreName.equals("oreMalachite"))
+			this.biomeList = WorldGenCore.biomeListMalachite;
+		else if (ore.oreName.equals("oreTanzanite"))
+			this.biomeList = WorldGenCore.biomeListTanzanite;
 		else
 			this.biomeList = new ArrayList();
 	}

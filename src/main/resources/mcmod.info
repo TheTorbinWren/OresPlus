@@ -1,16 +1,21 @@
 [
-{
-  "modid": "oresplus",
-  "name": "OresPlus",
-  "description": "Adds ores.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "",
-  "updateUrl": "",
-  "authors": ["TheTorbinWren"],
-  "credits": "",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": ["mod_MinecraftForge"]
-}
+	{
+	  "modid" : "oresplus",
+	  "name" : "OresPlus",
+	  "description" : "Add and manage ores in your minecraft world.",
+	  "version" : "${version}",
+	  "mcversion" : "${mcversion}",
+	  "url" : "",
+	  "updateUrl" : "",
+	  "authors" : [
+	  	"TheTorbinWren"
+	  ],
+	  "credits" : "",
+	  "logoFile" : "",
+	  "screenshots" : [
+	  ],
+	  "dependencies" : [
+	  	"mod_MinecraftForge"
+	  ]
+	}
 ]
