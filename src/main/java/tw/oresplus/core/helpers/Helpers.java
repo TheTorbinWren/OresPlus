@@ -20,7 +20,8 @@ public enum Helpers {
 	ThaumCraft(new TCHelper()),
 	ThermalExpansion(new TEHelper()),
 	Tinkers(new TinkersHelper()),
-	Treecapitator(new TreecapitatorHelper());
+	Treecapitator(new TreecapitatorHelper()), 
+	BigReactors(new BigReactorsHelper());
 	
 	private OresHelper _oresHelper;
 	

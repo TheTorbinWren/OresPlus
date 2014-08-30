@@ -20,12 +20,12 @@ import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
 
 public enum DustOres implements IOreList {
-		Nikolite(2, Aspect.ENERGY, Aspect.MECHANISM, OreDrops.NIKOLITE),
-		Phosphorite(1, Aspect.ENERGY, Aspect.HARVEST, OreDrops.PHOSPHORITE),
-		Potash(1, Aspect.ENERGY, Aspect.HARVEST, OreDrops.POTASH),
-		Redstone(2, Aspect.ENERGY, Aspect.MECHANISM),
-		Saltpeter(1, Aspect.FIRE, Aspect.HARVEST, OreDrops.SALTPETER),
-		Sulfur(1, Aspect.FIRE, Aspect.ENTROPY, OreDrops.SULFUR)
+		Nikolite(2, Aspect.ENERGY, Aspect.MECHANISM, OreDrops.NIKOLITE, 230.0D),
+		Phosphorite(1, Aspect.ENERGY, Aspect.HARVEST, OreDrops.PHOSPHORITE, 75.0D),
+		Potash(1, Aspect.ENERGY, Aspect.HARVEST, OreDrops.POTASH, 60.0D),
+		Redstone(2, Aspect.ENERGY, Aspect.MECHANISM, 0.0D), // 140.22961579311882
+		Saltpeter(1, Aspect.FIRE, Aspect.HARVEST, OreDrops.SALTPETER, 550.7D), // 4.0
+		Sulfur(1, Aspect.FIRE, Aspect.ENTROPY, OreDrops.SULFUR, 300.6D)
 	;
 		
 	public String oreName;
@@ -44,12 +44,13 @@ public enum DustOres implements IOreList {
 	private OreDrops _drops;
 	private Aspect _aspect;
 	private Aspect _secondaryAspect;
+	private double _uuCost;
 		
-	private DustOres (int harvestLevel, Aspect aspect, Aspect secondaryAspect) {
-		this(harvestLevel, aspect, secondaryAspect, OreDrops.ORE);
+	private DustOres (int harvestLevel, Aspect aspect, Aspect secondaryAspect, double uuCost) {
+		this(harvestLevel, aspect, secondaryAspect, OreDrops.ORE, uuCost);
 	}
 	
-	private DustOres (int harvestLevel, Aspect aspect, Aspect secondaryAspect, OreDrops drops) {
+	private DustOres (int harvestLevel, Aspect aspect, Aspect secondaryAspect, OreDrops drops, double uuCost) {
 		this.oreName = "ore" + this.toString();
 		this.netherOreName = "oreNether" + this.toString();
 		this.blockName = "block" + this.toString();
@@ -59,6 +60,7 @@ public enum DustOres implements IOreList {
 		this._drops = drops;
 		this._aspect = aspect;
 		this._secondaryAspect = secondaryAspect;
+		this._uuCost = uuCost;
 	}
 
 	@Override
@@ -129,6 +131,11 @@ public enum DustOres implements IOreList {
 		
 		//Add ore block -> dust
 		RecipeManager.addShapelessRecipe(this.dust.newStack(9), this.block.newStack());
+		
+		// Add uuMatter costs
+		if (this._uuCost != 0.0D) {
+			RecipeManager.addUUMatterRecipe(this.dust.source, this._uuCost);
+		}
 	}
 
 	@Override

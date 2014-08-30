@@ -4,6 +4,7 @@ import java.util.Random;
 
 import tw.oresplus.OresPlus;
 import tw.oresplus.recipes.RecipeType;
+import mekanism.api.RecipeHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -24,28 +25,25 @@ public class MekanismHelper extends OresHelper {
 	}
 
 	@Override
-	public void generate(World world, Random rand, int chunkX, int chunkZ) {
-		// TODO Auto-generated method stub
-		
+	public void generate(World world, Random rand, int chunkX, int chunkZ) { }
+
+	@Override
+	public void registerRecipe(RecipeType recipeType, ItemStack input, NBTTagCompound metadata, ItemStack... outputs) {
+		switch (recipeType) {
+		case EnrichmentChamber:
+			if (this.isLoaded() && input != null && outputs[0] != null) {
+				RecipeHelper.addEnrichmentChamberRecipe(input, outputs[0]);
+			}
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override
-	public void registerRecipe(RecipeType recipeType, ItemStack input,
-			NBTTagCompound metadata, ItemStack... outputs) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void init() { }
 
 	@Override
-	public void init() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void postInit() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void postInit() { }
 
 }

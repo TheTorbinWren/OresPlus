@@ -22,16 +22,16 @@ import tw.oresplus.recipes.RecipeManager;
 import tw.oresplus.recipes.RecipeType;
 
 public enum GemstoneOres implements IOreList {
-		Amethyst (2, OreDrops.AMETHYST),
-		Apatite (1, OreDrops.APATITE),
-		Diamond (2, 3, 7, OreDrops.DIAMOND),
-		Emerald (2, 3, 7, OreDrops.EMERALD),
-		GreenSapphire (2, 3, 7, OreDrops.GREENSAPPHIRE),
-		Malachite (2, 3, 7, OreDrops.MALACHITE),
-		Ruby (2, 3, 7, OreDrops.RUBY),
-		Sapphire (2, 3, 7, OreDrops.SAPPHIRE),
-		Tanzanite(2, 3, 7, OreDrops.TANZANITE),
-		Topaz (2, 3, 7, OreDrops.TOPAZ)
+		Amethyst (2, OreDrops.AMETHYST, 1500.0D),
+		Apatite (1, OreDrops.APATITE, 800.0D),
+		Diamond (2, 3, 7, OreDrops.DIAMOND, 0.0D), // 5050.057512219353
+		Emerald (2, 3, 7, OreDrops.EMERALD, 0.0D), // 55643.450773700926
+		GreenSapphire (2, 3, 7, OreDrops.GREENSAPPHIRE, 3000.0D),
+		Malachite (2, 3, 7, OreDrops.MALACHITE, 3000.0D),
+		Ruby (2, 3, 7, OreDrops.RUBY, 3000.0D),
+		Sapphire (2, 3, 7, OreDrops.SAPPHIRE, 3000.0D),
+		Tanzanite(2, 3, 7, OreDrops.TANZANITE, 3000.0D),
+		Topaz (2, 3, 7, OreDrops.TOPAZ, 3000.0D)
 	;
 		
 	public String oreName;
@@ -51,8 +51,9 @@ public enum GemstoneOres implements IOreList {
 	private int _xpHigh;
 	private OreDrops _drops;
 	private OreSources _source;
+	private double _uuCost;
 	
-	GemstoneOres (int harvestLevel, int xpLow, int xpHigh, OreDrops drops) {
+	GemstoneOres (int harvestLevel, int xpLow, int xpHigh, OreDrops drops, double uuCost) {
 		this.oreName = "ore" + this.toString();
 		this.netherOreName = "oreNether" + this.toString();
 		this.blockName = "block" + this.toString();
@@ -65,10 +66,11 @@ public enum GemstoneOres implements IOreList {
 		this._xpHigh = xpHigh;
 		this._drops = drops;
 		this._source = OreSources.DEFAULT;
+		this._uuCost = uuCost;
 	}
 	
-	GemstoneOres (int harvestLevel, OreDrops drops) {
-		this(harvestLevel, 0, 0, drops);
+	GemstoneOres (int harvestLevel, OreDrops drops, double uuCost) {
+		this(harvestLevel, 0, 0, drops, uuCost);
 	}
 	
 	private boolean isVanilla() {
@@ -119,6 +121,7 @@ public enum GemstoneOres implements IOreList {
 		else if (this == Emerald) {
 			this.block = new OreItemStack(net.minecraft.init.Blocks.emerald_block);
 		}
+		
 	}
 
 	@Override
@@ -162,6 +165,10 @@ public enum GemstoneOres implements IOreList {
 		// register oreblock -> gem
 		if (!this.isVanilla()) {
 			RecipeManager.addShapelessRecipe(this.gem.newStack(9), this.block.newStack());
+		}
+		// register uuMatter costs
+		if (this._uuCost != 0.0D) {
+			RecipeManager.addUUMatterRecipe(this.gem.source, this._uuCost);
 		}
 	}
 

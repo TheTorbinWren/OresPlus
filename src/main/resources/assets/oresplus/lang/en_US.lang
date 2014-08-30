@@ -7,6 +7,7 @@ item.dustTinyAdamantine.name=Tiny Pile of Adamantine Dust
 item.dustAdamantine.name=Adamantine Dust
 item.crushedAdamantine.name=Crushed Adamantine Ore
 item.crushedPurifiedAdamantine.name=Purified Crushed Adamantine Ore
+item.nativeClusterAdamantine.name=Native Adamantine Cluster
 
 tile.oreAluminium.name=Aluminium Ore
 tile.oreNetherAluminium.name=Nether Aluminium Ore
@@ -17,6 +18,7 @@ item.dustAluminium.name=Aluminium Dust
 item.dustTinyAluminium.name=Tiny Pile of Aluminium Dust
 item.crushedAluminium.name=Crushed Aluminium Ore
 item.crushedPurifiedAluminium.name=Purified Crushed Aluminium Ore
+item.nativeClusterAluminium.name=Native Aluminium Cluster
 
 tile.oreArdite.name=Ardite Ore
 tile.oreNetherArdite.name=Nether Ardite Ore
@@ -27,6 +29,7 @@ item.dustArdite.name=Ardite Dust
 item.dustTinyArdite.name=Tiny Pile of Ardite Dust
 item.crushedArdite.name=Crushed Ardite Ore
 item.crushedPurifiedArdite.name=Purified Crushed Ardite Ore
+item.nativeClusterArdite.name=Native Ardite Cluster
 
 tile.blockBrass.name=Block of Brass
 item.ingotBrass.name=Brass Ingot
@@ -49,6 +52,7 @@ item.dustCobalt.name=Cobalt Dust
 item.dustTinyCobalt.name=Tiny Pile of Cobalt Dust
 item.crushedCobalt.name=Crushed Cobalt Ore
 item.crushedPurifiedCobalt.name=Purified Crushed Cobalt Ore
+item.nativeClusterCobalt.name=Native Cobalt Cluster
 
 tile.oreColdiron.name=Cold Iron Ore
 tile.oreNetherColdiron.name=Nether Cold Iron Ore
@@ -57,8 +61,9 @@ item.ingotColdiron.name=Cold Iron Ingot
 item.nuggetColdiron.name=Cold Iron Nugget
 item.dustColdiron.name=Cold Iron Dust
 item.dustTinyColdiron.name=Tiny Pile of Cold Iron Dust
-item.crushedColdiron.name=Crushed Cold Iron Ore
+item.crushedColdiron.name.name=Crushed Cold Iron Ore
 item.crushedPurifiedColdiron.name=Purified Crushed Cold Iron Ore
+item.nativeClusterColdiron=Native Cold Iron Cluster
 
 tile.oreCopper.name=Copper Ore
 tile.oreNetherCopper.name=Nether Copper Ore
@@ -69,6 +74,7 @@ item.dustCopper.name=Copper Dust
 item.dustTinyCopper.name=Tiny Pile of Copper Dust
 item.crushedCopper.name=Crushed Copper Ore
 item.crushedPurifiedCopper.name=Purified Crushed Copper Ore
+item.nativeClusterCopper.name=Native Copper Cluster
 
 tile.blockElectrum.name=Block of Electrum
 item.ingotElectrum.name=Electrum Ingot
@@ -81,6 +87,7 @@ item.dustGold.name=Gold Dust
 item.dustTinyGold.name=Tiny Pile of Gold Dust
 item.crushedGold.name=Crushed Gold Ore
 item.crushedPurifiedGold.name=Purified Crushed Gold Ore
+item.nativeClusterGold.name=Native Gold Cluster
 
 tile.oreNetherIron.name=Nether Iron Ore
 item.nuggetIron.name=Iron Nugget
@@ -88,6 +95,7 @@ item.dustIron.name=Iron Dust
 item.dustTinyIron.name=Tiny Pile of Iron Dust
 item.crushedIron.name=Crushed Iron Ore
 item.crushedPurifiedIron.name=Purified Crushed Iron Ore
+item.nativeClusterIron.name=Native Iron Cluster
 
 tile.oreLead.name=Lead Ore
 tile.oreNetherLead.name=Nether Lead Ore
@@ -98,6 +106,7 @@ item.dustLead.name=Lead Dust
 item.dustTinyLead.name=Tiny Pile of Lead Dust
 item.crushedLead.name=Crushed Lead Ore
 item.crushedPurifiedLead.name=Purified Crushed Lead Ore
+item.nativeClusterLead.name=Native Lead Cluster
 
 tile.oreManganese.name=Manganese Ore
 tile.oreNetherManganese.name=Nether Manganese Ore
@@ -108,6 +117,7 @@ item.dustManganese.name=Manganese Dust
 item.dustTinyManganese.name=Tiny Pile of Manganese Dust
 item.crushedManganese.name=Crushed Manganese Ore
 item.crushedPurifiedManganese.name=Purified Crushed Manganese Ore
+item.nativeClusterManganese.name=Native Manganese Cluster
 
 tile.oreMithral.name=Mithral Ore
 tile.oreNetherMithral.name=Nether Mithral Ore
@@ -118,6 +128,7 @@ item.dustMithral.name=Mithral Dust
 item.dustTinyMithral.name=Tiny Pile of Mithral Dust
 item.crushedMithral.name=Crushed Mithral Ore
 item.crushedPurifiedMithral.name=Purified Crushed Mithral Ore
+item.nativeClusterMithral.name=Native Mithral Cluster
 
 tile.oreNickel.name=Nickel Ore
 tile.oreNetherNickel.name=Nether Nickel Ore
@@ -128,6 +139,7 @@ item.dustNickel.name=Nickel Dust
 item.dustTinyNickel.name=Tiny Pile of Nickel Dust
 item.crushedNickel.name=Crushed Nickel Ore
 item.crushedPurifiedNickel.name=Purified Crushed Nickel Ore
+item.nativeClusterNickel.name=Native Nickel Cluster
 
 tile.oreOsmium.name=Osmium Ore
 tile.oreNetherOsmium.name=Nether Osmium Ore
@@ -138,6 +150,7 @@ item.dustTinyOsmium.name=Tiny Pile of Osmium Dust
 item.nuggetOsmium.name=Osmium Nugget
 item.crushedOsmium.name=Crushed Osmium Ore
 item.crushedPurifiedOsmium.name=Purified Crushed Osmium Ore
+item.nativeClusterOsmium.name=Native Osmium Cluster
 
 tile.orePlatinum.name=Platinum Ore
 tile.oreNetherPlatinum.name=Nether Platinum Ore
@@ -148,6 +161,7 @@ item.dustPlatinum.name=Platinum Dust
 item.dustTinyPlatinum.name=Tiny Pile of Platinum Dust
 item.crushedPlatinum.name=Crushed Platinum Ore
 item.crushedPurifiedPlatinum.name=Purified Crushed Platinum Ore
+item.nativeClusterPlatinum.name=Native Platinum Cluster
 
 tile.oreSilver.name=Silver Ore
 tile.oreNetherSilver.name=Nether Silver Ore
@@ -158,6 +172,7 @@ item.dustSilver.name=Silver Dust
 item.dustTinySilver.name=Tiny Pile of Silver Dust
 item.crushedSilver.name=Crushed Silver Ore
 item.crushedPurifiedSilver.name=Purified Crushed Silver Ore
+item.nativeClusterSilver.name=Native Silver Cluster
 
 tile.oreTin.name=Tin Ore
 tile.oreNetherTin.name=Nether Tin Ore
@@ -168,6 +183,7 @@ item.dustTin.name=Tin Dust
 item.dustTinyTin.name=Tiny Pile of Tin Dust
 item.crushedTin.name=Crushed Tin Ore
 item.crushedPurifiedTin.name=Purified Crushed Tin Ore
+item.nativeClusterTin.name=Native Tin Cluster
 
 tile.oreYellorium.name=Yellorite Ore
 tile.oreNetherYellorium.name=Nether Yellorite Ore
@@ -178,6 +194,7 @@ item.dustYellorium.name=Yellorium Dust
 item.dustTinyYellorium.name=Tiny Pile of Yellorium Dust
 item.crushedYellorium.name=Crushed Yellorite Ore
 item.crushedPurifiedYellorium.name=Purified Crushed Yellorite Ore
+item.nativeClusterYellorium.name=Native Yellorium Cluster
 
 tile.oreZinc.name=Zinc Ore
 tile.oreNetherZinc.name=Nether Zinc Ore
@@ -188,6 +205,7 @@ item.dustZinc.name=Zinc Dust
 item.dustTinyZinc.name=Tiny Pile of Zinc Dust
 item.crushedZinc.name=Crushed Zinc Ore
 item.crushedPurifiedZinc.name=Purified Crushed Zinc Ore
+item.nativeClusterZinc.name=Native Zinc Cluster
 
 tile.oreAmethyst.name=Amethyst Ore
 tile.oreNetherAmethyst.name=Nether Amethyst Ore

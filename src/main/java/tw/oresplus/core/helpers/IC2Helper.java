@@ -27,6 +27,10 @@ public class IC2Helper extends OresHelper {
 	private Method genRubTreeMethod;
 	private boolean genRubberTree = false;
 	
+	private Class addUUIndexClass;
+	private Object addUUIndexClassObj;
+	private Method addUUIndexMethod;
+	
 	public IC2Helper() {
 		super("IC2");
 	}
@@ -37,6 +41,7 @@ public class IC2Helper extends OresHelper {
 			OresPlus.log.info("IC2 not found, integration helper disabled");
 			return;
 		}
+		//setuprubber tree regen
 		if (this.getBlock("blockRubWood") != null) {
 			this.genRubberTree  = true;
 		}
@@ -48,7 +53,6 @@ public class IC2Helper extends OresHelper {
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-			
 			Constructor c = null;
 			try {
 				c = this.genRubTreeClass.getDeclaredConstructor();
@@ -76,6 +80,41 @@ public class IC2Helper extends OresHelper {
 					if (method.getName().equals("func_76484_a")) {
 						this.genRubTreeMethod = method;
 					}
+				}
+			}
+		}
+		//setup uumatter registration
+		try {
+			this.addUUIndexClass = Class.forName("ic2.core.uu.UuIndex");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		Constructor uuc = null;
+		try {
+			uuc = this.addUUIndexClass.getDeclaredConstructor();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
+		if (uuc != null) {
+			uuc.setAccessible(true);
+			try {
+				this.addUUIndexClassObj = uuc.newInstance();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		}
+		if (this.addUUIndexClass != null && this.addUUIndexClassObj != null){
+			for (Method method : this.addUUIndexClass.getMethods()) {
+				if (method.getName().equals("add")) {
+					this.addUUIndexMethod = method;
 				}
 			}
 		}
@@ -153,8 +192,26 @@ public class IC2Helper extends OresHelper {
 		case Centrifuge:
 			this.registerCentrifuge(input, metadata, outputs);
 			break;
+		case Scanner:
+			this.registerScan(input, metadata);
+			break;
 		default:
 			break;
+		}
+	}
+
+	private void registerScan(ItemStack input, NBTTagCompound metadata) {
+		if (!this.isLoaded() || this.addUUIndexClassObj == null || this.addUUIndexMethod == null)
+			return;
+		
+		try {
+			this.addUUIndexMethod.invoke(this.addUUIndexClassObj, input, metadata.getDouble("cost"));
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
 		}
 	}
 

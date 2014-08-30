@@ -5,5 +5,7 @@ public enum RecipeType {
 	OreWasher,
 	Centrifuge,
 	Grinder,
-	RockCrusher;
+	RockCrusher,
+	Scanner,
+	EnrichmentChamber;
 }

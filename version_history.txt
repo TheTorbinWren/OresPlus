@@ -1,3 +1,24 @@
+v0.8.0.42
+-added thermal expansion support
+-added pulverizer recipes (thermal expansion)
+-added mekanism support
+-added Tier 1 mekanism ore processing
+-added Big Reactors support
+-added yellorium fuel rod recipe (original recipe not ore dictionary enabled)
+
+v0.7.3.41
+-changed versioning to indicated new features without major version change
+-added native clusters and cauldron recipes (thaumcraft)
+-fixed uumatter registration for general ores.
+
+v0.7.40
+-fixed NPE crash
+
+v0.7.39
+-added IC2 uuMatter costs
+-changed gunpowder recipe to shapeless, matching railcraft
+-fixed treecapitator integration
+
 v0.7.38
 -updated some textures
 -added yellorium (yollorite) from Big Reactors

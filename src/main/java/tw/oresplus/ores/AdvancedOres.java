@@ -18,10 +18,10 @@ import tw.oresplus.recipes.RecipeManager;
 import tw.oresplus.recipes.RecipeType;
 
 public enum AdvancedOres implements IOreList {
-	Bauxite (1, new AspectList().add(Aspect.EXCHANGE, 2)),
-	Cassiterite (2, new AspectList().add(Aspect.EXCHANGE, 1).add(Aspect.CRYSTAL, 1)),
-	Galena (2, new AspectList().add(Aspect.EXCHANGE, 1).add(Aspect.ORDER, 1)),
-	Tetrahedrite (2, new AspectList().add(Aspect.EXCHANGE, 2))
+	Bauxite (1, new AspectList().add(Aspect.EXCHANGE, 2), 0.0D),
+	Cassiterite (2, new AspectList().add(Aspect.EXCHANGE, 1).add(Aspect.CRYSTAL, 1), 0.0D),
+	Galena (2, new AspectList().add(Aspect.EXCHANGE, 1).add(Aspect.ORDER, 1), 0.0D),
+	Tetrahedrite (2, new AspectList().add(Aspect.EXCHANGE, 2), 0.0D)
 	;
 	
 	public String oreName;
@@ -38,12 +38,13 @@ public enum AdvancedOres implements IOreList {
 	
 	private int _harvestLevel;
 	private AspectList _aspects;
+	private double _uuCost;
 	
-	private AdvancedOres(int harvestLevel) {
-		this(harvestLevel, new AspectList());
+	private AdvancedOres(int harvestLevel, double uuCost) {
+		this(harvestLevel, new AspectList(), uuCost);
 	}
 	
-	private AdvancedOres(int harvestLevel, AspectList aspects) {
+	private AdvancedOres(int harvestLevel, AspectList aspects, double uuCost) {
 		this.oreName = "ore" + this.toString();
 		this.crushedOreName = "crushed" + this.toString();
 		this.purifiedCrushedOreName = "crushedPurified" + this.toString();
@@ -51,6 +52,7 @@ public enum AdvancedOres implements IOreList {
 		this.tinyDustName = "dustTiny" + this.toString();
 		this._harvestLevel = harvestLevel;
 		this._aspects = aspects;
+		this._uuCost = uuCost;
 	}
 
 	@Override

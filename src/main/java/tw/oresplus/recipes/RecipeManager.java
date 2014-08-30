@@ -10,6 +10,9 @@ import java.util.Map.Entry;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.Blocks;
@@ -41,6 +44,7 @@ public class RecipeManager {
 	private static ArrayList<ItemStack> maceratorBlackList = new ArrayList();
 	private static ArrayList<ItemStack> grinderBlackList = new ArrayList();
 	private static ArrayList<ItemStack> rockCrusherBlackList = new ArrayList();
+	private static ArrayList<ItemStack> pulverizerBlackList = new ArrayList();
 	
 	public static void init() {
 		Ores.grinderRecipes = new GrinderRecipeManager();
@@ -85,11 +89,8 @@ public class RecipeManager {
 			// addShapedRecipe(Blocks.centrifuge.newStack(), "ipi" "ici", "iFi", 'i', MetallicOres.Iron.ingot.newStack(), 'p', glassPane.newStack(), 'c', Items.machineCasing.newStack(), 'F', furnace.newStack());
 		}
 		
-		//gunpowder recipes
-		addShapedRecipe(gunpowder.newStack(4), "sSs", "csc", "sSs", 's', "dustSaltpeter", 'c', "dustCoal", 'S', "dustSulfur");
-		addShapedRecipe(gunpowder.newStack(4), "scs", "SsS", "scs", 's', "dustSaltpeter", 'c', "dustCoal", 'S', "dustSulfur");
-		addShapedRecipe(gunpowder.newStack(4), "sSs", "csc", "sSs", 's', "dustSaltpeter", 'c', "dustCharcoal", 'S', "dustSulfur");
-		addShapedRecipe(gunpowder.newStack(4), "scs", "SsS", "scs", 's', "dustSaltpeter", 'c', "dustCharcoal", 'S', "dustSulfur");
+		//gunpowder recipe
+		addShapelessRecipe(gunpowder.newStack(4), "dustSaltpeter", "dustSaltpeter", "dustCoal", "dustSulfur");
 		
 		// misc grinder recipes
 		addGrinderRecipe(charcoal.newStack(), OreItems.dustCharcoal.item.newStack());
@@ -174,10 +175,24 @@ public class RecipeManager {
 			ore.registerRecipes();
 		}
 		
+		for (GeneralOres ore : GeneralOres.values()) {
+			ore.registerRecipes();
+		}
+		
+		for (OreItems item : OreItems.values()) {
+			item.registerRecipes();
+		}
+		
 		if (OresPlus.iridiumPlateRecipe && Helpers.IC2.isLoaded()) {
 			OreItemStack iridiumPlate = new OreItemStack(Helpers.IC2.getItem("itemPartIridium"));
 			OreItemStack alloyPlate = new OreItemStack(Helpers.IC2.getItem("itemPartAlloy"));
 			addShapedRecipe(iridiumPlate.newStack(), "ipi", "pdp", "ipi", 'i', OreItems.gemIridium.toString(), 'p', alloyPlate.newStack(), 'd', GemstoneOres.Diamond.gem.newStack());
+		}
+		
+		if (Helpers.BigReactors.isLoaded()) {
+			OreItemStack graphiteBar = new OreItemStack(Helpers.BigReactors.getItem("BRIngot"), 2);
+			OreItemStack fuelRod = new OreItemStack(Helpers.BigReactors.getItem("YelloriumFuelRod"));
+			addShapedRecipe(fuelRod.newStack(), "igi", "iyi", "igi", 'i', MetallicOres.Iron.ingot.newStack(), 'g', graphiteBar.newStack(), 'y', MetallicOres.Yellorium.ingot.newStack());
 		}
 	}
 
@@ -215,6 +230,14 @@ public class RecipeManager {
 			OresPlus.log.debug("Registered RailCraft:RockCrusher recipe for " + input.getUnlocalizedName());
 		}
 	}
+	
+	public static void addUUMatterRecipe(ItemStack source, double cost) {
+		if (Helpers.IC2.isLoaded() && source != null && cost != 0.0) {
+			NBTTagCompound metadata = new NBTTagCompound();
+			metadata.setDouble("cost", cost);
+			Helpers.IC2.registerRecipe(RecipeType.Scanner, source, metadata, new ItemStack[] {});
+		}
+	}
 
 	private static boolean isBlackListed(
 			ArrayList<ItemStack> blacklist, ItemStack input) {
@@ -249,6 +272,12 @@ public class RecipeManager {
 	public static void hideItem(OreItemStack item) {
 		neiHandler.hideItem(item.source);
 		tmiHandler.hideItem(item.source);
+	}
+	
+	public static void addCrucibleRecipe(String key, ItemStack result, String catalyst, AspectList tags) {
+		if (Helpers.ThaumCraft.isLoaded()) {
+			ThaumcraftApi.addCrucibleRecipe(key, result, catalyst, tags);
+		}
 	}
 	
 }

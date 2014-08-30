@@ -69,7 +69,7 @@ public class OresPlus {
 	
     public static final String MOD_ID = "OresPlus";
     public static final String MOD_NAME = "OresPlus";
-    public static final String MOD_VERSION = "0.7.38-beta";
+    public static final String MOD_VERSION = "0.8.0.42B";
     
 	@Instance(OresPlus.MOD_ID)
 	public static OresPlus instance;

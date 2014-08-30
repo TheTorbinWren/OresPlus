@@ -28,3 +28,6 @@ src/main/java/thaumcraft/
 
 #Railcraft API
 src/main/java/mods/
+
+#Mekanism API
+src/main/java/mekanism/

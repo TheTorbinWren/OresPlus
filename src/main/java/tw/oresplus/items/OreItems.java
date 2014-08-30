@@ -4,6 +4,7 @@ import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
 import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.recipes.OreItemStack;
+import tw.oresplus.recipes.RecipeManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,9 +12,9 @@ import net.minecraft.item.ItemStack;
 public enum OreItems {
 	crushedUranium,
 	dustAntimony,
-	dustCharcoal, 
+	dustCharcoal (108.6D), 
 	dustCinnabar,
-	dustCoal, 
+	dustCoal (108.6D), 
 	dustMagnesium,
 	dustPyrite,
 	dustSheldonite, // TODO: Update texture
@@ -22,7 +23,7 @@ public enum OreItems {
 	dustTinyTungsten,
 	dustTungstate, // TODO: Update texture
 	dustTungsten, // TODO: Update texture
-	gemIridium,
+	gemIridium (12000.0),
 	gemOlivine,
 	gemRedGarnet,
 	gemUranium,
@@ -33,13 +34,19 @@ public enum OreItems {
 	
 	public OreItemStack item;
 	private AspectList _aspects;
+	private double _uuCost;
 	
-	private OreItems(AspectList aspects) {
+	private OreItems(AspectList aspects, double uuCost) {
 		this._aspects = aspects;
+		this._uuCost = uuCost;
 	}
 	
 	private OreItems() {
-		this(new AspectList());
+		this(new AspectList(), 0.0D);
+	}
+	
+	private OreItems(double uuCost) {
+		this(new AspectList(), uuCost);
 	}
 	
 	public void registerItems() {
@@ -49,5 +56,11 @@ public enum OreItems {
 	public void registerAspects() {
 		if (Helpers.ThaumCraft.isLoaded() && this._aspects.size() > 0)
 			ThaumcraftApi.registerObjectTag(this.item.source, this._aspects);
+	}
+	
+	public void registerRecipes() {
+		if (this._uuCost != 0.0D) {
+			RecipeManager.addUUMatterRecipe(this.item.source, this._uuCost);
+		}
 	}
 }

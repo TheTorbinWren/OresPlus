@@ -24,27 +24,27 @@ import tw.oresplus.recipes.RecipeManager;
 import tw.oresplus.recipes.RecipeType;
 
 public enum MetallicOres implements IOreList {
-	Adamantine(3, Aspect.ARMOR),
-	Aluminium(2, Aspect.EXCHANGE),
-	Ardite(4, Aspect.VOID),
+	Adamantine(3, Aspect.ARMOR, 3500.0D),
+	Aluminium(2, Aspect.EXCHANGE, 650.0D),
+	Ardite(4, Aspect.VOID, 2200.0D),
 	Brass(Aspect.MECHANISM, true),
 	Bronze(Aspect.MECHANISM, true),
-	Cobalt(4, Aspect.CRAFT),
-	Coldiron(2, Aspect.COLD),
-	Copper(1, Aspect.EXCHANGE),
+	Cobalt(4, Aspect.CRAFT, 1500.0D),
+	Coldiron(2, Aspect.COLD, 2000.0D),
+	Copper(1, Aspect.EXCHANGE, 165.32555827439467D),
 	Electrum(Aspect.EXCHANGE, true),
-	Gold(2, Aspect.GREED),
-	Iron(1, Aspect.METAL),
-	Lead(1, Aspect.ORDER),
-	Manganese(2, Aspect.ORDER),
-	Mithral(3, Aspect.MAGIC),
-	Nickel(2, Aspect.ORDER),
-	Osmium(1, Aspect.ARMOR),
-	Platinum(2, Aspect.GREED),
-	Silver(2, Aspect.GREED),
-	Tin(1, Aspect.CRYSTAL),
-	Yellorium(2, Aspect.ENERGY),
-	Zinc(2, Aspect.CRYSTAL);
+	Gold(2, Aspect.GREED, 0.0D), // 1888.8470535343595
+	Iron(1, Aspect.METAL, 0.0D), // 200.16909378760914
+	Lead(1, Aspect.ORDER, 1673.377568334827D),
+	Manganese(2, Aspect.ORDER, 800.0D),
+	Mithral(3, Aspect.MAGIC, 3200.0D),
+	Nickel(2, Aspect.ORDER, 1200.0D),
+	Osmium(1, Aspect.ARMOR, 1000.D),
+	Platinum(2, Aspect.GREED, 2500.0D),
+	Silver(2, Aspect.GREED, 1750.0D),
+	Tin(1, Aspect.CRYSTAL, 199.90120532935603D),
+	Yellorium(2, Aspect.ENERGY, 2608.8982568638758D),
+	Zinc(2, Aspect.CRYSTAL, 1100.0D);
 	
 	public String oreName;
 	public String netherOreName;
@@ -55,6 +55,7 @@ public enum MetallicOres implements IOreList {
 	public String tinyDustName;
 	public String crushedOreName;
 	public String purifiedCrushedOreName;
+	public String nativeClusterName;
 	
 	public OreItemStack ore;
 	public OreItemStack netherOre;
@@ -65,6 +66,7 @@ public enum MetallicOres implements IOreList {
 	public OreItemStack tinyDust;
 	public OreItemStack crushedOre;
 	public OreItemStack purifiedCrushedOre;
+	public OreItemStack nativeCluster;
 	
 	private int _harvestLevel;
 	private int _xpLow;
@@ -76,22 +78,23 @@ public enum MetallicOres implements IOreList {
 	private Aspect _secondaryAspect;
 	private int _tradeToAmount;
 	private int _tradeFromAmount;
+	private double _uuCost;
 	
 	public boolean enabled;
 	
 	private MetallicOres(Aspect secondaryAspect, boolean isAlloy) {
-		this(0, secondaryAspect, isAlloy);
+		this(0, secondaryAspect, isAlloy, 0.0D);
 	}
 	
-	private MetallicOres(int harvestLevel, Aspect secondaryAspect) {
-		this(harvestLevel, secondaryAspect, false);
+	private MetallicOres(int harvestLevel, Aspect secondaryAspect, double uuCost) {
+		this(harvestLevel, secondaryAspect, false, uuCost);
 	}
 		
-	private MetallicOres(int harvestLevel, Aspect secondaryAspect, boolean isAlloy) {
-		this(harvestLevel, secondaryAspect, isAlloy, 0, 0);
+	private MetallicOres(int harvestLevel, Aspect secondaryAspect, boolean isAlloy, double uuCost) {
+		this(harvestLevel, secondaryAspect, isAlloy, 0, 0, uuCost);
 	}
 	
-	private MetallicOres(int harvestLevel, Aspect secondaryAspect, boolean isAlloy, int tradeToAmount, int tradeFromAmount) {
+	private MetallicOres(int harvestLevel, Aspect secondaryAspect, boolean isAlloy, int tradeToAmount, int tradeFromAmount, double uuCost) {
 		this.oreName = "ore" + this.toString();
 		this.netherOreName = "oreNether" + this.toString();
 		this.blockName = "block" + this.toString();
@@ -102,6 +105,7 @@ public enum MetallicOres implements IOreList {
 		this.tinyDustName = "dustTiny" + this.toString(); 
 		this.crushedOreName = "crushed" + this.toString();
 		this.purifiedCrushedOreName = "crushedPurified" + this.toString(); 
+		this.nativeClusterName = "nativeCluster" + this.toString();
 		
 		this.enabled = true;
 
@@ -112,6 +116,7 @@ public enum MetallicOres implements IOreList {
 		this._isAlloy = isAlloy;
 		this._drops = OreDrops.ORE;
 		this._secondaryAspect = secondaryAspect;
+		this._uuCost = uuCost;
 	}
 
 	@Override
@@ -194,6 +199,11 @@ public enum MetallicOres implements IOreList {
 			this.crushedOre = new OreItemStack(new ItemCore(this.crushedOreName).setCreativeTab(CreativeTabs.tabMaterials));
 			this.purifiedCrushedOre = new OreItemStack(new ItemCore(this.purifiedCrushedOreName).setCreativeTab(CreativeTabs.tabMaterials));
 		}
+		
+		// register native clusters
+		if (!this._isAlloy) {
+			this.nativeCluster = new OreItemStack(new ItemCore(this.nativeClusterName).setCreativeTab(CreativeTabs.tabMaterials));
+		}
 	}
 
 	@Override
@@ -229,6 +239,13 @@ public enum MetallicOres implements IOreList {
 		// add ingot Grinder recipes
 		RecipeManager.addGrinderRecipe(this.ingot.newStack(), this.dust.newStack());
 		
+		// add ingot pulverizer (TE) recipes
+		if (Helpers.ThermalExpansion.isLoaded()) {
+			NBTTagCompound metadata = new NBTTagCompound();
+			metadata.setInteger("energy", 2400);
+			Helpers.ThermalExpansion.registerRecipe(RecipeType.Grinder, this.ingot.newStack(), metadata, this.dust.newStack());
+		}
+		
 		if (!this._isAlloy) {
 			// add nether ore -> ore smelting recipe
 			RecipeManager.addSmelting(this.netherOre.newStack(), this.ore.newStack(2), 0.0F);
@@ -241,6 +258,18 @@ public enum MetallicOres implements IOreList {
 			
 			// add ore grinder recipe
 			RecipeManager.addGrinderRecipe(this.ore.newStack(), this.crushedOre.newStack(2));
+			
+			// Register Thermal Expansion Pulverizer recipe
+			if (Helpers.ThermalExpansion.isLoaded()) {
+				NBTTagCompound metadata = new NBTTagCompound();
+				metadata.setInteger("energy", 4000);
+				Helpers.ThermalExpansion.registerRecipe(RecipeType.Grinder, this.ore.newStack(), metadata, this.crushedOre.newStack(2));
+			}
+			
+			// register Mekanism enrichment chamber recipe
+			if (Helpers.Mekanism.isLoaded()) {
+				Helpers.Mekanism.registerRecipe(RecipeType.EnrichmentChamber, this.ore.newStack(), this.dust.newStack(2));
+			}
 			
 			if (Helpers.IC2.isLoaded()) {
 				// add ore washing recipe
@@ -267,14 +296,7 @@ public enum MetallicOres implements IOreList {
 			NBTTagCompound metadata = new NBTTagCompound();
 			switch (this) {
 			case Adamantine:
-				metadata.setInteger("minHeat", 4000);
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.crushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					MetallicOres.Iron.tinyDust.newStack(),
-					stoneDust.newStack()					});
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.purifiedCrushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					MetallicOres.Iron.tinyDust.newStack()	});
+				this.registerIC2Centrifuge(4000, MetallicOres.Iron.tinyDust.newStack());
 				break;
 			case Aluminium:
 				metadata.setInteger("minHeat", 1000);
@@ -402,6 +424,11 @@ public enum MetallicOres implements IOreList {
 
 		}
 		
+		// add uuMatter Scanner costs
+		if (this._uuCost != 0.0D) {
+			RecipeManager.addUUMatterRecipe(this.ore.source, this._uuCost);
+		}
+		
 		// add dust smelting recipe
 		RecipeManager.addSmelting(this.dust.newStack(), this.ingot.newStack(), this._smeltXP);
 		
@@ -410,6 +437,25 @@ public enum MetallicOres implements IOreList {
 		
 		// add dust -> tiny dust recipe
 		RecipeManager.addShapelessRecipe(this.tinyDust.newStack(9), this.dust.newStack());
+		
+		if (!this._isAlloy) {
+			// add thaumcraft ore -> native cluster crucible recipes
+			switch (this) {
+			case Iron:
+			case Gold:
+			case Tin:
+			case Copper:
+			case Lead:
+			case Silver:
+				break;
+			default:
+				RecipeManager.addCrucibleRecipe("PUREIRON", this.nativeCluster.newStack(), this.oreName, new AspectList().add(Aspect.METAL, 1).add(Aspect.ORDER, 1));
+				break;
+			}
+			
+			// add native cluster smelting
+			RecipeManager.addSmelting(this.nativeCluster.newStack(), this.ingot.newStack(2), this._smeltXP);
+		}
 	}
 	
 	private void registerIC2Centrifuge(int minHeat, ItemStack secondary) {

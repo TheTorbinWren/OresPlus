@@ -14,16 +14,16 @@ import net.minecraft.world.World;
 public class TreecapitatorHelper extends OresHelper {
 
 	TreecapitatorHelper() {
-		super("TreeCapitator");
+		super("Treecapitator");
 	}
 
 	@Override
 	public void preInit() {
 		if (!this.isLoaded()) {
-			OresPlus.log.info("TreeCapitator not found, integration helper disabled");
+			OresPlus.log.info("Treecapitator not found, integration helper disabled");
 			return;
 		}
-		OresPlus.log.info("TreeCapitator found, integration helper initialized");
+		OresPlus.log.info("Treecapitator found, integration helper initialized");
 	}
 
 	@Override
