@@ -1,3 +1,12 @@
+v0.8.0.44
+-added ore chunks. dirty dusts & shards
+-added Tier 2 & 3 Mekanism ore processing
+-fixed grinder on/off state
+
+v0.8.0.43
+-added alt. recipes for remaining big reactors blocks
+-added minefactory reloaded support
+
 v0.8.0.42
 -added thermal expansion support
 -added pulverizer recipes (thermal expansion)

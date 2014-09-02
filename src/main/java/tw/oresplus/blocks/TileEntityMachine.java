@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import tw.oresplus.OresPlus;
 import tw.oresplus.core.FuelHelper;
 import tw.oresplus.triggers.OresTrigger;
 import buildcraft.api.gates.ITrigger;
@@ -25,16 +26,16 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class TileEntityMachine extends TileEntity 
 implements IPowerReceptor, ITriggerProvider, ISidedInventory {
-	public boolean isBurning;
-
 	private boolean _hasFurnace = false;
 	protected int _furnaceBurnTime;
-	private int _currentItemBurnTime;
+	protected int _currentItemBurnTime;
 	protected float _energyRequired;
 	protected float _energySpent;
 	protected float _efficiancy = 1.0F;
 	protected float _minimumBCEnergyRequired = 25.0F;
 	protected float _maximumBCEnergyStored = 1500.0F;
+	
+	protected float _energyBuffer;
 	
     protected String inventoryName;
     protected String customInventoryName = "";
@@ -46,14 +47,19 @@ implements IPowerReceptor, ITriggerProvider, ISidedInventory {
 	
 	protected NBTTagCompound updateData = new NBTTagCompound();
 	
+	protected int logTicker;
+	
 	public TileEntityMachine(float energyRequired) {
 		super();
 		
 		this._energyRequired = energyRequired;
 		this._energySpent = 0.0F;
+		this._energyBuffer= 0.0F;
 		
 		this.powerHandler = new PowerHandler(this, PowerHandler.Type.MACHINE);
 		this.initPowerHandler();
+		
+		this.logTicker = 0;
 	}
 	
 	public TileEntityMachine setMinimumBCEnergyRequired(float minimumBCEnergyRequired) {
@@ -99,6 +105,7 @@ implements IPowerReceptor, ITriggerProvider, ISidedInventory {
 		this._efficiancy = tagCompound.getFloat("efficiency");
 		this._energyRequired = tagCompound.getFloat("energyRequired");
 		this._energySpent = tagCompound.getFloat("energySpent");
+		this._energyBuffer = tagCompound.getFloat("energyBuffer");
 		
 		NBTTagList itemList = tagCompound.getTagList("inventory", 10);
 		for (int i = 0; i < itemList.tagCount(); i++) {
@@ -128,6 +135,7 @@ implements IPowerReceptor, ITriggerProvider, ISidedInventory {
 		tagCompound.setFloat("efficiency", this._efficiancy);
 		tagCompound.setFloat("energyRequired", this._energyRequired);
 		tagCompound.setFloat("energySpent", this._energySpent);
+		tagCompound.setFloat("energyBuffer", this._energyBuffer);
 		
 		NBTTagList itemList = new NBTTagList();
 		for (int i = 0; i < this.inventory.length; i++) {
@@ -152,7 +160,10 @@ implements IPowerReceptor, ITriggerProvider, ISidedInventory {
 	}
 
 	@Override
-	public void doWork(PowerHandler workProvider) {}
+	public void doWork(PowerHandler workProvider) {
+		//this.debug("BC: Using energy");
+		this._energyBuffer += this.powerHandler.useEnergy(100.0F, 100.0F, true);
+	}
 
 	@Override
 	public World getWorld() {
@@ -162,20 +173,32 @@ implements IPowerReceptor, ITriggerProvider, ISidedInventory {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
+		if (this.logTicker++ > 20) {
+			this.logTicker = 0;
+		}
+		//this.debug("Ticking");
 		this.burnFuel();
 		this.powerHandler.update();
+		//this.debug("Stored Energy: " + this._energyBuffer);
 	}
 	
+	private void debug(String message) {
+		if (true) {
+		//if (this.logTicker == 0) {
+			OresPlus.log.debug("Machine: " + message);
+		}
+	}
+
 	private boolean canBurn() {
 		return this._hasFurnace && this.furnaceSlot >= 0;
 	}
 	
 	private void burnFuel() {
-		/*
+		//this.debug("Burning fuel");
+		
 		if (!this.canBurn()) {
 			return;
 		}
-		*/
 		
 		boolean wasBurning = this._furnaceBurnTime > 0;
 		boolean needsSave = false;
@@ -184,6 +207,9 @@ implements IPowerReceptor, ITriggerProvider, ISidedInventory {
 		if (this._furnaceBurnTime > 0) {
 			this._furnaceBurnTime--;
 		}
+		
+		//this.debug("furnaceBurnTime: " + this._furnaceBurnTime);
+		//this.debug("wasBurning: " + wasBurning);
 		
 		if (!this.worldObj.isRemote) {
 			// start burn if needed
@@ -205,15 +231,38 @@ implements IPowerReceptor, ITriggerProvider, ISidedInventory {
 				BlockMachine.updateMachineBlockState(this._furnaceBurnTime > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
 			}
 		}
+		
 		// add energy to power handler 
 		if (this._furnaceBurnTime > 0) {
-			this.powerHandler.addEnergy(1);
+			this.addEnergy(1.0F);
 		}
 		
 		// save if nessesary
 		if (needsSave) { 
 			this.markDirty();
 		}
+	}
+	
+	public boolean isBurning() {
+		return true;
+	}
+	
+	public void addEnergy(float energy) {
+		this._energyBuffer += energy;
+	}
+	
+	public boolean useEnergy(float energyNeeded) {
+		if (this._energyBuffer < energyNeeded) {
+			return false;
+		}
+		else {
+			this._energyBuffer -= energyNeeded;
+			return true;
+		}
+	}
+	
+	public double getEnergyStored() {
+		return this._energyBuffer;
 	}
 	
 	public abstract boolean hasWork();
@@ -323,5 +372,8 @@ implements IPowerReceptor, ITriggerProvider, ISidedInventory {
 		return (int)(this._energySpent * scale / this._energyRequired);
 	}
 	
-
+	@SideOnly(Side.CLIENT)
+	public int getPowerLevelScaled(int scale) {
+		return (int)(this._energyBuffer * 32 / this._maximumBCEnergyStored);
+	}
 }

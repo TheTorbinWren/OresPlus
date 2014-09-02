@@ -35,7 +35,7 @@ public class BlockCracker extends BlockMachine {
     @SideOnly(Side.CLIENT)
     public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
     {
-        return Blocks.cracker.source.getItem();
+        return BlockManager.cracker.source.getItem();
     }
 
 }

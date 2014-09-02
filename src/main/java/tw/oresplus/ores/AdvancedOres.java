@@ -12,7 +12,7 @@ import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.BlockOre;
 import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.items.ItemCore;
-import tw.oresplus.items.OreItems;
+import tw.oresplus.items.Items;
 import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
 import tw.oresplus.recipes.RecipeType;
@@ -110,7 +110,7 @@ public enum AdvancedOres implements IOreList {
 				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.dust.newStack(2), (NBTTagCompound)(metadata.copy()), MetallicOres.Lead.dust.newStack(), DustOres.Sulfur.dust.newStack());
 				break;
 			case Tetrahedrite:
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.dust.newStack(7), (NBTTagCompound)(metadata.copy()), MetallicOres.Copper.dust.newStack(3), OreItems.dustAntimony.item.newStack(), DustOres.Sulfur.dust.newStack(3));
+				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.dust.newStack(7), (NBTTagCompound)(metadata.copy()), MetallicOres.Copper.dust.newStack(3), Items.dustAntimony.item.newStack(), DustOres.Sulfur.dust.newStack(3));
 				break;
 			default:
 			}
@@ -136,6 +136,12 @@ public enum AdvancedOres implements IOreList {
 	@Override
 	public int getTradeFromAmount(Random random) {
 		return 0;
+	}
+
+	@Override
+	public void registerFluids() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

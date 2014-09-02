@@ -4,7 +4,9 @@ import java.util.Random;
 
 import tw.oresplus.OresPlus;
 import tw.oresplus.recipes.RecipeType;
+import mekanism.api.AdvancedInput;
 import mekanism.api.RecipeHelper;
+import mekanism.api.gas.GasRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -33,6 +35,16 @@ public class MekanismHelper extends OresHelper {
 		case EnrichmentChamber:
 			if (this.isLoaded() && input != null && outputs[0] != null) {
 				RecipeHelper.addEnrichmentChamberRecipe(input, outputs[0]);
+			}
+			break;
+		case PurificationChamber:
+			if (this.isLoaded() && input != null && outputs[0] != null) {
+				RecipeHelper.addPurificationChamberRecipe(input, outputs[0]);
+			}
+			break;
+		case ChemicalInjector:
+			if (this.isLoaded() && input != null && outputs[0] != null) {
+				RecipeHelper.addChemicalInjectionChamberRecipe(new AdvancedInput(input, GasRegistry.getGas(metadata.getString("gas"))), outputs[0]);
 			}
 			break;
 		default:

@@ -5,9 +5,9 @@ import java.util.Random;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
 import tw.oresplus.OresPlus;
-import tw.oresplus.blocks.Blocks;
+import tw.oresplus.blocks.BlockManager;
+import tw.oresplus.items.ItemManager;
 import tw.oresplus.items.Items;
-import tw.oresplus.items.OreItems;
 import tw.oresplus.ores.AdvancedOres;
 import tw.oresplus.ores.DustOres;
 import tw.oresplus.ores.GemstoneOres;
@@ -51,12 +51,12 @@ public class TCHelper extends OresHelper {
 	        ore.registerAspects();
 	    }
 	    
-	    for (OreItems item : OreItems.values()) {
+	    for (Items item : Items.values()) {
 	    	item.registerAspects();
 	    }
 
-	    Blocks.registerAspects();
-	    Items.registerAspects();
+	    BlockManager.registerAspects();
+	    ItemManager.registerAspects();
 
 	    OresPlus.log.info("Thaumcraft found, integration helper Initialized");
 	}

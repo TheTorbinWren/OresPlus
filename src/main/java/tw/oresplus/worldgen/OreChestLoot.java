@@ -4,8 +4,8 @@ import java.util.Random;
 
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
+import tw.oresplus.items.ItemManager;
 import tw.oresplus.items.Items;
-import tw.oresplus.items.OreItems;
 import tw.oresplus.ores.GemstoneOres;
 import tw.oresplus.ores.MetallicOres;
 import tw.oresplus.recipes.OreItemStack;
@@ -16,21 +16,21 @@ public class OreChestLoot {
 	private static OreItemStack[] commonItems = { MetallicOres.Copper.ingot, MetallicOres.Lead.ingot, MetallicOres.Nickel.ingot, MetallicOres.Silver.ingot, MetallicOres.Tin.ingot, MetallicOres.Zinc.ingot };
 	private static OreItemStack[] uncommonItems = { MetallicOres.Aluminium.ingot, MetallicOres.Brass.ingot, MetallicOres.Bronze.ingot, MetallicOres.Electrum.ingot, MetallicOres.Manganese.ingot, MetallicOres.Osmium.ingot, GemstoneOres.Amethyst.gem };
 	private static OreItemStack[] rareItems = { MetallicOres.Ardite.ingot, MetallicOres.Cobalt.ingot, MetallicOres.Coldiron.ingot, MetallicOres.Platinum.ingot, GemstoneOres.GreenSapphire.gem, GemstoneOres.Ruby.gem, GemstoneOres.Sapphire.gem, GemstoneOres.Topaz.gem };
-	private static OreItemStack[] ultraRareItems = { MetallicOres.Adamantine.ingot, MetallicOres.Mithral.ingot, OreItems.gemRedGarnet.item, OreItems.gemYellowGarnet.item };
+	private static OreItemStack[] ultraRareItems = { MetallicOres.Adamantine.ingot, MetallicOres.Mithral.ingot, Items.gemRedGarnet.item, Items.gemYellowGarnet.item };
 	  
 	private static OreItemStack[] commonSmithItems = {MetallicOres.Copper.ingot, MetallicOres.Lead.ingot, MetallicOres.Nickel.ingot, MetallicOres.Silver.ingot, MetallicOres.Tin.ingot, MetallicOres.Zinc.ingot };
 	private static OreItemStack[] uncommonSmithItems = {
 		MetallicOres.Aluminium.ingot, MetallicOres.Brass.ingot, MetallicOres.Electrum.ingot, MetallicOres.Manganese.ingot, MetallicOres.Osmium.ingot,
-		Items.toolAdamantineAxe, Items.toolAdamantineHoe, Items.toolAdamantinePickaxe, Items.toolAdamantineSpade,
-		Items.toolColdironAxe, Items.toolColdironHoe, Items.toolColdironPickaxe, Items.toolColdironSpade,
-		Items.toolMithralAxe, Items.toolMithralHoe, Items.toolMithralPickaxe, Items.toolMithralSpade};
+		ItemManager.toolAdamantineAxe, ItemManager.toolAdamantineHoe, ItemManager.toolAdamantinePickaxe, ItemManager.toolAdamantineSpade,
+		ItemManager.toolColdironAxe, ItemManager.toolColdironHoe, ItemManager.toolColdironPickaxe, ItemManager.toolColdironSpade,
+		ItemManager.toolMithralAxe, ItemManager.toolMithralHoe, ItemManager.toolMithralPickaxe, ItemManager.toolMithralSpade};
 	private static OreItemStack[] rareSmithItems = {
 		MetallicOres.Adamantine.ingot, MetallicOres.Ardite.ingot, MetallicOres.Cobalt.ingot, MetallicOres.Coldiron.ingot, MetallicOres.Mithral.ingot, MetallicOres.Platinum.ingot,
-		Items.toolAdamantineSword, Items.toolColdironSword, Items.toolMithralSword};
+		ItemManager.toolAdamantineSword, ItemManager.toolColdironSword, ItemManager.toolMithralSword};
 	private static OreItemStack[] ultraRareSmithItems = {
-		Items.armorAdamantineBoots, Items.armorAdamantineChestplate, Items.armorAdamantineHelmet, Items.armorAdamantineLeggings,
-		Items.armorColdironBoots, Items.armorColdironChestplate, Items.armorColdironHelmet, Items.armorColdironLeggings,
-		Items.armorMithralBoots, Items.armorMithralChestplate, Items.armorMithralHelmet, Items.armorMithralLeggings};
+		ItemManager.armorAdamantineBoots, ItemManager.armorAdamantineChestplate, ItemManager.armorAdamantineHelmet, ItemManager.armorAdamantineLeggings,
+		ItemManager.armorColdironBoots, ItemManager.armorColdironChestplate, ItemManager.armorColdironHelmet, ItemManager.armorColdironLeggings,
+		ItemManager.armorMithralBoots, ItemManager.armorMithralChestplate, ItemManager.armorMithralHelmet, ItemManager.armorMithralLeggings};
 
 	public static void registerChestLoot() {
 	    Random rand = new Random();

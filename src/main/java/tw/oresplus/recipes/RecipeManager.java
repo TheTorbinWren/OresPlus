@@ -15,13 +15,13 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
-import tw.oresplus.blocks.Blocks;
+import tw.oresplus.blocks.BlockManager;
 import tw.oresplus.core.OreDictHelper;
 import tw.oresplus.core.config.ConfigMain;
 import tw.oresplus.core.helpers.BCHelper;
 import tw.oresplus.core.helpers.Helpers;
+import tw.oresplus.items.ItemManager;
 import tw.oresplus.items.Items;
-import tw.oresplus.items.OreItems;
 import tw.oresplus.ores.AdvancedOres;
 import tw.oresplus.ores.DustOres;
 import tw.oresplus.ores.GemstoneOres;
@@ -58,8 +58,10 @@ public class RecipeManager {
 		maceratorBlackList.add(new ItemStack(net.minecraft.init.Items.coal, 1, 0));
 		maceratorBlackList.add(new ItemStack(net.minecraft.init.Items.coal, 1, 1));
 
+		OreItemStack bucketEmpty = new OreItemStack(net.minecraft.init.Items.bucket);
 		OreItemStack coal = new OreItemStack(net.minecraft.init.Items.coal, 0);
 		OreItemStack charcoal = new OreItemStack(net.minecraft.init.Items.coal, 1);
+		OreItemStack chest = new OreItemStack(net.minecraft.init.Blocks.chest);
 	    OreItemStack fertalizer = new OreItemStack(Helpers.Forestry.getItem("fertilizerCompound"));
 		OreItemStack flint = new OreItemStack(net.minecraft.init.Items.flint);
 		OreItemStack furnace = new OreItemStack(net.minecraft.init.Blocks.furnace);
@@ -68,22 +70,23 @@ public class RecipeManager {
 		OreItemStack gunpowder = new OreItemStack(net.minecraft.init.Items.gunpowder);
 		OreItemStack oreCoal = new OreItemStack(net.minecraft.init.Blocks.coal_ore);
 		OreItemStack oreLapis = new OreItemStack(net.minecraft.init.Blocks.lapis_ore);
+		OreItemStack piston = new OreItemStack(net.minecraft.init.Blocks.piston);
 	    OreItemStack stick = new OreItemStack(net.minecraft.init.Items.stick);
 	    OreItemStack stone = new OreItemStack(net.minecraft.init.Blocks.stone);
 		OreItemStack tank = new OreItemStack(Helpers.BuildCraft.getBlock("tankBlock"));
 		
 		if (OresPlus.config.enableMachines) {
 			// machine casing
-			addShapedRecipe(OreItems.machineCasing.item.newStack(), "sss", "sis", "sss", 's', stone.newStack(), 'i', MetallicOres.Iron.ingot.newStack());
+			addShapedRecipe(Items.machineCasing.item.newStack(), "sss", "sis", "sss", 's', stone.newStack(), 'i', MetallicOres.Iron.ingot.newStack());
 			// cracker recipe
 			if (Helpers.BuildCraft.isLoaded() && tank.source.getItem() != null) {
-				addShapedRecipe(Blocks.cracker.newStack(), "t", "c", "F", 't', tank.newStack(), 'c', OreItems.machineCasing.item.newStack(), 'F', furnace.newStack());
+				addShapedRecipe(BlockManager.cracker.newStack(), "t", "c", "F", 't', tank.newStack(), 'c', Items.machineCasing.item.newStack(), 'F', furnace.newStack());
 			}
 			else
-				addShapedRecipe(Blocks.cracker.newStack(), "ggg", "gcg", "gFg", 'g', glass.newStack(), 'c', OreItems.machineCasing.item.newStack(), 'F', furnace.newStack());
+				addShapedRecipe(BlockManager.cracker.newStack(), "ggg", "gcg", "gFg", 'g', glass.newStack(), 'c', Items.machineCasing.item.newStack(), 'F', furnace.newStack());
 			
 			// grinder recipe
-			addShapedRecipe(Blocks.grinder.newStack(), "fff", "fcf", "fFf", 'f', flint.newStack(), 'c', OreItems.machineCasing.item.newStack(), 'F', furnace.newStack());
+			addShapedRecipe(BlockManager.grinder.newStack(), "fff", "fcf", "fFf", 'f', flint.newStack(), 'c', Items.machineCasing.item.newStack(), 'F', furnace.newStack());
 			
 			// centrifuge recipe
 			// addShapedRecipe(Blocks.centrifuge.newStack(), "ipi" "ici", "iFi", 'i', MetallicOres.Iron.ingot.newStack(), 'p', glassPane.newStack(), 'c', Items.machineCasing.newStack(), 'F', furnace.newStack());
@@ -93,10 +96,10 @@ public class RecipeManager {
 		addShapelessRecipe(gunpowder.newStack(4), "dustSaltpeter", "dustSaltpeter", "dustCoal", "dustSulfur");
 		
 		// misc grinder recipes
-		addGrinderRecipe(charcoal.newStack(), OreItems.dustCharcoal.item.newStack());
-		addGrinderRecipe(coal.newStack(), OreItems.dustCoal.item.newStack());
-		addGrinderRecipe(OreItems.gemUranium.item.newStack(), OreItems.crushedUranium.item.newStack());
-		addGrinderRecipe(GeneralOres.Uranium.ore.newStack(), OreItems.crushedUranium.item.newStack(2));
+		addGrinderRecipe(charcoal.newStack(), Items.dustCharcoal.item.newStack());
+		addGrinderRecipe(coal.newStack(), Items.dustCoal.item.newStack());
+		addGrinderRecipe(Items.gemUranium.item.newStack(), Items.crushedUranium.item.newStack());
+		addGrinderRecipe(GeneralOres.Uranium.ore.newStack(), Items.crushedUranium.item.newStack(2));
 		
 		// alloy recipes
 		int amount = 4;
@@ -117,47 +120,47 @@ public class RecipeManager {
 	        addShapelessRecipe(fertalizer.newStack(12), new Object[] { DustOres.Saltpeter.dustName, DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName });
 	        addShapelessRecipe(fertalizer.newStack(12), new Object[] { DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName });
 	        addShapelessRecipe(fertalizer.newStack(12), new Object[] { DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName, DustOres.Potash.dustName });
-	        addShapelessRecipe(fertalizer.newStack(12), new Object[] { DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName, OreItems.dustMagnesium.item.newStack() });
-	        addShapelessRecipe(fertalizer.newStack(16), new Object[] { DustOres.Saltpeter.dustName, DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName, OreItems.dustMagnesium.item.newStack() });
-	        addShapelessRecipe(fertalizer.newStack(16), new Object[] { DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName, OreItems.dustMagnesium.item.newStack() });
-	        addShapelessRecipe(fertalizer.newStack(16), new Object[] { DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName, DustOres.Potash.dustName, OreItems.dustMagnesium.item.newStack() });
+	        addShapelessRecipe(fertalizer.newStack(12), new Object[] { DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName, Items.dustMagnesium.item.newStack() });
+	        addShapelessRecipe(fertalizer.newStack(16), new Object[] { DustOres.Saltpeter.dustName, DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName, Items.dustMagnesium.item.newStack() });
+	        addShapelessRecipe(fertalizer.newStack(16), new Object[] { DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName, Items.dustMagnesium.item.newStack() });
+	        addShapelessRecipe(fertalizer.newStack(16), new Object[] { DustOres.Saltpeter.dustName, DustOres.Phosphorite.dustName, DustOres.Potash.dustName, DustOres.Potash.dustName, Items.dustMagnesium.item.newStack() });
 	      }
 
-	    addShapedRecipe(Items.armorAdamantineHelmet.newStack(), "aaa", "a a", 'a', MetallicOres.Adamantine.ingotName );
-	    addShapedRecipe(Items.armorAdamantineChestplate.newStack(), "a a", "aaa", "aaa", 'a', MetallicOres.Adamantine.ingotName );
-	    addShapedRecipe(Items.armorAdamantineLeggings.newStack(), "aaa", "a a", "a a", 'a', MetallicOres.Adamantine.ingotName );
-	    addShapedRecipe(Items.armorAdamantineBoots.newStack(), "a a", "a a", 'a', MetallicOres.Adamantine.ingotName );
-	    addShapedRecipe(Items.armorColdironHelmet.newStack(), "ccc", "c c", 'c', MetallicOres.Coldiron.ingotName );
-	    addShapedRecipe(Items.armorColdironChestplate.newStack(), "c c", "ccc", "ccc", 'c', MetallicOres.Coldiron.ingotName );
-	    addShapedRecipe(Items.armorColdironLeggings.newStack(), "ccc", "c c", "c c", 'c', MetallicOres.Coldiron.ingotName );
-	    addShapedRecipe(Items.armorColdironBoots.newStack(), "c c", "c c", 'c', MetallicOres.Coldiron.ingotName );
-	    addShapedRecipe(Items.armorMithralHelmet.newStack(), "mmm", "m m", 'm', MetallicOres.Mithral.ingotName );
-	    addShapedRecipe(Items.armorMithralChestplate.newStack(), "m m", "mmm", "mmm", 'm', MetallicOres.Mithral.ingotName );
-	    addShapedRecipe(Items.armorMithralLeggings.newStack(), "mmm", "m m", "m m", 'm', MetallicOres.Mithral.ingotName );
-	    addShapedRecipe(Items.armorMithralBoots.newStack(), "m m", "m m", 'm', MetallicOres.Mithral.ingotName );
+	    addShapedRecipe(ItemManager.armorAdamantineHelmet.newStack(), "aaa", "a a", 'a', MetallicOres.Adamantine.ingotName );
+	    addShapedRecipe(ItemManager.armorAdamantineChestplate.newStack(), "a a", "aaa", "aaa", 'a', MetallicOres.Adamantine.ingotName );
+	    addShapedRecipe(ItemManager.armorAdamantineLeggings.newStack(), "aaa", "a a", "a a", 'a', MetallicOres.Adamantine.ingotName );
+	    addShapedRecipe(ItemManager.armorAdamantineBoots.newStack(), "a a", "a a", 'a', MetallicOres.Adamantine.ingotName );
+	    addShapedRecipe(ItemManager.armorColdironHelmet.newStack(), "ccc", "c c", 'c', MetallicOres.Coldiron.ingotName );
+	    addShapedRecipe(ItemManager.armorColdironChestplate.newStack(), "c c", "ccc", "ccc", 'c', MetallicOres.Coldiron.ingotName );
+	    addShapedRecipe(ItemManager.armorColdironLeggings.newStack(), "ccc", "c c", "c c", 'c', MetallicOres.Coldiron.ingotName );
+	    addShapedRecipe(ItemManager.armorColdironBoots.newStack(), "c c", "c c", 'c', MetallicOres.Coldiron.ingotName );
+	    addShapedRecipe(ItemManager.armorMithralHelmet.newStack(), "mmm", "m m", 'm', MetallicOres.Mithral.ingotName );
+	    addShapedRecipe(ItemManager.armorMithralChestplate.newStack(), "m m", "mmm", "mmm", 'm', MetallicOres.Mithral.ingotName );
+	    addShapedRecipe(ItemManager.armorMithralLeggings.newStack(), "mmm", "m m", "m m", 'm', MetallicOres.Mithral.ingotName );
+	    addShapedRecipe(ItemManager.armorMithralBoots.newStack(), "m m", "m m", 'm', MetallicOres.Mithral.ingotName );
 
-	    addShapedRecipe(Items.toolAdamantineAxe.newStack(), " aa", " sa", " s ", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack() );
-	    addShapedRecipe(Items.toolAdamantineHoe.newStack(), " aa", " s ", " s ", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack() );
-	    addShapedRecipe(Items.toolAdamantinePickaxe.newStack(), "aaa", " s ", " s ", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack() );
-	    addShapedRecipe(Items.toolAdamantineSpade.newStack(), "a", "s", "s", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack());
-	    addShapedRecipe(Items.toolAdamantineSword.newStack(), "a", "a", "s", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack() );
-	    addShapedRecipe(Items.toolColdironAxe.newStack(), " cc", " sc", " s ", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack() );
-	    addShapedRecipe(Items.toolColdironHoe.newStack(), " cc", " s ", " s ", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack() );
-	    addShapedRecipe(Items.toolColdironPickaxe.newStack(), "ccc", " s ", " s ", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack() );
-	    addShapedRecipe(Items.toolColdironSpade.newStack(), "c", "s", "s", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack());
-	    addShapedRecipe(Items.toolColdironSword.newStack(), "c", "c", "s", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack() );
-	    addShapedRecipe(Items.toolMithralAxe.newStack(), " mm", " sm", " s ", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack() );
-	    addShapedRecipe(Items.toolMithralHoe.newStack(), " mm", " s ", " s ", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack() );
-	    addShapedRecipe(Items.toolMithralPickaxe.newStack(), "mmm", " s ", " s ", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack() );
-	    addShapedRecipe(Items.toolMithralSpade.newStack(), "m", "s", "s", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack());
-	    addShapedRecipe(Items.toolMithralSword.newStack(), "m", "m", "s", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(ItemManager.toolAdamantineAxe.newStack(), " aa", " sa", " s ", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(ItemManager.toolAdamantineHoe.newStack(), " aa", " s ", " s ", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(ItemManager.toolAdamantinePickaxe.newStack(), "aaa", " s ", " s ", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(ItemManager.toolAdamantineSpade.newStack(), "a", "s", "s", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack());
+	    addShapedRecipe(ItemManager.toolAdamantineSword.newStack(), "a", "a", "s", 'a', MetallicOres.Adamantine.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(ItemManager.toolColdironAxe.newStack(), " cc", " sc", " s ", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(ItemManager.toolColdironHoe.newStack(), " cc", " s ", " s ", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(ItemManager.toolColdironPickaxe.newStack(), "ccc", " s ", " s ", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(ItemManager.toolColdironSpade.newStack(), "c", "s", "s", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack());
+	    addShapedRecipe(ItemManager.toolColdironSword.newStack(), "c", "c", "s", 'c', MetallicOres.Coldiron.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(ItemManager.toolMithralAxe.newStack(), " mm", " sm", " s ", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(ItemManager.toolMithralHoe.newStack(), " mm", " s ", " s ", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(ItemManager.toolMithralPickaxe.newStack(), "mmm", " s ", " s ", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack() );
+	    addShapedRecipe(ItemManager.toolMithralSpade.newStack(), "m", "s", "s", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack());
+	    addShapedRecipe(ItemManager.toolMithralSword.newStack(), "m", "m", "s", 'm', MetallicOres.Mithral.ingotName, 's', stick.newStack() );
 	    
 	    // Misc IC2 recipes
 	    NBTTagCompound metadata = new NBTTagCompound();
 	    metadata.setInteger("minHeat", 2000);
-	    Helpers.IC2.registerRecipe(RecipeType.Centrifuge, OreItems.dustPyrite.item.newStack(3), metadata, MetallicOres.Iron.dust.newStack(), DustOres.Sulfur.dust.newStack(2));
-	    Helpers.IC2.registerRecipe(RecipeType.Centrifuge, OreItems.dustSphalerite.item.newStack(2), metadata, MetallicOres.Zinc.dust.newStack(), DustOres.Sulfur.dust.newStack());
-	    Helpers.IC2.registerRecipe(RecipeType.Centrifuge, OreItems.dustCinnabar.item.newStack(2), metadata, OreItems.itemMercury.item.newStack(), DustOres.Sulfur.dust.newStack());
+	    Helpers.IC2.registerRecipe(RecipeType.Centrifuge, Items.dustPyrite.item.newStack(3), metadata, MetallicOres.Iron.dust.newStack(), DustOres.Sulfur.dust.newStack(2));
+	    Helpers.IC2.registerRecipe(RecipeType.Centrifuge, Items.dustSphalerite.item.newStack(2), metadata, MetallicOres.Zinc.dust.newStack(), DustOres.Sulfur.dust.newStack());
+	    Helpers.IC2.registerRecipe(RecipeType.Centrifuge, Items.dustCinnabar.item.newStack(2), metadata, Items.itemMercury.item.newStack(), DustOres.Sulfur.dust.newStack());
 	    
 		for (MetallicOres ore : MetallicOres.values()) {
 			ore.registerRecipes();
@@ -179,20 +182,42 @@ public class RecipeManager {
 			ore.registerRecipes();
 		}
 		
-		for (OreItems item : OreItems.values()) {
+		for (Items item : Items.values()) {
 			item.registerRecipes();
 		}
 		
 		if (OresPlus.iridiumPlateRecipe && Helpers.IC2.isLoaded()) {
 			OreItemStack iridiumPlate = new OreItemStack(Helpers.IC2.getItem("itemPartIridium"));
 			OreItemStack alloyPlate = new OreItemStack(Helpers.IC2.getItem("itemPartAlloy"));
-			addShapedRecipe(iridiumPlate.newStack(), "ipi", "pdp", "ipi", 'i', OreItems.gemIridium.toString(), 'p', alloyPlate.newStack(), 'd', GemstoneOres.Diamond.gem.newStack());
+			addShapedRecipe(iridiumPlate.newStack(), "ipi", "pdp", "ipi", 'i', Items.gemIridium.toString(), 'p', alloyPlate.newStack(), 'd', GemstoneOres.Diamond.gem.newStack());
 		}
 		
 		if (Helpers.BigReactors.isLoaded()) {
 			OreItemStack graphiteBar = new OreItemStack(Helpers.BigReactors.getItem("BRIngot"), 2);
 			OreItemStack fuelRod = new OreItemStack(Helpers.BigReactors.getItem("YelloriumFuelRod"));
+			OreItemStack reactorCasing = new OreItemStack(Helpers.BigReactors.getBlock("BRReactorPart"));
+			OreItemStack reactorController = new OreItemStack(Helpers.BigReactors.getBlock("BRReactorPart"), 1);
+			OreItemStack reactorControlRod = new OreItemStack(Helpers.BigReactors.getBlock("BRReactorPart"), 2);
+			OreItemStack reactorPowerTap = new OreItemStack(Helpers.BigReactors.getBlock("BRReactorPart"), 3);
+			OreItemStack reactorAccessPort = new OreItemStack(Helpers.BigReactors.getBlock("BRReactorPart"), 4);
+			OreItemStack reactorCoolantPort = new OreItemStack(Helpers.BigReactors.getBlock("BRReactorPart"), 5);
+			OreItemStack reactorRedNetPort = new OreItemStack(Helpers.BigReactors.getBlock("BRReactorPart"), 6);
+			//OreItemStack reactorComputerPort = new OreItemStack(Helpers.BigReactors.getBlock("BRReactorPart"), 7);
+			OreItemStack reactorRedstonePort = new OreItemStack(Helpers.BigReactors.getBlock("BRReactorRedstonePort"));
+			
 			addShapedRecipe(fuelRod.newStack(), "igi", "iyi", "igi", 'i', MetallicOres.Iron.ingot.newStack(), 'g', graphiteBar.newStack(), 'y', MetallicOres.Yellorium.ingot.newStack());
+			addShapedRecipe(reactorCasing.newStack(), "igi", "gyg", "igi", 'i', MetallicOres.Iron.ingot.newStack(), 'g', graphiteBar.newStack(), 'y', MetallicOres.Yellorium.ingot.newStack());
+			addShapedRecipe(reactorController.newStack(), "R R", "ydy", "RrR", 'R', reactorCasing.newStack(), 'y', MetallicOres.Yellorium.ingot.newStack(), 'd', GemstoneOres.Diamond.gem.newStack(), 'r', DustOres.Redstone.dust.newStack());
+			addShapedRecipe(reactorControlRod.newStack(), "RgR", "grg", "RyR", 'R', reactorCasing.newStack(), 'g', graphiteBar.newStack(), 'r', DustOres.Redstone.dust.newStack(), 'y', MetallicOres.Yellorium.ingot.newStack());
+			addShapedRecipe(reactorPowerTap.newStack(), "RrR", "r r", "RrR", 'R', reactorCasing.newStack(), 'r', DustOres.Redstone.dust.newStack());
+			addShapedRecipe(reactorAccessPort.newStack(), "R R", " c ", "RpR", 'R', reactorCasing.newStack(), 'c', chest.newStack(), 'p', piston.newStack());
+			addShapedRecipe(reactorCoolantPort.newStack(), "R R", "ibi", "RpR", 'R', reactorCasing.newStack(), 'i', MetallicOres.Iron.ingot.newStack(), 'b', bucketEmpty.newStack(), 'p', piston.newStack());
+			if (Helpers.MineFactoryReloaded.isLoaded()) {
+				OreItemStack redNetCable = new OreItemStack(Helpers.MineFactoryReloaded.getItem("tile.mfr.cable.redstone"));
+				addShapedRecipe(reactorRedNetPort.newStack(), "RrR", "rgr", "RrR", 'R', reactorCasing.newStack(), 'r', redNetCable.newStack(), 'g', MetallicOres.Gold.ingot.newStack());
+			}
+			//addShapedRecipe(reactorComputerPort.newStack());
+			addShapedRecipe(reactorRedstonePort.newStack(), "RrR", "rgr", "RrR", 'R', reactorCasing.newStack(), 'r', DustOres.Redstone.dust.newStack(), 'g', MetallicOres.Gold.ingot.newStack());
 		}
 	}
 

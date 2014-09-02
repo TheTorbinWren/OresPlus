@@ -7,5 +7,7 @@ public enum RecipeType {
 	Grinder,
 	RockCrusher,
 	Scanner,
-	EnrichmentChamber;
+	EnrichmentChamber, 
+	PurificationChamber, 
+	ChemicalInjector;
 }

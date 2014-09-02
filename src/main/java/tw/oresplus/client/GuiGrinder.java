@@ -39,17 +39,22 @@ extends GuiContainer {
         
         int scale;
         // draw power level stored
-        if (this._tileEntity.getPowerReceiver(null).getEnergyStored() > 0) {
-        	scale = (int)(this._tileEntity.getPowerReceiver(null).getEnergyStored() * 32 / this._tileEntity.getPowerReceiver(null).getMaxEnergyStored());
+        scale = this._tileEntity.getPowerLevelScaled(32);
+        if (scale > 0) {
         	this.drawTexturedModalRect(x + 101, y + 40 + 32 - scale, 176, 78 - scale, 4, scale);
         }
         
-        if (this._tileEntity.isBurning) {
-        	scale = this._tileEntity.getBurnTimeRemainingScaled(12);
+        // draw burn time remaining
+    	scale = this._tileEntity.getBurnTimeRemainingScaled(12);
+        if (scale > 0) {
             this.drawTexturedModalRect(x + 80, y + 39 + 12 - scale, 176, 12 - scale, 14, scale + 2);
         }
+        
+        // draw work progress bar
         scale = this._tileEntity.getWorkProgressScaled(24);
-        this.drawTexturedModalRect(x + 102, y + 20, 176, 14, scale + 1, 16);
+        if (scale > 0) {
+        	this.drawTexturedModalRect(x + 102, y + 20, 176, 14, scale + 1, 16);
+        }
 }
 
 }

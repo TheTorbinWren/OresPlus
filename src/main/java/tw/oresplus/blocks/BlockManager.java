@@ -36,7 +36,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class Blocks {
+public class BlockManager {
 	private static boolean isInitialized = false;
 	
 	public static OreItemStack grinder;

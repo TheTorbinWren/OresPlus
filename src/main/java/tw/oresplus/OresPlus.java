@@ -26,7 +26,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.BlockCore;
 import tw.oresplus.blocks.BlockOre;
-import tw.oresplus.blocks.Blocks;
+import tw.oresplus.blocks.BlockManager;
 import tw.oresplus.blocks.OldTileEntityCracker;
 import tw.oresplus.blocks.TileEntityGrinder;
 import tw.oresplus.core.GuiHandler;
@@ -41,10 +41,10 @@ import tw.oresplus.core.config.ConfigMain;
 import tw.oresplus.core.helpers.AppEngHelper;
 import tw.oresplus.core.helpers.BCHelper;
 import tw.oresplus.core.helpers.Helpers;
-import tw.oresplus.fluids.Fluids;
+import tw.oresplus.fluids.FluidManager;
 import tw.oresplus.items.ItemCore;
+import tw.oresplus.items.ItemManager;
 import tw.oresplus.items.Items;
-import tw.oresplus.items.OreItems;
 import tw.oresplus.network.NetHandler;
 import tw.oresplus.ores.MetallicOres;
 import tw.oresplus.ores.OreManager;
@@ -69,7 +69,7 @@ public class OresPlus {
 	
     public static final String MOD_ID = "OresPlus";
     public static final String MOD_NAME = "OresPlus";
-    public static final String MOD_VERSION = "0.8.0.42B";
+    public static final String MOD_VERSION = "0.8.0.44B";
     
 	@Instance(OresPlus.MOD_ID)
 	public static OresPlus instance;
@@ -121,9 +121,9 @@ public class OresPlus {
 		
 		Ores.manager = new OreManager();
 		
-    	Blocks.init();
-    	Items.init();
-    	Fluids.init();
+    	BlockManager.init();
+    	ItemManager.init();
+    	FluidManager.init();
 
     	OreDictionary.registerOre("oreAluminum", MetallicOres.Aluminium.ore.source);
     	OreDictionary.registerOre("oreNetherAluminum", MetallicOres.Aluminium.netherOre.source);
@@ -134,7 +134,7 @@ public class OresPlus {
     	OreDictionary.registerOre("crushedPurifiedAluminum", MetallicOres.Aluminium.purifiedCrushedOre.source);
     	OreDictionary.registerOre("dustAluminum", MetallicOres.Aluminium.dust.source);
     	OreDictionary.registerOre("dustTinyAluminum", MetallicOres.Aluminium.tinyDust.source);
-    	OreDictionary.registerOre("quicksilver", OreItems.itemMercury.item.source);
+    	OreDictionary.registerOre("quicksilver", Items.itemMercury.item.source);
     	
     	//Register Ore Generators
     	log.info("Registering Ore Generators");
@@ -209,7 +209,7 @@ public class OresPlus {
     
     @EventHandler
     public void handRemaps(FMLModIdMappingEvent event) {
-    	Blocks.handleRemaps(event);
+    	BlockManager.handleRemaps(event);
     }
     
 }

@@ -11,6 +11,8 @@ public interface IOreList {
 	
 	public void registerItems();
 	
+	public void registerFluids();
+	
 	public void registerRecipes();
 	
 	public void registerAspects();

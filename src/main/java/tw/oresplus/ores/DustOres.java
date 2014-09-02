@@ -161,4 +161,10 @@ public enum DustOres implements IOreList {
 		return 0;
 	}
 
+	@Override
+	public void registerFluids() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

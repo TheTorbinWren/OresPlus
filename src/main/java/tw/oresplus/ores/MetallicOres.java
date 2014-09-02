@@ -7,6 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.FluidStack;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -17,7 +18,7 @@ import tw.oresplus.blocks.BlockOre;
 import tw.oresplus.core.config.ConfigCore;
 import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.items.ItemCore;
-import tw.oresplus.items.OreItems;
+import tw.oresplus.items.Items;
 import tw.oresplus.recipes.GrinderRecipe;
 import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
@@ -56,6 +57,12 @@ public enum MetallicOres implements IOreList {
 	public String crushedOreName;
 	public String purifiedCrushedOreName;
 	public String nativeClusterName;
+	public String clumpName;
+	public String dirtyDustName;
+	public String shardName;
+	public String slurryName;
+	public String cleanSlurryName;
+	public String crystalName;
 	
 	public OreItemStack ore;
 	public OreItemStack netherOre;
@@ -67,6 +74,13 @@ public enum MetallicOres implements IOreList {
 	public OreItemStack crushedOre;
 	public OreItemStack purifiedCrushedOre;
 	public OreItemStack nativeCluster;
+	public OreItemStack clump;
+	public OreItemStack dirtyDust;
+	public OreItemStack shard;
+	public OreItemStack crystal;
+	
+	public FluidStack slurry;
+	public FluidStack cleanSlurry;
 	
 	private int _harvestLevel;
 	private int _xpLow;
@@ -106,6 +120,12 @@ public enum MetallicOres implements IOreList {
 		this.crushedOreName = "crushed" + this.toString();
 		this.purifiedCrushedOreName = "crushedPurified" + this.toString(); 
 		this.nativeClusterName = "nativeCluster" + this.toString();
+		this.clumpName = "clump" + this.toString();
+		this.dirtyDustName = "dustDirty" + this.toString();
+		this.shardName = "shard" + this.toString();
+		this.crystalName = "crystal" + this.toString();
+		this.slurryName = "slurry" + this.toString();
+		this.cleanSlurryName = "slurryClean" + this.toString();
 		
 		this.enabled = true;
 
@@ -204,6 +224,14 @@ public enum MetallicOres implements IOreList {
 		if (!this._isAlloy) {
 			this.nativeCluster = new OreItemStack(new ItemCore(this.nativeClusterName).setCreativeTab(CreativeTabs.tabMaterials));
 		}
+		
+		// register clumps & dirty dusts
+		if (!this._isAlloy) {
+			this.clump = new OreItemStack(new ItemCore(this.clumpName).setCreativeTab(CreativeTabs.tabMaterials));
+			this.dirtyDust = new OreItemStack(new ItemCore(this.dirtyDustName).setCreativeTab(CreativeTabs.tabMaterials));
+			this.shard = new OreItemStack(new ItemCore(this.shardName).setCreativeTab(CreativeTabs.tabMaterials));
+			this.crystal = new OreItemStack(new ItemCore(this.crystalName).setCreativeTab(CreativeTabs.tabMaterials));
+		}
 	}
 
 	@Override
@@ -266,9 +294,26 @@ public enum MetallicOres implements IOreList {
 				Helpers.ThermalExpansion.registerRecipe(RecipeType.Grinder, this.ore.newStack(), metadata, this.crushedOre.newStack(2));
 			}
 			
-			// register Mekanism enrichment chamber recipe
 			if (Helpers.Mekanism.isLoaded()) {
+				// register Mekanism enrichment chamber recipe
 				Helpers.Mekanism.registerRecipe(RecipeType.EnrichmentChamber, this.ore.newStack(), this.dust.newStack(2));
+				
+				// register Mekanism purification chamber recipe
+				Helpers.Mekanism.registerRecipe(RecipeType.PurificationChamber, this.ore.newStack(), this.clump.newStack(3));
+				
+				// register Mekanism dirty dust to dust
+				Helpers.Mekanism.registerRecipe(RecipeType.EnrichmentChamber, this.dirtyDust.newStack(), this.dust.newStack());
+				
+				// register Mekanism chemical injector recipe
+				NBTTagCompound metadata = new NBTTagCompound();
+				metadata.setString("gas", "hydrogenChloride");
+				Helpers.Mekanism.registerRecipe(RecipeType.ChemicalInjector, this.ore.newStack(), metadata, this.shard.newStack(4));
+				
+				// register Mekanism shard to clump recipe
+				Helpers.Mekanism.registerRecipe(RecipeType.PurificationChamber, this.shard.newStack(), this.clump.newStack());
+				
+				// register Mekanism crystal to shard recipe
+				Helpers.Mekanism.registerRecipe(RecipeType.ChemicalInjector, this.crystal.newStack(), metadata, this.shard.newStack());
 			}
 			
 			if (Helpers.IC2.isLoaded()) {
@@ -299,24 +344,10 @@ public enum MetallicOres implements IOreList {
 				this.registerIC2Centrifuge(4000, MetallicOres.Iron.tinyDust.newStack());
 				break;
 			case Aluminium:
-				metadata.setInteger("minHeat", 1000);
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.crushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					MetallicOres.Iron.tinyDust.newStack(),
-					stoneDust.newStack()					});
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.purifiedCrushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					MetallicOres.Iron.tinyDust.newStack()	});
+				this.registerIC2Centrifuge(1000, MetallicOres.Iron.tinyDust.newStack());
 				break;
 			case Ardite:
-				metadata.setInteger("minHeat", 4000);
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.crushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					OreItems.dustTinyTungsten.item.newStack(),
-					stoneDust.newStack()					});
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.purifiedCrushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					OreItems.dustTinyTungsten.item.newStack()	});
+				this.registerIC2Centrifuge(4000, Items.dustTinyTungsten.item.newStack());
 				break;
 			case Brass:
 				metadata.setInteger("minHeat", 2000);
@@ -331,24 +362,10 @@ public enum MetallicOres implements IOreList {
 					MetallicOres.Tin.dust.newStack()		});
 				break;
 			case Cobalt:
-				metadata.setInteger("minHeat", 3000);
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.crushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					MetallicOres.Copper.tinyDust.newStack(),
-					stoneDust.newStack()					});
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.purifiedCrushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					MetallicOres.Copper.tinyDust.newStack()	});
+				this.registerIC2Centrifuge(3000, MetallicOres.Copper.tinyDust.newStack());
 				break;
 			case Coldiron:
-				metadata.setInteger("minHeat", 1500);
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.crushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					MetallicOres.Iron.tinyDust.newStack(),
-					stoneDust.newStack()					});
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.purifiedCrushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					MetallicOres.Iron.tinyDust.newStack()	});
+				this.registerIC2Centrifuge(1500, MetallicOres.Iron.tinyDust.newStack());
 				break;
 			case Electrum:
 				metadata.setInteger("minHeat", 2500);
@@ -357,67 +374,25 @@ public enum MetallicOres implements IOreList {
 					MetallicOres.Silver.dust.newStack()		});
 				break;
 			case Manganese:
-				metadata.setInteger("minHeat", 1500);
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.crushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					MetallicOres.Iron.tinyDust.newStack(),
-					stoneDust.newStack()					});
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.purifiedCrushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					MetallicOres.Iron.tinyDust.newStack()	});
+				this.registerIC2Centrifuge(1500, MetallicOres.Iron.tinyDust.newStack());
 				break;
 			case Mithral:
-				metadata.setInteger("minHeat", 2500);
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.crushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					MetallicOres.Silver.tinyDust.newStack(),
-					stoneDust.newStack()					});
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.purifiedCrushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					MetallicOres.Silver.tinyDust.newStack()	});
+				this.registerIC2Centrifuge(2500, MetallicOres.Silver.tinyDust.newStack());
 				break;
 			case Nickel:
-				metadata.setInteger("minHeat", 2000);
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.crushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					DustOres.Sulfur.tinyDust.newStack(),
-					stoneDust.newStack()					});
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.purifiedCrushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					DustOres.Sulfur.tinyDust.newStack()		});
+				this.registerIC2Centrifuge(2000, DustOres.Sulfur.tinyDust.newStack());
 				break;
 			case Osmium:
-				metadata.setInteger("minHeat", 4000);
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.crushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					DustOres.Sulfur.tinyDust.newStack(),
-					stoneDust.newStack()					});
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.purifiedCrushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					DustOres.Sulfur.tinyDust.newStack()		});
+				this.registerIC2Centrifuge(4000, DustOres.Sulfur.tinyDust.newStack());
 				break;
 			case Platinum:
-				metadata.setInteger("minHeat", 3000);
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.crushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					DustOres.Sulfur.tinyDust.newStack(),
-					stoneDust.newStack()					});
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.purifiedCrushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					DustOres.Sulfur.tinyDust.newStack()		});
+				this.registerIC2Centrifuge(3000, DustOres.Sulfur.tinyDust.newStack());
 				break;
 			case Yellorium:
 				this.registerIC2Centrifuge(3000, MetallicOres.Iron.tinyDust.newStack());
 				break;
 			case Zinc:
-				metadata.setInteger("minHeat", 500);
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.crushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					DustOres.Sulfur.tinyDust.newStack(),
-					stoneDust.newStack()					});
-				Helpers.IC2.registerRecipe(RecipeType.Centrifuge, this.purifiedCrushedOre.newStack(), metadata, new ItemStack[] {
-					this.dust.newStack(),
-					DustOres.Sulfur.tinyDust.newStack()		});
+				this.registerIC2Centrifuge(500, DustOres.Sulfur.tinyDust.newStack());
 				break;
 			default:
 			}
@@ -501,5 +476,11 @@ public enum MetallicOres implements IOreList {
 			return 0;
 		}
 		return this._tradeFromAmount + random.nextInt(this._tradeFromAmount / 4);
+	}
+
+	@Override
+	public void registerFluids() {
+		// TODO Auto-generated method stub
+		
 	}
 }

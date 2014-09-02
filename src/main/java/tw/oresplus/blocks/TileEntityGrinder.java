@@ -19,22 +19,28 @@ public class TileEntityGrinder extends TileEntityMachine {
     private static final int[] slotsTop = new int[] {0};
     private static final int[] slotsBottom = new int[] {3, 1};
     private static final int[] slotsSides = new int[] {1};
-
+    
     public TileEntityGrinder() {
 		super(1200.0F);
 		this.inventory = new ItemStack[4];
 		this.inventoryName = "container:grinder";
 		this.initFurnace(furnaceItemSlot);
+		this.logTicker = 0;
 	}
 	
 	@Override
 	public void updateEntity() {
+		
 		super.updateEntity();
 		if (this.hasWork()) {
 			float energyRequired = this._minimumBCEnergyRequired / this._efficiancy;
+			/*
 			if (this.powerHandler.useEnergy(energyRequired, energyRequired, true) != energyRequired)
 				return;
-			this.grindItem((int)energyRequired);
+			*/
+			if (this.useEnergy(energyRequired)) {
+				this.grindItem((int)energyRequired);
+			}
 		}
 	}
 	
@@ -144,7 +150,35 @@ public class TileEntityGrinder extends TileEntityMachine {
 	public void sendUpdatePacket() {
 		if (!this.worldObj.isRemote) {
 			NBTTagCompound update = new NBTTagCompound();
-			this.writeToNBT(update);
+			update.setFloat("energySpent", this._energySpent);
+			update.setInteger("furnaceBurnTime", this._furnaceBurnTime);
+			update.setInteger("currentItemBurnTime", this._currentItemBurnTime);
+			update.setFloat("energyBuffer", this._energyBuffer);
+			
+			NBTTagCompound furnaceItem = new NBTTagCompound();
+			if (inventory[furnaceItemSlot] != null) {
+				inventory[furnaceItemSlot].writeToNBT(furnaceItem);
+				update.setTag("furnaceItem", furnaceItem);
+			}
+			
+			NBTTagCompound sourceItem = new NBTTagCompound();
+			if (inventory[sourceItemSlot] != null) {
+				inventory[sourceItemSlot].writeToNBT(sourceItem);
+				update.setTag("sourceItem", sourceItem);
+			}
+			
+			NBTTagCompound currentItem = new NBTTagCompound();
+			if (inventory[currentItemSlot] != null) {
+				inventory[currentItemSlot].writeToNBT(currentItem);
+				update.setTag("currentItem", currentItem);
+			}
+			
+			NBTTagCompound outputItem = new NBTTagCompound();
+			if (inventory[outputItemSlot] != null) {
+				inventory[outputItemSlot].writeToNBT(outputItem);				
+				update.setTag("outputItem", outputItem);
+			}
+			
 			if (!this.updateData.equals(update)) {
 				OresPlus.netHandler.sendToPlayers(new PacketUpdateGrinder(update, this.xCoord, this.yCoord, this.zCoord));
 				this.updateData = update;
@@ -154,9 +188,22 @@ public class TileEntityGrinder extends TileEntityMachine {
 	
 	@Override
 	public void recieveUpdatePacket(NBTTagCompound data) {
-		this.powerHandler.readFromNBT(data);
 		this._energySpent = data.getFloat("energySpent");
 		this._furnaceBurnTime = data.getInteger("furnaceBurnTime");
+		this._currentItemBurnTime = data.getInteger("currentItemBurnTime");
+		this._energyBuffer = data.getFloat("energyBufer");
+		if (!data.getCompoundTag("furnaceItem").hasNoTags()) {
+			this.inventory[furnaceItemSlot].readFromNBT(data.getCompoundTag("furnaceItem"));
+		}
+		if (!data.getCompoundTag("sourceItem").hasNoTags()) {
+			this.inventory[sourceItemSlot].readFromNBT(data.getCompoundTag("sourceItem"));
+		}
+		if (!data.getCompoundTag("currentItem").hasNoTags()) {
+			this.inventory[currentItemSlot].readFromNBT(data.getCompoundTag("currentItem"));
+		}
+		if (!data.getCompoundTag("outputItem").hasNoTags()) {
+			this.inventory[outputItemSlot].readFromNBT(data.getCompoundTag("outputItem"));
+		}
 	}
 
 }

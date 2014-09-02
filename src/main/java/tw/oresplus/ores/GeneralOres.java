@@ -126,4 +126,10 @@ public enum GeneralOres implements IOreList {
 	public int getTradeFromAmount(Random random) {
 		return 0;
 	}
+
+	@Override
+	public void registerFluids() {
+		// TODO Auto-generated method stub
+		
+	}
 }

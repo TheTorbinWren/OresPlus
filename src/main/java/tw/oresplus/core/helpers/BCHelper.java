@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
-import tw.oresplus.blocks.Blocks;
+import tw.oresplus.blocks.BlockManager;
 import tw.oresplus.recipes.RecipeType;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;

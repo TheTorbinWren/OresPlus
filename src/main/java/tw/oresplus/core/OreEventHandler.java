@@ -3,7 +3,7 @@ package tw.oresplus.core;
 import java.util.ArrayList;
 
 import tw.oresplus.OresPlus;
-import tw.oresplus.blocks.Blocks;
+import tw.oresplus.blocks.BlockManager;
 import tw.oresplus.worldgen.IOreGenerator;
 import tw.oresplus.worldgen.OreGenType;
 import tw.oresplus.worldgen.OreGenerators;

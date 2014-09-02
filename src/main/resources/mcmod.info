@@ -1,6 +1,6 @@
 [
 	{
-	  "modid" : "oresplus",
+	  "modid" : "OresPlus",
 	  "name" : "OresPlus",
 	  "description" : "Add and manage ores in your minecraft world.",
 	  "version" : "${version}",

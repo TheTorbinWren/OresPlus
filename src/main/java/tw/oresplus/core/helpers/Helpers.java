@@ -21,7 +21,8 @@ public enum Helpers {
 	ThermalExpansion(new TEHelper()),
 	Tinkers(new TinkersHelper()),
 	Treecapitator(new TreecapitatorHelper()), 
-	BigReactors(new BigReactorsHelper());
+	BigReactors(new BigReactorsHelper()), 
+	MineFactoryReloaded(new MFRHelper());
 	
 	private OresHelper _oresHelper;
 	

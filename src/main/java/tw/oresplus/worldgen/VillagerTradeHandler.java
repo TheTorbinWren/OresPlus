@@ -2,7 +2,7 @@ package tw.oresplus.worldgen;
 
 import java.util.Random;
 
-import tw.oresplus.items.Items;
+import tw.oresplus.items.ItemManager;
 import tw.oresplus.items.OreArmor;
 import tw.oresplus.items.OreAxe;
 import tw.oresplus.items.OreHoe;
@@ -40,33 +40,33 @@ public class VillagerTradeHandler implements IVillageTradeHandler {
 			MerchantRecipeList recipeList, Random random) {
 		switch (this._villagerID) {
 		case VILLAGER_BLACKSMITH:
-			recipeList.add(this.getMerchantRecipeFor(Items.armorAdamantineBoots, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.armorAdamantineChestplate, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.armorAdamantineHelmet, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.armorAdamantineLeggings, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolAdamantineAxe, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolAdamantineHoe, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolAdamantinePickaxe, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolAdamantineSpade, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolAdamantineSword, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.armorColdironBoots, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.armorColdironChestplate, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.armorColdironHelmet, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.armorColdironLeggings, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolColdironAxe, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolColdironHoe, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolColdironPickaxe, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolColdironSpade, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolColdironSword, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.armorMithralBoots, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.armorMithralChestplate, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.armorMithralHelmet, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.armorMithralLeggings, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolMithralAxe, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolMithralHoe, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolMithralPickaxe, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolMithralSpade, random));
-			recipeList.add(this.getMerchantRecipeFor(Items.toolMithralSword, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.armorAdamantineBoots, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.armorAdamantineChestplate, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.armorAdamantineHelmet, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.armorAdamantineLeggings, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolAdamantineAxe, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolAdamantineHoe, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolAdamantinePickaxe, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolAdamantineSpade, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolAdamantineSword, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.armorColdironBoots, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.armorColdironChestplate, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.armorColdironHelmet, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.armorColdironLeggings, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolColdironAxe, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolColdironHoe, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolColdironPickaxe, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolColdironSpade, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolColdironSword, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.armorMithralBoots, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.armorMithralChestplate, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.armorMithralHelmet, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.armorMithralLeggings, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolMithralAxe, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolMithralHoe, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolMithralPickaxe, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolMithralSpade, random));
+			recipeList.add(this.getMerchantRecipeFor(ItemManager.toolMithralSword, random));
 			int tradeAmount;
 			for (MetallicOres ore : MetallicOres.values()) {
 				tradeAmount = ore.getTradeToAmount(random);
@@ -100,13 +100,13 @@ public class VillagerTradeHandler implements IVillageTradeHandler {
 			}
 			itemTypeCost = 5;
 			ArmorMaterial material = ((OreArmor)source).getArmorMaterial();
-			if (material == Items.armorAdamantine) {
+			if (material == ItemManager.armorAdamantine) {
 				materialCost = 5;
 			} 
-			else if (material == Items.armorColdiron) {
+			else if (material == ItemManager.armorColdiron) {
 				materialCost = 1;
 			}
-			else if (material == Items.armorMithral) {
+			else if (material == ItemManager.armorMithral) {
 				materialCost = 3;
 			}
 		}
@@ -123,13 +123,13 @@ public class VillagerTradeHandler implements IVillageTradeHandler {
 				itemTypeCost = 5;
 			}
 			ToolMaterial material = ((ItemTool)source).func_150913_i();
-			if (material == Items.toolAdamantine) {
+			if (material == ItemManager.toolAdamantine) {
 				materialCost = 5;
 			}
-			else if (material == Items.toolColdiron) {
+			else if (material == ItemManager.toolColdiron) {
 				materialCost = 1;
 			}
-			else if (material == Items.toolMithral) {
+			else if (material == ItemManager.toolMithral) {
 				materialCost = 3;
 			}
 		}

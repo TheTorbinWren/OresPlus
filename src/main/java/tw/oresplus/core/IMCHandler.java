@@ -3,7 +3,7 @@ package tw.oresplus.core;
 import net.minecraft.nbt.NBTTagCompound;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
-import tw.oresplus.blocks.Blocks;
+import tw.oresplus.blocks.BlockManager;
 import tw.oresplus.worldgen.OreGenClass;
 import tw.oresplus.worldgen.OreGenType;
 import tw.oresplus.worldgen.WorldGenOre;

@@ -11,6 +11,8 @@ public class Ores {
 	
 	public static IOreManager manager;
 	
+	public static IOreFluidManager fluidManager;
+	
 	public static IOreRecipeManager grinderRecipes;
 	public static IOreFluidRecipeManager crackerRecipes;
 

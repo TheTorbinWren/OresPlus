@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import tw.oresplus.OresPlus;
-import tw.oresplus.blocks.Blocks;
+import tw.oresplus.blocks.BlockManager;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
