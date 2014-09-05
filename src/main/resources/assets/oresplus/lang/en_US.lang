@@ -12,6 +12,8 @@ item.clumpAdamantine.name=Adamantine Clump
 item.dustDirtyAdamantine.name=Dirty Adamantine Dust
 item.shardAdamantine.name=Adamantine Shard
 item.crystalAdamantine.name=Adamantine Crystal
+gas.slurryAdamantine=Adamantine Slurry
+gas.slurryCleanAdamantine=Clean Adamantine Slurry
 
 tile.oreAluminium.name=Aluminium Ore
 tile.oreNetherAluminium.name=Nether Aluminium Ore
@@ -27,6 +29,8 @@ item.clumpAluminium.name=Aluminium Clump
 item.dustDirtyAluminium.name=Dirty Aluminium Dust
 item.shardAluminium.name=Aluminium Shard
 item.crystalAluminium.name=Aluminium Crystal
+gas.slurryAluminium=Aluminium Slurry
+gas.slurryCleanAluminium=Clean Aluminium Slurry
 
 tile.oreArdite.name=Ardite Ore
 tile.oreNetherArdite.name=Nether Ardite Ore
@@ -42,6 +46,8 @@ item.clumpArdite.name=Ardite Clump
 item.dustDirtyArdite.name=Dirty Ardite Dust
 item.shardArdite.name=Ardite Shard
 item.crystalArdite.name=Ardite Crystal
+gas.slurryArdite=Ardite Slurry
+gas.slurryCleanArdite=Clean Ardite Slurry
 
 tile.blockBrass.name=Block of Brass
 item.ingotBrass.name=Brass Ingot
@@ -69,6 +75,8 @@ item.clumpCobalt.name=Cobalt Clump
 item.dustDirtyCobalt.name=Dirty Cobalt Dust
 item.shardCobalt.name=Cobalt Shard
 item.crystalCobalt.name=Cobalt Crystal
+gas.slurryCobalt=Cobalt Slurry
+gas.slurryCleanCobalt=Clean Cobalt Slurry
 
 tile.oreColdiron.name=Cold Iron Ore
 tile.oreNetherColdiron.name=Nether Cold Iron Ore
@@ -84,6 +92,8 @@ item.clumpColdiron.name=Cold Iron Clump
 item.dustDirtyColdiron.name=Dirty Cold Iron Dust
 item.shardColdiron.name=Cold Iron Shard
 item.crystalColdiron.name=Cold Iron Crystal
+gas.slurryColdiron=Cold Iron Slurry
+gas.slurryCleanColdiron=Clean Cold Iron Slurry
 
 tile.oreCopper.name=Copper Ore
 tile.oreNetherCopper.name=Nether Copper Ore
@@ -99,6 +109,8 @@ item.clumpCopper.name=Copper Clump
 item.dustDirtyCopper.name=Dirty Copper Dust
 item.shardCopper.name=Copper Shard
 item.crystalCopper.name=Copper Crystal
+gas.slurryCopper=Copper Slurry
+gas.slurryCleanCopper=Clean Copper Slurry
 
 tile.blockElectrum.name=Block of Electrum
 item.ingotElectrum.name=Electrum Ingot
@@ -116,6 +128,8 @@ item.clumpGold.name=Gold Clump
 item.dustDirtyGold.name=Dirty Gold Dust
 item.shardGold.name=Gold Shard
 item.crystalGold.name=Gold Crystal
+gas.slurryGold=Gold Slurry
+gas.slurryCleanGold=Clean Gold Slurry
 
 tile.oreNetherIron.name=Nether Iron Ore
 item.nuggetIron.name=Iron Nugget
@@ -128,6 +142,8 @@ item.clumpIron.name=Iron Clump
 item.dustDirtyIron.name=Dirty Iron Dust
 item.shardIron.name=Iron Shard
 item.crystalIron.name=Iron Crystal
+gas.slurryIron=Iron Slurry
+gas.slurryCleanIron=Clean Iron Slurry
 
 tile.oreLead.name=Lead Ore
 tile.oreNetherLead.name=Nether Lead Ore
@@ -143,6 +159,8 @@ item.clumpLead.name=Lead Clump
 item.dustDirtyLead.name=Dirty Lead Dust
 item.shardLead.name=Lead Shard
 item.crystalLead.name=Lead Crystal
+gas.slurryLead=Lead Slurry
+gas.slurryCleanLead=Clean Lead Slurry
 
 tile.oreManganese.name=Manganese Ore
 tile.oreNetherManganese.name=Nether Manganese Ore
@@ -158,6 +176,8 @@ item.clumpManganese.name=Manganese Clump
 item.dustDirtyManganese.name=Dirty Manganese Dust
 item.shardManganese.name=Manganese Shard
 item.crystalManganese.name=Manganese Crystal
+gas.slurryManganese=Manganese Slurry
+gas.slurryCleanManganese=Clean Manganese Slurry
 
 tile.oreMithral.name=Mithral Ore
 tile.oreNetherMithral.name=Nether Mithral Ore
@@ -173,6 +193,8 @@ item.clumpMithral.name=Mithral Clump
 item.dustDirtyMithral.name=Dirty Mithral Dust
 item.shardMithral.name=Mithral Shard
 item.crystalMithral.name=Mithral Crystal
+gas.slurryMithral=Mithral Slurry
+gas.slurryCleanMithral=Clean Mithral Slurry
 
 tile.oreNickel.name=Nickel Ore
 tile.oreNetherNickel.name=Nether Nickel Ore
@@ -188,6 +210,8 @@ item.clumpNickel.name=Nickel Clump
 item.dustDirtyNickel.name=Dirty Nickel Dust
 item.shardNickel.name=Nickel Shard
 item.crystalNickel.name=Nickel Crystal
+gas.slurryNickel=Nickel Slurry
+gas.slurryCleanNickel=Clean Nickel Slurry
 
 tile.oreOsmium.name=Osmium Ore
 tile.oreNetherOsmium.name=Nether Osmium Ore
@@ -203,6 +227,8 @@ item.clumpOsmium.name=Osmium Clump
 item.dustDirtyOsmium.name=Dirty Osmium Dust
 item.shardOsmium.name=Osmium Shard
 item.crystalOsmium.name=Osmium Crystal
+gas.slurryOsmium=Osmium Slurry
+gas.slurryCleanOsmium=Clean Osmium Slurry
 
 tile.orePlatinum.name=Platinum Ore
 tile.oreNetherPlatinum.name=Nether Platinum Ore
@@ -218,6 +244,8 @@ item.clumpPlatinum.name=Platinum Clump
 item.dustDirtyPlatinum.name=Dirty Platinum Dust
 item.shardPlatinum.name=Platinum Shard
 item.crystalPlatinum.name=Platinum Crystal
+gas.slurryPlatinum=Platinum Slurry
+gas.slurryCleanPlatinum=Clean Platinum Slurry
 
 tile.oreSilver.name=Silver Ore
 tile.oreNetherSilver.name=Nether Silver Ore
@@ -233,6 +261,8 @@ item.clumpSilver.name=Silver Clump
 item.dustDirtySilver.name=Dirty Silver Dust
 item.shardSilver.name=Silver Shard
 item.crystalSilver.name=Silver Crystal
+gas.slurrySilver=Silver Slurry
+gas.slurryCleanSilver=Clean Silver Slurry
 
 tile.oreTin.name=Tin Ore
 tile.oreNetherTin.name=Nether Tin Ore
@@ -248,6 +278,8 @@ item.clumpTin.name=Tin Clump
 item.dustDirtyTin.name=Dirty Tin Dust
 item.shardTin.name=Tin Shard
 item.crystalTin.name=Tin Crystal
+gas.slurryTin=Tin Slurry
+gas.slurryCleanTin=Clean Tin Slurry
 
 tile.oreYellorium.name=Yellorite Ore
 tile.oreNetherYellorium.name=Nether Yellorite Ore
@@ -261,8 +293,10 @@ item.crushedPurifiedYellorium.name=Purified Crushed Yellorite Ore
 item.nativeClusterYellorium.name=Native Yellorium Cluster
 item.clumpYellorium.name=Yellorium Clump
 item.dustDirtyYellorium.name=Dirty Yellorium Dust
-item.shardYellorite.name=Yellorite Shard
+item.shardYellorium.name=Yellorite Shard
 item.crystalYellorium.name=Yellorium Crystal
+gas.slurryYellorite=Yellorite Slurry
+gas.slurryCleanYellorite=Clean Yellorite Slurry
 
 tile.oreZinc.name=Zinc Ore
 tile.oreNetherZinc.name=Nether Zinc Ore
@@ -278,6 +312,8 @@ item.clumpZinc.name=Zinc Clump
 item.dustDirtyZinc.name=Dirty Zinc Dust
 item.shardZinc.name=Zinc Shard
 item.crystalZinc.name=Zinc Crystal
+gas.slurryZinc=Zinc Slurry
+gas.slurryCleanZinc=Clean Zinc Slurry
 
 tile.oreAmethyst.name=Amethyst Ore
 tile.oreNetherAmethyst.name=Nether Amethyst Ore

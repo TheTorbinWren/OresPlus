@@ -1,3 +1,15 @@
+v0.8.1.47
+-added mekanism ore gasses
+-added tier 4 mekanism processing 
+
+v0.8.0.46
+-fixed reactor casing recipe (was only outputting 1 casing)
+
+v0.8.0.45
+-added certus quartz ore to certus quartz dust recipe
+-added missing mekanism clump to dirty dust crusher recipe for metallic ores
+-fixed yellorium shard localization
+
 v0.8.0.44
 -added ore chunks. dirty dusts & shards
 -added Tier 2 & 3 Mekanism ore processing

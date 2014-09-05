@@ -3,6 +3,7 @@ package tw.oresplus.core.helpers;
 import java.util.Random;
 
 import tw.oresplus.recipes.RecipeType;
+import mekanism.api.gas.OreGas;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -64,6 +65,17 @@ public enum Helpers {
 	
 	public void registerRecipe(RecipeType recipeType, ItemStack input, NBTTagCompound metadata, ItemStack... outputs) {
 		this._oresHelper.registerRecipe(recipeType, input, metadata, outputs);
+	}
+
+	public void registerGasRecipe(RecipeType recipeType,
+			Object input, NBTTagCompound metadata, Object output) {
+		this.registerGasRecipe(recipeType, input, metadata, output, null);
+	}
+	
+	public void registerGasRecipe(RecipeType recipeType,
+			Object input, NBTTagCompound metadata, Object output, Object secondaryOutput) {
+		// TODO Auto-generated method stub
+		this._oresHelper.registerGasRecipe(recipeType, input, metadata, output, secondaryOutput);
 	}
 	
 }

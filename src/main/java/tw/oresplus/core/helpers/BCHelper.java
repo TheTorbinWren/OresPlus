@@ -134,4 +134,8 @@ public class BCHelper extends OresHelper {
 		return result;
 	}
 
+	@Override
+	public void registerGasRecipe(RecipeType recipeType, Object input,
+			NBTTagCompound metadata, Object output, Object secondaryOutput) { }
+
 }

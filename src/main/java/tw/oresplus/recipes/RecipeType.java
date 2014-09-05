@@ -9,5 +9,9 @@ public enum RecipeType {
 	Scanner,
 	EnrichmentChamber, 
 	PurificationChamber, 
-	ChemicalInjector;
+	ChemicalInjector, 
+	Crusher, 
+	ChemicalDissolver, 
+	ChemicalWasher, 
+	ChemicalCrystalizer;
 }

@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "0.8.0.44B"
+version = "0.8.1.47B"
 group= "tw.oresplus" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "OresPlus"
 

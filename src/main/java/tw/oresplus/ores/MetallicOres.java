@@ -2,6 +2,10 @@ package tw.oresplus.ores;
 
 import java.util.Random;
 
+import mekanism.api.gas.Gas;
+import mekanism.api.gas.GasRegistry;
+import mekanism.api.gas.GasStack;
+import mekanism.api.gas.OreGas;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -79,8 +83,8 @@ public enum MetallicOres implements IOreList {
 	public OreItemStack shard;
 	public OreItemStack crystal;
 	
-	public FluidStack slurry;
-	public FluidStack cleanSlurry;
+	public OreGas slurry;
+	public OreGas cleanSlurry;
 	
 	private int _harvestLevel;
 	private int _xpLow;
@@ -295,6 +299,10 @@ public enum MetallicOres implements IOreList {
 			}
 			
 			if (Helpers.Mekanism.isLoaded()) {
+				// register slurrys
+				this.cleanSlurry = (OreGas)GasRegistry.register(new OreGas(this.cleanSlurryName, this.cleanSlurryName).setVisible(false));
+				this.slurry = (OreGas)GasRegistry.register(new OreGas(this.slurryName, this.slurryName).setCleanGas(this.cleanSlurry).setVisible(false));
+				
 				// register Mekanism enrichment chamber recipe
 				Helpers.Mekanism.registerRecipe(RecipeType.EnrichmentChamber, this.ore.newStack(), this.dust.newStack(2));
 				
@@ -314,6 +322,18 @@ public enum MetallicOres implements IOreList {
 				
 				// register Mekanism crystal to shard recipe
 				Helpers.Mekanism.registerRecipe(RecipeType.ChemicalInjector, this.crystal.newStack(), metadata, this.shard.newStack());
+				
+				// register Mekanism clump to dirty dust recipe
+				Helpers.Mekanism.registerRecipe(RecipeType.Crusher, this.clump.newStack(), this.dirtyDust.newStack());
+				
+				// register Mekanism chemical dissolution chamber recipe
+				Helpers.Mekanism.registerGasRecipe(RecipeType.ChemicalDissolver, this.ore.newStack(), null, new GasStack(this.slurry, 1000));
+				
+				// register Mekanism chemical washer recipe
+				Helpers.Mekanism.registerGasRecipe(RecipeType.ChemicalWasher, new GasStack(this.slurry, 1), null, new GasStack(this.cleanSlurry, 1));
+				
+				// register Mekanism chemical crystallizer recipe
+				Helpers.Mekanism.registerGasRecipe(RecipeType.ChemicalCrystalizer, new GasStack(this.cleanSlurry, 200), null, this.crystal.newStack());
 			}
 			
 			if (Helpers.IC2.isLoaded()) {

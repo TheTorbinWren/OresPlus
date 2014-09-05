@@ -79,4 +79,8 @@ public class TCHelper extends OresHelper {
 		if (!this.isLoaded()) 
 			return;
 	}
+
+	@Override
+	public void registerGasRecipe(RecipeType recipeType, Object input,
+			NBTTagCompound metadata, Object output, Object secondaryOutput) { }
 }

@@ -72,4 +72,8 @@ public class AppEngHelper extends OresHelper {
 		}
 	}
 
+	@Override
+	public void registerGasRecipe(RecipeType recipeType, Object input,
+			NBTTagCompound metadata, Object output, Object secondaryOutput) { }
+
 }

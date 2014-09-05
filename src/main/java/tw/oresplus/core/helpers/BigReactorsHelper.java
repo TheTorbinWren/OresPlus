@@ -29,4 +29,8 @@ public class BigReactorsHelper extends OresHelper {
 	public void registerRecipe(RecipeType recipeType, ItemStack input,
 			NBTTagCompound metadata, ItemStack... outputs) { }
 
+	@Override
+	public void registerGasRecipe(RecipeType recipeType, Object input,
+			NBTTagCompound metadata, Object output, Object secondaryOutput) { }
+
 }

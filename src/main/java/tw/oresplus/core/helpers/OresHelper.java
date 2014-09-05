@@ -45,4 +45,7 @@ public abstract class OresHelper {
 	}
 	
 	public abstract void registerRecipe(RecipeType recipeType, ItemStack input, NBTTagCompound metadata, ItemStack... outputs);
+
+	public abstract void registerGasRecipe(RecipeType recipeType, Object input,
+			NBTTagCompound metadata, Object output, Object secondaryOutput);
 }

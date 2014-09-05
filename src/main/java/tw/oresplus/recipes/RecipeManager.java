@@ -206,7 +206,7 @@ public class RecipeManager {
 			OreItemStack reactorRedstonePort = new OreItemStack(Helpers.BigReactors.getBlock("BRReactorRedstonePort"));
 			
 			addShapedRecipe(fuelRod.newStack(), "igi", "iyi", "igi", 'i', MetallicOres.Iron.ingot.newStack(), 'g', graphiteBar.newStack(), 'y', MetallicOres.Yellorium.ingot.newStack());
-			addShapedRecipe(reactorCasing.newStack(), "igi", "gyg", "igi", 'i', MetallicOres.Iron.ingot.newStack(), 'g', graphiteBar.newStack(), 'y', MetallicOres.Yellorium.ingot.newStack());
+			addShapedRecipe(reactorCasing.newStack(4), "igi", "gyg", "igi", 'i', MetallicOres.Iron.ingot.newStack(), 'g', graphiteBar.newStack(), 'y', MetallicOres.Yellorium.ingot.newStack());
 			addShapedRecipe(reactorController.newStack(), "R R", "ydy", "RrR", 'R', reactorCasing.newStack(), 'y', MetallicOres.Yellorium.ingot.newStack(), 'd', GemstoneOres.Diamond.gem.newStack(), 'r', DustOres.Redstone.dust.newStack());
 			addShapedRecipe(reactorControlRod.newStack(), "RgR", "grg", "RyR", 'R', reactorCasing.newStack(), 'g', graphiteBar.newStack(), 'r', DustOres.Redstone.dust.newStack(), 'y', MetallicOres.Yellorium.ingot.newStack());
 			addShapedRecipe(reactorPowerTap.newStack(), "RrR", "r r", "RrR", 'R', reactorCasing.newStack(), 'r', DustOres.Redstone.dust.newStack());
@@ -218,6 +218,11 @@ public class RecipeManager {
 			}
 			//addShapedRecipe(reactorComputerPort.newStack());
 			addShapedRecipe(reactorRedstonePort.newStack(), "RrR", "rgr", "RrR", 'R', reactorCasing.newStack(), 'r', DustOres.Redstone.dust.newStack(), 'g', MetallicOres.Gold.ingot.newStack());
+		}
+		
+		if (Helpers.AppliedEnergistics.isLoaded()) {
+			OreItemStack certusQuartzDust = new OreItemStack(Helpers.AppliedEnergistics.getItem("item.ItemMultiMaterial"), 2);
+			Helpers.IC2.registerRecipe(RecipeType.Macerator, GeneralOres.CertusQuartz.ore.newStack(), certusQuartzDust.newStack(2));
 		}
 	}
 
