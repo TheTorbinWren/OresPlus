@@ -12,6 +12,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.core.OreLog;
+import tw.oresplus.core.References;
 
 public class ItemCore extends Item{
 	protected int itemId;
@@ -19,7 +20,7 @@ public class ItemCore extends Item{
 	public ItemCore(String itemName) {
 		super();
 		setUnlocalizedName(itemName);
-		setTextureName(OresPlus.MOD_ID + ":" + itemName);
+		setTextureName(References.MOD_ID + ":" + itemName);
 		Ores.manager.registerOreItem(itemName, this);
 		GameRegistry.registerItem(this, itemName);
 		OreDictionary.registerOre(itemName, this);

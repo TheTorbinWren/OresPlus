@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import scala.reflect.internal.Trees.This;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
@@ -114,6 +115,7 @@ public enum GemstoneOres implements IOreList {
 				.setHardness(5.0F)
 				.setResistance(10.0F)
 			.	setStepSound(Block.soundTypeMetal));
+			OreDictionary.registerOre(this.blockName, this.block.source);
 		}
 		else if (this == Diamond) {
 			this.block = new OreItemStack(net.minecraft.init.Blocks.diamond_block);

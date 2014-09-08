@@ -14,7 +14,6 @@ public enum Helpers {
 	AppliedEnergistics(new AppEngHelper()),
 	BuildCraft(new BCHelper()),
 	Forestry(new ForestryHelper()),
-	GregTech(new GTHelper()),
 	IC2(new IC2Helper()),
 	Mekanism(new MekanismHelper()),
 	RailCraft(new RCHelper()),

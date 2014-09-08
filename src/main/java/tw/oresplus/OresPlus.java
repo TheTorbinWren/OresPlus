@@ -29,12 +29,14 @@ import tw.oresplus.blocks.BlockOre;
 import tw.oresplus.blocks.BlockManager;
 import tw.oresplus.blocks.OldTileEntityCracker;
 import tw.oresplus.blocks.TileEntityGrinder;
+import tw.oresplus.core.BucketHandler;
 import tw.oresplus.core.GuiHandler;
 import tw.oresplus.core.IMCHandler;
 import tw.oresplus.core.IProxy;
 import tw.oresplus.core.ItemMapHelper;
 import tw.oresplus.core.OreEventHandler;
 import tw.oresplus.core.OreLog;
+import tw.oresplus.core.References;
 import tw.oresplus.core.TickHandler;
 import tw.oresplus.core.config.ConfigCore;
 import tw.oresplus.core.config.ConfigMain;
@@ -61,17 +63,13 @@ import tw.oresplus.worldgen.VillagerTradeHandler;
 import tw.oresplus.worldgen.WorldGenCore;
 import tw.oresplus.worldgen.WorldGenOre;
 
-@Mod(modid = OresPlus.MOD_ID, name = OresPlus.MOD_NAME, version = OresPlus.MOD_VERSION, dependencies="required-after:Forge@10.13.0.1180")
+@Mod(modid = References.MOD_ID, name = References.MOD_NAME, version = References.MOD_VERSION, dependencies="required-after:Forge@10.13.0.1180;after:TConstruct")
 public class OresPlus {
 	
 	@SidedProxy(clientSide="tw.oresplus.client.ClientProxy", serverSide="tw.oresplus.core.ServerProxy") 
 	public static IProxy proxy;
 	
-    public static final String MOD_ID = "OresPlus";
-    public static final String MOD_NAME = "OresPlus";
-    public static final String MOD_VERSION = "0.8.1.47B";
-    
-	@Instance(OresPlus.MOD_ID)
+	@Instance(References.MOD_ID)
 	public static OresPlus instance;
 
     public static OreLog log;
@@ -90,6 +88,7 @@ public class OresPlus {
     
     public static WorldGenCore worldGen = new WorldGenCore();
     public static OreEventHandler eventHandler = new OreEventHandler();
+    public static BucketHandler bucketHandler = new BucketHandler();
     public static TickHandler tickHandler = new TickHandler();
     public static IMCHandler imcHandler = new IMCHandler();
     public static ItemMapHelper itemMapHelper;
@@ -125,6 +124,7 @@ public class OresPlus {
     	ItemManager.init();
     	FluidManager.init();
 
+    	// register aluminium->aluminum ore dictionary 
     	OreDictionary.registerOre("oreAluminum", MetallicOres.Aluminium.ore.source);
     	OreDictionary.registerOre("oreNetherAluminum", MetallicOres.Aluminium.netherOre.source);
     	OreDictionary.registerOre("blockAluminum", MetallicOres.Aluminium.block.source);
@@ -134,6 +134,12 @@ public class OresPlus {
     	OreDictionary.registerOre("crushedPurifiedAluminum", MetallicOres.Aluminium.purifiedCrushedOre.source);
     	OreDictionary.registerOre("dustAluminum", MetallicOres.Aluminium.dust.source);
     	OreDictionary.registerOre("dustTinyAluminum", MetallicOres.Aluminium.tinyDust.source);
+    	OreDictionary.registerOre("clusterAluminum", MetallicOres.Aluminium.cluster.source);
+    	OreDictionary.registerOre("dustDirtyAluminum", MetallicOres.Aluminium.dirtyDust.source);
+    	OreDictionary.registerOre("clumpAluminum", MetallicOres.Aluminium.clump.source);
+    	OreDictionary.registerOre("shardAluminum", MetallicOres.Aluminium.shard.source);
+    	OreDictionary.registerOre("crystalAluminum", MetallicOres.Aluminium.crystal.source);
+    	// register mercury-> quicksilver ore dictionary
     	OreDictionary.registerOre("quicksilver", Items.itemMercury.item.source);
     	
     	//Register Ore Generators
@@ -163,6 +169,7 @@ public class OresPlus {
     	GameRegistry.registerTileEntity(OldTileEntityCracker.class, "TileEntityCracker");
     	
     	MinecraftForge.EVENT_BUS.register(eventHandler);
+    	MinecraftForge.EVENT_BUS.register(bucketHandler);
     	MinecraftForge.ORE_GEN_BUS.register(eventHandler);
     	FMLCommonHandler.instance().bus().register(tickHandler);
     	

@@ -3,6 +3,7 @@ package tw.oresplus.triggers;
 import tw.oresplus.OresPlus;
 import tw.oresplus.blocks.OldTileEntityMachine;
 import tw.oresplus.blocks.TileEntityMachine;
+import tw.oresplus.core.References;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -23,7 +24,7 @@ implements ITileTrigger {
 	
 	@Override
 	public String getUniqueTag() {
-		return OresPlus.MOD_ID + ":" + (this.active ? "HasWork" : "WorkDone");
+		return References.MOD_ID + ":" + (this.active ? "HasWork" : "WorkDone");
 	}
 
 	@Override
@@ -33,7 +34,7 @@ implements ITileTrigger {
 
 	@Override
 	public void registerIcons(IIconRegister iconRegister) {
-		this.icon = iconRegister.registerIcon(OresPlus.MOD_ID + ":triggers/" + (this.active ? "hasWork" : "workDone"));
+		this.icon = iconRegister.registerIcon(References.MOD_ID + ":triggers/" + (this.active ? "hasWork" : "workDone"));
 		
 	}
 

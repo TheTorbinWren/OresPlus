@@ -6,6 +6,7 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.common.config.Property.Type;
 import tw.oresplus.OresPlus;
+import tw.oresplus.core.References;
 import tw.oresplus.ores.OreClass;
 import tw.oresplus.ores.OreDrops;
 import tw.oresplus.ores.OreSources;
@@ -26,7 +27,7 @@ public abstract class ConfigCore {
 	protected static File baseConfigDir;
 	
 	public static void setBaseDir(File modConfigDir) {
-		baseConfigDir = new File(modConfigDir, OresPlus.MOD_ID + "/");
+		baseConfigDir = new File(modConfigDir, References.MOD_ID + "/");
 	}
 	
 	public void init(String configName, File configFile) {

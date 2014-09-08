@@ -1,3 +1,13 @@
+v0.9.0.48
+-fixed localization of Yellorium slurries.
+-updated item icons
+-corrected ore dictionary registration of native clusters
+-added ore dictionary names for storage blocks
+-removed gregtech helper as i have no plans for any integration any more at this point
+-added tinkers construct integration
+-updated build.gradle, single source of versioning
+-updated mcmod.info - added localization credits
+
 v0.8.1.47
 -added mekanism ore gasses
 -added tier 4 mekanism processing 

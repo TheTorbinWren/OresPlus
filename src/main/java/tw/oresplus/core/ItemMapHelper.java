@@ -18,6 +18,9 @@ public class ItemMapHelper {
 		// Add remaps for storage blocks (oreBlockXXX -> blockXXX)
 		for (MetallicOres ore : MetallicOres.values()) {
 			remapList.put("OresPlus:oreBlock" + ore.toString(), ore.block.source.getItem());
+			if (!ore.isAlloy) {
+				remapList.put("OresPlus:nativeCluster" + ore.toString(), ore.cluster.source.getItem());
+			}
 		}
 		for (GemstoneOres ore : GemstoneOres.values()) {
 			remapList.put("OresPlus:oreBlock" + ore.toString(), ore.block.source.getItem());
@@ -33,11 +36,11 @@ public class ItemMapHelper {
 			if (this.remapList.containsKey(map.name)) {
 				switch (map.type) {
 				case BLOCK:
-					OresPlus.log.info("Remapping Missing Mapping for Block " + map.name);
+					OresPlus.log.info("Remapping missing mapping for block " + map.name);
 					map.remap(Block.getBlockFromItem(remapList.get(map.name)));
 					break;
 				default:
-					OresPlus.log.info("Remapping Missing Mapping for Item " + map.name);
+					OresPlus.log.info("Remapping missing mapping for item " + map.name);
 					map.remap(remapList.get(map.name));
 				}
 			}

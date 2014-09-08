@@ -5,6 +5,7 @@ import java.util.Random;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
 import tw.oresplus.OresPlus;
+import tw.oresplus.core.References;
 import tw.oresplus.items.OreAxe;
 import tw.oresplus.recipes.RecipeType;
 import net.minecraft.item.ItemStack;
@@ -36,10 +37,10 @@ public class TreecapitatorHelper extends OresHelper {
 		{
 			String axes = "";
 			for (String axeName : axeList) {
-				axes += ";" + OresPlus.MOD_ID + ":" + axeName;
+				axes += ";" + References.MOD_ID + ":" + axeName;
 			}
 			NBTTagCompound msg = new NBTTagCompound();
-			msg.setString("modID", OresPlus.MOD_ID);
+			msg.setString("modID", References.MOD_ID);
 			msg.setString("axeIDList", axes);
 			FMLInterModComms.sendMessage(this._modID, "ThirdPartyModConfig", msg);
 			OresPlus.log.debug("Sent axe registration for " + axes);

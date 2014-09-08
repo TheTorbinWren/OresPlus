@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
+import tw.oresplus.core.References;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -41,8 +42,8 @@ public class BlockGrinder extends BlockMachine {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister icon) {
     	super.registerBlockIcons(icon);
-    	this.iconArray[1] = icon.registerIcon(OresPlus.MOD_ID + ":grinder_side_1");
-        this.iconArray[2] = icon.registerIcon(this._isWorking ? OresPlus.MOD_ID + ":grinder_front_on_1" : OresPlus.MOD_ID + ":grinder_front_off_1");
+    	this.iconArray[1] = icon.registerIcon(References.MOD_ID + ":grinder_side_1");
+        this.iconArray[2] = icon.registerIcon(this._isWorking ? References.MOD_ID + ":grinder_front_on_1" : References.MOD_ID + ":grinder_front_off_1");
     }
 
     @SideOnly(Side.CLIENT)

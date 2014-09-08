@@ -2,6 +2,7 @@ package tw.oresplus.blocks;
 
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
+import tw.oresplus.core.References;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
@@ -28,8 +29,8 @@ public class BlockCracker extends BlockMachine {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister icon) {
     	super.registerBlockIcons(icon);
-    	this.iconArray[1] = icon.registerIcon(OresPlus.MOD_ID + ":cracker_side");
-    	this.iconArray[2] = icon.registerIcon(OresPlus.MOD_ID + (this._isWorking ? ":cracker_front_on" : ":cracker_front_off"));
+    	this.iconArray[1] = icon.registerIcon(References.MOD_ID + ":cracker_side");
+    	this.iconArray[2] = icon.registerIcon(References.MOD_ID + (this._isWorking ? ":cracker_front_on" : ":cracker_front_off"));
     }
 
     @SideOnly(Side.CLIENT)

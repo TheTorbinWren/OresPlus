@@ -31,3 +31,6 @@ src/main/java/mods/
 
 #Mekanism API
 src/main/java/mekanism/
+
+#Tinkers library
+src/main/java/tconstruct/

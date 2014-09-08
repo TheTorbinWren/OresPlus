@@ -7,15 +7,10 @@
 	  "mcversion" : "${mcversion}",
 	  "url" : "",
 	  "updateUrl" : "",
-	  "authors" : [
-	  	"TheTorbinWren"
-	  ],
-	  "credits" : "",
+	  "authorList" : ["TheTorbinWren"],
+	  "credits" : "Adaptivity, sb023612 for translations",
 	  "logoFile" : "logo.png",
-	  "screenshots" : [
-	  ],
-	  "dependencies" : [
-	  	"mod_MinecraftForge"
-	  ]
+	  "screenshots" : [],
+	  "dependencies" : ["MinecraftForge"]
 	}
 ]

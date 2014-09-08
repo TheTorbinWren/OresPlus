@@ -12,7 +12,7 @@ public class OreLog {
 	private static boolean configured = false;
 	
 	public static void init(){
-		log = LogManager.getLogger(OresPlus.MOD_ID);
+		log = LogManager.getLogger(References.MOD_ID);
 		configured = true;
 	}
 	

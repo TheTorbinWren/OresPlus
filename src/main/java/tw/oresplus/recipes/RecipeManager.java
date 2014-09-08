@@ -17,6 +17,7 @@ import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.BlockManager;
 import tw.oresplus.core.OreDictHelper;
+import tw.oresplus.core.References;
 import tw.oresplus.core.config.ConfigMain;
 import tw.oresplus.core.helpers.BCHelper;
 import tw.oresplus.core.helpers.Helpers;
@@ -287,7 +288,7 @@ public class RecipeManager {
 			if (result instanceof ItemStack) {
 				Item item = ((ItemStack)result).getItem();
 				UniqueIdentifier itemUid = GameRegistry.findUniqueIdentifierFor(item);
-				if (itemUid.modId != "minecraft" && itemUid.modId != OresPlus.MOD_ID) {
+				if (itemUid.modId != "minecraft" && itemUid.modId != References.MOD_ID) {
 					OresPlus.log.info("Recipe Result " + itemUid.modId + ":" + itemUid.name);
 					ItemStack newItem = new ItemStack(Ores.manager.getOreItem(itemUid.name), ((ItemStack)result).stackSize);
 					if (newItem != null) {

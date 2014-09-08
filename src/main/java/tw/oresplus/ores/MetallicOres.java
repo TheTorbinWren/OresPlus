@@ -2,6 +2,8 @@ package tw.oresplus.ores;
 
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mekanism.api.gas.Gas;
 import mekanism.api.gas.GasRegistry;
 import mekanism.api.gas.GasStack;
@@ -11,7 +13,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IIcon;
+import net.minecraftforge.fluids.BlockFluidClassic;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -19,10 +27,14 @@ import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.BlockCore;
 import tw.oresplus.blocks.BlockOre;
+import tw.oresplus.blocks.BlockOreFluid;
+import tw.oresplus.core.BucketHandler;
 import tw.oresplus.core.config.ConfigCore;
 import tw.oresplus.core.helpers.Helpers;
+import tw.oresplus.fluids.OreFluid;
 import tw.oresplus.items.ItemCore;
 import tw.oresplus.items.Items;
+import tw.oresplus.items.OreBucket;
 import tw.oresplus.recipes.GrinderRecipe;
 import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
@@ -60,13 +72,16 @@ public enum MetallicOres implements IOreList {
 	public String tinyDustName;
 	public String crushedOreName;
 	public String purifiedCrushedOreName;
-	public String nativeClusterName;
+	public String clusterName;
 	public String clumpName;
 	public String dirtyDustName;
 	public String shardName;
 	public String slurryName;
 	public String cleanSlurryName;
 	public String crystalName;
+	public String moltenFluidName;
+	public String moltenFluidBlockName;
+	public String bucketName;
 	
 	public OreItemStack ore;
 	public OreItemStack netherOre;
@@ -77,21 +92,26 @@ public enum MetallicOres implements IOreList {
 	public OreItemStack tinyDust;
 	public OreItemStack crushedOre;
 	public OreItemStack purifiedCrushedOre;
-	public OreItemStack nativeCluster;
+	public OreItemStack cluster;
 	public OreItemStack clump;
 	public OreItemStack dirtyDust;
 	public OreItemStack shard;
 	public OreItemStack crystal;
+	public OreItemStack bucket;
 	
 	public OreGas slurry;
 	public OreGas cleanSlurry;
 	
+	public Fluid moltenFluid;
+	public Block moltenFluidBlock;
+	
+	public boolean isAlloy;
+
 	private int _harvestLevel;
 	private int _xpLow;
 	private int _xpHigh;
 	private OreDrops _drops;
 	private OreSources _source;
-	private boolean _isAlloy;
 	private float _smeltXP;
 	private Aspect _secondaryAspect;
 	private int _tradeToAmount;
@@ -123,13 +143,16 @@ public enum MetallicOres implements IOreList {
 		this.tinyDustName = "dustTiny" + this.toString(); 
 		this.crushedOreName = "crushed" + this.toString();
 		this.purifiedCrushedOreName = "crushedPurified" + this.toString(); 
-		this.nativeClusterName = "nativeCluster" + this.toString();
+		this.clusterName = "cluster" + this.toString();
 		this.clumpName = "clump" + this.toString();
 		this.dirtyDustName = "dustDirty" + this.toString();
 		this.shardName = "shard" + this.toString();
 		this.crystalName = "crystal" + this.toString();
 		this.slurryName = "slurry" + this.toString();
 		this.cleanSlurryName = "slurryClean" + this.toString();
+		this.moltenFluidName = this.toString().toLowerCase() + ".molten";
+		this.moltenFluidBlockName = "fluid.molten." + this.toString().toLowerCase();
+		this.bucketName = "bucketMolten" + this.toString();
 		
 		this.enabled = true;
 
@@ -137,7 +160,7 @@ public enum MetallicOres implements IOreList {
 		this._xpLow = 0;
 		this._xpHigh = 0;
 		this._source = OreSources.DEFAULT;
-		this._isAlloy = isAlloy;
+		this.isAlloy = isAlloy;
 		this._drops = OreDrops.ORE;
 		this._secondaryAspect = secondaryAspect;
 		this._uuCost = uuCost;
@@ -162,7 +185,7 @@ public enum MetallicOres implements IOreList {
 	@Override
 	public void registerBlocks() {
 		// Register Ore
-		if (!this.isVanilla() && !this._isAlloy) {
+		if (!this.isVanilla() && !this.isAlloy) {
 			this.ore = new OreItemStack(new BlockOre(this.getDefaultConfig()));
 		}
 		else if (this == Gold) {
@@ -173,7 +196,7 @@ public enum MetallicOres implements IOreList {
 		}
 		
 		// Register Nether Ore
-		if (!this._isAlloy)	{
+		if (!this.isAlloy)	{
 			this.netherOre = new OreItemStack(new BlockOre(this.getDefaultConfigNether(), true));
 		}
 		
@@ -184,6 +207,7 @@ public enum MetallicOres implements IOreList {
 				.setHardness(5.0F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundTypeMetal));
+			OreDictionary.registerOre(this.blockName, this.block.source);
 		}
 		else if (this == Gold) {
 			this.block = new OreItemStack(net.minecraft.init.Blocks.gold_block);
@@ -219,23 +243,26 @@ public enum MetallicOres implements IOreList {
 		this.tinyDust = new OreItemStack(new ItemCore(this.tinyDustName).setCreativeTab(CreativeTabs.tabMaterials));
 
 		// Register Crushed & Purified Crushed Ores
-		if (!this._isAlloy) {
+		if (!this.isAlloy) {
 			this.crushedOre = new OreItemStack(new ItemCore(this.crushedOreName).setCreativeTab(CreativeTabs.tabMaterials));
 			this.purifiedCrushedOre = new OreItemStack(new ItemCore(this.purifiedCrushedOreName).setCreativeTab(CreativeTabs.tabMaterials));
 		}
 		
 		// register native clusters
-		if (!this._isAlloy) {
-			this.nativeCluster = new OreItemStack(new ItemCore(this.nativeClusterName).setCreativeTab(CreativeTabs.tabMaterials));
+		if (!this.isAlloy) {
+			this.cluster = new OreItemStack(new ItemCore(this.clusterName).setCreativeTab(CreativeTabs.tabMaterials));
 		}
 		
 		// register clumps & dirty dusts
-		if (!this._isAlloy) {
+		if (!this.isAlloy) {
 			this.clump = new OreItemStack(new ItemCore(this.clumpName).setCreativeTab(CreativeTabs.tabMaterials));
 			this.dirtyDust = new OreItemStack(new ItemCore(this.dirtyDustName).setCreativeTab(CreativeTabs.tabMaterials));
 			this.shard = new OreItemStack(new ItemCore(this.shardName).setCreativeTab(CreativeTabs.tabMaterials));
 			this.crystal = new OreItemStack(new ItemCore(this.crystalName).setCreativeTab(CreativeTabs.tabMaterials));
 		}
+		
+		// register bucket of molten ore
+		this.bucket = new OreItemStack(new OreBucket(this.bucketName, this.moltenFluidBlock).setCreativeTab(CreativeTabs.tabMisc));
 	}
 
 	@Override
@@ -250,7 +277,7 @@ public enum MetallicOres implements IOreList {
 			RecipeManager.addShapelessRecipe(this.ingot.newStack(9), this.block.newStack());
 			
 			// add ore smelting recipe
-			if (!this._isAlloy) {
+			if (!this.isAlloy) {
 				RecipeManager.addSmelting(this.ore.newStack(), this.ingot.newStack(), this._smeltXP);
 			}
 		}
@@ -278,7 +305,7 @@ public enum MetallicOres implements IOreList {
 			Helpers.ThermalExpansion.registerRecipe(RecipeType.Grinder, this.ingot.newStack(), metadata, this.dust.newStack());
 		}
 		
-		if (!this._isAlloy) {
+		if (!this.isAlloy) {
 			// add nether ore -> ore smelting recipe
 			RecipeManager.addSmelting(this.netherOre.newStack(), this.ore.newStack(2), 0.0F);
 			
@@ -433,7 +460,7 @@ public enum MetallicOres implements IOreList {
 		// add dust -> tiny dust recipe
 		RecipeManager.addShapelessRecipe(this.tinyDust.newStack(9), this.dust.newStack());
 		
-		if (!this._isAlloy) {
+		if (!this.isAlloy) {
 			// add thaumcraft ore -> native cluster crucible recipes
 			switch (this) {
 			case Iron:
@@ -444,12 +471,12 @@ public enum MetallicOres implements IOreList {
 			case Silver:
 				break;
 			default:
-				RecipeManager.addCrucibleRecipe("PUREIRON", this.nativeCluster.newStack(), this.oreName, new AspectList().add(Aspect.METAL, 1).add(Aspect.ORDER, 1));
+				RecipeManager.addCrucibleRecipe("PUREIRON", this.cluster.newStack(), this.oreName, new AspectList().add(Aspect.METAL, 1).add(Aspect.ORDER, 1));
 				break;
 			}
 			
 			// add native cluster smelting
-			RecipeManager.addSmelting(this.nativeCluster.newStack(), this.ingot.newStack(2), this._smeltXP);
+			RecipeManager.addSmelting(this.cluster.newStack(), this.ingot.newStack(2), this._smeltXP);
 		}
 	}
 	
@@ -500,7 +527,26 @@ public enum MetallicOres implements IOreList {
 
 	@Override
 	public void registerFluids() {
-		// TODO Auto-generated method stub
+		if (FluidRegistry.isFluidRegistered(this.moltenFluidName)) {
+			this.moltenFluid = FluidRegistry.getFluid(this.moltenFluidName);
+			this.moltenFluidBlock = this.moltenFluid.getBlock();
+			if (this.moltenFluidBlock == null) {
+				this.moltenFluidBlock = new BlockOreFluid(this.moltenFluid, this.moltenFluidBlockName);
+			}
+			
+		}
+		else {
+			this.moltenFluid = new OreFluid(this.moltenFluidName);
+			this.moltenFluidBlock = new BlockOreFluid(this.moltenFluid, this.moltenFluidBlockName).setCreativeTab(CreativeTabs.tabMaterials);
+		}
+		if (FluidContainerRegistry.fillFluidContainer(new FluidStack(this.moltenFluid, 1000), new ItemStack(net.minecraft.init.Items.bucket)) == null) {
+			FluidContainerRegistry.registerFluidContainer(
+					new FluidStack(this.moltenFluid, 1000), 
+					this.bucket.newStack(), 
+					new ItemStack(net.minecraft.init.Items.bucket));
+		}
 		
+		//BucketHandler.bucketMap.put(this.moltenFluidBlock, this.bucket.source.getItem());
 	}
+	
 }

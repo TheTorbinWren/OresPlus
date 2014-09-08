@@ -4,6 +4,7 @@ import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
 import tw.oresplus.OresPlus;
+import tw.oresplus.core.References;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class ConfigMain extends ConfigCore {
@@ -11,7 +12,7 @@ public class ConfigMain extends ConfigCore {
 
 	public void init(FMLPreInitializationEvent event) {
 		
-		File configFile = new File(baseConfigDir, OresPlus.MOD_ID + ".cfg");
+		File configFile = new File(baseConfigDir, References.MOD_ID + ".cfg");
 		if (!configFile.exists()) {
 			File oldConfigFile = event.getSuggestedConfigurationFile();
 			if (oldConfigFile.exists())

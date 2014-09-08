@@ -19,6 +19,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import tw.oresplus.OresPlus;
 import tw.oresplus.api.Ores;
+import tw.oresplus.core.References;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -79,8 +80,8 @@ implements ITileEntityProvider {
 	
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister icon) {
-        this.iconArray[0] = icon.registerIcon(OresPlus.MOD_ID + ":machine_top");
-        this.iconArray[1] = icon.registerIcon(OresPlus.MOD_ID + ":machine_side");
+        this.iconArray[0] = icon.registerIcon(References.MOD_ID + ":machine_top");
+        this.iconArray[1] = icon.registerIcon(References.MOD_ID + ":machine_side");
     }
 
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack item) {

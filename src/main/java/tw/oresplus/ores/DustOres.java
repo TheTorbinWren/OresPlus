@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -93,6 +94,7 @@ public enum DustOres implements IOreList {
 				.setHardness(5.0F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundTypeMetal));
+			OreDictionary.registerOre(this.blockName, this.block.source);
 		}
 		
 		// Register Nether Ore

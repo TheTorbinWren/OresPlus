@@ -17,13 +17,19 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "0.8.1.47B"
-group= "tw.oresplus" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "0.9.0.48B"
+group= "tw.oresplus"
 archivesBaseName = "OresPlus"
 
 minecraft {
     version = "1.7.10-10.13.0.1190"
+    runDir = "run"
+    
+    replaceIn "References.java"
+    replace "@VERSION@", project.version
 }
+
+
 processResources
 {
     // replace stuff in mcmod.info, nothing else
