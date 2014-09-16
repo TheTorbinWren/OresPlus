@@ -20,4 +20,6 @@ public interface IOreList {
 	public int getTradeToAmount(Random random);
 	
 	public int getTradeFromAmount(Random random);
+	
+	public int getLaserWeight();
 }

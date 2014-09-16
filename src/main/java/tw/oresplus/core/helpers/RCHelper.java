@@ -32,6 +32,18 @@ public class RCHelper extends OresHelper {
 	}
 
 	@Override
+	public void init() {
+		if (!this.isLoaded()) 
+			return;
+	}
+
+	@Override
+	public void postInit() {
+		if (!this.isLoaded()) 
+			return;
+	}
+	
+	@Override
 	public void generate(World world, Random rand, int chunkX, int chunkZ) { }
 
 	@Override
@@ -48,18 +60,6 @@ public class RCHelper extends OresHelper {
 		default:
 			break;
 		}
-	}
-
-	@Override
-	public void init() {
-		if (!this.isLoaded()) 
-			return;
-	}
-
-	@Override
-	public void postInit() {
-		if (!this.isLoaded()) 
-			return;
 	}
 
 	@Override

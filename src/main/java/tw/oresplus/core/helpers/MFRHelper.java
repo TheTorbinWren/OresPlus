@@ -2,9 +2,16 @@ package tw.oresplus.core.helpers;
 
 import java.util.Random;
 
+import cpw.mods.fml.common.event.FMLInterModComms;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import tw.oresplus.OresPlus;
+import tw.oresplus.ores.AdvancedOres;
+import tw.oresplus.ores.DustOres;
+import tw.oresplus.ores.GemstoneOres;
+import tw.oresplus.ores.GeneralOres;
+import tw.oresplus.ores.MetallicOres;
 import tw.oresplus.recipes.RecipeType;
 
 public class MFRHelper extends OresHelper {
@@ -14,10 +21,52 @@ public class MFRHelper extends OresHelper {
 	}
 
 	@Override
-	public void preInit() { }
+	public void preInit() {		
+		if (!this.isLoaded()) {
+			OresPlus.log.info("MineFactoryReloaded not found, integration helper disabled");
+			return;
+		}
+		OresPlus.log.info("MineFactoryReloaded found, integration helper initialized");
+	}
 
 	@Override
-	public void init() { }
+	public void init() {
+		if (!this.isLoaded()) {
+			return;
+		}
+		// register laser ores
+		for (MetallicOres ore : MetallicOres.values()) {
+			if (!ore.isAlloy) {
+				this.registerLaserOre(ore.ore.newStack(), ore.getLaserWeight());
+			}
+		}
+		
+		for (GemstoneOres ore : GemstoneOres.values()) {
+			this.registerLaserOre(ore.ore.newStack(), ore.getLaserWeight());
+		}
+		
+		for (DustOres ore : DustOres.values()) {
+			this.registerLaserOre(ore.ore.newStack(), ore.getLaserWeight());
+		}
+		
+		for (AdvancedOres ore : AdvancedOres.values()) {
+			this.registerLaserOre(ore.ore.newStack(), ore.getLaserWeight());
+		}
+		
+		for (GeneralOres ore : GeneralOres.values()) {
+			this.registerLaserOre(ore.ore.newStack(), ore.getLaserWeight());
+		}
+	}
+
+	private void registerLaserOre(ItemStack ore, int laserWeight) {
+		if (laserWeight == 0) {
+			return;
+		}
+		NBTTagCompound msg = new NBTTagCompound();
+		msg.setInteger("value", laserWeight);
+		ore.writeToNBT(msg);
+		FMLInterModComms.sendMessage(this._modID, "addLaserPreferredOre", msg);
+	}
 
 	@Override
 	public void postInit() { }

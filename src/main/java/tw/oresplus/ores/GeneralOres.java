@@ -128,8 +128,11 @@ public enum GeneralOres implements IOreList {
 	}
 
 	@Override
-	public void registerFluids() {
+	public void registerFluids() { }
+
+	@Override
+	public int getLaserWeight() {
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 }

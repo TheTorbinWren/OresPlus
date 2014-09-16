@@ -144,4 +144,10 @@ public enum AdvancedOres implements IOreList {
 		
 	}
 
+	@Override
+	public int getLaserWeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

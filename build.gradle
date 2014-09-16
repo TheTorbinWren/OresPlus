@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "0.9.0.48B"
+version = "0.9.0.49B"
 group= "tw.oresplus"
 archivesBaseName = "OresPlus"
 

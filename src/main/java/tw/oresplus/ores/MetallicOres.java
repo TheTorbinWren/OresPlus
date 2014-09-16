@@ -1,5 +1,6 @@
 package tw.oresplus.ores;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
@@ -63,6 +64,8 @@ public enum MetallicOres implements IOreList {
 	Yellorium(2, Aspect.ENERGY, 2608.8982568638758D),
 	Zinc(2, Aspect.CRYSTAL, 1100.0D);
 	
+	public static ArrayList<MetallicOres> mekanismOres = new ArrayList();
+
 	public String oreName;
 	public String netherOreName;
 	public String blockName;
@@ -325,24 +328,33 @@ public enum MetallicOres implements IOreList {
 				Helpers.ThermalExpansion.registerRecipe(RecipeType.Grinder, this.ore.newStack(), metadata, this.crushedOre.newStack(2));
 			}
 			
-			if (Helpers.Mekanism.isLoaded()) {
+			if (Helpers.Mekanism.isLoaded() && !mekanismOres.contains(this)) {
 				// register slurrys
 				this.cleanSlurry = (OreGas)GasRegistry.register(new OreGas(this.cleanSlurryName, this.cleanSlurryName).setVisible(false));
 				this.slurry = (OreGas)GasRegistry.register(new OreGas(this.slurryName, this.slurryName).setCleanGas(this.cleanSlurry).setVisible(false));
 				
-				// register Mekanism enrichment chamber recipe
-				Helpers.Mekanism.registerRecipe(RecipeType.EnrichmentChamber, this.ore.newStack(), this.dust.newStack(2));
+				NBTTagCompound metadata = new NBTTagCompound();
+				metadata.setString("gas", "hydrogenChloride");
 				
-				// register Mekanism purification chamber recipe
-				Helpers.Mekanism.registerRecipe(RecipeType.PurificationChamber, this.ore.newStack(), this.clump.newStack(3));
+				for (ItemStack dictionaryOre : OreDictionary.getOres(this.oreName)) {
+					OreItemStack oreStack = new OreItemStack(dictionaryOre);
+					
+					// register Mekanism ore->dust enrichment chamber recipe
+					Helpers.Mekanism.registerRecipe(RecipeType.EnrichmentChamber, oreStack.newStack(), this.dust.newStack(2));
+					
+					// register Mekanism ore->clump purification chamber recipe
+					Helpers.Mekanism.registerRecipe(RecipeType.PurificationChamber, oreStack.newStack(), this.clump.newStack(3));
+					
+					// register Mekanism ore->shard chemical injector recipe
+					Helpers.Mekanism.registerRecipe(RecipeType.ChemicalInjector, oreStack.newStack(), metadata, this.shard.newStack(4));
+					
+					// register Mekanism chemical dissolution chamber recipe
+					Helpers.Mekanism.registerGasRecipe(RecipeType.ChemicalDissolver, oreStack.newStack(), null, new GasStack(this.slurry, 1000));
+					
+				}
 				
 				// register Mekanism dirty dust to dust
 				Helpers.Mekanism.registerRecipe(RecipeType.EnrichmentChamber, this.dirtyDust.newStack(), this.dust.newStack());
-				
-				// register Mekanism chemical injector recipe
-				NBTTagCompound metadata = new NBTTagCompound();
-				metadata.setString("gas", "hydrogenChloride");
-				Helpers.Mekanism.registerRecipe(RecipeType.ChemicalInjector, this.ore.newStack(), metadata, this.shard.newStack(4));
 				
 				// register Mekanism shard to clump recipe
 				Helpers.Mekanism.registerRecipe(RecipeType.PurificationChamber, this.shard.newStack(), this.clump.newStack());
@@ -352,9 +364,6 @@ public enum MetallicOres implements IOreList {
 				
 				// register Mekanism clump to dirty dust recipe
 				Helpers.Mekanism.registerRecipe(RecipeType.Crusher, this.clump.newStack(), this.dirtyDust.newStack());
-				
-				// register Mekanism chemical dissolution chamber recipe
-				Helpers.Mekanism.registerGasRecipe(RecipeType.ChemicalDissolver, this.ore.newStack(), null, new GasStack(this.slurry, 1000));
 				
 				// register Mekanism chemical washer recipe
 				Helpers.Mekanism.registerGasRecipe(RecipeType.ChemicalWasher, new GasStack(this.slurry, 1), null, new GasStack(this.cleanSlurry, 1));
@@ -545,8 +554,23 @@ public enum MetallicOres implements IOreList {
 					this.bucket.newStack(), 
 					new ItemStack(net.minecraft.init.Items.bucket));
 		}
-		
-		//BucketHandler.bucketMap.put(this.moltenFluidBlock, this.bucket.source.getItem());
+
+	}
+
+	@Override
+	public int getLaserWeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	static {
+		mekanismOres.add(Iron);
+		mekanismOres.add(Gold);
+		mekanismOres.add(Osmium);
+		mekanismOres.add(Copper);
+		mekanismOres.add(Tin);
+		mekanismOres.add(Lead);
 	}
 	
 }
+
