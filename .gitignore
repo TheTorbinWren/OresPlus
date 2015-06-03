@@ -34,3 +34,6 @@ src/main/java/mekanism/
 
 #Tinkers library
 src/main/java/tconstruct/
+
+#COFH API
+src/main/java/cofh/

@@ -55,7 +55,7 @@ public enum MetallicOres implements IOreList {
 	Iron(1, Aspect.METAL, 0.0D), // 200.16909378760914
 	Lead(1, Aspect.ORDER, 1673.377568334827D),
 	Manganese(2, Aspect.ORDER, 800.0D),
-	Mithral(3, Aspect.MAGIC, 3200.0D),
+	Mithril(3, Aspect.MAGIC, 3200.0D),
 	Nickel(2, Aspect.ORDER, 1200.0D),
 	Osmium(1, Aspect.ARMOR, 1000.D),
 	Platinum(2, Aspect.GREED, 2500.0D),
@@ -380,7 +380,7 @@ public enum MetallicOres implements IOreList {
 				case Lead:
 					Helpers.IC2.registerRecipe(RecipeType.OreWasher, this.crushedOre.newStack(), metadata, new ItemStack[] {
 						this.purifiedCrushedOre.newStack(),
-						DustOres.Sulfur.tinyDust.newStack(3),
+						DustyOres.Sulfur.tinyDust.newStack(3),
 						stoneDust.newStack()	});
 					break;
 				default:
@@ -432,23 +432,23 @@ public enum MetallicOres implements IOreList {
 			case Manganese:
 				this.registerIC2Centrifuge(1500, MetallicOres.Iron.tinyDust.newStack());
 				break;
-			case Mithral:
+			case Mithril:
 				this.registerIC2Centrifuge(2500, MetallicOres.Silver.tinyDust.newStack());
 				break;
 			case Nickel:
-				this.registerIC2Centrifuge(2000, DustOres.Sulfur.tinyDust.newStack());
+				this.registerIC2Centrifuge(2000, DustyOres.Sulfur.tinyDust.newStack());
 				break;
 			case Osmium:
-				this.registerIC2Centrifuge(4000, DustOres.Sulfur.tinyDust.newStack());
+				this.registerIC2Centrifuge(4000, DustyOres.Sulfur.tinyDust.newStack());
 				break;
 			case Platinum:
-				this.registerIC2Centrifuge(3000, DustOres.Sulfur.tinyDust.newStack());
+				this.registerIC2Centrifuge(3000, DustyOres.Sulfur.tinyDust.newStack());
 				break;
 			case Yellorium:
 				this.registerIC2Centrifuge(3000, MetallicOres.Iron.tinyDust.newStack());
 				break;
 			case Zinc:
-				this.registerIC2Centrifuge(500, DustOres.Sulfur.tinyDust.newStack());
+				this.registerIC2Centrifuge(500, DustyOres.Sulfur.tinyDust.newStack());
 				break;
 			default:
 			}
@@ -570,6 +570,13 @@ public enum MetallicOres implements IOreList {
 		mekanismOres.add(Copper);
 		mekanismOres.add(Tin);
 		mekanismOres.add(Lead);
+		mekanismOres.add(Silver);
+	}
+
+	@Override
+	public void registerGases() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

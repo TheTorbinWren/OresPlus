@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import buildcraft.api.gates.ActionManager;
+
+
+//import buildcraft.api.gates.ActionManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
@@ -27,7 +29,7 @@ import tw.oresplus.api.Ores;
 import tw.oresplus.blocks.BlockCore;
 import tw.oresplus.blocks.BlockOre;
 import tw.oresplus.blocks.BlockManager;
-import tw.oresplus.blocks.OldTileEntityCracker;
+import tw.oresplus.blocks.TileEntityCracker;
 import tw.oresplus.blocks.TileEntityGrinder;
 import tw.oresplus.core.BucketHandler;
 import tw.oresplus.core.GuiHandler;
@@ -44,6 +46,7 @@ import tw.oresplus.core.helpers.AppEngHelper;
 import tw.oresplus.core.helpers.BCHelper;
 import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.fluids.FluidManager;
+import tw.oresplus.gases.GasManager;
 import tw.oresplus.items.ItemCore;
 import tw.oresplus.items.ItemManager;
 import tw.oresplus.items.Items;
@@ -51,8 +54,8 @@ import tw.oresplus.network.NetHandler;
 import tw.oresplus.ores.MetallicOres;
 import tw.oresplus.ores.OreManager;
 import tw.oresplus.recipes.RecipeManager;
-import tw.oresplus.triggers.OresTrigger;
-import tw.oresplus.triggers.TriggerProvider;
+//import tw.oresplus.triggers.OresTrigger;
+//import tw.oresplus.triggers.TriggerProvider;
 import tw.oresplus.worldgen.IOreGenerator;
 import tw.oresplus.worldgen.OreChestLoot;
 import tw.oresplus.worldgen.OreGenClass;
@@ -80,11 +83,13 @@ public class OresPlus {
     public static String regenKeyOil = "DEFAULT";
     public static String regenKeyRubberTree = "DEFAULT";
     public static String regenKeyBeehives = "DEFAULT";
-    public static boolean iridiumPlateRecipe = true;
-    public static boolean difficultAlloys = false;
-    public static boolean logRegenerations = false;
+
     public static boolean angryPigmen = true;
     public static boolean debugMode = false;
+    public static boolean difficultAlloys = false;
+    public static boolean easyMineralSmelt = true;
+    public static boolean iridiumPlateRecipe = true;
+    public static boolean logRegenerations = false;
     
     public static WorldGenCore worldGen = new WorldGenCore();
     public static OreEventHandler eventHandler = new OreEventHandler();
@@ -92,7 +97,6 @@ public class OresPlus {
     public static TickHandler tickHandler = new TickHandler();
     public static IMCHandler imcHandler = new IMCHandler();
     public static ItemMapHelper itemMapHelper;
-    public static NetHandler netHandler = new NetHandler();
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -106,23 +110,23 @@ public class OresPlus {
 		config.load();
 		
 	    angryPigmen = config.getBoolean("angryPigmen", angryPigmen, "set to false to prevent zombie pigmen from attacking when mining nether ores");
-	    iridiumPlateRecipe = config.getBoolean("iridiumPlateRecipe", iridiumPlateRecipe, "enables an ore dictionary-enabled recipe for iridium plate");
-	    difficultAlloys = config.getBoolean("difficultAlloys", difficultAlloys, "enable true to set brass & bronze alloy recipes to output only 2 dusts");
-	    logRegenerations = config.getBoolean("logRegenerations", logRegenerations, "enable to log all regenerations that occur");
 	    debugMode = config.getBoolean("debugMode", debugMode, "set to true to enable finer debug logging");
+	    difficultAlloys = config.getBoolean("difficultAlloys", difficultAlloys, "enable true to set brass & bronze alloy recipes to output only 2 dusts");
+	    easyMineralSmelt = config.getBoolean("easyMineralSmelt", easyMineralSmelt, "disable to prevent Mineral ores smelting directly into metal");
+	    iridiumPlateRecipe = config.getBoolean("iridiumPlateRecipe", iridiumPlateRecipe, "enables an ore dictionary-enabled recipe for iridium plate");
+	    logRegenerations = config.getBoolean("logRegenerations", logRegenerations, "enable to log all regenerations that occur");
 
 	    regenKeyOre = config.getString(ConfigCore.CAT_REGEN, "regenKey", regenKeyOre, "change this to regenerate ores");
 	    regenKeyOil = config.getString(ConfigCore.CAT_REGEN, "regenKeyOil", regenKeyOil, "change this to regenerate buildcraft oil wells");
 	    regenKeyRubberTree = config.getString(ConfigCore.CAT_REGEN, "regenKeyRubberTree", regenKeyRubberTree, "change this to regenerate IC2 rubber trees");
 	    regenKeyBeehives = config.getString(ConfigCore.CAT_REGEN, "regenKeyBeehives", regenKeyBeehives, "change this to regenerate Forestry beehives");
-
-		netHandler.preInit();
 		
 		Ores.manager = new OreManager();
 		
     	BlockManager.init();
     	ItemManager.init();
     	FluidManager.init();
+    	GasManager.init();
 
     	// register aluminium->aluminum ore dictionary 
     	OreDictionary.registerOre("oreAluminum", MetallicOres.Aluminium.ore.source);
@@ -166,7 +170,7 @@ public class OresPlus {
     	RecipeManager.initRecipes();
     	
     	GameRegistry.registerTileEntity(TileEntityGrinder.class, "TileEntityGrinder");
-    	GameRegistry.registerTileEntity(OldTileEntityCracker.class, "TileEntityCracker");
+    	GameRegistry.registerTileEntity(TileEntityCracker.class, "TileEntityCracker");
     	
     	MinecraftForge.EVENT_BUS.register(eventHandler);
     	MinecraftForge.EVENT_BUS.register(bucketHandler);
@@ -177,12 +181,12 @@ public class OresPlus {
     	
     	itemMapHelper = new ItemMapHelper();
     	
-    	OresTrigger.registerTriggers();
-    	ActionManager.registerTriggerProvider(new TriggerProvider());
+    	//OresTrigger.registerTriggers();
+    	//ActionManager.registerTriggerProvider(new TriggerProvider());
     	
     	VillagerRegistry.instance().registerVillageTradeHandler(VillagerTradeHandler.VILLAGER_BLACKSMITH, new VillagerTradeHandler(VillagerTradeHandler.VILLAGER_BLACKSMITH));
-    	
-    	netHandler.init();
+
+    	NetHandler.init();
     	
     	for (Helpers helper : Helpers.values()) {
     		helper.init();

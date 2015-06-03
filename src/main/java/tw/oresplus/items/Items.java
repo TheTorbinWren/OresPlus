@@ -10,27 +10,31 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public enum Items {
+	clumpAntimony,
+	clumpTitanium,
 	crushedUranium,
+	crystalAntimony,
+	crystalTitanium,
 	dustAntimony,
 	dustCharcoal (108.6D), 
-	dustCinnabar,
 	dustCoal (108.6D), 
+	dustDirtyAntimony,
+	dustDirtyTitanium,
 	dustMagnesium,
-	dustPyrite,
-	dustSheldonite, // TODO: Update texture
 	dustSodalite,
-	dustSphalerite,
+	dustTinyTitanium,
 	dustTinyTungsten,
-	dustTungstate, // TODO: Update texture
-	dustTungsten, // TODO: Update texture
+	dustTitanium,
+	dustTungsten,
 	gemIridium (12000.0),
 	gemOlivine,
 	gemRedGarnet,
-	gemUranium,
 	gemYellowGarnet,
 	machineCasing,
+	shardAntimony,
+	shardTitanium,
 	itemBitumen,
-	itemMercury;
+	itemMercury; 
 	
 	public OreItemStack item;
 	private AspectList _aspects;

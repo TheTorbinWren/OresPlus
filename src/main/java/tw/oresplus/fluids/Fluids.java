@@ -5,6 +5,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
 public enum Fluids {
+	CopperSulfide,
+	Mercury,
 	Oil;
 	
 	public Fluid fluid;

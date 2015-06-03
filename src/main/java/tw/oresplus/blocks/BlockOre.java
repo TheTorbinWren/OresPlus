@@ -11,9 +11,10 @@ import tw.oresplus.core.helpers.AppEngHelper;
 import tw.oresplus.core.helpers.Helpers;
 import tw.oresplus.items.ItemManager;
 import tw.oresplus.items.Items;
-import tw.oresplus.ores.DustOres;
+import tw.oresplus.ores.DustyOres;
 import tw.oresplus.ores.GemstoneOres;
 import tw.oresplus.ores.MetallicOres;
+import tw.oresplus.ores.MineralOres;
 import tw.oresplus.ores.OreClass;
 import tw.oresplus.ores.OreDrops;
 import tw.oresplus.recipes.OreItemStack;
@@ -91,13 +92,10 @@ public class BlockOre extends BlockCore {
 			}
 			break;
 		case CINNABAR: // cinnabar = 1 cinnabar & 1/4 redstone (gregstech)
-			rList.add(Items.dustCinnabar.item.newStack(this.fortuneHelper(world, 1, fortune)));
+			rList.add(MineralOres.Cinnabar.dust.newStack(this.fortuneHelper(world, 1, fortune)));
 			if (world.rand.nextInt(4) == 0)	{
 				rList.add(new ItemStack(net.minecraft.init.Items.redstone, this.fortuneHelper(world, 1, fortune)));
 			}
-			break;
-		case GREENSAPPHIRE:
-			rList.add(GemstoneOres.GreenSapphire.gem.newStack(this.fortuneHelper(world, 1, fortune)));
 			break;
 		case IRIDIUM: // iridium = 1 (half fortune) iridium (gregstech)
 			rList.add(Items.gemIridium.item.newStack(this.fortuneHelper(world, 1, fortune)));
@@ -109,19 +107,22 @@ public class BlockOre extends BlockCore {
 			rList.add(GemstoneOres.Malachite.gem.newStack(this.fortuneHelper(world, 1, fortune)));
 			break;
 		case NIKOLITE: // nikolite = 4-5 nikolite (rp2)
-			rList.add(DustOres.Nikolite.dust.newStack(this.fortuneHelper(world, 4 + world.rand.nextInt(2), fortune)));
+			rList.add(DustyOres.Nikolite.dust.newStack(this.fortuneHelper(world, 4 + world.rand.nextInt(2), fortune)));
 			break;
 		case OLIVINE:
 			rList.add(Items.gemOlivine.item.newStack(this.fortuneHelper(world, 1, fortune)));
 			break;
+		case PERIDOT:
+			rList.add(GemstoneOres.Peridot.gem.newStack(this.fortuneHelper(world, 1, fortune)));
+			break;
 		case PHOSPHORITE: // phosphorite = 2-5 phosphorite (metallurgy)
-			rList.add(DustOres.Phosphorite.dust.newStack(this.fortuneHelper(world, 2 + world.rand.nextInt(4), fortune)));
+			rList.add(DustyOres.Phosphorite.dust.newStack(this.fortuneHelper(world, 2 + world.rand.nextInt(4), fortune)));
 			break;
 		case POTASH: // potash = 2-5 potash (metallurgy)
-			rList.add(DustOres.Potash.dust.newStack(this.fortuneHelper(world, 2 + world.rand.nextInt(4), fortune)));
+			rList.add(DustyOres.Potash.dust.newStack(this.fortuneHelper(world, 2 + world.rand.nextInt(4), fortune)));
 			break;
 		case PYRITE: // pyrite = 1 pyrite (gregstech)
-			rList.add(Items.dustPyrite.item.newStack(this.fortuneHelper(world, 1, fortune)));
+			rList.add(MineralOres.Pyrite.dust.newStack(this.fortuneHelper(world, 1, fortune)));
 			break;
 		case RUBY: // ruby = 1 ruby (twstuff/rp2) | 1 ruby & 1/32 red garnet (gregstech)
 			rList.add(GemstoneOres.Ruby.gem.newStack(this.fortuneHelper(world, 1, fortune)));
@@ -130,16 +131,22 @@ public class BlockOre extends BlockCore {
 			}
 			break;
 		case SALTPETER: // saltpeter = 1-2 saltpeter (railcraft) | 2-5 saltpeter (metallurgy)
-			rList.add(DustOres.Saltpeter.dust.newStack(this.fortuneHelper(world, 1 + world.rand.nextInt(2), fortune)));
+			rList.add(DustyOres.Saltpeter.dust.newStack(this.fortuneHelper(world, 1 + world.rand.nextInt(2), fortune)));
 			break;
 		case SAPPHIRE: // sapphire = 1 sapphire (twstuff/rp2) | 1 sapphiree & 1/64 green sapphire
 			rList.add(GemstoneOres.Sapphire.gem.newStack(this.fortuneHelper(world, 1, fortune)));
 			if (world.rand.nextInt(64) == 0) {
-				rList.add(GemstoneOres.GreenSapphire.gem.newStack(this.fortuneHelper(world, 1, fortune)));
+				rList.add(GemstoneOres.Peridot.gem.newStack(this.fortuneHelper(world, 1, fortune)));
+			}
+			break;
+		case SODALITE: // sodalite = 6 sodalite & 1/4 aluminium (gregstech)
+			rList.add(Items.dustSodalite.item.newStack(this.fortuneHelper(world, 6, fortune)));
+			if (world.rand.nextInt(4) == 0)	{
+				rList.add(MetallicOres.Aluminium.dust.newStack(this.fortuneHelper(world, 1, fortune)));
 			}
 			break;
 		case SPHALERITE: // sphalerite = 1 sphalerite & 1/4 zinc & 1/32 yellow garnet
-			rList.add(Items.dustSphalerite.item.newStack(this.fortuneHelper(world, 1, fortune)));
+			rList.add(MineralOres.Sphalerite.dust.newStack(this.fortuneHelper(world, 1, fortune)));
 			if (world.rand.nextInt(4) == 0)	{
 				rList.add(MetallicOres.Zinc.dust.newStack(this.fortuneHelper(world, 1, fortune)));
 			}
@@ -148,19 +155,13 @@ public class BlockOre extends BlockCore {
 			}
 			break;
 		case SULFUR: // sulfur = 2-5 sulfur (railcraft/metallurgy)
-			rList.add(DustOres.Sulfur.dust.newStack(this.fortuneHelper(world, 2 + world.rand.nextInt(4), fortune)));
+			rList.add(DustyOres.Sulfur.dust.newStack(this.fortuneHelper(world, 2 + world.rand.nextInt(4), fortune)));
 			break;
 		case TANZANITE:
 			rList.add(GemstoneOres.Tanzanite.gem.newStack(this.fortuneHelper(world, 1, fortune)));
 			break;
 		case TOPAZ: // topaz = 1 topaz (twstuff)
 			rList.add(GemstoneOres.Topaz.gem.newStack(this.fortuneHelper(world, 1, fortune)));
-			break;
-		case SODALITE: // sodalite = 6 sodalite & 1/4 aluminium (gregstech)
-			rList.add(Items.dustSodalite.item.newStack(this.fortuneHelper(world, 6, fortune)));
-			if (world.rand.nextInt(4) == 0)	{
-				rList.add(MetallicOres.Aluminium.dust.newStack(this.fortuneHelper(world, 1, fortune)));
-			}
 			break;
 		default:
 			rList.add(new ItemStack(this.getItemDropped(metadata, world.rand, fortune), 1));
@@ -173,7 +174,7 @@ public class BlockOre extends BlockCore {
 		case AMETHYST:
 		case CERTUSQUARTZ:
 		case CINNABAR:
-		case GREENSAPPHIRE:
+		case PERIDOT:
 		case IRIDIUM:
 		case MALACHITE:
 		case PYRITE:

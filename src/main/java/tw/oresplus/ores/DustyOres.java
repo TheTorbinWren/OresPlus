@@ -20,7 +20,7 @@ import tw.oresplus.items.ItemCore;
 import tw.oresplus.recipes.OreItemStack;
 import tw.oresplus.recipes.RecipeManager;
 
-public enum DustOres implements IOreList {
+public enum DustyOres implements IOreList {
 		Nikolite(2, Aspect.ENERGY, Aspect.MECHANISM, OreDrops.NIKOLITE, 230.0D),
 		Phosphorite(1, Aspect.ENERGY, Aspect.HARVEST, OreDrops.PHOSPHORITE, 75.0D),
 		Potash(1, Aspect.ENERGY, Aspect.HARVEST, OreDrops.POTASH, 60.0D),
@@ -47,11 +47,11 @@ public enum DustOres implements IOreList {
 	private Aspect _secondaryAspect;
 	private double _uuCost;
 		
-	private DustOres (int harvestLevel, Aspect aspect, Aspect secondaryAspect, double uuCost) {
+	private DustyOres (int harvestLevel, Aspect aspect, Aspect secondaryAspect, double uuCost) {
 		this(harvestLevel, aspect, secondaryAspect, OreDrops.ORE, uuCost);
 	}
 	
-	private DustOres (int harvestLevel, Aspect aspect, Aspect secondaryAspect, OreDrops drops, double uuCost) {
+	private DustyOres (int harvestLevel, Aspect aspect, Aspect secondaryAspect, OreDrops drops, double uuCost) {
 		this.oreName = "ore" + this.toString();
 		this.netherOreName = "oreNether" + this.toString();
 		this.blockName = "block" + this.toString();
@@ -173,6 +173,12 @@ public enum DustOres implements IOreList {
 	public int getLaserWeight() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void registerGases() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

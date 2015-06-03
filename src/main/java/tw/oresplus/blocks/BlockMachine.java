@@ -208,7 +208,7 @@ implements ITileEntityProvider {
 	    	else 
 	    		world.setBlock(x, y, z, BlockHelper.getBlock(BlockManager.grinder));
     	}
-    	else if (te instanceof OldTileEntityCracker) {
+    	else if (te instanceof TileEntityCracker) {
 	    	if (isBurning) 
 	    		world.setBlock(x, y, z, BlockHelper.getBlock(BlockManager.cracker_lit));
 	    	else 

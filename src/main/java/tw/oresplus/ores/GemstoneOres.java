@@ -27,8 +27,8 @@ public enum GemstoneOres implements IOreList {
 		Apatite (1, OreDrops.APATITE, 800.0D),
 		Diamond (2, 3, 7, OreDrops.DIAMOND, 0.0D), // 5050.057512219353
 		Emerald (2, 3, 7, OreDrops.EMERALD, 0.0D), // 55643.450773700926
-		GreenSapphire (2, 3, 7, OreDrops.GREENSAPPHIRE, 3000.0D),
 		Malachite (2, 3, 7, OreDrops.MALACHITE, 3000.0D),
+		Peridot (2, 3, 7, OreDrops.PERIDOT, 3000.0D),
 		Ruby (2, 3, 7, OreDrops.RUBY, 3000.0D),
 		Sapphire (2, 3, 7, OreDrops.SAPPHIRE, 3000.0D),
 		Tanzanite(2, 3, 7, OreDrops.TANZANITE, 3000.0D),
@@ -217,6 +217,12 @@ public enum GemstoneOres implements IOreList {
 	public int getLaserWeight() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void registerGases() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

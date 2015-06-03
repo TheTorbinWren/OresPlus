@@ -13,6 +13,8 @@ public interface IOreList {
 	
 	public void registerFluids();
 	
+	public void registerGases();
+	
 	public void registerRecipes();
 	
 	public void registerAspects();

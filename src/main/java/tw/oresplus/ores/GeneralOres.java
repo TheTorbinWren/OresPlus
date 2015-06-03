@@ -16,17 +16,13 @@ import tw.oresplus.recipes.RecipeManager;
 public enum GeneralOres implements IOreList {
 	Bitumen (1, OreDrops.BITUMEN, 0.0D),
 	CertusQuartz (1, OreDrops.CERTUSQUARTZ, 1250.0D),
-	Cinnabar (2, new AspectList().add(Aspect.FIRE, 1), OreDrops.CINNABAR, 0.0D),
 	Iridium (3, OreDrops.IRIDIUM, 0.0D),
 	Magnesium (1, OreDrops.MAGNESIUM, 0.0D),
 	NetherCoal (1, new AspectList().add(Aspect.FIRE, 1), 0.0D),
 	NetherLapis (1, new AspectList().add(Aspect.FIRE, 1), 0.0D),
 	NetherUranium (2, new AspectList().add(Aspect.FIRE, 1), 0.0D),
 	Olivine (2, new AspectList().add(Aspect.ELDRITCH, 1), OreDrops.OLIVINE, 0.0D),
-	Pyrite (2, new AspectList().add(Aspect.FIRE, 1), OreDrops.PYRITE, 0.0D),
-	Sheldonite (2, new AspectList().add(Aspect.ELDRITCH, 1), 0.0D),
 	Sodalite (2, new AspectList().add(Aspect.ELDRITCH, 1), OreDrops.SODALITE, 0.0D),
-	Sphalerite (2, new AspectList().add(Aspect.FIRE, 1), OreDrops.SPHALERITE, 0.0D),
 	Tungstate (2, new AspectList().add(Aspect.ELDRITCH, 1), 0.0D),
 	Tungsten (2, 0.0D),
 	Uranium (2, 2608.8982568638758D);
@@ -134,5 +130,11 @@ public enum GeneralOres implements IOreList {
 	public int getLaserWeight() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void registerGases() {
+		// TODO Auto-generated method stub
+		
 	}
 }

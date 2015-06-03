@@ -7,8 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import tw.oresplus.OresPlus;
-import tw.oresplus.ores.AdvancedOres;
-import tw.oresplus.ores.DustOres;
+import tw.oresplus.ores.MineralOres;
+import tw.oresplus.ores.DustyOres;
 import tw.oresplus.ores.GemstoneOres;
 import tw.oresplus.ores.GeneralOres;
 import tw.oresplus.ores.MetallicOres;
@@ -45,11 +45,11 @@ public class MFRHelper extends OresHelper {
 			this.registerLaserOre(ore.ore.newStack(), ore.getLaserWeight());
 		}
 		
-		for (DustOres ore : DustOres.values()) {
+		for (DustyOres ore : DustyOres.values()) {
 			this.registerLaserOre(ore.ore.newStack(), ore.getLaserWeight());
 		}
 		
-		for (AdvancedOres ore : AdvancedOres.values()) {
+		for (MineralOres ore : MineralOres.values()) {
 			this.registerLaserOre(ore.ore.newStack(), ore.getLaserWeight());
 		}
 		

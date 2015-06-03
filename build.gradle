@@ -17,12 +17,14 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "0.9.0.49B"
+version = "0.10.1.53B"
 group= "tw.oresplus"
 archivesBaseName = "OresPlus"
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
 
 minecraft {
-    version = "1.7.10-10.13.0.1190"
+    version = "1.7.10-10.13.3.1408-1.7.10"
     runDir = "run"
     
     replaceIn "References.java"

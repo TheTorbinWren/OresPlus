@@ -8,8 +8,8 @@ import tw.oresplus.OresPlus;
 import tw.oresplus.blocks.BlockManager;
 import tw.oresplus.items.ItemManager;
 import tw.oresplus.items.Items;
-import tw.oresplus.ores.AdvancedOres;
-import tw.oresplus.ores.DustOres;
+import tw.oresplus.ores.MineralOres;
+import tw.oresplus.ores.DustyOres;
 import tw.oresplus.ores.GemstoneOres;
 import tw.oresplus.ores.GeneralOres;
 import tw.oresplus.ores.MetallicOres;
@@ -39,11 +39,11 @@ public class TCHelper extends OresHelper {
 	        ore.registerAspects();
 	    }
 
-	    for (DustOres ore : DustOres.values()) {
+	    for (DustyOres ore : DustyOres.values()) {
 	        ore.registerAspects();
 	    }
 	    
-	    for (AdvancedOres ore : AdvancedOres.values()) {
+	    for (MineralOres ore : MineralOres.values()) {
 	    	ore.registerAspects();
 	    }
 

@@ -1,3 +1,30 @@
+v0.10.0.54
+-GreenSapphire now fully Peridot
+-Mithral renamed to Mithril
+-Sheldonite renamed to Cooperite
+-Advanced ores now named Mineral ores
+-Bauxite dust now gives out tiny dust of Iron in Centrifuge
+-Mineral ores can now smelt directly into their primary metal ingots. his can be disabled in the config
+-Cinnabar, Pyrite & Sphalerite are now Mineral ores and can be fully processed as such. You will need a silk touch tool to get the block as they will still drop dust.
+-tweeked the Mineral ore Aspects
+-added titanium items. Titanium dust cannot be processed any further currently 
+-added Ilmenite, a mineral ore that processes into Iron and Titanium
+-added Mekanism Tier 4 processing for mineral ores. Clean slurries need to be condensed into fluid and then Electrolytic Seperated for further processing
+-expanded Gas support
+
+v0.10.0.53
+-updated API's
+
+v0.10.0.52
+-switched to SimpleNetworkWrapper from netty, hopefully will prevent memory leaks
+-rewrote machine tileentities again, hopefully they will finally work right
+
+v0.9.0.51
+-fixed crushed cold iron localization
+
+v0.9.0.50
+-removed silver mekanism recipes
+
 v0.9.0.49
 -removed mekanism machine recipes for ores already handled by mekanism
 -fixed NPE registering ores in MFR mining laser 

@@ -93,7 +93,7 @@ public class TinkersHelper extends OresHelper {
 		// Manganese
 		FluidType.registerFluidType("Manganese", MetallicOres.Manganese.moltenFluidBlock, 0, 600, MetallicOres.Manganese.moltenFluid, false);
 		// Mithral
-		FluidType.registerFluidType("Mithral", MetallicOres.Mithral.moltenFluidBlock, 0, 800, MetallicOres.Mithral.moltenFluid, false);
+		FluidType.registerFluidType("Mithril", MetallicOres.Mithril.moltenFluidBlock, 0, 800, MetallicOres.Mithril.moltenFluid, false);
 		// Osmium
 		FluidType.registerFluidType("Osmium", MetallicOres.Osmium.moltenFluidBlock, 0, 1200, MetallicOres.Osmium.moltenFluid, false);
 		// Yellorium

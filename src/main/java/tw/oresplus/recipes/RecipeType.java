@@ -1,17 +1,18 @@
 package tw.oresplus.recipes;
 
 public enum RecipeType {
+	Centrifuge,
+	ChemicalCrystalizer,
+	ChemicalDissolver, 
+	ChemicalInjector, 
+	ChemicalWasher, 
+	Crusher, 
+	ElectrolyticSeperator,
+	EnrichmentChamber, 
+	Grinder,
 	Macerator,
 	OreWasher,
-	Centrifuge,
-	Grinder,
-	RockCrusher,
-	Scanner,
-	EnrichmentChamber, 
 	PurificationChamber, 
-	ChemicalInjector, 
-	Crusher, 
-	ChemicalDissolver, 
-	ChemicalWasher, 
-	ChemicalCrystalizer;
+	RockCrusher,
+	Scanner;
 }

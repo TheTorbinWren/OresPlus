@@ -15,8 +15,8 @@ public class OreChestLoot {
 
 	private static OreItemStack[] commonItems = { MetallicOres.Copper.ingot, MetallicOres.Lead.ingot, MetallicOres.Nickel.ingot, MetallicOres.Silver.ingot, MetallicOres.Tin.ingot, MetallicOres.Zinc.ingot };
 	private static OreItemStack[] uncommonItems = { MetallicOres.Aluminium.ingot, MetallicOres.Brass.ingot, MetallicOres.Bronze.ingot, MetallicOres.Electrum.ingot, MetallicOres.Manganese.ingot, MetallicOres.Osmium.ingot, GemstoneOres.Amethyst.gem };
-	private static OreItemStack[] rareItems = { MetallicOres.Ardite.ingot, MetallicOres.Cobalt.ingot, MetallicOres.Coldiron.ingot, MetallicOres.Platinum.ingot, GemstoneOres.GreenSapphire.gem, GemstoneOres.Ruby.gem, GemstoneOres.Sapphire.gem, GemstoneOres.Topaz.gem };
-	private static OreItemStack[] ultraRareItems = { MetallicOres.Adamantine.ingot, MetallicOres.Mithral.ingot, Items.gemRedGarnet.item, Items.gemYellowGarnet.item };
+	private static OreItemStack[] rareItems = { MetallicOres.Ardite.ingot, MetallicOres.Cobalt.ingot, MetallicOres.Coldiron.ingot, MetallicOres.Platinum.ingot, GemstoneOres.Peridot.gem, GemstoneOres.Ruby.gem, GemstoneOres.Sapphire.gem, GemstoneOres.Topaz.gem };
+	private static OreItemStack[] ultraRareItems = { MetallicOres.Adamantine.ingot, MetallicOres.Mithril.ingot, Items.gemRedGarnet.item, Items.gemYellowGarnet.item };
 	  
 	private static OreItemStack[] commonSmithItems = {MetallicOres.Copper.ingot, MetallicOres.Lead.ingot, MetallicOres.Nickel.ingot, MetallicOres.Silver.ingot, MetallicOres.Tin.ingot, MetallicOres.Zinc.ingot };
 	private static OreItemStack[] uncommonSmithItems = {
@@ -25,7 +25,7 @@ public class OreChestLoot {
 		ItemManager.toolColdironAxe, ItemManager.toolColdironHoe, ItemManager.toolColdironPickaxe, ItemManager.toolColdironSpade,
 		ItemManager.toolMithralAxe, ItemManager.toolMithralHoe, ItemManager.toolMithralPickaxe, ItemManager.toolMithralSpade};
 	private static OreItemStack[] rareSmithItems = {
-		MetallicOres.Adamantine.ingot, MetallicOres.Ardite.ingot, MetallicOres.Cobalt.ingot, MetallicOres.Coldiron.ingot, MetallicOres.Mithral.ingot, MetallicOres.Platinum.ingot,
+		MetallicOres.Adamantine.ingot, MetallicOres.Ardite.ingot, MetallicOres.Cobalt.ingot, MetallicOres.Coldiron.ingot, MetallicOres.Mithril.ingot, MetallicOres.Platinum.ingot,
 		ItemManager.toolAdamantineSword, ItemManager.toolColdironSword, ItemManager.toolMithralSword};
 	private static OreItemStack[] ultraRareSmithItems = {
 		ItemManager.armorAdamantineBoots, ItemManager.armorAdamantineChestplate, ItemManager.armorAdamantineHelmet, ItemManager.armorAdamantineLeggings,
